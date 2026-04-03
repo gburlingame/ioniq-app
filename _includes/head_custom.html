@@ -4,16 +4,29 @@
     background: #16213e !important;
     border-right: 1px solid #4da8da33 !important;
   }
-  /* Remove white gradients on nav items */
-  .site-nav .nav-list-item .nav-list-expander,
-  .site-nav .site-button,
-  .site-nav .nav-list-link {
+  /* Remove all white gradients everywhere */
+  .site-button,
+  .nav-list-link,
+  .nav-list-expander,
+  .site-title,
+  .aux-nav-list-item a {
     background-image: none !important;
   }
-  .site-nav .nav-list-item .nav-list-expander:hover,
-  .site-nav .site-button:hover,
-  .site-nav .nav-list-link:hover {
+  /* Hover state — dark blue */
+  .site-button:hover,
+  .nav-list-link:hover,
+  .nav-list-expander:hover,
+  .site-title:hover,
+  .aux-nav-list-item a:hover {
     background-image: none !important;
     background-color: #0f3460 !important;
+  }
+  /* Active/current page — highlighted */
+  .nav-list-link.active,
+  .nav-list-item.active > .nav-list-link {
+    background-image: none !important;
+    background-color: #0f3460 !important;
+    color: #4da8da !important;
+    font-weight: 600;
   }
 </style>
