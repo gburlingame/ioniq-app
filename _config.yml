@@ -5,7 +5,7 @@ remote_theme: just-the-docs/just-the-docs
 baseurl: "/ioniq-app"
 url: "https://www.theburl.com"
 
-color_scheme: dark
+color_scheme: ioniq
 
 search_enabled: true
 
