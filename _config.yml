@@ -3,7 +3,7 @@ description: iOS diagnostics app for the Hyundai Ioniq 5
 remote_theme: just-the-docs/just-the-docs
 
 baseurl: "/ioniq-app"
-logo: "/ioniq-app/assets/images/app-icon-64.png"
+logo: "/assets/images/app-icon-64.png"
 
 color_scheme: dark
 
