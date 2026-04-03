@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Politique de confidentialité
+nav_exclude: true
 ---
 
 <div style="text-align: right; margin-bottom: 16px;">

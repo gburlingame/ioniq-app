@@ -1,6 +1,7 @@
 ---
 layout: default
-title: Ioniq 5 Diagnostics
+title: Home
+nav_order: 1
 ---
 
 # Ioniq 5 Diagnostics

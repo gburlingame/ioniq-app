@@ -1,6 +1,7 @@
 ---
 layout: default
-title: Version History — Ioniq 5 Diagnostics
+title: Version History
+nav_order: 4
 ---
 
 # Version History

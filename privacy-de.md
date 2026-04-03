@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Datenschutzrichtlinie
+nav_exclude: true
 ---
 
 <div style="text-align: right; margin-bottom: 16px;">

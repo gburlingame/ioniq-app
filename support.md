@@ -1,6 +1,7 @@
 ---
 layout: default
-title: Support — Ioniq 5 Diagnostics
+title: Support
+nav_order: 2
 ---
 
 # Support

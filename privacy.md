@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Privacy Policy
+nav_order: 3
 ---
 
 <div style="text-align: right; margin-bottom: 16px;">
