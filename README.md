@@ -2,6 +2,6 @@
 
 Support site for the Ioniq 5 Diagnostics iOS app.
 
-- [Home](https://gburlingame.github.io/ioniq-app/)
-- [Support](https://gburlingame.github.io/ioniq-app/support)
-- [Privacy Policy](https://gburlingame.github.io/ioniq-app/privacy)
+- [Home](https://www.theburl.com/ioniq-app/)
+- [Support](https://www.theburl.com/ioniq-app/support)
+- [Privacy Policy](https://www.theburl.com/ioniq-app/privacy)
