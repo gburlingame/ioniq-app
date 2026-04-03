@@ -32,3 +32,4 @@ If you have a question, found a bug, or want to request a feature, please [open 
 
 * [Privacy Policy](privacy)
 * [Support](support)
+* [Version History](versions)
