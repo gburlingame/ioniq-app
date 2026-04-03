@@ -1,3 +1,7 @@
 title: Ioniq 5 Diagnostics
 description: iOS diagnostics app for the Hyundai Ioniq 5
 theme: minima
+header_pages:
+  - support.md
+  - privacy.md
+  - versions.md
