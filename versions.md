@@ -8,6 +8,45 @@ nav_order: 4
 
 ---
 
+## Build 15 — AC/DC charge detection, signal fixes, smarter polling
+
+**Reporting issues:** Please do not use the TestFlight shake-to-report feature — those reports are not monitored. Instead, report issues at: [github.com/gburlingame/ioniq-app/issues](https://github.com/gburlingame/ioniq-app/issues) which will allow everyone to see known reported issues, and to track progress.
+
+### Charging
+
+* Charge type (AC vs DC) now correctly identified. Uses the On-Board Charger's AC input voltage to distinguish: ~245V means AC charging, near-zero means DC fast charging. Verified at Level 2 AC and 123kW DC CCS. Replaces the previous approach which caused the Type chip to flicker between AC, DC, and Not Charging.
+* When charging begins, the Type chip briefly shows "Detecting" while the app confirms AC vs DC. Previously it would flash "DC Fast" for a few seconds during AC charging startup.
+* Removed "Locked In" chip — the signal we were using turned out to be the battery main relay status, not the charging socket. It stayed latched after DC charging even with no cable connected.
+* Removed "Inlet Temp" from CarPlay charging view — the reading was tracking outdoor ambient temperature, not battery coolant. Showed no change during DC fast charging while module temps rose 15°C.
+
+### Odometer Fix - finally!
+
+* The odometer was showing incorrect values (zero or swapped units) for many testers. Root cause: the car's instrument cluster only provides the odometer in whichever unit the display is set to (km or miles) — the other value is zero. The app now reads both, uses whichever is non-zero, and converts to get the other. This has been verified to resolve the odometer issues reported by multiple testers.
+* Odometer now polls every 30 seconds (was 60) for more responsive updates while driving.
+
+### Bug Fixes
+
+* Battery heater status was showing "On" when the heater was off. The signal was reading the wrong byte in an undocumented BMS response. Corrected based on comparison of heater-on and heater-off diagnostic logs. See Known Issue #3.
+* DID Scanner no longer causes the CarPlay display to jump back to the Connection tab.
+
+### DID Scanner
+
+* Scanner remembers your last ECU, start DID, and end DID between visits.
+* New "Copy All" button copies all scan results to clipboard.
+
+### Performance
+
+* When the car is off, the app now only polls HVAC as an ignition probe instead of polling all ECUs. Reduces adapter traffic. All ECUs refresh immediately when the car turns back on.
+
+### Known Issues
+
+1. **Unplug reminder does not fire while charging** — The HVAC ECU stays awake when the car is off but charging, so the app thinks the car is still on. The "don't forget your dongle" reminder never triggers. Need a better on/off signal than HVAC responsiveness.
+2. **Charging status lags ~1 minute after stopping** — When charging is ended, the app continues to show active charging for about a minute. The BMS isCharging flag is slow to clear. May need a faster stop-detection signal or combination of signals.
+3. **Battery heater is not a reliable pre-conditioning indicator** — The heater signal shows the battery heater cycling on/off briefly during normal charging, not just during user-initiated pre-conditioning. Previous byte gave false positives when heater was off; current byte gives false positives when heater is on for reasons other than pre-conditioning. Need a better signal or combination to distinguish true pre-conditioning from normal thermal management.
+
+
+---
+
 ## Build 14 — Odometer fix, dynamic cell detection, CarPlay polish
 
 ### Bug Fixes
