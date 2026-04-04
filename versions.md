@@ -8,6 +8,22 @@ nav_order: 4
 
 ---
 
+## Build 16 — Odometer fix for 2025 models
+
+**Reporting issues:** Please do not use the TestFlight shake-to-report feature — those reports are not monitored. Instead, report issues at: [github.com/gburlingame/ioniq-app/issues](https://github.com/gburlingame/ioniq-app/issues) which will allow everyone to see known reported issues, and to track progress.
+
+### Bug Fix
+
+* Odometer was showing 0 on some 2025 Ioniq 5 vehicles. The instrument cluster ECU on these cars sends a "please wait" response before the actual odometer data, which the app wasn't handling. The app now correctly processes this delayed response pattern. Thanks to TheIoniqGuy for the diagnostic log that identified this.
+
+### Known Issues
+
+1. **Unplug reminder does not fire while charging** — The HVAC ECU stays awake when the car is off but charging, so the app thinks the car is still on. The "don't forget your dongle" reminder never triggers. Need a better on/off signal than HVAC responsiveness.
+2. **Charging status lags ~1 minute after stopping** — When charging is ended, the app continues to show active charging for about a minute. The BMS isCharging flag is slow to clear. May need a faster stop-detection signal or combination of signals (e.g., OBC voltage drop for AC, or VCMS byte 6 transition).
+3. **Battery heater is not a reliable pre-conditioning indicator** — The heater signal (BMS 0106 byte 12) shows the battery heater cycling on/off briefly during normal charging, not just during user-initiated pre-conditioning. Previous byte (9) gave false positives when heater was off; current byte gives false positives when heater is on for reasons other than pre-conditioning. Need a better signal or combination to distinguish true pre-conditioning from normal thermal management.
+
+---
+
 ## Build 15 — AC/DC charge detection, signal fixes, smarter polling
 
 **Reporting issues:** Please do not use the TestFlight shake-to-report feature — those reports are not monitored. Instead, report issues at: [github.com/gburlingame/ioniq-app/issues](https://github.com/gburlingame/ioniq-app/issues) which will allow everyone to see known reported issues, and to track progress.
