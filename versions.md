@@ -8,6 +8,37 @@ nav_order: 4
 
 ---
 
+## Build 18 — Pre-conditioning experiment, CarPlay improvements
+
+**Reporting issues:** Please do not use the TestFlight shake-to-report feature — those reports are not monitored. Instead, report issues at: [github.com/gburlingame/ioniq-app/issues](https://github.com/gburlingame/ioniq-app/issues) which will allow everyone to see known reported issues, and to track progress.
+
+### Pre-Conditioning Detection (Experimental)
+
+* The "Battery Heater" indicator has been renamed to "Pre-Conditioning" throughout the app and CarPlay.
+* Detection now uses a different BMS signal (byte 9, believed to be heater power) instead of byte 12 (which turned out to be a temperature reading, not a power indicator).
+* Added a 25-second debounce filter — the signal must be sustained for 25 seconds before pre-conditioning is shown as active. This filters out brief thermal management events that are not user-initiated preconditioning.
+* Pre-conditioning is automatically suppressed while AC or DC charging is active.
+* **This is experimental.** We are still working to reliably distinguish user-initiated pre-conditioning from autonomous BMS thermal management. Please report if you see false positives or missed detections.
+
+### CarPlay Improvements
+
+* **Driving tab expanded to two rows.** Row 1: SoC, Pack, Odometer. Row 2: Energy, Outside temp, Pre-Condition status, Heater Temp, Battery Temp, 12V, Cell Δ. Previously only had one row with 5 chips.
+* **Charging tab also uses explicit two-row layout** for consistent spacing with the Driving tab.
+* Updated chip labels: "Batt Temp" is now "Battery 🌡️", "Outside" is now "Outside 🌡️", added new "🔋 Heater 🌡️" chip showing heater temperature, "Pre-Conditioning" shortened to "Pre-Condition" to avoid truncation.
+
+### Bug Fixes
+
+* **Settings connecting spinner disappearing on scroll** — The spinning indicator next to the adapter name in Settings would vanish when scrolled off screen and back. Replaced with an animated SF Symbol that survives cell recycling.
+* **Missing translations** — Added translations (de/es/fr/nl/sv) for "Reading" and "Turn on your vehicle to view diagnostics." which were missing after the Build 17 dashboard refactor.
+
+### Known Issues
+
+1. **Unplug reminder does not fire while charging** — The HVAC ECU stays awake when the car is off but charging, so the app thinks the car is still on. The "don't forget your dongle" reminder never triggers. Need a better on/off signal than HVAC responsiveness.
+2. **Charging status lags ~1 minute after stopping** — When charging is ended, the app continues to show active charging for about a minute. The BMS isCharging flag is slow to clear. May need a faster stop-detection signal or combination of signals.
+3. **Pre-conditioning detection is experimental** — May still produce false positives or miss real preconditioning events. See above.
+
+---
+
 ## Build 17 — Swedish language, smoother dashboard, unplug reminder fix
 
 **Reporting issues:** Please do not use the TestFlight shake-to-report feature — those reports are not monitored. Instead, report issues at: [github.com/gburlingame/ioniq-app/issues](https://github.com/gburlingame/ioniq-app/issues) which will allow everyone to see known reported issues, and to track progress.
