@@ -8,6 +8,32 @@ nav_order: 4
 
 ---
 
+## Build 19 — Charging signal investigation, ECU scanner, diagnostic improvements
+
+**Reporting issues:** Please do not use the TestFlight shake-to-report feature — those reports are not monitored. Instead, report issues at: [github.com/gburlingame/ioniq-app/issues](https://github.com/gburlingame/ioniq-app/issues) which will allow everyone to see known reported issues, and to track progress.
+
+### Charging Signal Investigation
+
+* Added polling of VCMS (0x744) DIDs E002 and E003 for raw diagnostic capture. These contain EVSE (charger station) data, control pilot voltage, battery target voltage/current, and charging counters. No decoded values yet — the raw data is captured in diagnostic logs to help us analyze and improve charging detection across different vehicle markets.
+* **If you are charging (AC or DC), please record a diagnostic log and share it.** We are actively investigating charging detection signals that work across all Ioniq 5 variants. Logs that capture the transition from not-charging to charging are especially valuable.
+
+### ECU Scanner
+
+* New tool under Settings > Advanced Diagnostics. Scans all CAN bus addresses (0x700–0x7FF) to discover which ECUs are present on your vehicle. Results can be copied to clipboard. This helps us identify ECUs that may differ between model years and markets.
+
+### Diagnostic Logging Improvements
+
+* BLE scanning events are now captured in diagnostic logs — scan start, device discovery, and device selection. Previously only post-connection events were logged, making it difficult to diagnose connection issues.
+
+### Known Issues
+
+1. **Charging status shows "Inactive" on some European vehicles** — The BMS charging flag (used to determine if charging is active) does not set on some EU-market vehicles during AC charging. We are investigating alternative signals from the VCMS (Vehicle Charging Management System) that appear to work across all markets.
+2. **Unplug reminder does not fire while charging** — The HVAC ECU stays awake when the car is off but charging, so the app thinks the car is still on.
+3. **Charging status lags ~1 minute after stopping** — The BMS isCharging flag is slow to clear.
+4. **Pre-conditioning detection is experimental** — May still produce false positives. We are investigating reading the pre-conditioning state directly from the instrument cluster.
+
+---
+
 ## Build 18 — Pre-conditioning experiment, CarPlay improvements
 
 **Reporting issues:** Please do not use the TestFlight shake-to-report feature — those reports are not monitored. Instead, report issues at: [github.com/gburlingame/ioniq-app/issues](https://github.com/gburlingame/ioniq-app/issues) which will allow everyone to see known reported issues, and to track progress.
