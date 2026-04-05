@@ -5,7 +5,7 @@ nav_exclude: true
 ---
 
 <div style="text-align: right; margin-bottom: 16px;">
-  <a href="privacy">English</a> · <a href="privacy-nl">Nederlands</a> · <a href="privacy-de">Deutsch</a> · <strong>Français</strong> · <a href="privacy-es">Español</a>
+  <a href="privacy">English</a> · <a href="privacy-nl">Nederlands</a> · <a href="privacy-de">Deutsch</a> · <strong>Français</strong> · <a href="privacy-es">Español</a> · <a href="privacy-sv">Svenska</a>
 </div>
 
 # Politique de confidentialité
