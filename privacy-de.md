@@ -5,7 +5,7 @@ nav_exclude: true
 ---
 
 <div style="text-align: right; margin-bottom: 16px;">
-  <a href="privacy">English</a> · <a href="privacy-nl">Nederlands</a> · <strong>Deutsch</strong> · <a href="privacy-fr">Français</a> · <a href="privacy-es">Español</a>
+  <a href="privacy">English</a> · <a href="privacy-nl">Nederlands</a> · <strong>Deutsch</strong> · <a href="privacy-fr">Français</a> · <a href="privacy-es">Español</a> · <a href="privacy-sv">Svenska</a>
 </div>
 
 # Datenschutzrichtlinie
