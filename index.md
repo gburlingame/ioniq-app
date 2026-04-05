@@ -19,7 +19,7 @@ A real-time diagnostics app for the Hyundai Ioniq 5. Connect an ELM327-compatibl
 * **Tire pressure and temperature** — All four tires with color-coded pressure ranges
 * **Outside temperature** — Ambient air temperature from the vehicle's sensor
 * **CarPlay integration** — Driving and Charging tabs with live-updating gauges, sparklines, and data chips
-* **Multi-language support** — English, Nederlands, Deutsch, Español, Français with in-app language picker
+* **Multi-language support** — English, Nederlands, Deutsch, Español, Français, Svenska with in-app language picker
 * **OBD-II adapter compatibility** — Works with ELM327-compatible Bluetooth LE adapters (Veepeak, Carista, Vgate, and others)
 * **Diagnostic recording** — Capture BLE events, adapter initialization, and vehicle data for troubleshooting
 * **A-B-C Snapshots** — Compare raw ECU data across conditions to discover new sensor signals
