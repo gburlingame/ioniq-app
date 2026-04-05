@@ -5,7 +5,7 @@ nav_order: 3
 ---
 
 <div style="text-align: right; margin-bottom: 16px;">
-  <strong>English</strong> · <a href="privacy-nl">Nederlands</a> · <a href="privacy-de">Deutsch</a> · <a href="privacy-fr">Français</a> · <a href="privacy-es">Español</a>
+  <strong>English</strong> · <a href="privacy-nl">Nederlands</a> · <a href="privacy-de">Deutsch</a> · <a href="privacy-fr">Français</a> · <a href="privacy-es">Español</a> · <a href="privacy-sv">Svenska</a>
 </div>
 
 # Privacy Policy
