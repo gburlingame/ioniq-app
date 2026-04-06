@@ -10,8 +10,6 @@ nav_order: 4
 
 ## Build 20 — Charging detection rewrite
 
-**Reporting issues:** Please do not use the TestFlight shake-to-report feature — those reports are not monitored. Instead, report issues at: [github.com/gburlingame/ioniq-app/issues](https://github.com/gburlingame/ioniq-app/issues) which will allow everyone to see known reported issues, and to track progress.
-
 ### Charging Detection Rewrite
 
 The charging detection system has been completely rewritten using a new signal from the Vehicle Charging Management System (VCMS).
@@ -31,8 +29,6 @@ The charging detection system has been completely rewritten using a new signal f
 ---
 
 ## Build 19 — Charging signal investigation, ECU scanner, diagnostic improvements
-
-**Reporting issues:** Please do not use the TestFlight shake-to-report feature — those reports are not monitored. Instead, report issues at: [github.com/gburlingame/ioniq-app/issues](https://github.com/gburlingame/ioniq-app/issues) which will allow everyone to see known reported issues, and to track progress.
 
 ### Charging Signal Investigation
 
@@ -57,8 +53,6 @@ The charging detection system has been completely rewritten using a new signal f
 ---
 
 ## Build 18 — Pre-conditioning experiment, CarPlay improvements
-
-**Reporting issues:** Please do not use the TestFlight shake-to-report feature — those reports are not monitored. Instead, report issues at: [github.com/gburlingame/ioniq-app/issues](https://github.com/gburlingame/ioniq-app/issues) which will allow everyone to see known reported issues, and to track progress.
 
 ### Pre-Conditioning Detection (Experimental)
 
@@ -89,8 +83,6 @@ The charging detection system has been completely rewritten using a new signal f
 
 ## Build 17 — Swedish language, smoother dashboard, unplug reminder fix
 
-**Reporting issues:** Please do not use the TestFlight shake-to-report feature — those reports are not monitored. Instead, report issues at: [github.com/gburlingame/ioniq-app/issues](https://github.com/gburlingame/ioniq-app/issues) which will allow everyone to see known reported issues, and to track progress.
-
 ### Swedish Language Support
 
 * Svenska is now available as a language option in Settings. All ~200 strings are translated, including UI labels, status messages, and the longer educational text (battery health explanations, efficiency descriptions).
@@ -115,8 +107,6 @@ The charging detection system has been completely rewritten using a new signal f
 
 ## Build 16 — Odometer fix for 2025 models
 
-**Reporting issues:** Please do not use the TestFlight shake-to-report feature — those reports are not monitored. Instead, report issues at: [github.com/gburlingame/ioniq-app/issues](https://github.com/gburlingame/ioniq-app/issues) which will allow everyone to see known reported issues, and to track progress.
-
 ### Bug Fix
 
 * Odometer was showing 0 on some 2025 Ioniq 5 vehicles. The instrument cluster ECU on these cars sends a "please wait" response before the actual odometer data, which the app wasn't handling. The app now correctly processes this delayed response pattern. Thanks to TheIoniqGuy for the diagnostic log that identified this.
@@ -130,8 +120,6 @@ The charging detection system has been completely rewritten using a new signal f
 ---
 
 ## Build 15 — AC/DC charge detection, signal fixes, smarter polling
-
-**Reporting issues:** Please do not use the TestFlight shake-to-report feature — those reports are not monitored. Instead, report issues at: [github.com/gburlingame/ioniq-app/issues](https://github.com/gburlingame/ioniq-app/issues) which will allow everyone to see known reported issues, and to track progress.
 
 ### Charging
 
