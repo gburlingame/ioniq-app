@@ -8,6 +8,35 @@ nav_order: 4
 
 ---
 
+## Build 22 — Scanner improvements, EVSE fix, translations
+
+### ECU Scanner Reliability
+
+* Two-pass scanning: TesterPresent (3E 00) first, then ReadVIN (22 F1 90) for ECUs that don't support TesterPresent (e.g., HVAC). Scan takes 3–5 minutes but finds more ECUs.
+* Fixed adapter stability issues that caused incomplete scans or crashes.
+
+### DID Scanner Improvements
+
+* **Custom ECU address** — New "Custom" option in the ECU picker. Enter any TX address (e.g., 7C4) and the RX address is auto-calculated as TX+8. Useful for scanning the unknown ECUs discovered by the ECU scanner.
+* **NRC filtering** — Negative responses are no longer counted or displayed. Only DIDs that return actual data appear in results.
+* **Polling resume fix** — Navigating away from the DID scanner while a scan is running no longer leaves polling stopped.
+
+### EVSE Power Calculation Fix
+
+* AC power displayed on the EVSE tab was incorrect on some vehicles. Now calculated from AC voltage and max current derived from the control pilot duty cycle, which is reliable across all markets.
+
+### Translations
+
+* Added translations (de/es/fr/nl/sv) for AC Voltage, CP Duty, CP Duty Cycle, Max Current, Max Power, Max Voltage, and EVSE explanatory notes.
+
+### Known Issues
+
+1. **Unplug reminder does not fire while charging** — The HVAC ECU stays awake when the car is off but charging, so the app thinks the car is still on.
+2. ~~**Charging status lags ~1 minute after stopping**~~ — Should be fixed in build 20. The new VCMS signal transitions immediately. Needs verification.
+3. **Pre-conditioning detection is experimental** — May still produce false positives. We are investigating reading the pre-conditioning state directly from the instrument cluster.
+
+---
+
 ## Build 20 — Charging detection rewrite
 
 ### Charging Detection Rewrite
