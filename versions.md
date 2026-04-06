@@ -8,6 +8,28 @@ nav_order: 4
 
 ---
 
+## Build 20 — Charging detection rewrite
+
+**Reporting issues:** Please do not use the TestFlight shake-to-report feature — those reports are not monitored. Instead, report issues at: [github.com/gburlingame/ioniq-app/issues](https://github.com/gburlingame/ioniq-app/issues) which will allow everyone to see known reported issues, and to track progress.
+
+### Charging Detection Rewrite
+
+The charging detection system has been completely rewritten using a new signal from the Vehicle Charging Management System (VCMS).
+
+* **Works across all markets.** The previous detection relied on a BMS signal that did not work on European vehicles. The new signal has been verified on both US and EU cars.
+* **Immediate AC vs DC detection.** The app now knows whether you are AC or DC charging as soon as the charger connects — no more "Detecting" transitional state or 6-second delay.
+* **Works with car on or off.** The previous detection could miss charging sessions that started with the car off. The new VCMS signal is active regardless of ignition state.
+
+**Please test and report!** If you charge (AC or DC) with this build, let us know if the charging status displays correctly.
+
+### Known Issues
+
+1. **Unplug reminder does not fire while charging** — The HVAC ECU stays awake when the car is off but charging, so the app thinks the car is still on.
+2. ~~**Charging status lags ~1 minute after stopping**~~ — Should be fixed in this build. The old BMS signal was slow to clear; the new VCMS signal transitions immediately. Needs verification.
+3. **Pre-conditioning detection is experimental** — May still produce false positives. We are investigating reading the pre-conditioning state directly from the instrument cluster.
+
+---
+
 ## Build 19 — Charging signal investigation, ECU scanner, diagnostic improvements
 
 **Reporting issues:** Please do not use the TestFlight shake-to-report feature — those reports are not monitored. Instead, report issues at: [github.com/gburlingame/ioniq-app/issues](https://github.com/gburlingame/ioniq-app/issues) which will allow everyone to see known reported issues, and to track progress.
