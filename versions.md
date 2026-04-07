@@ -8,6 +8,21 @@ nav_order: 4
 
 ---
 
+## Build 23 — Translation fix
+
+### Bug Fix
+
+* **EVSE note text not translating** — The explanatory notes on the EVSE tab (both AC and DC) appeared in English regardless of language setting. Caused by duplicate empty entries in the localization file that overrode the translated versions. Fixed.
+
+### Known Issues
+
+1. **Unplug reminder does not fire while charging** — The HVAC ECU stays awake when the car is off but charging, so the app thinks the car is still on.
+2. ~~**Charging status lags ~1 minute after stopping**~~ — Should be fixed in build 20. The new VCMS signal transitions immediately. Needs verification.
+3. **Pre-conditioning detection is experimental** — May still produce false positives. We are investigating reading the pre-conditioning state directly from the instrument cluster.
+4. **Battery odometer shows incorrect values on some vehicles** — The cumulative energy charged/discharged values may be incorrect on some model years due to variable BMS payload lengths. Under investigation (Issue #6).
+
+---
+
 ## Build 22 — Scanner improvements, EVSE fix, translations
 
 ### ECU Scanner Reliability
