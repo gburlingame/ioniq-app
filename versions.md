@@ -7,6 +7,41 @@ nav_order: 4
 # Version History
 
 ---
+## Build 24 — Parking sensors, motor RPM, CarPlay improvements
+
+### New: Parking Sensor Heatmap
+
+* **Dashboard** — New "Parking" section displays all 12 ultrasonic parking sensors in a two-row layout matching the physical bumper arrangement. Sensors use a green-to-red heatmap based on proximity (green >150cm, yellow 75–150cm, orange 30–75cm, red <30cm). 10 of 12 sensors are confirmed and mapped; sensors 7 and 12 are still under investigation.
+* **CarPlay** — New "Parking" tab replaces the Experimental tab. Two rows of 6 rendered chips with heatmap background coloring showing distance values for all sensors.
+* Distances shown in cm (metric) or inches (imperial), honoring the app's distance unit preference.
+* Added ADAS_PRK ECU (0x7B1) to polling at 3-second intervals.
+
+### New: Motor RPM Gauges
+
+* **Dashboard** — New "Motors" section with front and rear motor RPM arc gauges, styled like the SoC gauge. Color transitions from green to yellow to orange based on RPM.
+* **CarPlay** — Front and rear motor RPM gauge chips added to the Driving tab.
+
+### CarPlay Improvements
+
+* Driving and Charging tabs now use RowElement layout for better label wrapping in all languages.
+* Chip titles use text labels instead of emoji icons, with full translations.
+* CarPlay refresh rate increased from 2 seconds to 1 second.
+
+### Translations
+
+* Expanded abbreviated labels across all languages (de, es, fr, nl, sv) for Pre-Condition, Outside Temp, Battery Temp, Battery Heater Temp.
+* Swedish: "Laddar" corrected to "Laddning" for Charging tab.
+* New strings translated: Parking, Motors, Front Motor, Rear Motor, Front, Rear, sensor activation notes.
+
+### Known Issues
+
+1. **Unplug reminder does not fire while charging** — The HVAC ECU stays awake when the car is off but charging, so the app thinks the car is still on.
+2. **Pre-conditioning detection is experimental** — May still produce false positives. We are investigating reading the pre-conditioning state directly from the instrument cluster.
+3. **Battery odometer shows incorrect values on some vehicles** — The cumulative energy charged/discharged values may be incorrect on some model years due to variable BMS payload lengths. Under investigation (Issue #6).
+4. **Parking sensors 7 and 12 not yet mapped** — The rear-side corner sensors (driver and passenger) have not responded in any test condition. Physical sensor housings are present but may not be wired or may require specific activation conditions.
+
+---
+
 
 ## Build 23 — Translation fix
 
