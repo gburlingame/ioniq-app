@@ -7,7 +7,7 @@ nav_order: 4
 # Version History
 
 ---
-## Build 24 — Parking sensors, motor RPM, CarPlay improvements
+## Build 24 — Parking sensors - EXPERIMENTAL, motor RPM, CarPlay improvements
 
 ### New: Parking Sensor Heatmap - EXPERIMENTAL
 
