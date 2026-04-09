@@ -7,13 +7,13 @@ nav_order: 4
 # Version History
 
 ---
-## Build 25 — ECU training, headlights & brake light, polling optimizations
+## Build 25 — ECU training, headlights & brake light, polling optimizations, CarPlay tab navigation fix
 
 ### New: ECU Training Phase
 
 On each Bluetooth connection, the app now automatically discovers which ECUs are present in your car before starting to poll. A progress bar is shown on the Reading screen during this scan. Only ECUs that respond are included in the polling loop, which improves data update rates and eliminates wasted bandwidth on ECUs that don't exist on your vehicle (e.g., parking sensors on models without them).
 
-* **Scan Status panel** in the Dashboard Overview section shows which ECUs responded (green check) or failed (red X) during training.
+* **Scan Status panel** in the Dashboard Overview section shows which ECUs responded (green check) or failed (red X) during training. A note explains that some sensors may not be found due to model feature differences.
 * **Parking section** is now automatically hidden in both Dashboard and CarPlay if the parking sensor ECU was not detected during training.
 
 ### New: Headlights & Brake Light Indicators
@@ -42,7 +42,7 @@ On each Bluetooth connection, the app now automatically discovers which ECUs are
 2. **Pre-conditioning detection is experimental** — May still produce false positives. We are investigating reading the pre-conditioning state directly from the instrument cluster.
 3. **Battery odometer shows incorrect values on some vehicles** — The cumulative energy charged/discharged values may be incorrect on some model years due to variable BMS payload lengths. Under investigation (Issue #6).
 4. **Parking sensors 7 and 12 not yet mapped** — The rear-side corner sensors (driver and passenger) have not responded in any test condition.
-5. **Parking sensor values may flicker** — The 1-byte ultrasonic sensors intermittently report 0 (no detection) even when an object is present. This is ECU-side behavior. A debounce/smoothing fix is planned.
+5. **Parking sensor values may flicker** — The 1-byte ultrasonic sensors (front center and rear) intermittently report 0 (no detection) even when an object is present. This is ECU-side behavior, not an app bug.
 6. **Headlights vs DRL** — The app cannot yet distinguish between headlights on and daytime running lights. Both show the headlight icon.
 7. **Brake light response time** — The brake light indicator updates every ~3 seconds due to OBD polling constraints. It is not suitable as a real-time brake light indicator.
 
