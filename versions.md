@@ -7,6 +7,46 @@ nav_order: 4
 # Version History
 
 ---
+## Build 25 — ECU training, headlights & brake light, polling optimizations
+
+### New: ECU Training Phase
+
+On each Bluetooth connection, the app now automatically discovers which ECUs are present in your car before starting to poll. A progress bar is shown on the Reading screen during this scan. Only ECUs that respond are included in the polling loop, which improves data update rates and eliminates wasted bandwidth on ECUs that don't exist on your vehicle (e.g., parking sensors on models without them).
+
+* **Scan Status panel** in the Dashboard Overview section shows which ECUs responded (green check) or failed (red X) during training.
+* **Parking section** is now automatically hidden in both Dashboard and CarPlay if the parking sensor ECU was not detected during training.
+
+### New: Headlights & Brake Light Indicators
+
+* **Headlights chip** — Added to Dashboard Overview and CarPlay Driving tab. Shows a low beam icon on a white background when headlights are on. When high beams are active, the icon switches to the high beam symbol in bright blue. Shows "Off" when headlights are off.
+* **Brake Light chip** — Added to Dashboard Overview and CarPlay Driving tab. Background turns red with "On" when the brake pedal is pressed.
+* Note: The headlight indicator currently cannot distinguish between headlights on and daytime running lights — both show the low beam icon. We are investigating whether the BCM provides a separate DRL signal.
+* Note: The brake light indicator polls every 3 seconds. This is not fast enough to be a real-time brake light indicator — it is an informational display showing brake state, not a safety-critical signal.
+
+### Fix: Charging Charts
+
+* Charging Power, Pack Voltage, and Requested Current charts now sample from the BMS core data poll (3-second, high priority) instead of the VCMS poll (5-second, medium priority). This resolves the sparse, gapped time series that some users reported during charging sessions.
+
+### Fix: CarPlay Tab Reset
+
+* Expanding or collapsing Dashboard sections no longer causes CarPlay to navigate back to the Connection tab. Language changes still correctly rebuild CarPlay templates, and the previously selected tab is now preserved.
+
+### Parking Sensors
+
+* Added "Experimental" warning label and notes explaining that front sensors only report when the car is in Drive, and rear sensors only report when in Reverse.
+* Parking section re-layout: sensors grouped into Front and Rear cards with individual notes.
+
+### Known Issues
+
+1. **Unplug reminder does not fire while charging** — The HVAC ECU stays awake when the car is off but charging, so the app thinks the car is still on.
+2. **Pre-conditioning detection is experimental** — May still produce false positives. We are investigating reading the pre-conditioning state directly from the instrument cluster.
+3. **Battery odometer shows incorrect values on some vehicles** — The cumulative energy charged/discharged values may be incorrect on some model years due to variable BMS payload lengths. Under investigation (Issue #6).
+4. **Parking sensors 7 and 12 not yet mapped** — The rear-side corner sensors (driver and passenger) have not responded in any test condition.
+5. **Parking sensor values may flicker** — The 1-byte ultrasonic sensors intermittently report 0 (no detection) even when an object is present. This is ECU-side behavior. A debounce/smoothing fix is planned.
+6. **Headlights vs DRL** — The app cannot yet distinguish between headlights on and daytime running lights. Both show the headlight icon.
+7. **Brake light response time** — The brake light indicator updates every ~3 seconds due to OBD polling constraints. It is not suitable as a real-time brake light indicator.
+
+---
 ## Build 24 — Parking sensors - EXPERIMENTAL, motor RPM, CarPlay improvements
 
 ### New: Parking Sensor Heatmap - EXPERIMENTAL
