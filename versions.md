@@ -9,7 +9,7 @@ nav_order: 4
 ---
 ## Build 24 — Parking sensors, motor RPM, CarPlay improvements
 
-### New: Parking Sensor Heatmap
+### New: Parking Sensor Heatmap - EXPERIMENTAL
 
 * **Dashboard** — New "Parking" section displays all 12 ultrasonic parking sensors in a two-row layout matching the physical bumper arrangement. Sensors use a green-to-red heatmap based on proximity (green >150cm, yellow 75–150cm, orange 30–75cm, red <30cm). 10 of 12 sensors are confirmed and mapped; sensors 7 and 12 are still under investigation.
 * **CarPlay** — New "Parking" tab replaces the Experimental tab. Two rows of 6 rendered chips with heatmap background coloring showing distance values for all sensors.
