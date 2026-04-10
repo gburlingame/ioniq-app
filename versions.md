@@ -7,6 +7,27 @@ nav_order: 4
 # Version History
 
 ---
+## Build 26 — CarPlay Status tab, consistent connection states, Scan Status detail view
+
+### CarPlay Improvements
+
+* **Connection tab renamed to "Status"** — Now mirrors the Dashboard connection phases: "Looking for adapter", "Reading", "Vehicle Off", "Scanning ECUs", "Connected".
+* **Consistent pre-connection states** — CarPlay and Dashboard now both show "Looking for adapter" for all pre-connection states. CarPlay previously showed "Connecting..." and "Scanning..." which were inconsistent.
+* **Scan Status detail view** — The Status tab now includes a Scan Status summary row. Tap to view the full DID list with icons showing which ECUs were found (checkmark), not found (dash), or still being scanned (hourglass). The list updates live as training progresses.
+
+### Known Issues
+
+1. **Unplug reminder does not fire while charging** — The HVAC ECU stays awake when the car is off but charging, so the app thinks the car is still on.
+2. **Pre-conditioning detection is experimental** — May still produce false positives. We are investigating reading the pre-conditioning state directly from the instrument cluster.
+3. **Battery odometer shows incorrect values on some vehicles** — The cumulative energy charged/discharged values may be incorrect on some model years due to variable BMS payload lengths. Under investigation (Issue #6).
+4. **Parking sensors may not report on some vehicles** — The 2025 Ioniq 5 and Ioniq 9 may show all-zero parking sensor values. Under investigation (Issue #7).
+5. **AC voltage may display incorrectly on some vehicles** — Some 2025 models report incorrect AC charging voltage (e.g., 26 V instead of 240 V). Under investigation (Issue #8).
+6. **Parking sensors 7 and 12 not yet mapped** — The rear-side corner sensors (driver and passenger) have not responded in any test condition.
+7. **Parking sensor values may flicker** — The 1-byte ultrasonic sensors (front center and rear) intermittently report 0 (no detection) even when an object is present. This is ECU-side behavior, not an app bug.
+8. **Headlights vs DRL** — The app cannot yet distinguish between headlights on and daytime running lights. Both show the headlight icon.
+9. **Brake light response time** — The brake light indicator updates every ~3 seconds due to OBD polling constraints. It is not suitable as a real-time brake light indicator.
+
+---
 ## Build 25 — ECU training, headlights & brake light, polling optimizations, CarPlay tab navigation fix
 
 ### New: ECU Training Phase
