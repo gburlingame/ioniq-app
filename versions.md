@@ -7,6 +7,39 @@ nav_order: 4
 # Version History
 
 ---
+## Build 27 — Training reliability, Scan Status dark mode fix, CarPlay Scan Status grouping
+
+### Fix: ECU Training Reliability
+
+The startup ECU scan occasionally failed to detect the VCMS (charging system) and other ECUs, especially when CarPlay was connected. Multiple improvements:
+
+* **Stale frame recovery** — When an ECU's multi-frame response is incomplete, the app now recovers data from subsequent attempts instead of discarding it. Previously, a single failed response could cascade and cause 3-6 ECUs to appear as "not found."
+* **Partial response acceptance** — If an ECU responds with a valid first frame but can't complete the full multi-frame exchange during the fast-paced training scan, it is now accepted as found. Normal polling (with 5-second intervals) reliably reads the full response.
+* **Retry with recovery** — Failed probes are retried once with a brief pause to clear stale data.
+
+### Fix: Scan Status Visibility
+
+* **HVAC ECU** now shows a green checkmark in Scan Status after training completes. Previously showed an empty circle despite being responsive.
+* **Dark mode** — Scan Status icons (checkmark, dash, hourglass) and ECU names now use primary color for better visibility. Previously nearly invisible in dark mode on both Dashboard and CarPlay.
+
+### CarPlay: Scan Status Grouped by ECU
+
+The Scan Status detail list now groups DIDs by ECU name (e.g., "BMS — 9/9 Found") instead of listing each DID individually. Shows "Found" or "Not Found" for each ECU group. This also resolves an issue where some ECUs were missing from the CarPlay Scan Status list.
+
+### Known Issues
+
+1. **Unplug reminder does not fire while charging** — The HVAC ECU stays awake when the car is off but charging, so the app thinks the car is still on.
+2. **Pre-conditioning detection is experimental** — May still produce false positives. We are investigating reading the pre-conditioning state directly from the instrument cluster.
+3. **Battery odometer shows incorrect values on some vehicles** — The cumulative energy charged/discharged values may be incorrect on some model years due to variable BMS payload lengths. Under investigation (Issue #6).
+4. **Parking sensors may not report on some vehicles** — The 2025 Ioniq 5 and Ioniq 9 may show all-zero parking sensor values. Under investigation (Issue #7).
+5. **AC voltage may display incorrectly on some vehicles** — Some 2025 models report incorrect AC charging voltage (e.g., 26 V instead of 240 V). Under investigation (Issue #8).
+6. **Parking sensors 7 and 12 not yet mapped** — The rear-side corner sensors (driver and passenger) have not responded in any test condition.
+7. **Parking sensor values may flicker** — The 1-byte ultrasonic sensors (front center and rear) intermittently report 0 (no detection) even when an object is present. This is ECU-side behavior, not an app bug.
+8. **Headlights vs DRL** — The app cannot yet distinguish between headlights on and daytime running lights. Both show the headlight icon.
+9. **Brake light response time** — The brake light indicator updates every ~3 seconds due to OBD polling constraints. It is not suitable as a real-time brake light indicator.
+10. **Headlights and brake light not working on Ioniq 9** — The Ioniq 9's BCM uses different DIDs for light status. Under investigation (Issue #9).
+
+---
 ## Build 26 — CarPlay Status tab, consistent connection states, Scan Status detail view
 
 ### CarPlay Improvements
