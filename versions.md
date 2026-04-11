@@ -11,7 +11,7 @@ nav_order: 4
 
 ### Fix: ECU Training Reliability
 
-The startup ECU scan occasionally failed to detect the VCMS (charging system) and other ECUs, especially when CarPlay was connected. Multiple improvements:
+The startup ECU scan occasionally failed to detect the VCMS (charging system) and other ECUs. Multiple improvements:
 
 * **Stale frame recovery** — When an ECU's multi-frame response is incomplete, the app now recovers data from subsequent attempts instead of discarding it. Previously, a single failed response could cascade and cause 3-6 ECUs to appear as "not found."
 * **Partial response acceptance** — If an ECU responds with a valid first frame but can't complete the full multi-frame exchange during the fast-paced training scan, it is now accepted as found. Normal polling (with 5-second intervals) reliably reads the full response.
