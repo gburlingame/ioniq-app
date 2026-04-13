@@ -7,6 +7,38 @@ nav_order: 4
 # Version History
 
 ---
+## Build 29 — VIN detection fixes, Ioniq 9 RWD support, variant display
+
+### Fix: VIN Detection for Ioniq 6 and Ioniq 9
+
+Vehicle type detection now uses the full 4-character VIN prefix instead of a single position. Ioniq 6 and Ioniq 9 could not be distinguished previously (both share "M" at VIN position 4). The app now correctly identifies:
+
+* **KM8K / 7YAK** — Ioniq 5
+* **KMHM** — Ioniq 6
+* **7YAM** — Ioniq 9
+
+Also fixed the Ioniq 6 AWD registry — VIN position 8 was incorrectly set to "F" (copied from Ioniq 5). Corrected to "C" based on confirmed real-world Ioniq 6 VINs.
+
+### New: Ioniq 9 RWD Registry
+
+Added a separate registry for the RWD Ioniq 9 (VIN position 8 = 1). Both RWD and AWD Ioniq 9 variants share the same 110 kWh battery. The app now supports 10 vehicle configurations total.
+
+### Variant Display from Registry
+
+The Dashboard "Variant" chip (e.g., "AWD Long Range", "RWD") now reads directly from the vehicle registry file instead of parsing VIN codes. This ensures correct variant names for all vehicle types, including Ioniq 6 and Ioniq 9.
+
+### Known Issues
+
+1. **Unplug reminder does not fire while charging** — The HVAC ECU stays awake when the car is off but charging, so the app thinks the car is still on.
+2. **Pre-conditioning detection is experimental** — May produce false positives during autonomous BMS thermal management.
+3. **Battery odometer shows incorrect values on some vehicles** (Issue #6).
+4. **Parking sensors 7 and 12 (rear-side corners) not yet mapped.**
+5. **Parking sensor values may flicker** — ECU-side behavior, not an app bug.
+6. **Headlight signal sometimes delayed when manually activated in daylight** (Issue #10).
+7. **Brake light indicator updates every ~3 seconds** due to OBD polling constraints.
+8. **VCMS flow control intermittent failure** — Mitigated but root cause unknown.
+
+---
 ## Build 28 — Per-vehicle registry, battery temp improvements, chart & CarPlay fixes
 
 **NOTE TO TESTERS:** Build 28 was a major code refactoring to make supporting different vehicle types easier long term. Features that used to work may have become broken, so please pay very close attention and report anything that seems incorrect. Thanks!
