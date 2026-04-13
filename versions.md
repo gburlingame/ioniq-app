@@ -7,6 +7,51 @@ nav_order: 4
 # Version History
 
 ---
+## Build 28 — Per-vehicle registry, battery temp improvements, chart & CarPlay fixes
+
+**NOTE TO TESTERS:** Build 28 was a major code refactoring to make supporting different vehicle types easier long term. Features that used to work may have become broken, so please pay very close attention and report anything that seems incorrect. Thanks!
+
+### Per-Vehicle ECU Registry
+
+The app now reads your VIN immediately on adapter connect and loads a vehicle-specific signal configuration. This enables correct decoding for different models and model years.
+
+* **9 vehicle configurations** — Ioniq 5 (5 variants by drivetrain and year), Ioniq 6 (3 variants), and Ioniq 9
+* **Automatic detection** — VIN is read from the CGW before the car even needs to be on
+* **Dashboard shows detected model** — New "Model" chip in Overview, registry name in Settings > About
+* **2025 Ioniq 5 AC voltage fixed** — OBC byte offset corrected for 2025 models (Issue #8)
+* **Ioniq 9 light signals mapped** — BCM headlight and brake light DIDs configured for Ioniq 9 (Issue #9)
+* **Parking sensors per-vehicle** — Automatically hidden on vehicles where they don't respond (Issue #7)
+
+### Battery Temperature Improvements
+
+* **More accurate temperature sparklines** — CarPlay battery temp chart now plots the actual min/max across all 16 module temperature sensors instead of the BMS-reported max/min (which included a non-cell sensor reading ~6°C higher than actual cell temps)
+* **Cleaned up heater chart** — Removed misleading BMS Max, BMS Min, and inlet temperature lines from the dashboard temperature history chart. Renamed to "Heater Temp History."
+
+### Fixes
+
+* **Charging charts appear immediately** — Previously required collapsing and re-expanding the Charging section when a charge session started
+* **Charts visible on first navigation** — Temperature and charging charts now appear immediately when sections are already expanded (no more toggle to reveal)
+* **Chart expand animation** — Removed 0.25s delay, charts appear instantly
+* **CarPlay parking tab** — Now appears dynamically after ECU training completes. Previously could be missing if CarPlay connected before training finished.
+* **CarPlay stale tabs** — Data now refreshes correctly when returning from another app
+* **Headlight icon visibility** — Low beam icon now visible in dark mode
+
+### Share Sheet
+
+DID Scanner and ECU Scanner now have a Share button. Exports results to a timestamped text file via the iOS share sheet (AirDrop, Messages, Mail, Files, etc.).
+
+### Known Issues
+
+1. **Unplug reminder does not fire while charging** — The HVAC ECU stays awake when the car is off but charging, so the app thinks the car is still on.
+2. **Pre-conditioning detection is experimental** — May produce false positives during autonomous BMS thermal management.
+3. **Battery odometer shows incorrect values on some vehicles** (Issue #6).
+4. **Parking sensors 7 and 12 (rear-side corners) not yet mapped.**
+5. **Parking sensor values may flicker** — ECU-side behavior, not an app bug.
+6. **Headlight signal sometimes delayed when manually activated in daylight** (Issue #10).
+7. **Brake light indicator updates every ~3 seconds** due to OBD polling constraints.
+8. **VCMS flow control intermittent failure** — Mitigated but root cause unknown.
+
+---
 ## Build 27 — Training reliability, Scan Status dark mode fix, CarPlay Scan Status grouping
 
 ### Fix: ECU Training Reliability
