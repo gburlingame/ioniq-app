@@ -7,6 +7,32 @@ nav_order: 4
 # Version History
 
 ---
+## Build 30 — Ioniq 9 fixes, battery temperature cleanup
+
+### Fix: Ioniq 9 Battery Configuration
+
+Corrected the Ioniq 9 cell configuration to 168S3P (504 total cells).
+
+### Fix: Ioniq 9 Tire Pressure Thresholds
+
+The Ioniq 9 recommends 40 psi. Tire pressure color coding now uses the correct thresholds for the Ioniq 9 (green range 38–43 psi). Previously it was using Ioniq 5 values (33–38 psi), which would show orange for correctly inflated tires. Also fixed a logic issue with the registry files.
+
+### Removed BMS Max/Min Temp Chips
+
+Removed the BMS Max Temp and BMS Min Temp data chips from the Battery Temperatures section. These values from the BMS were unclear in meaning and not useful alongside the module temperature grid.
+
+### Known Issues
+
+1. **Unplug reminder does not fire while charging** — The HVAC ECU stays awake when the car is off but charging, so the app thinks the car is still on.
+2. **Pre-conditioning detection is experimental** — May produce false positives during autonomous BMS thermal management.
+3. **Battery odometer shows incorrect values on some vehicles** (Issue #6).
+4. **Parking sensors 7 and 12 (rear-side corners) not yet mapped.**
+5. **Parking sensor values may flicker** — ECU-side behavior, not an app bug.
+6. **Headlight signal sometimes delayed when manually activated in daylight** (Issue #10).
+7. **Brake light indicator updates every ~3 seconds** due to OBD polling constraints.
+8. **VCMS flow control intermittent failure** — Mitigated but root cause unknown.
+
+---
 ## Build 29 — VIN detection fixes, Ioniq 9 RWD support, variant display
 
 ### Fix: VIN Detection for Ioniq 6 and Ioniq 9
