@@ -7,6 +7,59 @@ nav_order: 4
 # Version History
 
 ---
+## Build 31 — VIN detection rewrite, 2025 fixes, privacy
+
+### VIN Encryption in Diagnostic Logs
+
+Diagnostic logs now encrypt your VIN using public-key cryptography. This allows you to safely share logs on GitHub without exposing your VIN. Your VIN can only be unencrypted with the private key that I have -- and that private key is not part of code repository -- it is safe and secure.
+
+I don't want anyone feeling nervous about sharing a diagnostic log on Github, and I want to encourage Github for issue reporting because it is a huge help to me. It is really hard to keep everything straight with so many testers sending me information.
+
+Thanks for your support!
+
+### VIN Detection Rewrite
+
+Rewrote the vehicle identification sequence for improved reliability across all model years. The app now waits for ignition before reading the VIN from the MCU, which works universally across 2022–2025 Ioniq 5, Ioniq 6, and Ioniq 9. The previous method (CGW) failed on 2022 models.
+
+The VIN chip in the Overview section is now always visible — it shows "Unknown" in red text until the VIN has been read. Settings > About > Registry also shows "Not read yet" before VIN detection.
+
+### New Vehicle Registry: Ioniq 5 RWD Long Range 2025+
+
+Added a dedicated registry for the 2025 Ioniq 5 RWD Long Range, confirmed by Tester Tom.
+
+### Fix: RWD Long Range Variant Detection (2022-2024)
+
+Fixed variant detection for 2022-2024 RWD Long Range models (Issue #11). These vehicles were previously falling back to the default AWD registry.
+
+### Fix (hopefully): 2025 Ioniq 5 Headlights and Brake Light
+
+Fixed headlight and brake light signal mappings for the 2025 Ioniq 5, which uses different BCM byte positions than the 2022-2024 models.
+
+### Fix: CarPlay Power Display
+
+Fixed CarPlay Power showing "--" when not charging. Now shows instantaneous power value, and uses it as a fallback during charging until enough history accumulates for the sparkline (Issue #13).
+
+### Battery Configuration Display
+
+The Battery Configuration chip now shows the correct cell configuration from the vehicle registry (e.g. "168 series x 3 parallel" for Ioniq 9) instead of a hardcoded value.
+
+### RWD Motor Display
+
+The front motor RPM gauge is now hidden on RWD vehicles in both the Dashboard and CarPlay. The Motors section title changes to "Motor" on RWD vehicles.
+
+### Known Issues
+
+1. **Unplug reminder does not fire while charging** — The HVAC ECU stays awake when the car is off but charging, so the app thinks the car is still on.
+2. **Pre-conditioning detection is experimental** — May produce false positives during autonomous BMS thermal management.
+3. **Battery odometer shows incorrect values on some vehicles** (Issue #6).
+4. **Parking sensors 7 and 12 (rear-side corners) not yet mapped.**
+5. **Parking sensor values may flicker** — ECU-side behavior, not an app bug.
+6. **Headlight signal sometimes delayed when manually activated in daylight** (Issue #10).
+7. **Brake light indicator updates every ~3 seconds** due to OBD polling constraints.
+8. **VCMS flow control intermittent failure** — Mitigated but root cause unknown.
+9. **Parking sensors only available on 2022-2024 Ioniq 5** — Not yet verified on 2025 or other models.
+
+---
 ## Build 30 — Ioniq 9 fixes, battery temperature cleanup
 
 ### Fix: Ioniq 9 Battery Configuration
