@@ -7,6 +7,39 @@ nav_order: 4
 # Version History
 
 ---
+## Build 32 — CarPlay overhaul, VIN match fix
+
+### CarPlay State-Driven Lifecycle
+
+CarPlay has been completely reworked. Previously, all tabs (Driving, Charging, Parking) were built immediately when CarPlay connected — before the app knew what vehicle you had. This caused RWD vehicles to incorrectly show the AWD layout (Front RPM + Rear RPM instead of just Motor RPM).
+
+Now CarPlay shows only the Status tab until the adapter connects, VIN is read, and ECU training completes. Once the app knows your vehicle, the correct tabs appear. When the car turns off or the adapter disconnects, tabs are removed and the app returns to a clean Status-only state.
+
+The Status tab connection sequence now progresses smoothly: Looking for adapter → Reading → Scanning ECUs → Connected
+
+### Fix: VIN Matching for AWD Vehicles
+
+Fixed VIN matching for 2022-2024 AWD vehicles with VIN position 8 = C (e.g. Pieter's Project 45). These were previously falling through to the default registry instead of explicitly matching the AWD Long Range registry.
+
+### CarPlay Polish
+
+- Fixed the "Vehicle Off" status icon being stretched (the car icon is now properly proportioned)
+- Fixed a brief "Vehicle Off" flash during startup when the car was actually on (stale state from the previous session)
+- Fixed a brief "Connected" flash during VIN read before ECU scanning starts
+
+### Known Issues
+
+1. **Unplug reminder does not fire while charging** — The HVAC ECU stays awake when the car is off but charging, so the app thinks the car is still on.
+2. **Pre-conditioning detection is experimental** — May produce false positives during autonomous BMS thermal management.
+3. **Battery odometer shows incorrect values on some vehicles** (Issue #6).
+4. **Parking sensors 7 and 12 (rear-side corners) not yet mapped.**
+5. **Parking sensor values may flicker** — ECU-side behavior, not an app bug.
+6. **Headlight signal sometimes delayed when manually activated in daylight** (Issue #10).
+7. **Brake light indicator updates every ~3 seconds** due to OBD polling constraints.
+8. **VCMS flow control intermittent failure** — Mitigated but root cause unknown.
+9. **Parking sensors only available on 2022-2024 Ioniq 5** — Not yet verified on 2025 or other models.
+
+---
 ## Build 31 — VIN detection rewrite, 2025 fixes, privacy
 
 ### VIN Encryption in Diagnostic Logs
