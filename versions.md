@@ -7,6 +7,19 @@ nav_order: 4
 # Version History
 
 ---
+## Build 33 — Battery config display + diagnostics unlock fix
+
+### Battery Configuration Display
+
+The Battery Configuration chip on the Dashboard now reflects the actual detected series cell count when it differs from the registry. This catches vehicles whose pack layout differs from the factory spec.
+
+For example, Pieter's 2022 AWD (Hyundai's limited-edition "Project 45") uses a 180-series pack instead of the standard 192 series. The chip now shows "180 series x 2 parallel" based on live BMS data rather than the registry default. The existing registry value is still used as a fallback until the BMS has reported cell voltages.
+
+### Fix: 5-Tap Diagnostics Unlock
+
+The hidden 5-tap gesture that unlocks the developer/diagnostics settings in the About section was incorrectly attached to the Registry row. It's now back on the Build number row, which is where it was designed to live.
+
+---
 ## Build 32 — CarPlay overhaul, VIN match fix
 
 ### CarPlay State-Driven Lifecycle
