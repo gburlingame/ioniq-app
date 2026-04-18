@@ -7,6 +7,19 @@ nav_order: 4
 # Version History
 
 ---
+## Build 34 — Brake light indicator fix
+
+### Brake Light Indicator
+
+Fixed a long-standing issue where the brake-light indicator could appear "stuck on" while driving, even when the brake light was not on. Originally reported by tester Tom on his 2025 Ioniq 5 RWD, with a similar report later from tester Michael on his 2025 AWD Ioniq 5.
+
+The brake-light value lives in a BCM byte that appears to pack several unrelated status bits — only one of those bits actually represents the brake-light state. The previous decoder treated any non-zero value as "brake on," so when any of the other bits in the same byte happened to be set while the brake bit was clear, the indicator would falsely show "On" until the rest of the byte cleared.
+
+Build 34 changes the decoder to look at only the specific brake bit, ignoring the unrelated status bits. The fix applies across all supported vehicles — 2022–2024 Ioniq 5 / Ioniq 6 read the brake state from BCM DID 0xBC06 byte 4, while 2025+ Ioniq 5 and 2026 Ioniq 9 read it from BCM DID 0xBC17 byte 4. Same byte position, same bit, just a different containing DID by model year.
+
+The fix was validated against brake-on captures from three different vehicles (eight distinct byte values, all with the brake bit set) and confirmed live on a 2024 Ioniq 5 test drive that re-captured the exact failure pattern and decoded it correctly under the new rule.
+
+---
 ## Build 33 — Battery config display + diagnostics unlock fix
 
 ### Battery Configuration Display
