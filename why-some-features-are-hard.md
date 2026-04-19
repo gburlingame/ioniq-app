@@ -1,0 +1,39 @@
+---
+layout: default
+title: Why Some Features Are Hard
+nav_order: 3
+---
+
+# Why Some Features Are Hard
+
+## There's no user manual for this.
+
+When people ask "can the app show me X?", the honest answer is often "maybe — if we can find the signal." Hyundai doesn't publish documentation for the data flowing across the car's diagnostic bus. There's no API. There's no dealer manual that says "brake lights are at location Y." What you see on your dashboard today exists because someone — often several someones — sat with their car, compared raw bytes against what the car was doing, and worked out the pattern.
+
+That reality shapes everything. A request like "it'd be great to see the charging rate broken down per battery module" might be trivial once the signal is found, or it might not exist on the bus at all. Until we go look, we don't know. I try to be honest about that rather than promise things we might never be able to deliver.
+
+## The hunt — how we found the brake light.
+
+The brake light indicator is a good example of why this work takes a village. A tester reported the indicator wasn't firing on their 2025 Ioniq 5. Up to that point we had it working on 2022-2024 cars — the signal sat at a specific byte-and-bit position in a message broadcast by the Body Control Module. The 2025 responded fine to the same message, but the byte we were watching never changed when the brake pedal was pressed.
+
+So we started comparing. Snapshots from a 2022, a 2023, a 2024, and a 2025 were laid side by side. Hyundai had quietly moved the signal between model years — the 2022-2024 cars carry it in one byte-and-bit position, the 2025 moved it to a different byte in the same message, and also started broadcasting a brand-new message carrying related information. The Ioniq 9 matched the 2025 pattern. No one tester owned enough cars to catch that on their own. It took the group.
+
+This is the normal pace of discovery, not an exceptional feat. Most signals move between model years. Most signals hide. The only way to find them is to have enough eyes on enough cars.
+
+## Why some things feel sluggish.
+
+Even when we've found a signal, physics puts a floor on how fast we can show it. Your OBD-II adapter talks to the app over Bluetooth Low Energy, and the ELM327 chipset inside the adapter can only ask the car one question at a time. Each question takes roughly 100-200 milliseconds: send the request, wait for the car to respond, parse the answer, move on.
+
+The app tracks more than 40 values across the battery, motors, climate system, parking sensors, and more. Multiply that out and a full polling cycle takes several seconds. The brake light indicator can feel a beat behind because it's standing in line with the rest of them.
+
+This isn't a bug — it's the nature of the hardware. Faster buses exist inside the car (the Ioniq 5's CAN FD bus in particular carries real-time motor and driving data at much higher rates).
+
+## Become a treasure hunter.
+
+If any of this sounds intriguing rather than discouraging, there are tools tucked into the app that let you join the hunt. Most of them live behind the hidden Diagnostics menu — tap the Build number in Settings five times to reveal it.
+
+- **DID Scanner** pings every data identifier on every controller in the car and tells you which ones respond. Think of it as mapping the map. Running it on two cars of different model years is how we've spotted signals that Hyundai quietly relocated.
+- **ECU Identifier** lists every controller on the bus along with its part number. This is useful when we're trying to work out whether your car and someone else's are running the same software — if the part numbers differ, the data layout often differs too.
+- **A-B-C Snapshot** is the workhorse of signal hunting. Take a baseline with a condition off, change one thing, take a second snapshot, revert, take a third. The app shows you exactly which bytes flipped. This is how the brake light trail got picked up across multiple cars — press the pedal, take a snapshot, let it up, take another.
+
+Beyond the app, hidden knowledge shows up in unexpected places: forum threads, Hyundai technical service bulletins, a passing comment in a Facebook group, a conversation at a DC fast charger. If any of it might point at a signal we haven't found — or might explain something we don't yet understand — pass it along. Every crumb shortcuts weeks of guessing, and the features people ask for are a lot more likely to ship when the community hands me the map.
