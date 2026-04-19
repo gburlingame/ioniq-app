@@ -14,11 +14,15 @@ That reality shapes everything. A request like "it'd be great to see the chargin
 
 ## The hunt — how we found the brake light.
 
-The brake light indicator is a good example of why this work takes a village. A tester reported the indicator wasn't firing on their 2025 Ioniq 5. Up to that point we had it working on 2022-2024 cars — the signal sat at a specific byte-and-bit position in a message broadcast by the Body Control Module. The 2025 responded fine to the same message, but the byte we were watching never changed when the brake pedal was pressed.
+The brake light indicator is a good example of why this work takes a village — and why the first fix is often close but not quite right. It had been working on 2022-2024 Ioniq 5s for a while, with the signal sitting at a specific byte-and-bit position in a message broadcast by the Body Control Module.
 
-So we started comparing. Snapshots from a 2022, a 2023, a 2024, and a 2025 were laid side by side. Hyundai had quietly moved the signal between model years — the 2022-2024 cars carry it in one byte-and-bit position, the 2025 moved it to a different byte in the same message, and also started broadcasting a brand-new message carrying related information. The Ioniq 9 matched the 2025 pattern. No one tester owned enough cars to catch that on their own. It took the group.
+Then an Ioniq 9 tester came on board and reported the indicator wasn't firing on their car. Comparing snapshots between a 2024 Ioniq 5 and the new Ioniq 9 revealed that Hyundai had relocated the signal in the newer platform. We found the new location, pushed a fix, and it worked on the Ioniq 9.
 
-This is the normal pace of discovery, not an exceptional feat. Most signals move between model years. Most signals hide. The only way to find them is to have enough eyes on enough cars.
+Not long after, a 2025 Ioniq 5 tester reported the same problem on their car. We tried the Ioniq 9 fix on the 2025 i5 — it mostly worked, but produced false positives: the indicator lit up at moments when the pedal clearly wasn't pressed. Something was almost right, but not quite. More snapshots came in, from more cars, and the precise answer emerged: the brake flag isn't the whole byte we'd been watching — it's a single bit within that byte (bit 3, for the curious). Narrow the watch to that one bit, and the false positives disappeared.
+
+Three cars, two model years, several testers' worth of snapshots — and we still needed one more iteration after we thought we had it.
+
+This is the normal pace of discovery, not an exceptional feat. Most signals move between model years. Most signals hide. And even once you've found one, the first guess is often close but not right. The only way to work through it is to have enough eyes on enough cars.
 
 ## Why some things feel sluggish.
 
