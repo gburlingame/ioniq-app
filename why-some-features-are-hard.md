@@ -6,13 +6,13 @@ nav_order: 3
 
 # Why Some Features Are Hard
 
-## There's no user manual for this.
+## There's no user manual for this
 
 When people ask "can the app show me X?", the honest answer is often "maybe — if we can find the signal." Hyundai doesn't publish documentation for the data flowing across the car's diagnostic bus. There's no API. There's no dealer manual that says "brake lights are at location Y." What you see on your dashboard today exists because someone — often several someones — sat with their car, compared raw bytes against what the car was doing, and worked out the pattern.
 
 That reality shapes everything. A request like "it'd be great to see the charging rate broken down per battery module" might be trivial once the signal is found, or it might not exist on the bus at all. Until we go look, we don't know. I try to be honest about that rather than promise things we might never be able to deliver.
 
-## The hunt — how we found the brake light.
+## The hunt — how we found the brake light
 
 The brake light indicator is a good example of why this work takes a village — and why the first fix is often close but not quite right. It had been working on 2022-2024 Ioniq 5s for a while, with the signal sitting at a specific byte-and-bit position in a message broadcast by the Body Control Module.
 
@@ -24,7 +24,7 @@ Three cars, two model years, several testers' worth of snapshots — and we stil
 
 This is the normal pace of discovery, not an exceptional feat. Most signals move between model years. Most signals hide. And even once you've found one, the first guess is often close but not right. The only way to work through it is to have enough eyes on enough cars.
 
-## Why some things feel sluggish.
+## Why some things feel sluggish
 
 Even when we've found a signal, physics puts a floor on how fast we can show it. Your OBD-II adapter talks to the app over Bluetooth Low Energy, and the ELM327 chipset inside the adapter can only ask the car one question at a time. Each question takes roughly 100-200 milliseconds: send the request, wait for the car to respond, parse the answer, move on.
 
@@ -34,7 +34,7 @@ This isn't a bug — it's the nature of the hardware. Faster buses exist inside 
 
 The Bluetooth pipe itself also imposes a ceiling. In my experience, the highest sustained payload rate achievable over Bluetooth Low Energy is around 16 kilobytes per second — enough for periodic polling of dozens of values, but nowhere near what a continuous stream of real-time driving data would need. Even a hypothetical BLE adapter that could speak CAN FD would still run into that wall.
 
-## Become a treasure hunter.
+## Become a treasure hunter
 
 If any of this sounds intriguing rather than discouraging, there are tools tucked into the app that let you join the hunt. Most of them live behind the hidden Diagnostics menu — tap the Build number in Settings five times to reveal it.
 
