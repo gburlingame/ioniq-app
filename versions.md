@@ -7,6 +7,27 @@ nav_order: 4
 # Version History
 
 ---
+## Build 35 — Crash fixes + preconditioning accuracy
+
+### CarPlay Crash on Vehicle Disconnect
+
+Fixed a crash that could occur in CarPlay when the Scan Status detail view had been opened and the vehicle then disconnected (or the CarPlay scene reactivated). The app would trip an "Index out of range" error inside the scan-status refresh path and terminate.
+
+Affected four testers across builds 32, 33, and 34 on iOS 26.3 and 26.4. The fix restructures the underlying data so the two lists that had to stay in sync are now a single list — the mismatch that caused the crash is now impossible by construction.
+
+### Dashboard Crash During Battery Updates
+
+Fixed a crash on the Dashboard when viewing the cell voltage grid. If the BMS pushed a payload with a different cell count while the grid was on screen, a stale index could reach into the new shorter array and crash the app.
+
+Affected two testers on build 33 (iPhone 17 Pro Max, iOS 26.4.1). The grid now takes a single snapshot of the cell voltages at render time and iterates over that snapshot, so the index and the data can never get out of step.
+
+### Preconditioning After DC Fast Charging
+
+Fixed false "Preconditioning Active" readings that appeared for the entire drive home after a DC fast charging session. After a high-power charge, the pack's thermal-management system runs its coolant loop for 15–20 minutes or more to bring the battery back to target temperature — and the app was misreading that cooling activity as active preconditioning.
+
+Worked through 56 historical logs and 1,425 samples from four testers (2024 and 2025 AWD variants) to isolate the exact bit in the BMS thermal-status byte that separates heating from cooling. The app now distinguishes the two cleanly: heating turns on the indicator, cooling does not.
+
+---
 ## Build 34 — Brake light indicator fix
 
 ### Brake Light Indicator
