@@ -30,7 +30,9 @@ Even when we've found a signal, physics puts a floor on how fast we can show it.
 
 The app tracks more than 40 values across the battery, motors, climate system, parking sensors, and more. Multiply that out and a full polling cycle takes several seconds. The brake light indicator can feel a beat behind because it's standing in line with the rest of them.
 
-This isn't a bug — it's the nature of the hardware. Faster buses exist inside the car (the Ioniq 5's CAN FD bus in particular carries real-time motor and driving data at much higher rates).
+This isn't a bug — it's the nature of the hardware. Faster buses exist inside the car. The Ioniq 5's CAN FD bus carries real-time motor and driving data at much higher rates, and those signals *are* exposed on the OBD-II connector — they're just not reachable through a Bluetooth ELM327 adapter. Reading them requires a different category of hardware: a wired CAN FD adapter, generally connected to a laptop or a dedicated diagnostic device.
+
+The Bluetooth pipe itself also imposes a ceiling. In my experience, the highest sustained payload rate achievable over Bluetooth Low Energy is around 16 kilobytes per second — enough for periodic polling of dozens of values, but nowhere near what a continuous stream of real-time driving data would need. Even a hypothetical BLE adapter that could speak CAN FD would still run into that wall.
 
 ## Become a treasure hunter.
 
