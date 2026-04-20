@@ -7,6 +7,37 @@ nav_order: 4
 # Version History
 
 ---
+## Build 37 — ICCU Details with Share Sheet, Multi-Frame Reliability, Dashboard Polish
+
+### ICCU Details Section
+
+The Dashboard has a new collapsible **ICCU** section showing decoded identification data for your car's Integrated Charger Control Unit: module ID, part numbers, dataset and software versions, calibration and build dates, serial number, and programming state (FACTORY vs. SERVICED). The data is read automatically at connect, before regular polling begins, and stays constant for the session.
+
+CarPlay gets a new **ICCU** row in the Status tab with the same information in a driver-appropriate 10-row detail view.
+
+From the iOS ICCU section, a new Share button exports a **1080×1350 branded PNG card** suitable for posting to social media or sharing with other testers. The card leads with your vehicle identity (model, year, variant, odometer), lists the ICCU fields, and carries a "Report prepared by Ioniq 5 Diagnostics" badge with a UTC timestamp. Dark aesthetic over a blurred app-icon background. Files save as "ICCU details - YYYY-MM-DD HH-mm-ss.png".
+
+### Multi-Frame Reliability
+
+Removed the `ATCRA` flow-control command from polling and scanning paths. On genuine OBDLink firmware, `ATCRA` disabled the adapter's automatic flow-control filter updates, causing every multi-frame DID after the first ECU switch to stall mid-stream. The same fix empirically resolves long-standing intermittent multi-frame errors on Carista clones: a 2,750-line driving-capture now shows zero ISO-TP errors, with every VCMS multi-frame DID and the 62-byte BMS response completing cleanly across multiple polling cycles.
+
+### Full Session Reset on Disconnect
+
+Pulling the adapter now resets all session-derived state — VIN, model year, variant, ECU registry, and live vehicle data. Only your saved-device preference and general app settings persist. Fixes a class of bug where a prior session's VIN or registry could leak into the next connection and produce wrong-variant readings (e.g., a 2025 RWD displayed as AWD after a reconnect). The CarPlay Status tab follows the same discipline — Scan Status and ICCU rows show "Not Available" after disconnect.
+
+### Dashboard Polish
+
+Overview reorganized: VIN now sits on its own full-width row directly below the state-of-charge gauge, so the full 17 characters display without font shrinking. The duplicate Pre-Conditioning chip was removed from Overview — it already appears in Battery · Temperatures.
+
+Battery · Temperatures restructured into labeled sub-sections: Module Temperatures (with Min/Avg/Max/Delta stats), a new **Pre-conditioning** sub-section grouping Pre-Conditioning status and Battery Heater Temp, and a new **Fan** sub-section. The three history charts now use the same visual style as the Charging section.
+
+### Diagnostics Recorder Now Visible to All Users
+
+The Diagnostics recorder — Start / Stop / Share — is now visible in Settings to every user, no longer hidden behind the five-tap-Build reveal. It's the single most useful tool for reporting unexpected behavior.
+
+A new footer explains when and how to use it and reassures that **your VIN is encrypted in the log file** — only the developer holds the decryption key — so sharing a log doesn't disclose your vehicle identifier. Translated into German, Spanish, French, Dutch, Swedish.
+
+---
 ## Build 36 — Headlight indicator accuracy + multi-frame reliability
 
 ### Headlight Indicator Responsiveness (2022-2024 Ioniq 5)
