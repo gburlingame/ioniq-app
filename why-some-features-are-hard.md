@@ -10,7 +10,7 @@ nav_order: 3
 
 When people ask "can the app show me X?", the honest answer is often "maybe — if we can find the signal." Hyundai doesn't publish documentation for the data flowing across the car's diagnostic bus. There's no API. There's no dealer manual that says "brake lights are at location Y." What you see on your dashboard today exists because someone — often several someones — sat with their car, compared raw bytes against what the car was doing, and worked out the pattern.
 
-That reality shapes everything. A request like "it'd be great to see the charging rate broken down per battery module" might be trivial once the signal is found, or it might not exist on the bus at all. Until we go look, we don't know. I try to be honest about that rather than promise things we might never be able to deliver.
+That reality shapes everything. A request like "can you tell me when my daytime running lights are on?" might be trivial once the signal is found, or the state might not exist on the bus at all. Until we go look, we don't know. I try to be honest about that rather than promise things we might never be able to deliver.
 
 ## The hunt — how we found the brake light
 
