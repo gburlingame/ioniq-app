@@ -7,6 +7,25 @@ nav_order: 4
 # Version History
 
 ---
+## Build 36 — Headlight indicator accuracy + multi-frame reliability
+
+### Headlight Indicator Responsiveness (2022-2024 Ioniq 5)
+
+The low-beam indicator in the app and CarPlay now updates promptly when you turn the headlights off. Previously, the underlying signal from the Body Control Module could take several minutes to retract after the stalk was moved to Off — producing a "stuck on" indicator that only cleared on the next long drive or power cycle. The app now reads the headlight state from a different register that updates within about 6 seconds of the stalk movement.
+
+Small caveat worth knowing about: when Auto mode decides it's bright enough to extinguish the lamps during a daytime drive, the new register is still slower to retract — in the tens-of-seconds range. Most drivers won't notice, because that's a background transition you're not watching for, but it can produce a brief "indicator still on" window when driving from shade into sunlight.
+
+### No More Transient High-Beam Icon (2022-2024 Ioniq 5)
+
+Fixed a glitch where the high-beam icon would briefly illuminate in the app and CarPlay when the headlights came on automatically — particularly visible on a rainy day with the stalk in Auto mode. The old decoder flagged the high-beam indicator on any activity in the high-beam status byte, including unrelated state transitions the BCM produces during Auto-mode lamp changes. The decoder now looks for a specific bit pattern that only appears when the high beams are genuinely engaged.
+
+### More Reliable Multi-Frame Vehicle Data
+
+Hardened the ISO-TP parser — the component that reassembles multi-frame responses from the car. It now validates consecutive-frame sequence counters according to the ISO 15765-2 specification, catching dropped or out-of-order frames that previously produced silently corrupt data for any ECU response longer than 7 bytes. Parser failures are now self-diagnosing, logging specific ECU addresses and byte counts rather than quietly passing bad data up the stack.
+
+Also reordered initial adapter setup to match the ELM327 datasheet more carefully (auto-formatting before auto-flow-control) — should improve connection reliability with clone adapters that have order-sensitive state machines.
+
+---
 ## Build 35 — Crash fixes + preconditioning accuracy
 
 ### CarPlay Crash on Vehicle Disconnect
