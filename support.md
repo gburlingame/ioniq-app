@@ -25,7 +25,6 @@ The app works with any ELM327-compatible Bluetooth Low Energy (BLE) adapter. Tes
 
 * **Veepeak** — Most popular choice among testers
 * **Carista** — Works well
-* **Vgate** — Works well
 
 **Important:** The adapter must be Bluetooth LE (not classic Bluetooth or Wi-Fi). Wi-Fi OBD adapters are not supported on iOS.
 
