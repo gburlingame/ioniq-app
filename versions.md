@@ -7,6 +7,30 @@ nav_order: 4
 # Version History
 
 ---
+## Build 38 — Battery Heating ETA, CarPlay Polish
+
+**NOTE TO TESTERS:** Hi team - I don't normally release an untested feature, but the new "Time to 70°F"/"Time to 21°C" feature seemed fairly safe and I don't know when I'll have a chance to charge next. Please let me know how this works out for you -- this was a feautre suggested by TheIoniqGuy, thanks Corbin for the great idea! Also worth noting, last build I added a feature (multi-DID) intended to speed up initial scanning. It helps most folks, but I think may be lengthening the scan for others. I'm looking into this. Thanks -- Greg
+
+### New: Battery Heating ETA
+
+During user-invoked preconditioning, the Dashboard and CarPlay now display an estimate of how much longer until the coldest battery module reaches **21 °C (≈ 70 °F)** — the threshold the pack needs for DC fast-charge readiness.
+
+On the Dashboard, a new full-width chip inside **Battery · Temperatures > Pre-conditioning** shows the estimate (e.g. "Estimated time to 70°F — ≈ 12 min"). On the CarPlay **Charging** tab, the 12 V voltage chip is repurposed as "Time to 70°F" — showing `--` when preconditioning is not active and `≈ N min` while it is.
+
+The estimate uses a hybrid model: during the first ~10 minutes of a heating session it falls back to a constant warming rate derived from recorded captures (thanks TheIoniqGuy); once the session has gathered enough data, it switches to your car's actual observed slope. Displayed minutes only ever decrease within a session — no "time went up" surprises from sensor noise.
+
+Label switches automatically between °F and °C based on your temperature units preference, and the Dashboard chip is translated into German, Spanish, French, Dutch, and Swedish.
+
+### CarPlay Polish
+
+- **Monospaced digits.** Numeric values in every CarPlay chip (SoC, power, 12 V, current, voltage, heating ETA, etc.) no longer jitter left/right as their digits change width. Same system font face, just tabular digit spacing.
+- **Unit-switch rebuild.** Switching between °F and °C now correctly updates chip labels that embed the unit (like "Time to 70°F" → "Time to 21°C"). Previously only an app-language change triggered a rebuild.
+
+### ICCU Name Correction
+
+Corrected the expanded form of "ICCU" from "Integrated **Charger** Control Unit" to "Integrated **Charging** Control Unit" to match Hyundai's official E-GMP terminology. The abbreviation "ICCU" and all other labels stay unchanged.
+
+---
 ## Build 37 — ICCU Details with Share Sheet, Multi-Frame Reliability, Dashboard Polish
 
 ### ICCU Details Section
