@@ -7,6 +7,29 @@ nav_order: 4
 # Version History
 
 ---
+## Build 39 — Complete ECU Scan, Files App Access, Potential Fix for OBDLink CX adapters
+
+### OBDLink CX potential fix
+
+Changed adaptive timeout to the default setting which will hopefully remedy the problem with incomplete multi-frame messages
+
+### New: Complete ECU Scan
+
+A new advanced-diagnostic tool that sweeps the full **0x0000–0xFFFF** DID address space of a single ECU — the full 65,536 possible IDs, not just the ones we already know about. Meant for discovery: when a tester sees a signal we don't yet read, this is how we find where it lives.
+
+Find it under **Settings → Advanced Diagnostics → Complete ECU Scan** (same place as DID Scanner and ECU Scanner).
+
+### Diagnostic Logs in Files App
+
+All diagnostic logs and DID snapshots the app writes are now accessible from the **iOS Files app**. Open Files → **On My iPhone** → **Ioniq 5 Diagnostics**. You'll see:
+
+- `diagnostics_YYYY-MM-DD_HHmmss.log` — files from the "Start Recording" button in Settings
+- `DID_ABC_*.log` — files from the A/B/C snapshot feature
+- `scan_log_*.txt` and `scan_found_*.md` — new, from Complete ECU Scan
+
+You can share, delete, or drag these out to your Mac (via AirDrop, iCloud Drive, or a cable) without needing to go through the in-app Share sheet.
+
+---
 ## Build 38 — Battery Heating ETA, CarPlay Polish
 
 **NOTE TO TESTERS:** Hi team - I don't normally release an untested feature, but the new "Time to 70°F"/"Time to 21°C" feature seemed fairly safe and I don't know when I'll have a chance to charge next. Please let me know how this works out for you -- this was a feautre suggested by TheIoniqGuy, thanks Corbin for the great idea! Also worth noting, last build I added a feature (multi-DID) intended to speed up initial scanning. It helps most folks, but I think may be lengthening the scan for others. I'm looking into this. Thanks -- Greg
