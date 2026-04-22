@@ -7,6 +7,43 @@ nav_order: 4
 # Version History
 
 ---
+## Build 40 — Resumable ECU Scans, Graceful Pause, Reliability Fixes
+
+### OBDLink CX and other adapters: Multi-Frame Timeout
+
+Stage-1 fix for the VCMS 0xE001 intermittent multi-frame failures observed on genuine OBDLink CX adapters. The ELM327 init sequence now explicitly configure the consecutive-frame reception window to 100 ms — tight enough to not penalize successful multi-frame tails, generous enough to catch the observed 30–60 ms CF arrival latency when VCMS does respond. Transparent no-op on non-STN adapters (Carista clones respond `?` which is caught and ignored; init continues with adapter defaults).
+
+### Complete ECU Scan: Resumable Scans
+
+A paused Complete ECU Scan can now be **resumed from where it left off**, with full provenance recorded across all sessions.
+
+When you reopen the tool, any incomplete scan_log files in your Documents directory show up as a **"Resume prior scan"** button in the preflight. Tap it to see a list of candidates with per-scan progress, session choice (default / extended / both), and the state label from the prior session. Pick one → a confirmation screen shows what UDS session and starting DID will be swept next, with a state-label field pre-filled from the prior session. You can edit the label to reflect how conditions have changed since you paused.
+
+The resumed scan appends to the **same** `scan_log_*.txt` and `scan_found_*.md` files, so your finished-scan artifact shows the full session history — every pause, every resume, every state label, every outcome. For "Both" session choice, resume automatically runs default first, then extended, skipping any UDS session that was already complete.
+
+### Complete ECU Scan: Graceful Pause When the Car Turns Off
+
+EV-specific pain point: if you start a 1–2 hour scan and leave the car idle, it'll eventually turn off on its own. Previously that would leave the scan in a broken state — now it **pauses gracefully** and attributes the cause correctly.
+
+When the target ECU falls silent for 10 consecutive requests, the app automatically probes HVAC (the same mechanism the Dashboard uses for ignition detection). If HVAC also doesn't respond → "the car turned off." If HVAC still responds → "the target ECU stopped responding while the car is still on" (suggests an adapter or ECU issue). Both paths preserve partial results and surface a **Resume** button so you can pick up when conditions are ready.
+
+### Complete ECU Scan: Smaller Polish
+
+- **Elapsed + ETA display.** Progress section now shows running elapsed time and an ETA that improves as the scan runs. ETA is suppressed until at least 20 DIDs have been scanned so early-scan noise doesn't produce jumpy estimates.
+- **Stop button + reassurance footer.** The red "Abort Scan" button is now a plain "Stop" button, with a localized footer directly below it: "A stopped scan can be resumed later, you will not lose your progress." Translated to de / es / fr / nl / sv.
+- **Extended-session ignition warning.** Preflight now shows an orange warning when Extended or Both session is selected and the app doesn't detect the ignition as on. Warn-only (Start stays enabled) since the ignition reading can be briefly stale.
+- **Localization pass.** The completion messaging (Scan complete / Scan stopped / Scan paused — the car turned off / Scan paused — ECU stopped responding) and all phase-progress labels now respect your in-app language override. Previously they stayed English if your iOS system language didn't match the app's language setting.
+
+### Reliability Fixes
+
+- **Dashboard crash fix.** Opening the Battery Temperatures section while BMS data was updating could crash the app
+- **"Car off" false reading.** The app could briefly report "car off" while the car was actually running, particularly if a second Bluetooth-connected diagnostic app was sending commands to the same OBD adapter. The app now only flips to "off" when HVAC genuinely stops responding (adapter reports NO DATA / UNABLE TO CONNECT). Transient glitches — multi-frame reception errors, CAN bus hiccups, cross-app interference — keep the previous ignition state rather than falsely flipping.
+
+### ICCU Details: "Failed DIDs" → "Unavailable DIDs"
+
+The list that surfaces DIDs the ICCU declined to report is now labeled **"Unavailable DIDs"** instead of "Failed DIDs". "Failed" implied a tester-side fault; "Unavailable" correctly reflects that the ECU itself chose not to respond (typically NRC 0x31 on a serviced/replaced ICCU). The heading respects the in-app language override via the localization helper. Translated to de / es / fr / nl / sv.
+
+---
 ## Build 39 — Complete ECU Scan, Files App Access, Potential Fix for OBDLink CX adapters
 
 ### OBDLink CX potential fix
