@@ -7,6 +7,15 @@ nav_order: 4
 # Version History
 
 ---
+## Build 41 — OBDLink CX Multi-Frame Reliability
+
+### OBDLink CX: Adapter-Aware Timing
+
+Build 41 targets the intermittent "partial data" errors some testers have seen on VCMS and ICCU multi-frame reads when using an OBDLink CX adapter.
+
+The app now branches its ELM327 configuration during init based on a capability probe: OBDLink CX (and other STN-chipset adapters) receive a timing profile tuned for reliable multi-frame reception, while Carista and other classic ELM327 clones continue to use the same timing as Build 40 — which has been reliable on that hardware.
+
+---
 ## Build 40 — Resumable ECU Scans, Graceful Pause, Reliability Fixes
 
 ### OBDLink CX and other adapters: Multi-Frame Timeout
