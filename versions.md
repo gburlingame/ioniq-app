@@ -7,6 +7,15 @@ nav_order: 4
 # Version History
 
 ---
+## Build 42 — OBDLink CX Polling Responsiveness
+
+### OBDLink CX: Tighter First-Frame Timeout
+
+Build 42 tightens one timing parameter on STN-family adapters (OBDLink CX and kin) based on measured first-frame response latencies from Build 41 tester logs. Projected polling utilization on OBDLink CX drops back to ~73 %, actually below the Carista baseline. Multi-frame reliability is unchanged — that fix (Build 41's adapter-aware configuration) is preserved intact.
+
+Carista and other classic ELM327 clones are unaffected by this change.
+
+---
 ## Build 41 — OBDLink CX Multi-Frame Reliability
 
 ### OBDLink CX: Adapter-Aware Timing
