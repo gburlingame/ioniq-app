@@ -7,6 +7,17 @@ nav_order: 4
 # Version History
 
 ---
+## Build 43 — OBDLink CX Polling Responsiveness (for real this time)
+
+Special thanks to testers James and Daria for the rapid turn around on diagnostic logs!
+
+### OBDLink CX: Build 42 Tuning Now Actually Takes Effect
+
+Build 42 advertised improved polling responsiveness on OBDLink CX, but a holdover from an earlier build was quietly undoing the tuning shortly after connect — so testers on OBDLink CX likely didn't feel any difference between Build 41 and Build 42.
+
+Build 43 removes the leftover overrides.
+
+---
 ## Build 42 — OBDLink CX Polling Responsiveness
 
 ### OBDLink CX: Tighter First-Frame Timeout
