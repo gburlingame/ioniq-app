@@ -7,6 +7,49 @@ nav_order: 4
 # Version History
 
 ---
+## Build 44 — Complete ECU Scan fixes, preconditioning detection rewrite, added byte to the Ioniq 5 (2025+) polling loop
+
+### Complete ECU Scan: data-integrity fix, resume fixes, and UI polish
+
+#### NRC responses no longer counted as positive hits
+
+A full DID sweep could record thousands of false "positive" rows with payload `7F 22 31` — the ECU's own negative-response pattern, which the scanner was treating as valid data. Build 44 fixes the classifier so rejected DIDs are correctly dropped. Scans from Build 44 onward produce clean data; previously-recorded scans are not retroactively scrubbed.
+
+#### Resume no longer bricks scan logs
+
+Trying to resume a scan with the adapter disconnected could permanently mark the log as "finished" behind the scenes, making it disappear from the resume list forever. Build 44 now:
+
+- Checks adapter connectivity before touching the log, and shows a clear "Adapter not connected — reconnect and try again" error if it isn't.
+- Marks the scan paused (resumable), not finished, if the connection drops mid-scan.
+
+Logs already broken by earlier builds remain unrecoverable; this is a fix going forward only.
+
+#### Resume clock and ETA fix
+
+On a resumed scan, the elapsed-time readout and "estimated time remaining" now reflect just the current session, not the paused gap between sessions. Resuming an hours-paused scan no longer produces a wildly inflated ETA that ticks back and forth.
+
+#### Preflight and scan-progress UI polish
+
+- Session picker matches the ECU picker's style (single row with selected value, tap-through to list). Labels simplified to "Default (0x01)", "Extended (0x03)", "Both (0x01 and 0x03)".
+- New section footer explains the session-type distinction and scan-duration expectations.
+- Start-Scan is now a full-width prominent green button; Stop is tinted red.
+- Scan-phase labels use explicit service IDs.
+- Monospaced digits on counters and summary so numbers don't jitter as they tick.
+- Vehicle-state presets lead with "driving" and "mixed state".
+
+### Preconditioning detection rewrite
+
+The preconditioning chip previously used a single bit from the BMS as its trigger, with an asymmetric debounce — slow to come on, instant to go off. Tester TheIoniqGuy saw the chip briefly flicker off mid-preconditioning (most visibly in Corbin's captures) because of a single-sample transition in the underlying command byte that happened to clear the watched bit.
+
+Build 44 replaces the detector with a rule that reads both of the BMS's battery-loop pump-duty command bytes directly, not through a single bit. It requires both bytes to be in a heating-calibration regime, and adds symmetric debounce on both turn-on and turn-off. The charging-state gate from the previous build is retained — preconditioning does not trigger during an active charging session.
+
+Validated across six captures from multiple testers covering preconditioning, preconditioning→drive→DCFC, preconditioning→drive→AC charging, post-DCFC drive-home, plain driving, and the single-sample-glitch session. No false positives, no false negatives.
+
+### Extra BCM signal polled on 2025+ Ioniq 5
+
+Build 44 re-enables a BCM data identifier (`0xBC09`) that was previously disabled on 2025 Ioniq 5 registries. This is a diagnostic follow-up for the open 2025 AUTO-headlamp question — the previously-watched signal stayed at a "not commanded" value while headlamps were physically on in a parking garage. No user-visible behavior change.
+
+---
 ## Build 43 — OBDLink CX Polling Responsiveness (for real this time)
 
 Special thanks to testers James and Daria for the rapid turn around on diagnostic logs!
