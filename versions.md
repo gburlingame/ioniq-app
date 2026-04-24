@@ -7,6 +7,41 @@ nav_order: 4
 # Version History
 
 ---
+## Build 45 — Faster startup on partial-response ICCUs, ICCU panel cleanup, headlight indicator hidden on 2025 Ioniq 5
+
+NOTE 1 TO TESTERS:  Some of the changes in this build are a litle risky, and impossible for me to fully test on my 2024 vehicle.  Please let me know if you have any problems.
+
+NOTE 2 TO TESTERS: If you have an ICCU that does not report all DIDs, it would be great if you could send me diagnostic log using this build -- please be sure and start the diagnostic recording before you plug in the adapter in order to capture the initialization sequence -- I want to verify the init sequence is going smoothly on your vehicle - thank you!
+
+NOTE 3 TO TESTERS:  If you have a 2025 Ioniq 5, please verify you are no longer seeing the headlight chip -- that will be gone until we find a reliable headlight signal.
+
+### Faster startup on cars where the ICCU does not reply to all polled DIDs
+
+Improved handling of multi-DID messages when some of the DIDs do not respond
+
+### Removed the FACTORY / SERVICED badge on the ICCU panel
+
+Earlier builds displayed a green FACTORY badge in the ICCU section, driven by a single diagnostic identifier on the ICCU module. In practice that identifier only ever reported "FACTORY" or failed to respond at all — and we've now seen replacement ICCUs that also report "FACTORY". The badge was at best uninformative and at worst misleading, so Build 45 removes it.
+
+All other ICCU identity fields — part number, hardware number, serial number, build date, boot software, firmware hashes, etc. — are unchanged.
+
+### Reassurance text below the "N fields unavailable" banner
+
+When an ICCU responds to only some of its identification fields, the app shows an orange warning banner ("N of M fields unavailable"). With the FACTORY/SERVICED badge gone, that banner is the most prominent signal on the panel, and it can read as alarming.
+
+Build 45 adds a short caption directly below the banner:
+
+**Many ICCUs respond to only some of these fields. A partial response here is normal and does not indicate a problem with your car.**
+
+The caption is only shown when the banner itself is shown — panels where every field came through successfully display nothing new. Text is localized against all five of the app's supported languages (English, German, Spanish, French, Dutch, Swedish).
+
+### Headlight indicator hidden on 2025 Ioniq 5 (until we find a reliable signal)
+
+On 2025 Ioniq 5 cars, neither of the BCM data identifiers we've tried for headlight state has held up: the high-beam byte we relied on for 2022-2024 is missing entirely from the 2025 BCM payload, and the low-beam mapping that carried over from older model years has never been confirmed on a 2025 capture. Rather than display a perpetually-incorrect "Off" indicator, Build 45 hides the headlight chip on the 2025 Dashboard and the CarPlay driving grid.
+
+The chip will reappear once a future tester capture identifies a reliable signal — no app update required beyond a registry tweak. 2022-2024 Ioniq 5 is unaffected.
+
+---
 ## Build 44 — Complete ECU Scan fixes, preconditioning detection rewrite, added byte to the Ioniq 5 (2025+) polling loop
 
 ### Complete ECU Scan: data-integrity fix, resume fixes, and UI polish
