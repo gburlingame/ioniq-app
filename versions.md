@@ -34,6 +34,7 @@ If preconditioning is interrupted (you start DC fast charging, or shut off the c
 ### Caveats
 
 This is a calibration tuned to the two preconditioning sessions we have detailed data on (a 9°C cold start that ran into DC fast charging, and a 14°C session that ran to completion). On unusually slow-heating sessions — colder ambient, weak heater, low state-of-charge — the chip may reach 0:30 before the pack actually reaches 70°F, and sit there until done. If that happens to you, please share the diagnostic log so I can tune the floor.
+
 ---
 ## Build 46 — New Inspect tab: J1979 diagnostic crawl
 
