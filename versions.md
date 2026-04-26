@@ -7,6 +7,35 @@ nav_order: 4
 # Version History
 
 ---
+## Build 47 — Smoother battery preconditioning countdown
+
+NOTE TO TESTERS: If you precondition your battery before a DC fast-charge session, please watch the new "Estimated time to 70°F" countdown — both during preconditioning and as the pack approaches 70°F (21°C). Let me know how the descent feels and whether the end-of-session timing matches what you observe.  I would very much like to collect full diagnostic logs for entire pre-conditioning cycles to help tune the algorithm -- thanks to TheIoniqGuy for supplying log data!
+
+### Estimated time to 70°F — full rewrite
+
+The "Estimated time to 70°F" chip that appears during battery preconditioning has been rewritten end-to-end. The previous version had two visible problems:
+
+- **It got stuck.** The displayed value would sit at the same number for 6-7 minutes at the start of a session, then jump down by 3-5 minutes at once, then stick again. That happens because the cold pack doesn't actually warm in the first ~6 minutes — heat is moving through the coolant loop before reaching the modules — and the old algorithm assumed it was warming from the moment the heater engaged.
+- **It ended too high.** Even after the pack was within 1°C of target, the chip would still read "≈ 2 min" or "≈ 3 min" right up to the moment the pack reached 70°F.
+
+What's new:
+
+- **Continuous mm:ss display.** The chip now shows time as `≈ 12:34` instead of `≈ 13 min`, and updates several times per minute. You see a real ticking countdown rather than discrete jumps.
+- **Smooth descent.** A first-order low-pass filter spreads any change in the underlying estimate over ~60 seconds. Where the old chip jumped 3-5 minutes at a step, the new one descends one minute at a time.
+- **Honest dead-time.** The first ~6 minutes of a cold-pack session are explicitly modeled as "the pack hasn't moved yet" — the countdown ticks down minute by minute on wall-clock time, just like a real countdown should.
+- **Correct end behavior.** As the pack closes in on 70°F the displayed value glides down toward 0:30 (a small floor that prevents the chip from claiming "0:00" while the pack is still cold), and disappears the moment the pack actually crosses 70°F.
+
+### What it looks like in practice
+
+For a cold-morning preconditioning session starting at 9°C, you'd typically see the chip start near `≈ 30:00`, descend smoothly through `25:00`, `20:00`, `15:00`, etc., transition into `1:30`, `1:00`, `0:30` as the pack reaches 20°C, and then disappear (`--`) when the pack hits 70°F.
+
+If preconditioning is interrupted (you start DC fast charging, or shut off the car), the chip disappears immediately — DC fast charging takes over thermal management and the preconditioning estimate is no longer meaningful.
+
+### Caveats
+
+This is a calibration tuned to the two preconditioning sessions we have detailed data on (a 9°C cold start that ran into DC fast charging, and a 14°C session that ran to completion). On unusually slow-heating sessions — colder ambient, weak heater, low state-of-charge — the chip may reach 0:30 before the pack actually reaches 70°F, and sit there until done. If that happens to you, please share the diagnostic log so I can tune the floor.
+
+---
 ## Build 45 — Faster startup on partial-response ICCUs, ICCU panel cleanup, headlight indicator hidden on 2025 Ioniq 5
 
 NOTE 1 TO TESTERS:  Some of the changes in this build are a litle risky, and impossible for me to fully test on my 2024 vehicle.  Please let me know if you have any problems.
