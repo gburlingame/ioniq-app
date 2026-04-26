@@ -34,6 +34,46 @@ If preconditioning is interrupted (you start DC fast charging, or shut off the c
 ### Caveats
 
 This is a calibration tuned to the two preconditioning sessions we have detailed data on (a 9°C cold start that ran into DC fast charging, and a 14°C session that ran to completion). On unusually slow-heating sessions — colder ambient, weak heater, low state-of-charge — the chip may reach 0:30 before the pack actually reaches 70°F, and sit there until done. If that happens to you, please share the diagnostic log so I can tune the floor.
+---
+## Build 46 — New Inspect tab: J1979 diagnostic crawl
+
+NOTE TO TESTERS:   This new feature revealed that I have a permanent trouble code on my 2024 Ioniq 5 that I didn't know about - I'll have to look into that!   After you run the scan, pleae let me know if you also have any error codes or other issues.  Thanks!
+
+### New Inspect tab
+
+A new **Inspect** tab sits between Dashboard and Settings (magnifying-glass icon). It runs a one-shot **J1979 diagnostic crawl** across every ECU on your vehicle that responds to the universal OBD-II protocol — the same protocol every car sold in the last ~25 years is required to support.
+
+For each responding ECU the crawl collects:
+
+- **Identity** — Vehicle Identification Number, calibration IDs, and ECU name (Mode 09)
+- **Capabilities** — which live-data PIDs the ECU exposes (Mode 01)
+- **DTCs** — confirmed, pending, and permanent trouble codes (Modes 03 / 07 / 0A), each decoded into the standard J2012 description; freeze-frame snapshot is read when there's at least one confirmed DTC (Mode 02)
+- **Monitors** — supported on-board diagnostic monitor IDs (Mode 06)
+
+Results appear in two sections on the Inspect tab:
+
+- **Discovery** — a compact summary of how many ECUs answered the broadcast vs. the per-address physical probe
+- **Interrogation** — one row per discovered ECU showing identity, capability, DTC, and monitor status with at-a-glance status icons. Tap any row to expand the full per-ECU details
+
+A **Share** button at the end exports the full transcript as a `j1979_crawl_*.log` file. **Your VIN is encrypted in the saved log file** — only the developer holds the decryption key — so sharing the log doesn't disclose your vehicle identifier. The in-app view still shows the full VIN to you.
+
+### What the icons mean
+
+Status icons are consistent across both Discovery and Interrogation:
+
+- empty circle — pending
+- spinner — in progress
+- green check — completed cleanly
+- orange exclamation — completed but with DTCs found
+- gray minus — skipped (e.g. ECU rejected the request)
+- red triangle — failed
+
+A small `info.circle` button on the Interrogation header opens a help sheet explaining each column.
+
+### Live polling pauses during the scan
+
+Live data polling on the Dashboard pauses while a J1979 crawl is running, then resumes automatically when the crawl completes (or you cancel it). The Dashboard will go briefly blank during the crawl — that's expected.
+
 
 ---
 ## Build 45 — Faster startup on partial-response ICCUs, ICCU panel cleanup, headlight indicator hidden on 2025 Ioniq 5
