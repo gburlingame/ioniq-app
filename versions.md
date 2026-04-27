@@ -7,6 +7,41 @@ nav_order: 4
 # Version History
 
 ---
+## Build 48 — Climate section, regen indicator on RPM gauges
+
+NOTE TO TESTERS: The new "Climate" section appears on the Dashboard between Overview and Charging. If you've previously customized your section order, the new section will appear at the bottom by default — you can re-order it from Settings. If you find the AAT (outside) reading drifts from what your car's dashboard shows, that's expected: the app reads the raw sensor while the cluster applies its own filtering.
+
+### New "Climate" section on the Dashboard
+
+A new section between Overview and Charging shows three live cabin readings, all from the HVAC ECU:
+
+- **AAT Sensor** — outside-air temperature (formerly the "Outside" chip in the Overview section, now relabeled and moved here).
+- **IAT Sensor** — interior cabin-air temperature.
+- **Relative Humidity** — cabin relative humidity, as a percentage.
+
+Each chip shows `--` until the first valid reading arrives. Tap "What's AAT, IAT, and RH?" below the chips for a short explanation of each value, including a note that AAT may not match the outdoor temperature shown on the car's dashboard — AAT is a raw sensor reading, while the cluster applies its own adjustment.
+
+### CarPlay: "Outside Temp" replaced by a "Climate" chip
+
+On the Driving and Charging tabs, the "Outside Temp" chip has been renamed to "Climate" and now displays three rows:
+
+- AAT: outside air
+- IAT: cabin air
+- RH: relative humidity
+
+Same chip footprint, three values instead of one. The labels (AAT, IAT, RH) are small and grey, the values are bold, and the units use the same proportions as the 12V chip.
+
+### CarPlay: Regen indicator on the RPM gauges
+
+The RPM gauges on the Driving tab now show **green text in the center when the battery is regenerating** (current flowing from the motors back into the pack), and white text when motoring. The colored ring around the gauge still reflects RPM magnitude (green/yellow/orange).
+
+Suggested by a tester — thanks for the idea!
+
+### Smaller polish
+
+- Info buttons (Climate, Battery Health, Battery Odometer) are now system blue instead of grey so they're clearly tappable. The orange ⓘ in the ECU status panel is unchanged because it signals a problem rather than a tap target.
+
+---
 ## Build 47 — Smoother battery preconditioning countdown
 
 NOTE TO TESTERS: If you precondition your battery before a DC fast-charge session, please watch the new "Estimated time to 70°F" countdown — both during preconditioning and as the pack approaches 70°F (21°C). Let me know how the descent feels and whether the end-of-session timing matches what you observe.  I would very much like to collect full diagnostic logs for entire pre-conditioning cycles to help tune the algorithm -- thanks to TheIoniqGuy for supplying log data!
