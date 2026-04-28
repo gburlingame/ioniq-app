@@ -7,6 +7,51 @@ nav_order: 4
 # Version History
 
 ---
+## Build 49 — Curated DID Scan, ECU Scanner overhaul, J1979 share card
+
+NOTE TO TESTERS 1: I think we're getting close to the first release candidate -- a new issue with 2026 Ioniq 5's might delay things a bit - looks like Hyundai move the VCMS to another address.
+NOTE TO TESTERS 2: The Parking section and CarPlay parking tab are temporarily hidden in this build while we polish the app for its first public release. The underlying mapping work is preserved and will return in a follow-up build.
+
+### New tool: Curated List DID Scan
+
+Settings → Diagnostics → **Curated List DID Scan**.
+
+Pick a saved Complete-ECU-Scan log, curate which DIDs you want to investigate, then capture up to three labeled snapshots (A/B/C) under different physical states — for example: door closed, door open, door closed again. The diff view buckets results into:
+
+- **Gold** — bytes that round-trip A==C ≠ B (strong evidence of a state signal). Expandable to bit-level decomposition.
+- **Other change** — bytes that changed but didn't round-trip cleanly.
+- **Static** — bytes that never changed.
+- **Missing** — DIDs that errored in some snapshot.
+
+Saves a `curated_scan_*.json` archive plus a sibling `.md` summary to Documents (visible via the Files app and ShareLink).
+
+### ECU Scanner — rewritten end-to-end
+
+The 0x700–0x7FF discovery scan is now reliable, fast, and substantially more informative per ECU. On a 2024 Ioniq 5 it consistently finds all 38 ECUs on the bus.
+
+### Complete ECU Scan — in-progress UI redesigned for in-car readability
+
+Big circular progress gauge with the percent in the middle and the current DID below it. Elapsed and ETA are now side-by-side labeled tiles. The Found DIDs list moved into a collapsible disclosure group. Progress is derived from the actual DID being scanned, so the bar can no longer exceed 100%, and on resume the gauge immediately reflects real progress.
+
+### J1979 crawler — styled PNG share card
+
+The share button now exports a styled PNG report card (matching the ICCU share card style) instead of a raw `.log` file. The card includes:
+
+- Vehicle context (model / year / variant / odometer when available)
+- Crawl Summary (Started, Duration, Outcome, ECUs found, Discovery, DTCs rollup)
+- A per-ECU panel for every interrogated ECU showing the four bucket-status chips (Identity / Capabilities / DTCs / Monitors), CAL-IDs, Mode 01 PID counts, Mode 06 MID counts, and any confirmed/pending/permanent DTCs
+
+VIN is intentionally omitted from every panel so the card can be shared publicly.
+
+### J1979 crawler — diagnostic logging integration
+
+Diagnostic logging now flows into your normal diagnostic log (when diagnostic logging is on) instead of producing a dedicated per-crawl `.log` file. When diagnostic logging is off, a J1979 crawl leaves no on-disk trace at all. Removes the "mystery file" friction.
+
+### Parking sensors hidden for now
+
+The experimental Dashboard "Parking" section and CarPlay parking tab are turned off in this build while we get the rest of the app ready for its first public release. Underlying mapping work is preserved and will re-enable in a follow-up.
+
+---
 ## Build 48 — Climate section, regen indicator on RPM gauges
 
 NOTE TO TESTERS: The new "Climate" section appears on the Dashboard between Overview and Charging. If you've previously customized your section order, the new section will appear at the bottom by default — you can re-order it from Settings. If you find the AAT (outside) reading drifts from what your car's dashboard shows, that's expected: the app reads the raw sensor while the cluster applies its own filtering.
