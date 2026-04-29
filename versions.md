@@ -7,6 +7,17 @@ nav_order: 4
 # Version History
 
 ---
+## Build 51 — 2026 Ioniq 5 charging fix - part 2
+
+Build 51 fixes the underlying issue in how the app loads addresses from the registry. With this build, 2026 owners should see charging-state detection, EVSE info, and Control Pilot duty cycle all working when plugged in.
+
+### What this fixes
+
+On 2026 cars, the Scan Status panel on the Dashboard was showing 14/14 DIDs found instead of the expected 17 — VCMS was silently being dropped at registry-load time. Build 51 makes the per-vehicle registry the single source of truth for ECU addresses, with regression tests that prevent this class of bug from recurring.
+
+No changes to 2022–2025 Ioniq 5 behavior — those registries already use the canonical addresses and are unaffected.
+
+---
 ## Build 50 — 2026 Ioniq 5 charging support
 
 Hyundai moved the VCMS (Vehicle Charging Management System) ECU to a new CAN bus address starting with the 2026 model year, and the app was still polling the 2024-era address. Build 50 ships a per-model-year registry for 2026+ that points the charging signals at the correct location.
