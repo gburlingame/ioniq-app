@@ -66,6 +66,6 @@ A: The adapter draws a small amount of power from the 12V battery when plugged i
 
 ## Links
 
-* [Ioniq 5 Diagnostics Home](.)
+* [IONIQ 5 Companion Home](.)
 * [Privacy Policy](privacy)
 * [Version History](versions)

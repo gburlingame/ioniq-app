@@ -10,13 +10,13 @@ nav_exclude: true
 
 # Integritetspolicy
 
-**Senast uppdaterad: 3 april 2026**
+**Senast uppdaterad: 29 april 2026**
 
-Ioniq 5 Diagnostics ("appen") utvecklas av Greg Burlingame. Denna integritetspolicy beskriver hur appen hanterar dina data.
+IONIQ 5 Companion ("appen") utvecklas av Greg Burlingame. Denna integritetspolicy beskriver hur appen hanterar dina data.
 
 ## Datainsamling
 
-Ioniq 5 Diagnostics samlar **inte** in, överför eller säljer några personuppgifter till tredje part. Appen innehåller ingen analys, reklam eller spårning av något slag.
+IONIQ 5 Companion samlar **inte** in, överför eller säljer några personuppgifter till tredje part. Appen innehåller ingen analys, reklam eller spårning av något slag.
 
 ## Data som lagras på din enhet
 

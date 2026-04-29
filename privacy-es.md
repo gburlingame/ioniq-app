@@ -10,13 +10,13 @@ nav_exclude: true
 
 # Política de privacidad
 
-**Última actualización: 3 de abril de 2026**
+**Última actualización: 29 de abril de 2026**
 
-Ioniq 5 Diagnostics ("la aplicación") es desarrollada por Greg Burlingame. Esta política de privacidad describe cómo la aplicación maneja sus datos.
+IONIQ 5 Companion ("la aplicación") es desarrollada por Greg Burlingame. Esta política de privacidad describe cómo la aplicación maneja sus datos.
 
 ## Recopilación de datos
 
-Ioniq 5 Diagnostics **no** recopila, transmite ni vende datos personales a terceros. La aplicación no contiene análisis, publicidad ni rastreo de ningún tipo.
+IONIQ 5 Companion **no** recopila, transmite ni vende datos personales a terceros. La aplicación no contiene análisis, publicidad ni rastreo de ningún tipo.
 
 ## Datos almacenados en su dispositivo
 

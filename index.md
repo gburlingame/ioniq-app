@@ -4,7 +4,7 @@ title: Home
 nav_order: 1
 ---
 
-# Ioniq 5 Diagnostics
+# IONIQ 5 Companion
 
 A real-time diagnostics app for the Hyundai Ioniq 5. Connect an ELM327-compatible Bluetooth OBD-II adapter to monitor your battery, charging sessions, temperatures, and more — right from your iPhone or CarPlay.
 

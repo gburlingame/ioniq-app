@@ -1,6 +1,6 @@
-# Ioniq 5 Diagnostics
+# IONIQ 5 Companion
 
-Support site for the Ioniq 5 Diagnostics iOS app.
+Support site for the IONIQ 5 Companion iOS app.
 
 - [Home](https://www.theburl.com/ioniq-app/)
 - [Support](https://www.theburl.com/ioniq-app/support)

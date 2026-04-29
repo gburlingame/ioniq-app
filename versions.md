@@ -409,7 +409,7 @@ The Dashboard has a new collapsible **ICCU** section showing decoded identificat
 
 CarPlay gets a new **ICCU** row in the Status tab with the same information in a driver-appropriate 10-row detail view.
 
-From the iOS ICCU section, a new Share button exports a **1080×1350 branded PNG card** suitable for posting to social media or sharing with other testers. The card leads with your vehicle identity (model, year, variant, odometer), lists the ICCU fields, and carries a "Report prepared by Ioniq 5 Diagnostics" badge with a UTC timestamp. Dark aesthetic over a blurred app-icon background. Files save as "ICCU details - YYYY-MM-DD HH-mm-ss.png".
+From the iOS ICCU section, a new Share button exports a **1080×1350 branded PNG card** suitable for posting to social media or sharing with other testers. The card leads with your vehicle identity (model, year, variant, odometer), lists the ICCU fields, and carries a "Report prepared by IONIQ 5 Companion" badge with a UTC timestamp. Dark aesthetic over a blurred app-icon background. Files save as "ICCU details - YYYY-MM-DD HH-mm-ss.png".
 
 ### Multi-Frame Reliability
 

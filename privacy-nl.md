@@ -10,13 +10,13 @@ nav_exclude: true
 
 # Privacybeleid
 
-**Laatst bijgewerkt: 3 april 2026**
+**Laatst bijgewerkt: 29 april 2026**
 
-Ioniq 5 Diagnostics ("de app") is ontwikkeld door Greg Burlingame. Dit privacybeleid beschrijft hoe de app met uw gegevens omgaat.
+IONIQ 5 Companion ("de app") is ontwikkeld door Greg Burlingame. Dit privacybeleid beschrijft hoe de app met uw gegevens omgaat.
 
 ## Gegevensverzameling
 
-Ioniq 5 Diagnostics verzamelt, verzendt of verkoopt **geen** persoonlijke gegevens aan derden. De app bevat geen analyses, advertenties of tracking van welke aard dan ook.
+IONIQ 5 Companion verzamelt, verzendt of verkoopt **geen** persoonlijke gegevens aan derden. De app bevat geen analyses, advertenties of tracking van welke aard dan ook.
 
 ## Gegevens opgeslagen op uw apparaat
 

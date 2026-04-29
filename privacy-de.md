@@ -10,13 +10,13 @@ nav_exclude: true
 
 # Datenschutzrichtlinie
 
-**Zuletzt aktualisiert: 3. April 2026**
+**Zuletzt aktualisiert: 29. April 2026**
 
-Ioniq 5 Diagnostics ("die App") wird von Greg Burlingame entwickelt. Diese Datenschutzrichtlinie beschreibt, wie die App mit Ihren Daten umgeht.
+IONIQ 5 Companion ("die App") wird von Greg Burlingame entwickelt. Diese Datenschutzrichtlinie beschreibt, wie die App mit Ihren Daten umgeht.
 
 ## Datenerhebung
 
-Ioniq 5 Diagnostics erhebt, überträgt oder verkauft **keine** personenbezogenen Daten an Dritte. Die App enthält keinerlei Analysen, Werbung oder Tracking.
+IONIQ 5 Companion erhebt, überträgt oder verkauft **keine** personenbezogenen Daten an Dritte. Die App enthält keinerlei Analysen, Werbung oder Tracking.
 
 ## Auf Ihrem Gerät gespeicherte Daten
 
