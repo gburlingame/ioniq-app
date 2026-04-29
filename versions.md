@@ -7,6 +7,31 @@ nav_order: 4
 # Version History
 
 ---
+## Build 52 — App rename and first-launch defaults polish
+
+Build 52 renames the app to **IONIQ 5 Companion** and sets smarter first-launch defaults. No diagnostic feature changes — this is a polish pass before wider release.
+
+### App renamed to IONIQ 5 Companion
+
+The Home Screen icon, app switcher, Settings entry, and Bluetooth permission prompt all now read **IONIQ 5 Companion**. Existing installs will pick up the new name on update — your saved data, app placement, and adapter pairings carry over unchanged.
+
+The bundle identifier and your in-app history are untouched, so this is a name-only change with no migration to think about.
+
+### Locale-aware unit defaults on first launch
+
+Previously the app defaulted everyone to °C / mi / psi. Build 52 reads your phone's locale once on first launch and picks defaults that match your location:
+
+- **US** — °F, miles, psi
+- **UK** — °C, miles, psi
+- **Continental Europe, Australia, Japan, etc.** — °C, kilometers, bar
+
+If you've already set Settings → Units to your preference, that choice is preserved — only fresh installs get the new defaults.
+
+### Dark mode is the new default appearance
+
+The app now defaults to Dark on first launch instead of Auto (follow system). If you've already picked Auto or Light in Settings → Appearance, your choice is unchanged.
+
+---
 ## Build 51 — 2026 Ioniq 5 charging fix - part 2
 
 Build 51 fixes the underlying issue in how the app loads addresses from the registry. With this build, 2026 owners should see charging-state detection, EVSE info, and Control Pilot duty cycle all working when plugged in.
