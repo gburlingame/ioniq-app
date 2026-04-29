@@ -7,6 +7,23 @@ nav_order: 4
 # Version History
 
 ---
+## Build 50 — 2026 Ioniq 5 charging support
+
+Hyundai moved the VCMS (Vehicle Charging Management System) ECU to a new CAN bus address starting with the 2026 model year, and the app was still polling the 2024-era address. Build 50 ships a per-model-year registry for 2026+ that points the charging signals at the correct location.
+
+### What should work in 2026 Ioniq 5
+
+- **Charging state detection** — the dashboard now correctly recognizes when AC or DC charging is active.
+- **EVSE info** — the dynamic CarPlay charging tab populates with EVSE max voltage, max current, present voltage/current, and max power.
+- **Control Pilot duty cycle** — the J1772/CCS PWM signal that advertises the EVSE's max-current capability.
+
+No changes to 2022–2025 Ioniq 5 behavior. 2024 RWD and AWD LR continue to use their existing registries; 2025 single-year registry preserved verbatim. Same DIDs, same signal byte offsets, same polling intervals — only the bus address changed for 2026+.
+
+### Tester credit
+
+Thanks to tester Jeff for providing the 2026 ECU bus scan + targeted DID probe against the new address that confirmed the data layout migrated unchanged with the move. Without his diagnostic data, this fix wouldn't have been possible.
+
+---
 ## Build 49 — Curated DID Scan, ECU Scanner overhaul, J1979 share card
 
 NOTE TO TESTERS 1: I think we're getting close to the first release candidate -- a new issue with 2026 Ioniq 5's might delay things a bit - looks like Hyundai move the VCMS to another address.
