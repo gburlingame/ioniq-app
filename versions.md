@@ -7,7 +7,40 @@ nav_order: 4
 # Version History
 
 ---
-## Build 52 — App rename and first-launch defaults polish
+## Build 53 — Brake Light Indicator setting, Curated DID Scan sharing, app polish
+
+### Brake Light Indicator setting
+
+Settings now has a **Dashboard** section with a **Brake Light Indicator** option. Three modes:
+
+- **Off** — the brake chip is hidden entirely.
+- **Red Background** — full red flash on brake press (Build 52 behavior).
+- **Red Text** — only the value "On" shows in red, no background flash.
+
+The new default is **Red Text**. If you preferred the Build 52 flash behavior, switch to **Red Background** under Settings → Dashboard. The Dashboard section only appears on cars whose registry decodes a brake-light signal — older registries hide it automatically.
+
+### Curated DID Scan sharing made easier
+
+Previously, sending a full ECU scan to another tester meant routing through Files → On My iPhone → Ioniq 5 Diagnostics. That dance is gone.
+
+**Sender side.** In the Curated Scan source picker, long-press (or left-swipe) a row and pick **Share findings…**. The share sheet opens with a small `.iqlist` file pre-attached — pick AirDrop, Messages, Mail, etc. The shared file contains just the POSITIVE DIDs from that scan plus minimal metadata (capture date, app build, source ECU). The full scan log stays on your device.
+
+**Receiver side.** When a tester taps an `.iqlist` attachment in iMessage, Mail, or Files, iOS shows a Quick Look preview with the ECU name, DID count, capture date, sender's app build, and a horizontal preview of the first 12 DIDs. Tap the share icon in Quick Look's bottom toolbar and pick IONIQ 5 Companion to import — the file lands in Documents and the Curated Scan source picker opens with it at the top, ready to use.
+
+If you receive a scan with zero positives, you'll get a polite "no positives to share" alert instead of an empty file.
+
+### Settings copy updates
+
+The advanced diagnostics-unlock dialog (the one that pops after the 5-tap on Build) now reads **"Enable Advanced Diagnostics"** instead of the older DID-Scanner-specific phrasing. The matching re-hide dialog reads **"Hide Advanced Diagnostics"**. Both translated across all six locales.
+
+### First-launch folder visibility
+
+iOS hides empty app Documents folders from Files → On My iPhone, which led to "the app doesn't have a folder, did the install break?" confusion on fresh installs. Build 53 writes a one-line `README.txt` on first launch describing what the folder is for, so the IONIQ 5 Companion folder shows up in Files immediately. The file is only written if absent — your edits or deletions stick across launches.
+
+---
+## Build 52 — App rename and first-launch defaults polish — first App Store release (v1.0)
+
+*First public App Store release — version 1.0.*
 
 Build 52 renames the app to **IONIQ 5 Companion** and sets smarter first-launch defaults. No diagnostic feature changes — this is a polish pass before wider release.
 
