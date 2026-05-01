@@ -7,6 +7,30 @@ nav_order: 4
 # Version History
 
 ---
+## Build 55 — Adapter Quiet Check, common-DTC reassurance
+
+### Adapter Quiet Check
+
+A new tool under **Settings → Diagnostics → Adapter Quiet Check** answers a question that's surprisingly common: "is another app talking to my OBD adapter at the same time as IONIQ 5 Companion?"
+
+iOS lets multiple apps share one BLE connection to the same peripheral, and OBD adapters weren't designed for that. When two apps both send AT commands to the same adapter, they corrupt each other's session — symptoms include missed multi-frame responses, garbled DIDs, and scans that take far longer than they should. Until now there was no way to confirm whether your symptoms came from foreign-app interference or something else.
+
+Tap **Run Quiet Check** and accept the consent prompt (the adapter is briefly put in a special listening mode and re-initialized when the test ends). The app pauses its own polling and listens silently for 60 seconds for any byte the adapter shouldn't be sending.
+
+- **PASS** — no foreign traffic detected; the adapter is connected only to this app.
+- **FAIL** — another app is sharing the adapter. The first frames captured are shown as decoded hex with timestamps, useful for support cases. Force-quit other diagnostic apps (Carista, OBDeleven, OBD Fusion, Torque, Bimmercode, etc.), unplug-replug the adapter, and re-run.
+
+The last 5 runs are kept in the history list on screen. Designed primarily as a forensic artifact — when you suspect interference, this gives a one-tap yes/no answer.
+
+### "Common Hyundai code" reassurance
+
+A J1979 scan on virtually every Hyundai EV reports a permanent diagnostic code, **P0C17** (Drive Motor Position Sensor Circuit), on the drive motor controller. This code does not represent a real fault — it's a self-test artifact that the controller never fully clears, and permanent codes are sticky by design.
+
+When your scan completes and finds P0C17 in the permanent slot, IONIQ 5 Companion now shows a brief explanation of why it's normal, when it would actually warrant attention (driving symptoms like stuttering, limp mode, or dashboard alerts), and a "Don't show this again" preference. The DTCs help bubble in the interrogation table also picks up a short note so users who haven't run a scan yet can read the explanation.
+
+The reassurance is restricted to the **permanent** code class only — a confirmed or pending P0C17 would represent an active fault and is not suppressed.
+
+---
 ## Build 53 — Brake Light Indicator setting, Curated DID Scan sharing, app polish
 
 ### Brake Light Indicator setting
