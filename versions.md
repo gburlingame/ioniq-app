@@ -7,6 +7,49 @@ nav_order: 4
 # Version History
 
 ---
+## Build 56 — 12V telemetry, CarPlay Driving tab redesign, IONIQ 6 MY2023 coverage, IONIQ 5 N coverage
+
+### Auxiliary battery telemetry
+
+A new collapsible **12V** panel on the Dashboard surfaces the auxiliary battery's full state, sourced from a slow-poll ICCU detail set: state of charge, voltage, current (with a charging / discharging label), and temperature — plus the DC-DC converter's temperature, output voltage, output current, and HV pack input voltage.
+
+The same data feeds a redesigned CarPlay 12V chip on the Driving tab. A small SoC arc sits at the top with the percentage in the center; voltage and current are stacked underneath. The current value follows the same negative-for-charging sign convention as the HV pack chip across the row, so the row reads consistently.
+
+The legacy single-voltage 12V chip on the Dashboard Overview section is removed in favor of this richer panel.
+
+### CarPlay Driving tab reorganization
+
+The Driving tab is reorganized for at-a-glance scanning. Row 1 groups battery-health telemetry — **Pack SoC**, **Pack Power**, **Odometer**, **12V**, **Cell Δ**, motor RPM, headlights. Row 2 groups motor and environmental chips — **Tires**, **Climate**, **Pre-Condition**, **Battery Heater**, **Battery Temp**, motor RPM, brake light.
+
+A new **Tires** chip replaces the standalone Energy chip (now redundant since the SoC chip shows kWh remaining underneath the percentage). Four corner tiles show pressure and temperature for FL/FR/RL/RR, color-graded by status against your registry's pressure thresholds.
+
+RWD cars get a new **One Motor** chip — an earthy ocean-to-land gradient backdrop with a centered peace-sign glyph — where the front-motor RPM lives on AWD. Celebrates the simpler single-motor drivetrain.
+
+The Pack chip turns green when energy is flowing into the pack (charging or regenerative braking); white otherwise.
+
+The Pre-Condition chip on Driving now shows a stacked composition when active: **Active** label, **Time to 21°C / 70°F** caption (locale-aware), and the calculated ETA — same formatting as the Charging tab.
+
+Two row 1 chips were renamed: **SoC** → **Pack SoC** (disambiguates from the new aux SoC reading in the 12V chip), and **Pack** → **Pack Power**.
+
+### Ioniq 6 MY2023 coverage
+
+The Ioniq 6 RWD LR and AWD LR registries now correctly cover model year 2023. Previously, MY2023 VINs (year code `P`) fell through to a default registry and could be decoded as the wrong drivetrain — first surfaced by a tester whose 2023 RWD car was being read as AWD.
+
+### Ioniq 5N coverage
+
+Added new decoding logic and registry entries for the IONIQ 5 N
+
+### Localization
+
+CarPlay Driving tab chip titles **Front RPM**, **Rear RPM**, and **One Motor** are now localized in German, Spanish, French, Dutch, and Swedish. Previously rendered in English regardless of the user's app-language setting because the strings were passed as raw literals.
+
+### Other refinements
+
+- CarPlay climate chip now draws a thin divider between the outdoor (AAT) and indoor (IAT) rows for clearer separation.
+- Dashboard motor-RPM gauge no longer renders the value with a thousands separator (e.g. "3200" instead of "3,200").
+- CarPlay SoC chip auto-shrinks the kWh-remaining text if it would impinge on the colored ring — protects layout against future larger battery packs.
+
+---
 ## Build 55 — Adapter Quiet Check, common-DTC reassurance
 
 ### Adapter Quiet Check
