@@ -46,7 +46,7 @@ If you're experiencing connection issues or unexpected behavior:
 ## Frequently Asked Questions
 
 **Q: Which OBD-II adapters work with this app?**
-A: Any ELM327-compatible Bluetooth LE adapter. We recommend the Veepeak OBDCheck BLE+. Make sure it's Bluetooth, not Wi-Fi.
+A: Any ELM327-compatible Bluetooth LE adapter. Make sure it's Bluetooth, not Wi-Fi.
 
 **Q: My adapter isn't connecting.**
 A: Close any other OBD apps (Torque, Car Scanner, Carista, etc.) — ELM327 adapters only allow one connection at a time. If that doesn't help, unplug the adapter from the OBD port, wait 10 seconds, and plug it back in.
