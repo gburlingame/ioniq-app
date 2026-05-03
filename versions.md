@@ -7,6 +7,37 @@ nav_order: 5
 # Version History
 
 ---
+## Build 57 — Curated Scan workflow, CarPlay Scan Status fixes, Experimental Parking Sensors (2022-2024 IONIQ 5)
+
+**NOTE TO TESTERS:** Please report anything abnormal — I'm hoping to release version 1.1 to the App Store tomorrow or Tuesday. Please make sure the expanded 12V/Aux features are working well for you.
+
+### Curated Scan workflow
+
+Complete ECU Scan and Curated Scan now share a lighter user-facing artifact: the **curated list** (`.iqlist`). When a Complete ECU Scan finishes, the app auto-generates an `.iqlist` next to the heavier scan log, and the completion screen's Share button now shares that curated list rather than the full log.
+
+The Curated Scan picker is updated to match. The picker lists `.iqlist` files exclusively, and copy is updated throughout: navigation title becomes "Pick a curated list", and the empty state explains how to create one (run a Complete ECU Scan, or copy an `.iqlist` into the IONIQ 5 Companion folder via the Files app).
+
+The underlying scan log is still written to Documents and accessible via Files for forensic / triage use; only the user-facing flow changes.
+
+### CarPlay Scan Status fixes
+
+**Fixed:** tapping an ECU row in Scan Status no longer shows an infinite spinner. The rows are informational and now indicate that with no disclosure chevron and an immediate tap response.
+
+**Fixed:** the Scan Status summary now reads "x/y DIDs" instead of "x/y ECUs". The number was always a count of polled DIDs (typically ~20 across 8 ECUs).
+
+### J1979 common-DTC notice opens larger
+
+The post-scan notice that appears when a known-benign permanent code is detected now opens at full sheet height instead of a half-sheet. Several testers reported the body text was off the screen and could be missed.
+
+### Experimental Parking Sensors (only available on 2022-2024 IONIQ 5)
+
+A new toggle in **Settings → Experimental Features → Parking sensors** re-enables the Dashboard parking panel and CarPlay parking tab on 2022-2024 IONIQ 5 registries. The Experimental Features section is itself gated under the 5-tap "Advanced Diagnostics" unlock, and the toggle only appears when the active vehicle's registry has parking-sensor coverage. Footer warns that readings may be inaccurate; with the toggle off, the Dashboard panel is hidden and the CarPlay tab is omitted.
+
+### Complete ECU Scan reliability on clone adapters
+
+Relaxed an internal first-frame timeout from 32 ms to 128 ms for the fast-scan path. A tester's 2026 IONIQ 5 BCM scan on a clone "ELM327 v2.2" was aborting partway through because the adapter's RX path needed slightly more settle time after large multi-frame batches. The relaxed ceiling adds margin without affecting normal scan speed — successful responses return as fast as ever. Cost on clone adapters is roughly 14 minutes of additional time across a full 65,536-DID scan, paid only on legitimately empty regions.
+
+---
 ## Build 56 — 12V telemetry, CarPlay Driving tab redesign, IONIQ 6 MY2023 coverage, IONIQ 5 N coverage
 
 ### Auxiliary battery telemetry
