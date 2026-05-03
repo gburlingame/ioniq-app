@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Version History
-nav_order: 4
+nav_order: 5
 ---
 
 # Version History

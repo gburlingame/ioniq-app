@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Tester Guide
-nav_order: 5
+nav_order: 6
 ---
 
 # Tester Guide: Capturing Diagnostics
