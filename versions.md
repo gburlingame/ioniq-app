@@ -7,6 +7,44 @@ nav_order: 5
 # Version History
 
 ---
+## Build 58 — Welcome-screen shortcut for already-connected adapters, 2025 headlight detection (thanks Tom!), dashboard polish (thanks Bjorn!), fixed some Advanced Diagnostic tools/polish
+
+**NOTES TO TESTERS:**
+
+1. Please report anything abnormal — I'm calling this RC1 (release candidate 1) for Version 1.1 App Store release.
+2. All 2025 IONIQ 5 owners — please, please test out your headlights and let me know if they are working: manually on, auto on, high beams and low beams (no DRL yet — we'll go for that at some point).
+3. Let me know if you see anything strange if you have Dynamic Type cranked up.
+
+### Welcome-screen shortcut for already-connected adapters
+
+If your iPhone already has an OBD-II adapter connected via another app (or a system-level Bluetooth pairing), the Welcome screen now offers a one-tap shortcut instead of the generic 1-2-3 tutorial. Each detected adapter shows up as a full-width prominent button — tap the adapter name to use it. Below the panel, a smaller grey "Set up a different adapter" button takes you back to the regular flow.
+
+A soft tip on the shortcut panel notes that running multiple OBD-II apps at the same time can degrade the experience for both apps. If you tap "Set up a different adapter" by mistake, a "Show already connected adapters" button appears at the top of the regular tutorial so you can restore the discovery list — dismissing is now a navigation action, not a permanent setup commitment.
+
+Discovery only runs when no adapter is saved; if you already use IONIQ 5 Companion regularly, nothing about your launch experience changes.
+
+### 2025 IONIQ 5 — headlight detection (all variants)
+
+Low-beam and high-beam indicators now light up on the 2025 IONIQ 5 (RWD LR, AWD LR, RWD SR, IONIQ 5 N). The 2025 firmware moved the headlight signals to a different DID than the 2024 mapping uses, leaving them silent until now. Mapping verified against five physical states from Tom's tests (auto-off, auto-on, manual low ×2, manual high). 2024 IONIQ 5 cars are unchanged in this build.
+
+### Dashboard — Auxiliary Battery SoC chip refinement
+
+The 12V auxiliary-battery SoC mini-gauge in the Low Voltage section was rendering badly at larger Dynamic Type sizes (the percentage was overflowing the small circular plot). The percentage now stays size-stable inside the plot regardless of your text-size preference. The "State of Charge" descriptor moved out of the small inner plot — where it was crowding the percentage — to a chip-style caption below the circle.
+
+### Dashboard — Motor RPM gauges
+
+The "rpm" unit moved out of the inside of each circular plot to the bottom label, which now reads "Front Motor (rpm)", "Rear Motor (rpm)", or "Motor (rpm)" depending on drivetrain. The arc stroke was thickened so the gauges read with more visual weight and the value sits as the single focal point inside each circle.
+
+### Advanced Diagnostics
+
+Renamed all Advanced Diagnostics tools, added brief descriptions of what each one is used for including Reset Onboarding. Adding a confirmation dialog if Reset Onboarding is pressed to guard against an accidental press.
+
+### ABC test with Curated DID List — Share button fix
+
+Share buttons now appear in two places once all three snapshots (A/B/C) are captured: a new footer button on the active view, and the existing toolbar button on the Diff view. Both hand the JSON archive to the iOS share sheet so testers can email the artifact back consistently. Fixes a prior bug where the Diff-view Share button never appeared because it was bound to a file URL that was nil until Done dismissed the whole sheet.
+
+
+---
 ## Build 57 — Curated Scan workflow, CarPlay Scan Status fixes, Experimental Parking Sensors (2022-2024 IONIQ 5)
 
 **NOTE TO TESTERS:** Please report anything abnormal — I'm hoping to release version 1.1 to the App Store tomorrow or Tuesday. Please make sure the expanded 12V/Aux features are working well for you.
