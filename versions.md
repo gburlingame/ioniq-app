@@ -7,6 +7,42 @@ nav_order: 5
 # Version History
 
 ---
+## Build 59 — Curated Scan stability fix + checklist redesign, swipe-to-confirm for already-connected adapters, polish
+
+**NOTES TO TESTERS:**
+
+1. This is RC2 for the Version 1.1 App Store release. Please report anything abnormal.
+2. 2026 IONIQ 5 owners — please test your low-beam and high-beam indicators. The 2026 mapping is a calculated bet based on our success with 2025. Please test both low beams and high beams, do the app and CarPlay follow the state of the headlights? Please, please let me know!
+3. Anyone with a VLink-branded adapter — confirm it now appears in the scan list without removing the name filter
+
+### ABC test with Curated DID List — stability fix and checklist redesign
+
+The biggest fix in this build. The Curated Scan no longer runs a continuous live-preview polling task in the background. Each Capture A/B/C now runs a single bounded polling cycle (~1-3s on a healthy bus). This eliminates the orphan-task class of bug that killed Tom's Build 57 twice with `0x8BADF00D` watchdog hangs after he turned off the OBD adapter and car.
+
+The active view has been redesigned as a checklist. Each row (Capture A / Capture B / Capture C) shows a Begin button when it's next, a spinner with a small cancel xmark while it's in flight, or a green check seal when committed. The bottom "Begin Capture" button is gone — you advance by tapping each row's Begin in sequence. When Capture C commits, the view auto-pushes you to the renamed Curated Scan Results view.
+
+A new instructions banner up top counters a recurring misconception: each capture represents one steady state of the car (e.g. "lights off"), not a transition between states. Below the captures, a "Latest Values" section shows the most recent snapshot's values dimmed between captures and lit up to full opacity as a capture fills in.
+
+### Curated Scan Results — Share + Done as bottom action row
+
+The Results view (was "Diff") now has a clean bottom action row with Share and Done as equal-width prominent capsule buttons. Above them, a footnote with a folder icon points you at the on-device archive: "Results are saved to the IONIQ 5 Companion folder in the Files app." Done dismisses the entire flow back to Settings.
+
+### Complete ECU Scan completion screen — matching footer
+
+The Complete ECU Scan completion screen now uses the same bottom action row as the Curated Scan Results view: Share and Done as equal-width prominent capsule buttons, with the same Files-app footnote. The Share button now ships **both** the curated `.iqlist` artifact and the raw scan log — previously, a zero-positives scan had no way to share the raw log for triage.
+
+### Already-connected adapter — swipe-to-confirm reminder
+
+If your iPhone has an OBD-II adapter connected via another app, the Welcome screen's one-tap shortcut now opens a confirmation sheet before adopting. The sheet reminds you that OBD-II adapters can only talk to one app at a time, and asks you to slide a control from left to right to continue. A "Go Back" button below the slider returns you to the shortcut panel.
+
+Behind the scenes, adoption is also more resilient: if the iPhone has already torn down the prior app's connection by the time you swipe, the app now silently rescans for the adapter and reconnects, all under a single continuous "Connecting…" indicator. No more long blank "Connecting…" stalls.
+
+### VLink adapter detection
+
+Added "vlink" to the OBD adapter-name filter so VLink-family ELM327 adapters (without the trailing "er") show up in the scan list. Replaces the narrower "vlinker" entry; the hyphenated "v-link" entry is retained for adapters that brand with the dash.
+
+
+---
 ## Build 58 — Welcome-screen shortcut for already-connected adapters, 2025 headlight detection (thanks Tom!), dashboard polish (thanks Bjorn!), fixed some Advanced Diagnostic tools/polish
 
 **NOTES TO TESTERS:**
