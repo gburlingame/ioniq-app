@@ -7,6 +7,50 @@ nav_order: 5
 # Version History
 
 ---
+## Build 60 — CarPlay polish, Curated Scan flow fixes, adoption-modal first-tap bug fixed
+
+**NOTES TO TESTERS:**
+
+Headlights are verified working on 2026 IONIQ 5 -- thanks Jeff! This is RC3 for version 1.1, fixed a couple of bugs I found and some polish.
+
+### Adapter Reminder modal — first-tap dismiss bug fixed (for real this time)
+
+The first attempt at fixing the "Reminder modal flashes and dismisses on first tap" bug only addressed half the problem. The deeper cause was sheet-host stability inside a Form's conditional Section. Sheet attachment has been lifted up to a stable parent above the Form. First presentation is now reliable.
+
+### Curated Scan — flow & navigation fixes
+
+Three navigation issues fixed:
+
+- **Done button on Results now works** — previously a dead no-op because its `dismiss()` was captured 2 nav levels deep. Results is now a stage swap rather than a nav-push, so Done has a single level to pop.
+- **No more system back arrow on Results** — Results used to push on top of the still-running active screen, so back returned to a live session. Now Active and Results swap in place; nothing to back out to.
+- **Curate DIDs back arrow returns to Pick a curated list** instead of dismissing the entire flow back to Settings.
+
+### Curated Scan — Abort replaces View Results / Share / Done on active screen
+
+Mid-session those buttons don't make sense — the run isn't finished. Replaced with a single full-width red Abort button that opens a confirmation dialog ("Abort capture session? This will end the current A-B-C session.") before exiting. Auto-advance to Results on Capture C commit is unchanged.
+
+### Curated Scan — preflight buttons restyled
+
+Start button on Curate DIDs now renders green-on-white to signal "ready to commit forward" — previously read as low-contrast accent text in dark mode. Select all / Deselect all buttons in the header are now bordered capsules. Confirm on the Label Capture popup gets the same treatment with a disabled state until the label has content. Cancel button on Pick a curated list removed — back chevron is sufficient.
+
+### Curated Scan — Latest Values column alignment
+
+Rows whose byte responses fit on one line appeared further indented than rows whose responses wrapped to two lines. Fixed-width DID column + value flowing leading from a consistent x. First byte of every row now sits in the same column for easy scanning.
+
+### CarPlay — tire pressure tile shape
+
+Tile shapes changed from very-slightly-rectangular (0.40w × 0.42h) to perfect squares — the 2% aspect mismatch read as accidental. Each tile's outer corner (the one facing the chip frame) now rounds at a radius concentric with the chip's own outer corner so the curves run visually parallel.
+
+### CarPlay — battery row chips visually unified
+
+Several chips got proportional tuning so they read as a coherent set:
+
+- **12V chip recomposed** — circular SoC arc replaced with a horizontal pill bar (same low-alpha track + filled deficit visual, stretched into a line). V on top, SoC bar in middle, I on bottom, with hairline dividers between rows. Voltage and current font sizes bumped to match the Pack chip.
+- **Battery Heater Temp / Battery Temp** — fixed value text intruding into the bottom of the sparkline plot. Battery Temp font bumped to match Heater Temp.
+- **Pack Power chip** — added subtle grey hairlines between V/A/kW rows matching the Climate chip's divider style; chip now fills its tile more densely.
+
+
+---
 ## Build 59 — Curated Scan stability fix + checklist redesign, swipe-to-confirm for already-connected adapters, polish
 
 **NOTES TO TESTERS:**
