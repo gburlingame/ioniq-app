@@ -7,6 +7,37 @@ nav_order: 5
 # Version History
 
 ---
+## Build 61 — ICCU softening, Advanced Tools opened up to all, true cold-launch Reset Onboarding, Curated Scan Start fix
+
+**NOTES TO TESTERS:** Unfortunately, I am not calling this RC4 -- I know there are some things in this build I need to fix in the Advanced Tools Section.   I needed to get this build out to unlock some additional testing.
+
+### Curated Scan — green Start button regression fixed
+
+Build 60 introduced a regression: tapping the green **Start** button on the Curate DIDs screen did nothing. The cause was the new nav-stack rework which still needs work.
+
+### Advanced Tools menu — unhidden for everyone
+
+The settings section formerly known as **Advanced Diagnostics** is renamed to **Advanced Tools** and is now visible to everyone — no 5-tap-on-Build unlock required. It contains DID Range Scan, ECU Finder, Create Curated DID List, ABC test with Curated DID List.  
+
+The 5-tap mechanic is still there but now gates only the **Experimental Features** section (currently the per-vehicle Parking sensors toggle on 2022-2024 IONIQ 5). Existing testers keep their Experimental unlock state.
+
+### Reset Onboarding — true in-process cold launch
+
+Previously, tapping Reset Onboarding cleared the onboarding flag and forgot the adapter, but the in-memory Bluetooth manager still remembered the previously-adopted peripheral via iOS's known-peripherals list — so the Welcome screen would immediately re-detect it. Now Reset Onboarding releases the old central manager and instantiates a fresh one (iOS binds known-peripheral history to the manager instance, so a new manager has no history), clears all transient discovery/observer state, and rebuilds the SwiftUI subtree so view-local state (sheets, nav stacks, timers) also resets. No app relaunch needed.
+
+### ICCU "fields not reported" notice — softened from warning to info
+
+Tester feedback flagged the prior orange warning banner ("X of Y fields unavailable") as alarming for what is in fact normal behavior — many ICCUs, factory and replaced, only respond to a subset of identification DIDs. The banner is now a soft blue informational hint with a lightbulb icon, copy reads "X of Y fields not reported", and tapping it expands the list of unresponsive DIDs **inline** with an animated chevron rotation rather than presenting a full-screen sheet which had no obvious way to exit.
+
+### IONIQ 6 RWD Standard Range — MY2023 coverage
+
+The IONIQ 6 Standard Range registry now correctly covers model year 2023. Previously a 2023 SR VIN fell through to the default registry. The Long Range variants already supported MY2023 since Build 56; this brings SR in line.
+
+### Internal — diagnostic instrumentation for Curated Scan polling-resume bug - KNOWN ISSUE
+
+A separate, intermittent bug — about 1 in 5 Curated Scans, polling silently fails to resume after pressing Done — has new `[POLL]` and `[CURATED]` log lines around `startPolling`/`stopPolling` and around `CuratedScanRunner.finish()`. No behavior change for users; if you reproduce the bug please share the log so we can pinpoint which of three candidate paths is silently bailing out.
+
+---
 ## Build 60 — CarPlay polish, Curated Scan flow fixes, adoption-modal first-tap bug fixed
 
 **NOTES TO TESTERS:**
