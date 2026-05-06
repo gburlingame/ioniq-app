@@ -7,6 +7,47 @@ nav_order: 5
 # Version History
 
 ---
+## Build 62 — Polling Paused state, diagnostic back-button guards, Curated Scan polish, Scan status panel change, updated brake light chip
+
+**NOTE TO TESTERS:** This is RC4 for Version 1.1 -- the issues identified yesterday have been fixed and verified (by me) -- please let me know if you run into any issues.
+
+### Polling Paused — new state across CarPlay and Dashboard
+
+While a diagnostic feature has paused live data, the BLE adapter status now correctly reads **Polling paused** with a pause icon — in CarPlay's top status row, in the Scan Status row, and on the iPhone Dashboard's adapter panel. Previously every screen incorrectly said **Reading**, implying live polling was happening. Covers all seven features that pause polling: Curated Scan, Complete ECU Scan, Adapter Quiet Check, J1979 Scanner, DID Range Scan, ECU Finder, ECU Identifier.
+
+### Curated Scan — three polish fixes
+
+**Start button green from frame one.** The green Start button on the Curate DIDs screen used to render disabled-grey for about a second after each navigation push, then flip to green. It's now correctly green from the first frame.
+
+**Abort confirmation no longer shows a stray pointer.** The "Abort capture session?" confirmation triggered by the back arrow during a capture used to render with a directional pointer arrow on iPad/Catalyst that didn't fit the context. It now uses a clean centered alert on every device.
+
+**Done lands cleanly back at Settings.** Tapping Done on the Results screen used to occasionally land on a brief blank screen with a back chevron before reaching Settings. The pop is now clean, and Done feels instant because the cleanup runs in the background.
+
+### Adapter Quiet Check — polish pass
+
+The mid-test Cancel Test button is gone. To abort a running test, tap the back chevron — a confirmation alert appears asking whether to abort. Once a test is done, the screen no longer shows a Run Again button; instead, navigating away and back always returns you to the same idle starting screen.
+
+### Diagnostic back-chevron confirmation guards
+
+DID Range Scan, ECU Finder, and Create Curated DID List now prompt for confirmation if you tap the back chevron mid-scan, instead of silently cancelling. Create Curated DID List uses **Stop** rather than **Abort** language to reflect that partial scans are saved and resumable.
+
+### J1979 Inspect — Start crawl correctly disabled during diagnostic pause
+
+The Start crawl button on the Inspect tab was incorrectly enabled during a paused window from another diagnostic. It's now correctly disabled with a "Polling paused" indicator until the other diagnostic finishes.
+
+### Battery-cooling Fan section — hidden where the underlying signal is wrong
+
+The Battery-cooling Fan section on the Dashboard previously showed two stuck-at-zero chips on every IONIQ 5 / 6 / 9. The section is now hidden on every supported vehicle until correct mappings are identified.
+
+### Scan Status panel — orange info badge removed
+
+The orange info-circle badge that appeared on the ICCU row of the Scan Status panel was reading as a warning for what is in fact normal behavior. The badge is removed; the panel now shows only the polling-readiness icons it exists for.
+
+### CarPlay brake-light "On" chip — point-source glow
+
+The brake-light "On" chip in CarPlay is restyled with a radial point-source glow (a smaller, more saturated lamp with a circular halo) instead of the prior flat top-down gradient — closer to how a real LED tail-lamp looks on a chip-sized surface.
+
+---
 ## Build 61 — ICCU softening, Advanced Tools opened up to all, true cold-launch Reset Onboarding, Curated Scan Start fix
 
 **NOTES TO TESTERS:** Unfortunately, I am not calling this RC4 -- I know there are some things in this build I need to fix in the Advanced Tools Section.   I needed to get this build out to unlock some additional testing.
