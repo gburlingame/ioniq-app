@@ -24,7 +24,7 @@ You can also [open an issue on GitHub](https://github.com/gburlingame/ioniq-app/
 The app works with any ELM327-compatible Bluetooth Low Energy (BLE) adapter. Tested adapters include:
 
 * **Veepeak OBDCheck BLE**
-* **VGate vLinker MC+**
+* **Vgate vLinker MC+**
 * **Vgate iCar Pro**
 * **OBDLink CX**
 * **Carista**
