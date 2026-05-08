@@ -49,21 +49,27 @@ If you're experiencing connection issues or unexpected behavior:
 A: Any ELM327-compatible Bluetooth LE adapter. Make sure it's Bluetooth Low Energy (BLE), and not classic Bluetooth or Wi-Fi.
 
 **Q: My adapter isn't connecting.**
+
 A:   First, verify that you are using a ELM327-compatible Bluetooth LE adapter.  Next, check to make sure that Bluetooth permissions are enabled for IONIQ 5 Companion.  Check Settings / Apps / IONIQ 5 Companion.  If you continue to have trouble connecting, please reach out to the developer.
 
 **Q: The BLE connection keeps disconnecting.**
+
 A:  Check to make sure that no other OBD-II apps (like Car Scanner, Torq, or ABRP) are running in the background. IONIQ 5 Companion and these other apps can only be run one at a time.  If you are not sure if another app is running, you can use the Adapter Quiet Check Feature.   This will run a one minute diagnostic check to verify that no other apps are running.  Settings / Diagnostics / Adapter Quiet Check.  After checking, if you still have a problem, please reach out to the developer for support.
 
 **Q: Which vehicles are supported?**
-A: The IONIQ 5 (RWD SR/LR and AWD LR, model years 2024–2026), the IONIQ 5 N (2025), the IONIQ 6 (RWD SR/LR and AWD LR, model years 2023–2024), and the IONIQ 9 (2026). See the [home page](.) for the up-to-date list.
+
+A: The IONIQ 5 (2024–2026), the IONIQ 5 N (2025), the IONIQ 6 (2023–2025), and the IONIQ 9 (2026). See the [home page](.) for the up-to-date list.
 
 **Q: How does CarPlay work?**
+
 A: Connect your iPhone to CarPlay as usual. The app appears automatically with Driving, Charging, and (during charging) EVSE tabs showing live data.
 
 **Q: How do I capture a diagnostic log?**
-A: See the "Capturing Diagnostics" section above. 
+
+A: See the "Capturing Diagnostics" section above.
 
 **Q: Will the adapter drain my 12V battery?**
+
 A: Probably not in the dramatic "your car won't start" sense — your IONIQ has a DC-DC converter that quietly tops the 12V back up from the high-voltage traction battery whenever it dips. The more honest concern is wear: continuous accessory draw causes extra charge cycling on the 12V battery and shortens its life over time. See [Should I Unplug My OBD-II Adapter?](unplugging-your-adapter) for the full breakdown, including a switched-extension-cable middle path and what the app does on its end to keep the polling cadence quiet when the car is off.
 
 ## Links

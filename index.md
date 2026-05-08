@@ -74,12 +74,12 @@ The app ships per-vehicle registries with full or partial coverage:
 
 **Full support**
 
-* **IONIQ 5** — RWD SR/LR and AWD LR, model years 2022–2026
+* **IONIQ 5** — model years 2022–2026
 * **IONIQ 5 N** — model year 2025
 
 **Partial support**
 
-* **IONIQ 6** — RWD SR/LR and AWD LR, model years 2023–2024
+* **IONIQ 6** — model years 2023–2025
 * **IONIQ 9** — model year 2026
 
 ## Support
