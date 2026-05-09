@@ -43,6 +43,17 @@ If you're experiencing connection issues or unexpected behavior:
 2. Reproduce the issue (connect to adapter, drive, etc.)
 3. Tap **Stop**, then **Share Diagnostics** to send the log to the developer
 
+## Unplug Reminder Notifications
+
+The app sends a notification reminding you to unplug the OBD-II adapter when your car turns off. If you're not seeing this notification, check the following:
+
+1. **In-app setting** — Go to Settings and make sure **Unplug Reminder** is turned on
+2. **iOS notification permissions** — Go to iOS Settings → Notifications → IONIQ 5 Companion and make sure **Allow Notifications** is enabled
+3. **Focus mode** — If you're using a Focus mode (Do Not Disturb, Driving, etc.), notifications may be silenced. Check iOS Settings → Focus to see if the app is allowed
+4. **Notification style** — In iOS Settings → Notifications → IONIQ 5 Companion, make sure **Banners** or **Alerts** is selected (not "None")
+5. **Low Power Mode** — iOS may delay or suppress notifications when in Low Power Mode
+6. **The car must actually turn off** — The reminder triggers when the app detects the ignition switching off. If you disconnect the adapter before turning off the car, the notification won't fire
+
 ## Frequently Asked Questions
 
 **Q: Which OBD-II adapters work with this app?**
