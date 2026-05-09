@@ -21,7 +21,9 @@ You can also [open an issue on GitHub](https://github.com/gburlingame/ioniq-app/
 
 ## Adapter Compatibility
 
-The app works with any ELM327-compatible Bluetooth Low Energy (BLE) adapter. Tested adapters include:
+IONIQ 5 Companion works with any ELM327-compatible Bluetooth Low Energy (BLE) adapter. The adapter must be Bluetooth LE (not classic Bluetooth or Wi-Fi).  
+
+Tested adapters include:
 
 * **Vgate vLinker MC+**
 * **Vgate iCar Pro 2s**
@@ -30,7 +32,7 @@ The app works with any ELM327-compatible Bluetooth Low Energy (BLE) adapter. Tes
 * **OBDLink MX+**
 * **Carista**
 
-**Important:** The adapter must be Bluetooth LE (not classic Bluetooth or Wi-Fi). 
+**Important:**  The developer already bought and tested a blue-colored semi-translucent adapter labeled ELM327.  This was purchased on Amazon for approximately $5 USD and was found to be incompatible with the IONIQ 5.   
 
 ## CarPlay
 
