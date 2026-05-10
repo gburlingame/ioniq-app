@@ -7,6 +7,43 @@ nav_order: 5
 # Version History
 
 ---
+## Build 64 — Genesis GV60 support, polish to History views, multi-touch Signals charts, Cell Voltage Δ mini heatmap, localization bug fix
+
+### Vehicle support — Genesis GV60
+
+Genesis GV60 is now recognized as its own vehicle (model years 2021–2024). The app ships registries for **RWD** (225 hp), **AWD** (314 hp), and **AWD Performance** (429 hp). Genesis VINs (those starting with KMT) now route to a GV60 configuration with the correct drivetrain, motor gauges, and battery layout instead of defaulting to an IONIQ 5 Standard Range.
+
+AWD Performance auto-binds from VIN today against a verified tester capture. RWD and AWD registries are in place and will auto-bind once a tester from each trim shares their VIN.
+
+### History → Signals — full multi-touch charts
+
+Every signal in History → Signals now has a true multi-touch chart. Pinch to zoom, drag to pan, double-tap to reset. Toolbar buttons "Zoom to all data" and "Initial view" are always visible with active/inactive coloring. Charts open at the most recent driving/charging session by default. Pack current renders bicolor (green regen / red draw) with a zero line. Boolean signals (lights, brakes) use step interpolation so the line holds its state across long time gaps. The Y axis auto-scales smoothly when spikes enter or leave view; two corner badges show the visible time span and Y range. Charts honor Settings unit preferences 
+
+### History → Signals — smaller, faster database
+
+The noisiest signals — pack current, pack voltage, and the LDC trio (output voltage / output current / input voltage) — now record only changes large enough to matter. Quantization noise is filtered while every real event (regen pulses, load transitions, regulation deviations) is still captured. Less storage per hour of driving, less iCloud sync bandwidth, no resolution loss for the high-fidelity signals (temperatures, SoC, energy totals, cell voltages).
+
+### History → Sessions — redesigned detail view
+
+The Driving Session detail page (tap a session row) is redesigned around a large efficiency metric (km/kWh or mi/kWh in your units), a horizontal battery widget visualizing start→end SoC, a three-column stat grid (Duration, Distance, Max Speed, Energy Used, Battery Temp range), and a polished SoC chart with a green gradient fill. Header shows a relative date ("Today", "Yesterday", weekday, or short date) above the time range. Session list rows now also use your Settings units.
+
+Driving session start values stay correct when the BMS is slow to wake after ignition. Previously, if HVAC reported before the BMS, the session captured 0 for odometer / SoC / energy — producing absurd distances and a hidden SoC row. The session now backfills those snapshots as the BMS catches up.
+
+**Swipe-to-delete** session rows. Right-to-left swipe reveals Delete; deletion propagates across devices and removes attached photos. Signal samples remain.
+
+### CarPlay — Cell Voltage Δ mini heatmap
+
+The Cell Voltage Δ chip in CarPlay (Battery and Charging tabs) now displays a mini heatmap of every cell's voltage above the delta value. Each cell is a tiny colored square — green ≤30 mV, yellow ≤100 mV, red >100 mV deviation from pack mean — mirroring the iOS Dashboard cell grid. Pack imbalance and outliers are visible at a glance from the head unit.
+
+### Odometer history fix
+
+On cars whose ECU reports the odometer in miles, the odometer value displayed correctly in the app and CarPlay but wasn't being persisted to History → Signals → Odometer; the chart stayed empty. Now miles convert to kilometers (the canonical storage unit) and the history records as expected.
+
+### Localization
+
+The J1979 Inspect screen is now localized into German, Spanish, French, Dutch, and Swedish — six previously-English-only strings now render in your selected app language.
+
+---
 ## Build 63 — iCloud History sync, Isolation Resistance, new History tab
 
 **NOTE TO TESTERS:** This is the first early build of what will ultimately become VERSION 2.0 -- the new features are lacking a lot of polish, that will improve over time. I'm bumping the major number due to the addition of Apple CloudKit for data retention and cloud syncing. I have a lot to figure out in regards to data retention, making sure I don't fill up people's iPhones and iCloud accounts! Think of this build as beginning to lay the foundation of what will be coming.
