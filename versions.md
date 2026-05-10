@@ -30,7 +30,7 @@ A full-width chip in Dashboard → Overview shows your battery's isolation resis
 Tap the blue info badge for a full explainer — what the number means, why typical idle / AC-charging / DC-charging readings differ (the onboard charger is in the measurement loop only during AC charging), the FMVSS 305a regulatory floor for an 800-volt pack, and how to read the trend over time as a possible early signal of insulation breakdown in the ICCU.
 
 ---
-## Build 62 — Polling Paused state, diagnostic back-button guards, Curated Scan polish, Scan status panel change, updated brake light chip
+## Build 62 — Polling Paused state, diagnostic back-button guards, Curated Scan polish, Scan status panel change, updated brake light chip - second App Store release (v1.1)
 
 **NOTE TO TESTERS:** This is RC4 for Version 1.1 -- the issues identified yesterday have been fixed and verified (by me) -- please let me know if you run into any issues.
 
