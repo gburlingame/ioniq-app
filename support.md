@@ -69,7 +69,7 @@ A: First, verify that you are using a ELM327-compatible Bluetooth LE adapter.  N
 A: Check to make sure that no other OBD-II apps (like Car Scanner, Torq, or ABRP) are running in the background. IONIQ 5 Companion and these other apps can only be run one at a time.  If you are not sure if another app is running, you can use the Adapter Quiet Check Feature.   This will run a one minute diagnostic check to verify that no other apps are running.  Settings / Diagnostics / Adapter Quiet Check.  After checking, if you still have a problem, please reach out to the developer for support.
 
 **Q: Which vehicles are supported?**  
-A: The IONIQ 5 (2024–2026), the IONIQ 5 N (2025), the IONIQ 6 (2023–2025), and the IONIQ 9 (2026). See the [home page](.) for the up-to-date list.
+A: See the [home page](.) for the most up-to-date list.
 
 **Q: How does CarPlay work?**  
 A: Connect your iPhone to CarPlay as usual. The app appears automatically with Driving, Charging, and (during charging) EVSE tabs showing live data.
