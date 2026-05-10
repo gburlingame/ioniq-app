@@ -7,6 +7,29 @@ nav_order: 5
 # Version History
 
 ---
+## Build 63 — iCloud History sync, Isolation Resistance, new History tab
+
+**NOTE TO TESTERS:** This is the first early build of what will ultimately become VERSION 2.0 -- the new features are lacking a lot of polish, that will improve over time. I'm bumping the major number due to the addition of Apple CloudKit for data retention and cloud syncing. I have a lot to figure out in regards to data retention, making sure I don't fill up people's iPhones and iCloud accounts! Think of this build as beginning to lay the foundation of what will be coming.
+
+**NOTE TO IONIQ 6 AND IONIQ 9 TESTERS:** Please check out the new isolation resistance chip in Dashboard / Overview -- are you seeing a value in that location? Please let me know.
+
+### History — drives, charges, and signals across your devices
+
+A new **History** tab on the iPhone records what your IONIQ 5 has been doing over time and syncs it privately across every device signed into your Apple ID. Open the app on your iPad, and all your data will automatically synchronize in the background.
+
+**Sessions** captures driving and charging episodes as discrete entries. Tap a row to see a step-end SoC chart over the session window with a point at every recorded sample, plus aggregates like distance, peak charge power, and energy used. The chart updates live while you sit in the car.
+
+**Signals** is a time-series view of every catalog signal — battery voltage / current / temperatures, motor RPMs, isolation resistance, charging power, tire pressures, climate, and more (50+ signals). The Battery category also includes per-cell-voltage and per-module-temperature snapshot views, captured every 15 minutes during ignition.
+
+History syncs only to your private iCloud, visible only to you. Sync is on by default; turn it off in Settings → History. Records stay in lockstep across devices — delete one, delete everywhere.
+
+### Isolation Resistance — new Dashboard chip
+
+A full-width chip in Dashboard → Overview shows your battery's isolation resistance: the electrical isolation between the HV pack and the car's chassis. Higher kΩ is better — the pack is well isolated from the car's metal frame.
+
+Tap the blue info badge for a full explainer — what the number means, why typical idle / AC-charging / DC-charging readings differ (the onboard charger is in the measurement loop only during AC charging), the FMVSS 305a regulatory floor for an 800-volt pack, and how to read the trend over time as a possible early signal of insulation breakdown in the ICCU.
+
+---
 ## Build 62 — Polling Paused state, diagnostic back-button guards, Curated Scan polish, Scan status panel change, updated brake light chip
 
 **NOTE TO TESTERS:** This is RC4 for Version 1.1 -- the issues identified yesterday have been fixed and verified (by me) -- please let me know if you run into any issues.
