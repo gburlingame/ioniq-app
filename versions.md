@@ -7,6 +7,50 @@ nav_order: 5
 # Version History
 
 ---
+## Build 65 — History polish, tap-and-hold scrub, live charging sessions, smarter off-state polling, vLinker / vgate compatibility
+
+**NOTE TO TESTERS:** Making headway on Version 2.0 - still lots to do!  Please check out the new HISTORY tab -- go for drives, charge your car -- note that new DRIVE and/or CHARGING sessions appear automatically!  Let me know what you think about the direction I'm headed.  :-)  Also, please let me know if you experience any crashes or anything unusual. 
+
+### History → Signals — list and detail redesign
+
+The signals list has a colored icon tile per row matching its category — green Battery, yellow 12V & LDC, blue Charging, purple Drive, orange Tires, teal Climate. About 25 signals get a more specific symbol (motors, tire pressures, brake lights, cell voltages, isolation resistance, etc.); the rest inherit their category's icon. Section headers carry the same color and are no longer all-caps.
+
+The signal detail page now matches the polished Driving Session view: a 44pt latest-value reading with unit and "Updated N ago" subtitle, then a 3-column stat grid with Lifetime Min, Lifetime Max, Samples (1.2k / 1.4M format), Recorded Since, Source ECU, and Unit — all in your preferred units. Boolean signals show "Active" / "Inactive" instead of 1.0 / 0.0.
+
+The multi-touch chart now supports **tap-and-hold scrub**: hold for about half a second, feel a light haptic, then drag a vertical crosshair. A badge shows the time and value at the crosshair. The crosshair persists after you let go; pan or double-tap clears it.
+
+### History → Charging Session — redesigned and live
+
+The charging-session detail page now leads with a 44pt Peak kW hero, a start → end SoC battery widget, and a 3-column stat grid (Duration, Energy Added, Avg Power excluding preconditioning, Charge Type, EVSE Max, Battery Temp). In-progress sessions update live: SoC number advances each sample, the green delta segment grows, Energy Added appears at 0.1 kWh, Avg Power surfaces around 60s, and the SoC bar animates between integer steps.
+
+### State-of-Charge bars — bright = what changed
+
+On both Charging and Driving Session detail pages, the bright-green segment now always highlights what changed in this session (energy added when charging, used when driving); the translucent-green segment fills the rest.
+
+### Inspect (J1979) — card redesign
+
+The Inspect page now matches the History views' card aesthetic — status hero, Discovery card, and Interrogation table on thin-material panels. Cancel moved to a destructive toolbar button.
+
+### Isolation Resistance info sheet — readable again
+
+The info sheet behind the "i" on the Isolation Resistance chip previously displayed lookup identifiers ("iso_info.intro_1", etc.) - fixed and updated copy
+### Smart polling when the car is off
+
+When you turn the car off with the app still open, polling now backs off to once every 5 seconds until the car comes back on. When you restart, live data reappears immediately — no re-reading the VIN, re-identifying ECUs, or re-training each DID.
+
+### ELM327 v2.3 clone compatibility
+
+Initial connection to v2.3 Bluetooth adapter clones (vLinker MC-IOS, vgate iCar Pro 2S, etc.) is now reliable. Their boot banner was being consumed as the response to the app's first command, cascading into a one-command offset — most visibly Settings → Adapter reading "Unknown (ATDPN 6)" instead of "CAN 500k (ISO 15765-4)". Fixed.
+
+### Settings polish
+
+- The model name now appears in **all caps** everywhere — Settings → Registry, the vehicle-off prompt, and elsewhere.
+- **Sync to iCloud** toggle no longer pops a "Restart Now" alert that quit the app. Toggling saves immediately; an inline "Change pending — takes effect the next time you open the app" note appears under the toggle.
+- **Time Charts** renamed to **Dashboard Charts** with a clarified footer.
+- **History** footer generalized from "your IONIQ 5" to "your vehicle".
+- **Reminders → unplug-reminder** simplified.
+
+---
 ## Build 64 — Genesis GV60 support, polish to History views, multi-touch Signals charts, Cell Voltage Δ mini heatmap, localization bug fix
 
 ### Vehicle support — Genesis GV60
