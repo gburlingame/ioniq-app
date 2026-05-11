@@ -77,14 +77,15 @@ The app ships per-vehicle registries with full or partial coverage:
 * **IONIQ 5** — model years 2022–2026
 * **IONIQ 5 N** — model year 2025
 
-**Partial support**
+**Nearing full support**
 
 * **IONIQ 6** — model years 2023–2025
 * **IONIQ 9** — model year 2026
 
-**Under construction**
+**Under construction, partial support**
 
 * **Genesis GV60** - model years 2021-2025
+* **KIA EV6** - model years 2021-2025
 
 ## Support
 
