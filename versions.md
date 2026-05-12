@@ -7,6 +7,19 @@ nav_order: 5
 # Version History
 
 ---
+## Build 66 — Reduction in device and cloud storage size (7-12x reduction)
+
+**NOTE TO TESTERS:** This build is a major rework of how your history is stored. You'll see a one-time migration overlay on first launch (a few seconds) that converts existing data to the new compact format. Your sessions, events, and signal readings are preserved end-to-end — just packed much more efficiently. Please let me know if anything looks wrong after migration. Please reach out if you run into any difficulty.
+
+### History storage is now 7-12× smaller
+
+Reworked the time-series store to coalesce many signal readings into a single record covering a 60-second window. A typical history database that used to weigh ~50 MB on disk now lands around 5 MB after migration, with the same data fidelity — same readings, same per-signal arrival times, same charts. iCloud upload time and bandwidth shrink proportionally, and multi-device sync settles faster.
+
+The migration runs once per device on first launch. A brief overlay shows progress; runs are resume-safe if interrupted.
+
+A note about charts: live drive/charge sessions now update on the chart roughly every minute instead of every few seconds. Live values you see on the Dashboard during a drive are still instant — only the **historical** chart view reflects new readings at a 60-second cadence. A small caption under each chart calls this out.
+
+---
 ## Build 65 — History polish, tap-and-hold scrub, live charging sessions, smarter off-state polling, vLinker / vgate compatibility
 
 **NOTE TO TESTERS:** Making headway on Version 2.0 - still lots to do!  Please check out the new HISTORY tab -- go for drives, charge your car -- note that new DRIVE and/or CHARGING sessions appear automatically!  Let me know what you think about the direction I'm headed.  :-)  Also, please let me know if you experience any crashes or anything unusual. 
