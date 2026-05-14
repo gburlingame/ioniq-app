@@ -7,6 +7,39 @@ nav_order: 5
 # Version History
 
 ---
+## Build 67 — Kia EV6 support, CarPlay NEW: AC Draw, charging-session robustness
+
+**NOTE TO TESTERS:** This build adds a silent recovery path for testers whose app couldn't open the storage container after Build 66 which led to an immediate crash.
+
+### Kia EV6 support
+
+The app now recognizes 5XYC (US, West Point) and KNDC (Korea, Hwasung) VINs as Kia EV6 and routes them to dedicated registries instead of falling back to IONIQ 5 defaults. If your EV6 trim doesn't decode correctly, please let me know.
+
+### CarPlay AC Draw chip
+
+The Charging tab's "Demand" chip was accurate during DC fast charging but misleading during AC charging.  The chip now flips dynamically: during AC charging it shows "AC Draw" with a three-row V/A/kW layout sourced from the OBC's real measurements; during DCFC and idle it shows the original "Demand" layout unchanged.
+
+### Charging sessions stuck "in progress" after relaunch
+
+If a charging session was open when the app got killed by iOS, the session row could be left orphaned with no way to close cleanly. The recorder now re-seeds active charging state on relaunch and closes the session the next time it observes the car has stopped charging. Pre-existing stuck sessions get cleaned up automatically.
+
+### At most one active charging session per VIN
+
+Whenever a charging session is created or restored, any older still-open rows for the same VIN are closed with status "Superseded." Cleans up dual-orphan rows from prior crashes.
+
+### Driving session chart no longer blank on short drives
+
+Short drives could show "No charted signals" even though the session had start/end SoC populated — Build 66's 60-second storage buckets weren't flushing reliably at session-end. The recorder now explicitly flushes pending readings before closing the session. Forward-looking — doesn't recover data already lost.
+
+### iCloud sync toggle verifies before enabling
+
+Toggling "Sync to iCloud" on in Settings now checks whether iCloud is actually available before letting the change stick. If it isn't — signed out, restricted, or storage in recovery mode — the toggle reverts and a popup explains. Previously the toggle flipped on regardless and the user discovered sync wasn't working later.
+
+### History tab degraded-mode message
+
+When the local history store can't be opened normally, the History tab now shows "Historical data cannot be shown — please check the device's permissions" instead of an empty list. Avoids the silent-empty-tab confusion when storage is degraded.
+
+---
 ## Build 66 — Reduction in device and cloud storage size (7-12x reduction)
 
 **NOTE TO TESTERS:** This build is a major rework of how your history is stored. You'll see a one-time migration overlay on first launch (a few seconds) that converts existing data to the new compact format. Your sessions, events, and signal readings are preserved end-to-end — just packed much more efficiently. Please let me know if anything looks wrong after migration. Please reach out if you run into any difficulty.
