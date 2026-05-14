@@ -7,6 +7,31 @@ nav_order: 5
 # Version History
 
 ---
+## Build 68 — CarPlay split-screen support and chip polish, improved tire viewability in CarPlay
+
+**NOTE TO TESTERS:**  I addded support for CarPlay split screen in this build -- but I am not happy with the results because the chips are just too small.  I'm going to explore some other options.
+
+### CarPlay split-screen support
+
+Added detection for screen resolution, includes an experimental view with 2 rows of 5 chips, and 1 row of 4 chips to eliminate the need for vertical scrolling when the IONIQ 5 screen is set to split screen mode.
+
+### CarPlay chips: new light-mode background color and automatic day/night adaptation
+
+When the head unit is in light/day mode, chips now render with an opaque slate-blue background — replacing the washed-out grey that previously appeared in light mode. The slate has a subtle blue cast that complements the green text used for charging and regen states. When the head unit switches to dark/night mode, chips return to their original near-black appearance, automatically, in about half a second. Dark-mode appearance is unchanged from prior builds.
+
+### CarPlay chip corner halo fix
+
+Chips on the Driving and Charging tabs had a faint colored halo at each rounded corner. The chip's rounded-rect background was slightly more rounded than CarPlay's own clip mask, leaving a sliver of the container's background visible at each corner. The chip corner radius is now slightly less rounded so the chip background fills out cleanly to where CarPlay's clip begins.
+
+### CarPlay tire chip: drop shadow for readability
+
+Added a subtle drop shadow to the text so it reads cleanly across all tile colors without changing the semantic color palette.
+
+### CarPlay Status tab: adapter row no longer triggers an infinite spinner
+
+The adapter row at the top of the Status tab (showing the adapter name and signal strength) is read-only. Tapping it previously showed a loading spinner that never dismissed because no action was wired up. Tapping the row now briefly shows the spinner and dismisses it immediately, matching the pattern used for the other read-only rows in Status.
+
+---
 ## Build 67 — Kia EV6 support, CarPlay NEW: AC Draw, charging-session robustness
 
 **NOTE TO TESTERS:** This build adds a silent recovery path for testers whose app couldn't open the storage container after Build 66 which led to an immediate crash.
