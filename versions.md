@@ -7,6 +7,21 @@ nav_order: 5
 # Version History
 
 ---
+## Build 69 — Tire-pressure history fix, CarPlay EVSE info screen, CarPlay tap-spinner cleanup
+
+### Tire-pressure history showed wildly wrong values
+
+The History chart for tire pressure was showing roughly a quarter of the real value — a tire at ~38 psi would render as ~5.5 psi, regardless of whether you had the app set to psi, kPa, or bar. Live Dashboard readings were always correct; only the recorded history was affected. The fix converts pressures to the right internal unit at the moment they're recorded, so new samples will chart correctly across every unit preference. Samples already saved before this build remain mis-scaled — they aren't migrated.
+
+### CarPlay EVSE tab: long AC-charging explanation no longer cut off
+
+During AC charging, the EVSE tab includes a several-sentence explanation of the values it shows. CarPlay was truncating that paragraph mid-sentence inside the row. The explanation has been moved behind an "About these values" row that opens a dedicated info screen, with each sentence as its own item so nothing gets clipped. DC fast charging's single short sentence still appears inline on the main page. Translations were updated for German, Spanish, French, Dutch, and Swedish.
+
+### CarPlay: tapping data-only rows no longer triggers an infinite spinner
+
+Build 68 fixed this for the Status tab's adapter row. Build 69 finishes the job across the rest of CarPlay — 18 more data-display rows (battery cells, individual tire pressures, EVSE values, charging stats, and others). These rows are just status readouts and aren't meant to navigate anywhere, but tapping one used to leave a spinning wheel that never went away. They now respond instantly to taps as no-ops, and the rows that are supposed to navigate still do.
+
+---
 ## Build 68 — CarPlay split-screen support and chip polish, improved tire viewability in CarPlay
 
 **NOTE TO TESTERS:**  I addded support for CarPlay split screen in this build -- but I am not happy with the results because the chips are just too small.  I'm going to explore some other options.
