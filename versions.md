@@ -7,6 +7,17 @@ nav_order: 5
 # Version History
 
 ---
+## Build 70 — History chart clipping fix, Kia EV6 Dashboard label
+
+### History signal charts: plotted lines stay inside the chart area
+
+Zooming in on a signal whose history contains an extreme outlier elsewhere — Isolation Resistance with a 3000 kΩ lifetime-max spike is the easiest one to reproduce — used to let the chart line escape the plot rectangle, shooting up above the top gridline or sliding off the left edge. The chart now keeps the line inside the visible plot area no matter how tight the zoom or how far away the off-screen samples sit. Nothing is lost or hidden; the data is still there, it just no longer paints outside the chart bounds.
+
+### Dashboard now correctly shows "Kia EV6"
+
+EV6 owners running the app were seeing "IONIQ 5" on the Dashboard regardless of their actual vehicle. VIN decoding and registry selection were already correct in earlier builds — the right per-vehicle polling map was loading and every signal was being decoded against the EV6's ECU layout — but the model-name label the Dashboard reads from was missing the EV6 case and silently falling back to "IONIQ 5". The label now reads "Kia EV6" on EV6 vehicles. Any datalogs and history you already collected on the app were captured correctly; only the on-screen name was wrong.
+
+---
 ## Build 69 — Tire-pressure history fix, CarPlay EVSE info screen, CarPlay tap-spinner cleanup
 
 ### Tire-pressure history showed wildly wrong values
