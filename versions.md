@@ -6,6 +6,43 @@ nav_order: 5
 
 # Version History
 
+
+---
+## Build 71 — Regeneration gauge, live driving stats, localization fixes
+
+NOTE TO TESTERS: Thank you to everyone for the warms wishes regarding my son who graduated from college this weekend!  I'm hoping to get App Store version 2.0 out in 10-14 days - so I'm going to be making a big push to get things buttoned up.
+
+### New Regeneration visualization
+
+A new "Regeneration" surface appears in two places: a Dashboard section and a CarPlay Driving-tab chip (which replaces the Odometer chip for now).  Both render the same three-arc circular gauge:
+
+- The full dial scales from 0 to your pack's peak power capability — about 277 kW on an IONIQ 5, about 503 kW on the 5 N.
+- The white arc fills to how much regen power the BMS is currently willing to accept.
+- A green arc overlays the white showing live regen flow at this instant.
+
+The Dashboard section is hidden while AC or DC charging is active. Two new History signals — **Available Regen Power** and **Pack Peak Power** — are recorded under Battery so you can chart them over time.
+
+### Active driving sessions update live
+
+The History tab's active session card now refreshes distance, energy used, end-of-window SoC, and battery temp range every few seconds while you drive. Previously these only appeared after the drive ended; only max speed updated live. Now the whole summary fills in as the drive happens.
+
+### SoC gauge color — blue band is now white
+
+The 40-79% State-of-Charge band used to render in blue, which is hard to read against the dark CarPlay chip background. It now uses the system foreground color — white on the dark CarPlay chip, white on dark Dashboard, black on light Dashboard. The red/orange/green warning bands for low/warning/full SoC are unchanged.
+
+### Settings: About moved to the bottom
+
+The About section now sits at the bottom of Settings, below Reset. All your action-bearing sections — Adapter, Units, History, Recording, Advanced Tools, Reset — cluster together, with the static info as a tail.
+
+### Localization fixes
+
+A pass through History views fixed several places where labels were leaking English regardless of your language setting:
+
+- Signal Detail view: **Lifetime Min**, **Lifetime Max**, **Recorded Since**, **Source ECU**, and **Unit** now translate.
+- Time-series chart: month/date labels follow the in-app language (previously used the system locale).
+- Session and signal chips: **Max Speed**, **Energy Used**, **Duration**, **Avg Power**, **Charge Type**, **Energy Added**, **EVSE Max**, **Peak Power**, **Today**, **Yesterday**, **Latest**, **Updated**, **No samples yet** — all now translate across German, Spanish, French, Dutch, and Swedish.
+
+Plus a small spacing polish on the Regeneration gauge so the live kW value and unit read as one token (`60kW` instead of `60 kW`).
 ---
 ## Build 70 — History chart clipping fix, Kia EV6 Dashboard label
 
