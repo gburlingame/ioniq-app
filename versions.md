@@ -43,6 +43,7 @@ A pass through History views fixed several places where labels were leaking Engl
 - Session and signal chips: **Max Speed**, **Energy Used**, **Duration**, **Avg Power**, **Charge Type**, **Energy Added**, **EVSE Max**, **Peak Power**, **Today**, **Yesterday**, **Latest**, **Updated**, **No samples yet** — all now translate across German, Spanish, French, Dutch, and Swedish.
 
 Plus a small spacing polish on the Regeneration gauge so the live kW value and unit read as one token (`60kW` instead of `60 kW`).
+
 ---
 ## Build 70 — History chart clipping fix, Kia EV6 Dashboard label
 
