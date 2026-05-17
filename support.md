@@ -23,13 +23,12 @@ You can also [open an issue on GitHub](https://github.com/gburlingame/ioniq-app/
 
 IONIQ 5 Companion works with any ELM327-compatible Bluetooth Low Energy (BLE) adapter. The adapter must be Bluetooth LE (not classic Bluetooth or Wi-Fi).  
 
-Tested adapters include:
+These adapter have been tested and verified to work with IONIQ 5 Companion:
 
 * **Vgate vLinker MC+**
 * **Vgate iCar Pro 2s**
 * **Veepeak OBDCheck BLE**
 * **OBDLink CX**
-* **OBDLink MX+**
 * **Carista**
 
 **Important:**  The developer already bought and tested a blue-colored semi-translucent adapter labeled ELM327.  This was purchased on Amazon for approximately $5 USD and was found to be incompatible with the IONIQ 5.   
