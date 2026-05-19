@@ -8,6 +8,45 @@ nav_order: 5
 
 
 ---
+## Build 73 — Automatic Driving Tab selection, New adapter auto-connect feature, Signal chart polish, localization update
+
+NOTE TO TESTERS: A couple of big quality of life improvements in this build - CarPlay will now automatically navigate to the Driving tab for you -- faster time to Dashboard!  You can disconnect the adapter from CarPlay, and then reconnect.   This will be a big help to folks using more than one OBD-II app -- please let me know if you run into any issues with this.  To all the new Kia EV6 testers -- welcome aboard, and good luck with your upcoming preconditioning and charging sessions!  I couldn't figure this out without you!
+
+### CarPlay: auto-open Driving tab on connect
+
+New "CarPlay" section in Settings with a single toggle, "Open Driving Tab on Connect" (default ON). When enabled, the CarPlay tab bar auto-switches from Status to Driving the moment the adapter is connected and the vehicle registry loads.
+
+### Adapter connection control
+
+New Auto-Connect toggle in Settings → OBD-II Adapter (default ON). The connected-state button is now "Disconnect" (drops BLE without forgetting); "Forget Saved Device" remains for full unpair. CarPlay Status tab gains a Connect/Disconnect row so you can hand the adapter off to another OBD app without leaving CarPlay. User intent persists across BLE drops and launches — turning Auto-Connect off actually stays off. Status reads "Disconnected (you)" when you've deliberately disconnected.
+
+### History → Signals: odometer 0/mileage oscillation fixed
+
+The odometer chart alternated between 0 and real mileage because the History writer recorded both the km and mi side of each AUX odometer poll — only one side ever has real data. Fixed; a one-shot purge scrubs existing 0 readings on first launch.
+
+### Signal-history chart: major polish pass
+
+- **Dots-only rendering.** Each sample now appears as a small colored dot at its actual (time, value) location — no connecting lines. Eliminates lines bridging gap bands, segments extending into gap-band edges, and single-sample invisibility. Bicolor pack-current still color-codes per dot (red draw, green regen).
+- **Gap bands align to the no-data interval.** A snapshot at 1:18 represents the bucket [1:18, 1:19) and holds data — the no-data span between 1:18 and 1:21 is two minutes, not three. Sample dots no longer land inside their own band.
+- **Heartbeat writes.** Every minute-bucket flush now forces one sample per signal recorded this session, so steady signals like SoC always show ≥1 dot per minute (no more empty regions during cruise).
+- **Live data appears in real time.** New minutes show up immediately during an active session — no more back-out and re-enter. Smart-follow keeps you on the live edge when you're viewing the latest data; if you've scrolled back, the visible window is left alone.
+- **Chart fills the viewport.** Adapts to device size and orientation. Tap the chart for focus mode (shrinks chips so the chart grows). Landscape/small screens get a scroll fallback.
+- **5-pill navigation row** above the chart: «Prior data set», «Next data set», Jump to Latest, Zoom to All, Toggle Focus.
+- **Y-range chip removed**; **X-range chip moved** below the x-axis tick labels, centered (was a top-left overlay that obstructed data). **"Tap to interact" hint** added at the top in non-focus mode.
+- **Live-session indicator pill** ("● Live: Updating once a minute") appears inside the chart's bottom-left during active recording, disappears ~30 s after the recorder goes quiet.
+- **Value/unit consistency** on the signal-detail page: Lifetime Min/Max cards, focus-mode chips, and the selection callout now render units small + grey, matching the Dashboard.
+- **Isolation Resistance Y-axis pinned to 0–3000 kΩ**.
+
+### CarPlay 12V chip: tighter SoC text
+
+Removed the space between the remaining-energy number and "kWh" (e.g. "52.3 kWh" → "52.3kWh").
+
+### Localization catalog: 100% complete
+
+Filled in 977 previously-missing translation cells across DE/ES/FR/NL/SV.
+
+
+---
 ## Build 72 — Signal-history gaps + chart focus mode, cold-pack preconditioning gate, CarPlay 12V SoC polish
 
 NOTE TO TESTERS:  The History / Signals section is a work in progress - there will be more polish added over the next build or two.
