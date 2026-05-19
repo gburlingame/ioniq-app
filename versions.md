@@ -8,6 +8,30 @@ nav_order: 5
 
 
 ---
+## Build 72 — Signal-history gaps + chart focus mode, cold-pack preconditioning gate, CarPlay 12V SoC polish
+
+NOTE TO TESTERS:  The History / Signals section is a work in progress - there will be more polish added over the next build or two.
+
+### Signal-history charts now show real gaps
+
+When you open a signal in History → Signals (e.g. Pack Voltage), the time-series chart now shows a subtle shaded vertical band over each span of time when the app wasn't actually recording data — for example, the gaps between two drives or charges. The data line cleanly breaks at each band edge instead of misleadingly drawing a straight line across parked time. Long-press to scrub inside a band and the value readout shows "No data" rather than an interpolated value.
+
+### Tap a signal chart to focus
+
+Tap anywhere inside the time-series chart and the stats chips above shrink to a compact horizontal strip, the headline value scales down, and the chart grows vertically so you can read finer detail. Tap the date/value back above the chart to collapse out of focus mode. The chart's existing pan / pinch / scrub gestures still work inside the focused chart unchanged.
+
+### Preconditioning detection: cold-pack gate
+
+The activation edge for preconditioning sessions now also requires the BMS minimum pack temperature to be below 25 °C before indicating that preconditioning is turned on.
+
+This addresses false positives reported by a hot-climate EV6 tester (>90 °F ambient) where the heater-command byte pattern occasionally landed in the activation shape while the pack was already well above heater target. Deactivation logic is intentionally unchanged — once a session is active, the heater warming the pack past 25 °C cannot strand a stuck-on session.
+
+### CarPlay 12V chip: readable SoC % overlay
+
+The 12V battery chip on the CarPlay Driving tab now shows its SoC % overlay in black when the bar fills the white (40–80%) neutral band, so the value stays readable against the bright fill.
+
+
+---
 ## Build 71 — Regeneration gauge, live driving stats, localization fixes
 
 NOTE TO TESTERS: Thank you to everyone for the warms wishes regarding my son who graduated from college this weekend!  I'm hoping to get App Store version 2.0 out in 10-14 days - so I'm going to be making a big push to get things buttoned up.
