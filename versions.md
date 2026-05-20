@@ -8,6 +8,27 @@ nav_order: 5
 
 
 ---
+## Build 75 — Kia EV6 AC charging and precondition detection fixes, Italian language support
+
+NOTE TO TESTERS: This build has a changed that is only intended to fix preconditioning and AC charge detection in the Kia EV6 -- but the change was a bit risky (could be a big blast radius) and might have unintended consequences for IONIQ testers -- please let me know right away if you see anything out of sorts with preconditioning or AC/DC charge detection.  
+
+### Kia EV6 AC charging detection and preconditioning detection fix
+
+This build changes how AC charging is detected in the Kia EV6 -- in some cars this signal was also present when preconditioning, which resulted in preconditioning not being properly indicated.  This build hopefully fixes both issues -- pending tester verification.   Thanks to EV6 testers Mike, David, and Brett for their help last evening and today!  
+
+### Italian language support
+
+Italiano joins Deutsch, English, Español, Français, Nederlands, and Svenska in Settings → Language. All 753 user-facing strings translated. The language picker is now sorted alphabetically by native name (system default still pinned first).
+
+### Inspect tab label now translates
+
+The Inspect tab at the bottom of the main app stayed in English when the app language was set to anything else. It was looking up the literal string "Inspect" as a translation key — a key that had no entry in the catalog — so SwiftUI fell back to English for every language. Reusing the existing translation key already used by the scanner page now means the tab and its page header share one translation: Inspizieren / Inspeccionar / Inspecter / Inspecteren / Inspektera / Ispeziona. English unchanged.
+
+### Polling Headroom popup polish
+
+The Polling Headroom info popup has been rewritten — the intro paragraph reframes the metric in terms of capacity for additional signals (replacing the previous "Higher is better"), and the trailing Caveats section was removed. All copy now ships in DE/ES/FR/NL/SV/IT
+
+---
 ## Build 74 — NEW Polling Headroom indicator, IONIQ 6 Indonesia CarPlay layout fix
 
 NOTE TO TESTERS: Everyone has a bit of homework with this release -- when you have time, please check out the new polling headroom metric on the CarPlay Status tab or in the phone app in Daashboard / Overview.   Please let me know what percentage you see after a few minutes of operation -- this metric needs time to stabilize.   I am considering bumping up the priority and rate of the brake light signal, but want to get a better sense of wider fleet performance (different cars, different adapters, etc..)   As a point of reference, my polling headroom is 61% -- which is excellent, lots of room to add/improve signals.  Thank you!
