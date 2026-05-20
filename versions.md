@@ -8,6 +8,21 @@ nav_order: 5
 
 
 ---
+## Build 74 — NEW Polling Headroom indicator, IONIQ 6 Indonesia CarPlay layout fix
+
+NOTE TO TESTERS: Everyone has a bit of homework with this release -- when you have time, please check out the new polling headroom metric on the CarPlay Status tab or in the phone app in Daashboard / Overview.   Please let me know what percentage you see after a few minutes of operation -- this metric needs time to stabilize.   I am considering bumping up the priority and rate of the brake light signal, but want to get a better sense of wider fleet performance (different cars, different adapters, etc..)   As a point of reference, my polling headroom is 61% -- which is excellent, lots of room to add/improve signals.  Thank you!
+
+### Polling Headroom indicator
+
+Dashboard Overview gains a new chip showing the percentage of time the OBD adapter is NOT busy on the wire. Higher is better — it's the slack you have for more polling work. Tapping the chip's info button opens a sheet that explains the metric, how to read it, and an important caveat: the number takes about two minutes to converge on its final reading after polling starts, so don't react to early values.
+
+The same number is mirrored as a row on the CarPlay Status tab so you can monitor it on the head unit. Counters reset every time a fresh full-rotation polling window begins (ignition on/off, BLE disconnect, diagnostic pause), so each polling session is measured independently.
+
+### CarPlay: IONIQ 6 Indonesia head-unit layout
+
+Some IONIQ 6 head units report a logical screen width around 645 points — narrower than the IONIQ 5's full-screen 775 points, but wider than its split-screen 518. Until this build, anything below 650pt fell into the cramped 3-row compact layout intended for IONIQ 5 split mode, which left chips visibly tiny on a screen that has room for the standard 7-up layout. Threshold is now 600pt, so IONIQ 6 head units in this band get the full Driving and Charging chip layouts. The chips scale slightly smaller than they do on the IONIQ 5 — CarPlay handles that automatically — but stay legible. IONIQ 5 split-screen mode (518pt) is unaffected and continues to use the compact layout.
+
+---
 ## Build 73 — Automatic Driving Tab selection, New adapter auto-connect feature, Signal chart polish, localization update
 
 NOTE TO TESTERS: A couple of big quality of life improvements in this build - CarPlay will now automatically navigate to the Driving tab for you -- faster time to Dashboard!  You can disconnect the adapter from CarPlay, and then reconnect.   This will be a big help to folks using more than one OBD-II app -- please let me know if you run into any issues with this.  To all the new Kia EV6 testers -- welcome aboard, and good luck with your upcoming preconditioning and charging sessions!  I couldn't figure this out without you!
