@@ -8,6 +8,29 @@ nav_order: 5
 
 
 ---
+## Build 76 — Snapshot detail views, polling polish, chart gap-band fix
+
+NOTE TO TESTERS:  Some under the hood changes today -- please let me know if anythign new seems awry -- getting closer to Version 2.0 release
+
+### Cell Voltages and Module Temperatures — full detail views
+
+Cell Voltages (Snapshots) and Module Temperatures (Snapshots) in History → Signals now use the same full per-signal detail view as every other signal: hero value, lifetime stats grid, focus mode, multi-touch pan/zoom/scrub chart, time-range pills, and jump-to-prior/next nav. A new slider (with tick marks at module boundaries for cells) selects which channel to chart; the chart updates as you slide. Replaces the previous bare slider + dots view.
+
+Titles read "Cell N Voltage" / "Module N Temp"; slider readouts read "Cell N" / "Module N". 1-indexed, no zero-padding.
+
+### Battery snapshots — 3× the resolution
+
+Cell voltages and module temperatures are now captured every 5 minutes during polling, up from every 15 minutes. 3× the data density on snapshot detail charts
+
+### Polling loop wakes exactly when the next slot is due
+
+The polling loop now wakes precisely when the next signal slot becomes due.
+
+### Chart gap bands no longer paint over real data points
+
+Two fixes to the History → Signals gap-band rendering: for legacy per-signal data whose timestamps don't align to V2 bucket boundaries, the band's left edge is now pulled in to the latest sample inside the gap region; the band's right edge is extended to align with the first actual reading in the next bucket. Closes a long-standing "blue dot drawn just inside the grey zone" issue most visible on the SoC (BMS) chart.
+
+---
 ## Build 75 — Kia EV6 AC charging and precondition detection fixes, Italian language support
 
 NOTE TO TESTERS: This build has a changed that is only intended to fix preconditioning and AC charge detection in the Kia EV6 -- but the change was a bit risky (could be a big blast radius) and might have unintended consequences for IONIQ testers -- please let me know right away if you see anything out of sorts with preconditioning or AC/DC charge detection.  
