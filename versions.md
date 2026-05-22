@@ -8,6 +8,63 @@ nav_order: 5
 
 
 ---
+## Build 77 — Brake Light polling 3x faster, Change to AC charging detection, Charging Session expanded, *New* History storage cap, iCloud sync fix
+
+NOTE TO TESTERS: A lot has landed in Build 77.  The brake light now polls 3x faster - please let me know your polling headroom after this change.   AC charge detection:  Please let me know if you run into any issues with preconditioning or AC charge detection - there was a significant change for Hyundai vehicles that improves AC charge detection.  
+
+### Brake light — 3× faster polling
+
+Brake light polling rate increased 3× for closer-to-realtime behavior. Polling headroom drops ~6-10%.
+
+### Fresh-install iCloud sync fix
+
+Signal charts no longer stay empty after a fresh install on you iPhone, iPad or MAC -- view your data across all your Apple devices
+
+### AC charge detection — harmonized across the fleet
+
+AC charge detection now harmonized across all E-GMP vehicles.  V2L usages no longer mischaracterized as AC charging; end-of-AC-session detection is instantaneous instead of a 40-second delay.  Thanks to Kare in Norway ("the coffee bug") and the EV6 testers.
+
+### Charging Session detail charts
+
+Open any charging session from History → Sessions and you'll see a new chart stack below the SoC chart: Charging Power (cyan, V × I, gated to AC or DC active intervals so pre-charge driving is excluded), Ambient Temp, Pack Voltage, Battery Min/Max Temp (dual-line), AC Charging (yellow), DC Charging (green), Preconditioning (orange)
+
+### History storage cap
+
+Settings → History gets a "Maximum storage" picker (100 MB / 250 MB / 500 MB / 1 GB / 2 GB / 5 GB / Unlimited) plus a linear gauge with percent readout (blue → orange at 80% → red at 95%). When the on-disk total exceeds the cap, a background sweep deletes the oldest records first. Open sessions are never evicted. CloudKit propagates deletions to other devices.
+
+### Three new History signals
+
+History → Signals → Charging adds AC Charging, DC Charging, and Preconditioning as time-series signals. These power the new bands on the Charging Session view, and are tap-throughable in the Signals list.
+
+### Driving session detail charts
+
+Open any driving session — six new inline charts below the SoC chart: Speed, Distance Travelled, Brake Light (Gantt strip), Pack Current (regen-green / draw-red split), Cabin Temp, Cabin Humidity. Each hides itself if no samples were recorded.
+
+### Driving session max speed fix
+
+Completed drives now report peak speed correctly (Builds 71–76 showed "max 0 mph" regardless of actual speed; distance was correct). Forward-only fix; historical sessions stay at 0 mph but raw speed data is preserved on disk for a future backfill.
+
+### Charging kWh added / Avg Power fix
+
+Charging sessions that started before app connect now report kWh added and Avg Power correctly. 
+
+### Driving session detail polish
+
+SoC summary on driving sessions now reads end ← start (e.g., "51.0% ← 62.6%") with an SF Symbol left-arrow (mirrors in RTL locales). Charging keeps start → end. Uniform 1-decimal precision. VoiceOver labels added.
+
+### J1979 crawl — confirmation alert
+
+The J1979 Scanner's Start button now opens a confirmation alert before kicking off the crawl, warning that it pauses live polling and ends any in-progress session. Cancel is the default action.
+
+### Lifetime Efficiency — new History signal
+
+History → Signals → Battery adds a Lifetime Efficiency row tracking the round-trip efficiency value from the Dashboard's Battery Odometer card.
+
+### CarPlay Battery Temp source
+
+The CarPlay Battery Temp sparkline now reads from the BMS pack max/min temps, matching the Dashboard pack-temp chart and History "Battery Max/Min Temp".
+
+---
 ## Build 76 — Snapshot detail views, polling polish, chart gap-band fix
 
 NOTE TO TESTERS:  Some under the hood changes today -- please let me know if anythign new seems awry -- getting closer to Version 2.0 release
