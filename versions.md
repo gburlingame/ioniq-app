@@ -8,6 +8,38 @@ nav_order: 5
 
 
 ---
+## Build 78 — *New* Session photo + Session share sheet, DC EVSE chips + EVSE Current chart, IONIQ 9 cell-count fix
+
+NOTE TO TESTERS: This build leans into making completed sessions feel like a finished story. Pick a photo, share a card, and (for DC charging) see the EVSE handshake spelled out.  Still building out the AC charging sheet - not done yet.  In my morning DC charging test today, the live/active session view (History / Sessions) was a bit slugglish.   I made some improvements to make it more snappy -- if you happen to run a DC charging session, please let me know if that issue is resolved.  
+
+### *New* Photo per session
+
+Open any completed driving or charging session and you'll see a 110pt photo slot next to the hero metric. Tap the empty box to pick a photo from your library; tap an existing photo to view it full-screen with Replace and Remove in the toolbar menu. Photos are downscaled to ~2000 px JPEG before storage so iCloud sync stays light, attached to the Session record, sync across your Apple devices, and cascade-delete with the session.
+
+### *New* Share sheet for completed sessions
+
+A share button now sits in the top-right of any completed driving or charging session. Tap to generate a branded JPEG report.  The headline uses charging-active duration (excludes preconditioning) so it reads as actual charge time rather than total session time. Active sessions don't show the button.
+
+### DC charging session — EV Supply Equipment chips
+
+History → Charging Session detail (DC) gets a new **EV Supply Equipment** card showing Max Power / Max Voltage / Max Current from the CCS handshake. Same labels and source data as the live Dashboard EVSE section and the CarPlay EVSE tab — now preserved in the history record so you can see what the charger advertised at handshake.
+
+### DC charging session — EVSE Current chart
+
+New **EVSE Current** chart plots Requested (BMS) vs. Delivered (VCMS) current on a shared axis, so the BMS's request curve and what the EVSE actually delivers can be eyeballed side-by-side throughout the charge.
+
+### Charging session chart improvements
+
+- **AC / DC bands gated by session type** — only the band matching the session's charge type is shown. Previously both rendered, with the irrelevant one as an empty strip.
+- **EVSE Current chart** stops cleanly at the edges of each DC-charging window instead of bridging through preconditioning. Mirrors the gating used by Charging Power.
+- **Charging Power dots** are now as dense as Pack Voltage samples. Linear interpolation between pack-current recordings fills the V × I pairing gaps with time-accurate estimates, instead of dropping most voltage samples.
+- **Pack Voltage** and **Battery Temp** charts now auto-scale to the actual data range instead of starting at 0. The meaningful variation (e.g., 440–810 V, or 50–100 °F) is no longer compressed into the top fraction of the chart.
+
+### IONIQ 9 — Battery Configuration chip stable
+
+The Battery Configuration chip on the IONIQ 9 dashboard now locks to "168 series x 3 parallel" instead of flickering between 168, 169, and 170 as the BMS reported the same data different ways. Thanks to Sean for reporting this one!
+
+---
 ## Build 77 — Brake Light polling 3x faster, Change to AC charging detection, Charging Session expanded, *New* History storage cap, iCloud sync fix
 
 NOTE TO TESTERS: A lot has landed in Build 77.  The brake light now polls 3x faster - please let me know your polling headroom after this change.   AC charge detection:  Please let me know if you run into any issues with preconditioning or AC charge detection - there was a significant change for Hyundai vehicles that improves AC charge detection.  
