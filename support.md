@@ -31,7 +31,7 @@ These adapter have been tested and verified to work with IONIQ 5 Companion:
 * **OBDLink CX**
 * **Carista**
 
-**Important:**  The developer already bought and tested a blue-colored semi-translucent adapter labeled ELM327.  This was purchased on Amazon for approximately $5 USD and was found to be incompatible with the IONIQ 5.   
+**Important:**  The developer already bought and tested a blue-colored semi-translucent adapter labeled ELM327.  This was purchased on Amazon for approximately $5 USD and was found to be incompatible with IONIQ 5 Companion.  
 
 ## CarPlay
 
