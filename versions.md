@@ -8,6 +8,31 @@ nav_order: 5
 
 
 ---
+## Build 79 — Session photo preview fix, Storage cap fix, Settings → History simplified, Dashboard localizations
+
+NOTE TO TESTERS: 
+
+### Session photo preview opens fit-to-screen
+
+Tapping an attached photo in a History → Session detail used to open it zoomed-in, requiring pinch-out to see the whole image. The full-screen preview now opens at fit-to-screen; pinch / double-tap zooms in (up to 5×), drag pans while zoomed, pinch-out / double-tap resets.
+
+### Storage cap fix
+
+Fixed a bug that would have manifested if someone had a large data store, and selected a much smaller data cap that required a lot of data pruning.   The app would have appeared frozen for an extended period.  
+
+### Settings → History — simplified
+
+Simplified this secton.  The storage gauge above already communicates how much room History is using; the counters duplicated that while being the dominant source of UI stalls during eviction. The Delete All History button is now always enabled (a no-op on an empty store), and the confirmation sheet no longer shows record counts — just the slide-to-delete control to make sure someone really wants to delete all their data.
+
+### Dashboard localization fixes
+
+Thank you Gérald for the report of a number of missed localizations, fixed in build 79
+
+### "Preconditioning" — spelled the same everywhere
+
+The Dashboard had four labels variously rendered as "Pre-conditioning" / "Pre-Conditioning". All consumers now share one key spelled "Preconditioning" (one word, no hyphen) — translations already in place for all 6 locales.
+
+---
 ## Build 78 — *New* Session photo + Session share sheet, DC EVSE chips + EVSE Current chart, IONIQ 9 cell-count fix
 
 NOTE TO TESTERS: This build leans into making completed sessions feel like a finished story. Pick a photo, share a card, and (for DC charging) see the EVSE handshake spelled out.  Still building out the AC charging sheet - not done yet.  In my morning DC charging test today, the live/active session view (History / Sessions) was a bit slugglish.   I made some improvements to make it more snappy -- if you happen to run a DC charging session, please let me know if that issue is resolved.  
