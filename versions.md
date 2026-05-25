@@ -8,6 +8,63 @@ nav_order: 5
 
 
 ---
+## Build 80 — CarPlay Driving tab update and *New* compass feature, *New* setting to let the screen sleep, History session improvements
+
+NOTE TO TESTERS:  Happy Memorial Day!  I added something new -- a Compass chip to the driving tab.   I'd love to hear what you think about this.  Compass uses your iPhone for the source of the signal, so the top of the phone needs to be pointed in the direction the car is headed.  I think that should be OK due to the way the charging pad is aligned.  I also added a lot of polish all over the place.  We're getting close to RC1 for Version 2.0, so please keep sending your feedback! 
+
+### CarPlay → Driving tab — new Power chip, new Compass chip, Precondition redesign
+
+- **New Power chip** — bidirectional circular gauge. White arc fills clockwise for power drawn (scales to vehicle peak); green arc fills counter-clockwise for regen (scales to BMS pack peak). Centre shows unsigned magnitude with one decimal; green for regen, white for draw.
+
+- **New Compass chip** (replaces the standalone Regeneration chip) — heading-up rose with N / E / S / W and an orange tick at 12 o'clock marking direction of travel. Centre shows bearing in degrees. Cardinals localized for all six locales. First connect prompts for "While Using" location; declining leaves a placeholder dash.
+
+- **Precondition chip merged with Heater Temp** — when active, shows the heater-temp sparkline with the current temperature as an orange pill, plus the "Time to 70°F / 21°C" ETA. The standalone Battery Heater Temp chip is gone.
+
+### Settings → Units — new Power unit preference
+
+kW (default), HP, or PS for the the Power chip on the Driving tab
+
+### Settings → Keep Screen Awake
+
+New toggle between Dashboard and History. Defaults to ON. When off, the device may dim or lock while the app is open — BLE polling, charging, and CarPlay continue in the background.
+
+### CarPlay → Charging tab — row 1 redesigned around inlet-vs-pack power
+
+DCFC active row 1 now reads SoC · Charging · Requested · Supplied · Pack Power · Pack · Timer with three side-by-side green sparklines:
+
+- **Requested** — what the BMS asked the EVSE for.
+- **Supplied** — what the EVSE is delivering at the inlet (matches the car's dashboard kW; runs ~10-12% higher than Pack Power because of inlet/contactor/cabling losses).
+- **Pack Power** — what's entering the cells.
+
+### CarPlay — tab switches redraw immediately
+
+Tabs used to briefly show stale row images on switch. Each tab now clears its cache on entry.
+
+### CarPlay — "Precondition" spelling unified
+
+Was "Pre-Condition" on Driving/Charging tabs. Now matches the rest of the app.
+
+### History → Sessions — driving sessions no longer span charging
+
+When you stop to charge, your drive ends, the charging session runs, and a new drive begins after you unplug. The first drive ends on actual AC/DC charging start (preconditioning alone doesn't end a drive); the second starts when charging ends if ignition is still on.
+
+### History → Sessions — status badges
+
+All closed sessions now show a badge: Ignition Off (gray), Plugged In (teal), Unplugged (teal), BLE lost (orange), Recovered (gray), or Superseded (gray). Active sessions keep the green Active badge. Charging titles now read "DC Charge" / "AC Charge".
+
+### History → Sessions — final charging SoC matches the car
+
+Was up to 0.5% low. The endSOC is now overwritten by the next BMS sample within a 35-second finalize window after session close — latest-wins.
+
+### History → Sessions — opening a live charging session is snappy
+
+Per-poll writes used to cascade through the detail view and chart stack. The hero/stats sections are now their own subviews, so per-poll updates only re-render the small live numbers.
+
+### History → Driving Session detail — hero handles short and live drives
+
+New states: "Too short / Less than 1 mi tracked" for short drives that don't have enough data and "— / Drive in progress" while live. The Distance chip also shows "< 1 mi" instead of hiding.
+
+---
 ## Build 79 — Session photo preview fix, Storage cap fix, Settings → History simplified, Dashboard localizations
 
 NOTE TO TESTERS: 
