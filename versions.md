@@ -8,6 +8,19 @@ nav_order: 5
 
 
 ---
+## Build 82 — Gear chip on Dashboard, Isolation chip restyled
+
+NOTE TO TESTERS: Sorry for two builds in one day - but I need to ask everyone to help out with this one - please open the phone app, and check out the new Gear indicator chip in the Overview section.   PLEASE verify this is working on your vehicle -- P, N, R, D -- and let me know.  An issue has emerged with the Driving Session feature and I see an easy solution if this gear indicator works across the fleet.  IONIQ 5, 5 N, 6, 9 -- Kia EV6, Genesis GV60, etc...
+
+### Dashboard → Overview — new Gear chip
+
+Shows the current shifter position: P, R, N, or D. Sits next to Isolation Resistance on a single row. Updates within 2.5 seconds of a shift.
+
+### Dashboard → Overview — Isolation Resistance chip restyled
+
+The chip now matches the visual style of the other Overview chips (VIN, Model, Odometer, etc.)
+
+---
 ## Build 81 — App crash fix when manually connecting/disconnecting, Auto-Connect updated, new haptics
 
 NOTE TO TESTERS:  Thank you for all your continued support!  This is Release Candidate 1 (RC1) for Version 2.0.   Please report anything unusual -- if you're unsure if something is a bug, please don't hesitate to reach out.   Thank you to tester Paul for sending in a crash report via TestFlight that made me aware of the app crash issue when manually connecting/disconnecting.
