@@ -8,6 +8,63 @@ nav_order: 5
 
 
 ---
+## Build 81 — App crash fix when manually connecting/disconnecting, Auto-Connect updated, new haptics
+
+NOTE TO TESTERS:  Thank you for all your continued support!  This is Release Candidate 1 (RC1) for Version 2.0.   Please report anything unusual -- if you're unsure if something is a bug, please don't hesitate to reach out.   Thank you to tester Paul for sending in a crash report via TestFlight that made me aware of the app crash issue when manually connecting/disconnecting.
+
+### CarPlay — vehicle-tab tear-down debounced (crash fix)
+
+Fixes the `Array index out of range` crash some testers had encountered when connecting and disconnecting from the adapter manually
+
+### Settings → OBD-II Adapter — Auto-Connect reworked as a pure preference
+
+- **Turning Auto-Connect OFF no longer drops a live link.** Only the Disconnect button does that.
+- **Turning OFF mid-attempt cancels it** — no more hanging in "Connecting…" when out of range.
+- **Turning ON kicks an immediate reconnect** when not already linked.
+- **Adopting an adapter** (Scan → tap, or claiming an already-connected one) flips Auto-Connect to ON automatically.
+
+### Settings → OBD-II Adapter — section split into two
+
+Now two sections with one focused footer each:
+
+- **OBD-II Adapter** — status row + Disconnect / Scan / Connect button.
+- **Auto-Connect** — toggle + reconnect-behavior footer.
+
+The Disconnect button is text-only (red `bolt.slash` icon gone), and the muted-red bordered style coordinates with the text color instead of layering brighter red over dimmed background.
+
+### Dashboard — adapter panel is informational only
+
+"Disconnected" / "Error" panels no longer carry Connect / Retry buttons — those live in Settings. The "Is your OBD-II adapter plugged in, and are you in range?" footer stays.
+
+### Welcome onboarding — simplified OBD-II Adapter step
+
+Stripped variant of the Settings section. Auto-Connect toggle, Forget Saved Device, and reconnect footer are hidden during onboarding. Status row, Scan button, and discovered-devices list are unchanged.
+
+### Reset Onboarding — reliably returns to Welcome on first try
+
+Previously the connected-adapter probe raced the reset and re-routed you into the "Adopt this already-connected adapter" sheet, requiring a second reset to see Welcome 1-2-3. First reset now works.
+
+### CarPlay — status row shows scan progress
+
+During startup, the status row reads `Scanning ECUs · N/M`, ticking up as each ECU comes online (typically 1/8 → 8/8 over ~4-5 seconds) so it's visible the scan is making progress instead of hanging.
+
+### History → Signals — haptics on chart scrub
+
+Tap-and-hold to start scrubbing now produces a light haptic bump.
+
+### Dashboard — haptics on section expand/collapse
+
+A soft haptic bump has been added, a bit of polish
+
+### J1979 Crawl — cleaner post-crawl action row
+
+Start New Crawl is now the single prominent button; Share Report demoted to a tint-colored link beneath it.
+
+### Quick Look preview of `.iqlist` curated DID lists
+
+Hint now reads "Tap [share icon] below. Select IONIQ 5 Companion on the next screen that appears." with an inline share-sheet SF Symbol, fully localized into all six non-English locales. The hint follows the in-app language picker.
+
+---
 ## Build 80 — CarPlay Driving tab update and *New* compass feature, *New* setting to let the screen sleep, History session improvements
 
 NOTE TO TESTERS:  Happy Memorial Day!  I added something new -- a Compass chip to the driving tab.   I'd love to hear what you think about this.  Compass uses your iPhone for the source of the signal, so the top of the phone needs to be pointed in the direction the car is headed.  I think that should be OK due to the way the charging pad is aligned.  I also added a lot of polish all over the place.  We're getting close to RC1 for Version 2.0, so please keep sending your feedback! 
