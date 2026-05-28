@@ -7,6 +7,34 @@ nav_order: 5
 # Version History
 
 
+
+---
+## Build 83 — Driving sessions gated on gear; CarPlay performance pass
+
+NOTE TO TESTERS:  Thanks to everyone who tested the new Gear chip in Build 82 — it's confirmed working across the fleet.   I did a bunch of performance profiling today, and discovered a startup issue that's going to require a database schema migration in order to fix.   I worked on that for most of today, I hope to deploy that tomorrow.   I'm holding off calling this RC2 as a result.
+
+### Driving sessions only start in Drive or Reverse
+
+Until now, the app started a new driving session the moment HVAC responded (ignition on).  This was creating issues for folks who AC charge and happen to leave their OBD-II adapters plugged in -- lots of short aborted Drive sessions were being created.
+
+Now the gate is: ignition on AND gear in Drive or Reverse. The session-start moment (odometer, SOC, pack temps on the Session row) reflects when you actually start driving, not when the car turned on.
+
+End behavior is unchanged — ignition off, plugging in mid-trip, and BLE disconnect all close the session exactly as before. Mid-drive shifts (D→N at a stop, D→R for parking) do NOT end the session.
+
+Applies to both fresh ignition cycles and the auto-restart after a mid-trip charging session ends.
+
+### CarPlay — Dashboard and Status tabs are faster
+
+Cached registry signal-flag lookups and the localized-string bundle so they're no longer recomputed on every view re-evaluation. Time Profiler shows the targeted hot paths drop ~94% over a 60-second trace.
+
+### CarPlay — Status tab skips redundant cell reconfigures
+
+The Status tab now skips the underlying text-update call when the rendered string hasn't changed, avoiding redundant CarPlay framework cell reconfigures.
+
+### CarPlay — Precondition and Heater Temp chips stop re-rendering unchanged content
+
+When these chips were showing inactive state, they were re-rendering the same image every ~5 seconds because their snapshot keys included BMS sample counts that advance on every poll regardless of the chip's actual state. Snap keys are now state-branched.
+
 ---
 ## Build 82 — Gear chip on Dashboard, Isolation chip restyled
 
