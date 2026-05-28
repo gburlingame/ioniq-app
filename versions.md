@@ -9,6 +9,23 @@ nav_order: 5
 
 
 ---
+## Build 84 — Gear history, brake-light fix, CarPlay compass/odometer toggle
+
+NOTE TO TESTERS:  Not quite ready to call this RC2.  Owners of 2022-2024 Kia EV6 and IONIQ 5's -- please play extra close attention to the brake light chip behavior.   Does it behave correctly?   No interaction with the left or turn signals?
+
+### Brake Light indicator fix — 2022–2024 EV6 and IONIQ 5
+
+Fixed the Brake Light indicator falsely turning on in sync with the right turn signal on 2022 Kia EV6's -- and possibly others. On this model the indicator was reading a shared rear stop/turn lamp that lights for both braking and that side's turn signal; it now reads a brake-only signal, confirmed against brake-only, left-turn, and right-turn captures.  2025 and newer models use a different source and are unchanged.
+
+### Gear is now saved in History
+
+The shifter position (P/R/N/D) is now a recorded Historical Signal. Find it in the History tab's Signals list under Drive, with a tap-through chart that steps between P, R, N, and D over time. It syncs across your devices via iCloud like every other signal.
+
+### CarPlay — choose Compass or Odometer on the Driving tab
+
+New setting under Settings → CarPlay: "Replace Odometer with Compass," on by default. Leave it on for the live compass that's on the Driving tab today, or turn it off to show the odometer in that spot instead. The compass only uses location while it's the chip you've selected.
+
+---
 ## Build 83 — Driving sessions gated on gear; CarPlay performance pass
 
 NOTE TO TESTERS:  Thanks to everyone who tested the new Gear chip in Build 82 — it's confirmed working across the fleet.   I did a bunch of performance profiling today, and discovered a startup issue that's going to require a database schema migration in order to fix.   I worked on that for most of today, I hope to deploy that tomorrow.   I'm holding off calling this RC2 as a result.
