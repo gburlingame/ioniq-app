@@ -9,6 +9,19 @@ nav_order: 5
 
 
 ---
+## Build 85 — Faster launch, brake-light regen fix
+
+NOTE TO TESTERS:  This is RC2 for Version 2.0 - we are back on track!  The brake light "fix" in build 84 broke the brake light for everyone when the car's one pedal light-up algorithm turned the light on -- it was only responding to the physical brake pedal.
+
+### Faster app launch
+
+The app no longer rebuilds its entire Signals history index every time it launches. On devices with a large history this caused a multi-second processing spike at startup that could feel like a brief hang. Launch now updates the index incrementally — doing nothing when there's nothing new — and only performs a full rebuild once, the first time you launch after installing. Found and confirmed with Instruments.
+
+### Brake Light — now catches regenerative / one-pedal braking
+
+The Brake Light indicator now tracks all braking, not just the physical brake pedal. Build 84 only responded to the brake-pedal switch, so on 2022–2024 EV6 and IONIQ 5 the chip stayed dark during one-pedal slowdowns and stops.
+
+---
 ## Build 84 — Gear history, brake-light fix, CarPlay compass/odometer toggle
 
 NOTE TO TESTERS:  Not quite ready to call this RC2.  Owners of 2022-2024 Kia EV6 and IONIQ 5's -- please play extra close attention to the brake light chip behavior.   Does it behave correctly?   No interaction with the left or turn signals?
