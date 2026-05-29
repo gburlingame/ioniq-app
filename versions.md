@@ -9,6 +9,42 @@ nav_order: 5
 
 
 ---
+## Build 86 — Net efficiency, charging accuracy fixes, refreshed info sheets, tappable CarPlay Compass
+
+NOTE TO TESTERS:  This is RC3 for Version 2.0.  Thanks to everyone sending in feeddback -- I couldn't do this without everyone's support -- thank you!  Enjoy the driving this weekend, and please let me know if you see anything unusual.
+
+### Driving efficiency now counts net energy
+
+Driving-session efficiency now reflects net energy use — energy recovered through regenerative braking is no longer counted against you, so the figure tracks the car's own trip computer more closely. Sessions recorded before this build keep their old values, so expect a step in the efficiency trend at this build.  Thanks James for figuring this out!
+
+### New efficiency units
+
+Settings → Units now lets you show efficiency as kWh/100km (the standard in Canada and much of Europe) or Wh/mi, in addition to mi/kWh and km/kWh. Metric regions now default to kWh/100km — so if you're in a metric locale and haven't changed your units, the efficiency figure switches from km/kWh to kWh/100km; set it to whatever you prefer. Applies to the drive detail screen and shared session cards.   Thanks Denis for this idea!
+
+### Charging fixes
+
+- Charging sessions now record the battery percentage the car actually finishes at. Previously a session the car ended at a set limit (e.g. 80%) could be saved a half-percent low because the last reading was slightly stale — the app now takes a fresh reading the instant a session ends, while the car is still awake.
+- Fixed AC charging staying shown as "active" after the car ends a charge on its own (e.g. reaching your charge limit) with the cable still plugged in. The app now confirms AC charging against live battery current, so it only shows AC charging while current is actually flowing. The History "AC Charging" band shows the real on/off bursts instead of one continuous block.
+- Renamed the charging-session History badge from "Unplugged" to "Finished" — accurate whether or not the cable was pulled.
+- Fixed the Pack Voltage (and Battery Temp) lines briefly drawing outside the chart area near the left edge during a live charging session; these charts now clip cleanly.
+
+### Adapter reconnects automatically after a hiccup
+
+Fixed the app sometimes showing a stuck red error on the adapter (e.g. "Adapter disconnected") with no obvious way to retry — typically after launching the app before getting in the car, then starting it. A brief Bluetooth hiccup during the first connection was being treated as a hard error; the app now reconnects automatically instead.  Thanks Mark!
+
+### Refreshed in-app info sheets
+
+The in-app info sheets got a more modern look — a hero icon and title over grouped cards. New info buttons: the driving-session efficiency figure (explaining how short drives can skew it, since trip distance comes from the car's whole-mile/km odometer), and the Dashboard Regeneration dial (the green arc, Available, and Pack Peak). The Polling Headroom sheet adds a tip: two devices sharing one adapter can cut headroom by 30–40%.
+
+### Tappable Compass on CarPlay
+
+The CarPlay Driving-tab Compass chip now shows a small info badge and, when tapped, opens a Compass screen with the live compass and a note: for an accurate heading, the phone must be lying flat with the top of the phone pointed toward the front of the vehicle.
+
+### History stays available if its database can't open
+
+If the saved-data database ever fails to open at launch, the app now launches normally with everything else working and shows a clear "History isn't available" message (plus a log file you can send for support) instead of risking a crash.
+
+---
 ## Build 85 — Faster launch, brake-light regen fix
 
 NOTE TO TESTERS:  This is RC2 for Version 2.0 - we are back on track!  The brake light "fix" in build 84 broke the brake light for everyone when the car's one pedal light-up algorithm turned the light on -- it was only responding to the physical brake pedal.
