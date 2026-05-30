@@ -9,6 +9,19 @@ nav_order: 5
 
 
 ---
+## Build 87 — Charging History: data-gap notice and single-sample chart fix
+
+NOTE TO TESTERS:  This is RC4 for Version 2.0 - a couple of visualiztion tweaks/fixes for https://github.com/gburlingame/ioniq-app/issues/41
+
+### "Data gaps detected" notice on charging sessions
+
+If a charging session loses its connection to the app partway through — for example you start a charge, then walk away with your phone and reconnect later — the charts fill in the missing stretch by carrying the last known reading forward. Charging sessions that had a gap like this now show a "Data gaps detected" notice on the session detail screen and on the shared session card, so it's clear that the values across the gap are inferred rather than measured. The notice only appears when a gap is actually present.
+
+### Charging-session charts with a single reading now show a scale
+
+Fixed the Charging Power and EVSE Current charts collapsing to a bare flat line with no vertical scale when a session captured only a single reading — which can happen when the adapter disconnects right after a charge starts. These charts now always draw a proper kW / A axis and fill, both in the app and on shared session cards.
+
+---
 ## Build 86 — Net efficiency, charging accuracy fixes, refreshed info sheets, tappable CarPlay Compass
 
 NOTE TO TESTERS:  This is RC3 for Version 2.0.  Thanks to everyone sending in feeddback -- I couldn't do this without everyone's support -- thank you!  Enjoy the driving this weekend, and please let me know if you see anything unusual.
