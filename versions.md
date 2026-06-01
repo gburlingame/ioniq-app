@@ -9,6 +9,31 @@ nav_order: 5
 
 
 ---
+## Build 89 — Faster History detail, improved Signals chart controls, BLE robustness
+
+NOTE TO TESTERS:  This is RC6 for Version 2.0.  This build includes a database schema update and a one-time local index upgrade.  After updating, navigate to the History tab and you'll see this process working.   After it is done, you will see a huge performance improvement opening historical recordings.  If you have attached any photos to sessions, those will also now properly sync across your devices if you have iCloud sync turned on.  Thanks as always for the feedback. Please let me know if you see anything unusual -- I'm really hoping this is the final build for Version 2.0.
+
+### Faster History detail
+
+Opening a History detail is now much faster. Tapping a charging or driving session, or an individual signal, used to stall for roughly a second to a second and a half before anything appeared. Now the screen shows up promptly with its headline content — the session summary, or a signal's latest value — and the charts and secondary stats fill in a moment later instead of holding up the whole screen. The difference is largest on signals with a lot of recorded history.
+
+### One-time index upgrade on first launch
+
+On the first launch after updating, History performs a one-time, automatic upgrade of its local index — you may briefly see "Building local index" in History → Signals while it runs. Once it's done, opening an individual signal is consistently fast, including repeat opens, which previously could lag noticeably the second and later times you opened the same one.
+
+### Signals chart controls
+
+You can now navigate historical signals in either the collapsed view or expanded view.   Added a jump to the beginning button, to make it easier to see the earliest recordings.
+
+### CarPlay Connect/Disconnect improvement
+
+On the CarPlay Status screen, the adapter's Connect/Disconnect button now reflects whether the app is actually connected, not just what you last asked for. Previously, if the connection failed or dropped on its own (e.g. a hiccup right as you started the car), the button could still read "Disconnect" while the adapter was disconnected — so to reconnect you had to tap Disconnect first just to make the "Connect" button appear, then tap Connect. Now it reads "Connect" whenever you're not connected, so a single tap retries. While it's actively connecting, it reads "Disconnect" so you can cancel a stuck attempt.
+
+### BLE robustness
+
+Hardened the adapter auto-recovery shipped in Build 87 against one more case. If the Bluetooth link dropped at the very start of talking to the adapter — during the brief warm-up before the first command — the app could still get stuck showing "Not connected to OBD adapter" with a red icon, needing a manual connection.  The app now lets an automatic reconnection happen on its own.   Thanks Mark for the patience and logs!
+
+---
 ## Build 88 — First-connect reliability, background resume, storage cleanup, and a Cell Voltages explainer
 
 NOTE TO TESTERS:  This is RC5 for Version 2.0 — reliability and housekeeping fixes plus a new Cell Voltages explainer. Thanks as always for the feedback. Please let me know if you see anything unusual.
