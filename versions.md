@@ -9,6 +9,39 @@ nav_order: 5
 
 
 ---
+## Build 88 — First-connect reliability, background resume, storage cleanup, and a Cell Voltages explainer
+
+NOTE TO TESTERS:  This is RC5 for Version 2.0 — reliability and housekeeping fixes plus a new Cell Voltages explainer. Thanks as always for the feedback. Please let me know if you see anything unusual.
+
+### More reliable first connection
+
+Some adapters — notably the VGate iCar Pro 2S — could fail the very first connection attempt right after launch, flashing a brief error and silently reconnecting before succeeding. The first attempt is now reliable.
+
+### "Looking for adapter" while connecting
+
+The adapter connection status now reads "Looking for adapter" while the link is being established (matching CarPlay), instead of "Connecting…". The app is really waiting for iOS to confirm the Bluetooth link rather than actively working, and the new wording reflects that.
+
+### Resumes after the app is terminated in the background
+
+If iOS terminates the app in the background (for example under memory pressure) while it's connected to your adapter, the app can now relaunch itself in the background on the next adapter activity and resume on its own — reducing lost recording time across app terminations. (This doesn't prevent gaps caused by iOS suspending a backgrounded app between polls — see the Keep Screen Awake note below.)
+
+### Energy added recorded the instant a charge ends
+
+Charging sessions now also record the energy added (kWh) from a fresh reading taken the moment the session ends, alongside the ending battery %. Because it's captured while the car is still awake, the figure stays accurate even on sessions the car ends on its own (e.g. reaching your set charge limit) and powers down moments later.
+
+### Reclaims leftover storage
+
+The app now reclaims roughly 30 MB of leftover storage on devices that updated through an earlier version — a duplicate copy of the history database a past update left behind. It happens once, automatically, the next time the app launches, and writes a one-time "History Storage Cleanup.txt" note into the app's Files folder confirming how much space was freed. New installs are unaffected.
+
+### Cell Voltages explainer
+
+The Battery → Cell Voltages section now has an info button. The explainer covers what the view shows: the Min/Avg/Max and Delta stats, that each square in the grid is one cell colored by how far it strays from the pack average (not its absolute voltage), what the green/yellow/red bands mean, and how to read it — an even field of green is ideal, brief shifting deviations are normal, and the same few cells holding a wider gap consistently over time is the pattern worth watching.
+
+### Clearer "Keep Screen Awake" note
+
+The "Keep Screen Awake" setting's footer now states that when it's off, your device may dim or lock and the app may be suspended by iOS, which will introduce gaps in the recorded data — replacing the previous wording that implied recording always continues.
+
+---
 ## Build 87 — Charging History: data-gap notice and single-sample chart fix
 
 NOTE TO TESTERS:  This is RC4 for Version 2.0 - a couple of visualiztion tweaks/fixes for https://github.com/gburlingame/ioniq-app/issues/41
