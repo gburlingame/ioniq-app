@@ -9,6 +9,15 @@ nav_order: 5
 
 
 ---
+## Build 90 — CarPlay tire-pressure chip readability
+
+NOTE TO TESTERS: This is RC7.  I'm submitting this build to Apple later today for Version 2.0.  Thank you to everyone for all the support -- I'm looking forward to sharing this version with the rest of the world!
+
+### CarPlay tire-pressure chip readability
+
+The pressure and temperature values on the CarPlay tire-pressure chip now use black text on the colored (green / orange / red) tiles, instead of white text with a drop shadow.  The "no data" gray tile keeps its white text.
+
+---
 ## Build 89 — Faster History detail, improved Signals chart controls, BLE robustness
 
 NOTE TO TESTERS:  This is RC6 for Version 2.0.  This build includes a database schema update and a one-time local index upgrade.  After updating, navigate to the History tab and you'll see this process working.   After it is done, you will see a huge performance improvement opening historical recordings.  If you have attached any photos to sessions, those will also now properly sync across your devices if you have iCloud sync turned on.  Thanks as always for the feedback. Please let me know if you see anything unusual -- I'm really hoping this is the final build for Version 2.0.
