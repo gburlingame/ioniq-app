@@ -5,12 +5,12 @@ nav_exclude: true
 ---
 
 <div style="text-align: right; margin-bottom: 16px;">
-  <a href="privacy">English</a> · <a href="privacy-nl">Nederlands</a> · <strong>Deutsch</strong> · <a href="privacy-fr">Français</a> · <a href="privacy-es">Español</a> · <a href="privacy-sv">Svenska</a>
+  <a href="privacy">English</a> · <a href="privacy-nl">Nederlands</a> · <strong>Deutsch</strong> · <a href="privacy-fr">Français</a> · <a href="privacy-es">Español</a> · <a href="privacy-sv">Svenska</a> · <a href="privacy-it">Italiano</a>
 </div>
 
 # Datenschutzrichtlinie
 
-**Zuletzt aktualisiert: 29. April 2026**
+**Zuletzt aktualisiert: 2. Juni 2026**
 
 IONIQ 5 Companion ("die App") wird von Greg Burlingame entwickelt. Diese Datenschutzrichtlinie beschreibt, wie die App mit Ihren Daten umgeht.
 
@@ -23,18 +23,19 @@ IONIQ 5 Companion erhebt, überträgt oder verkauft **keine** personenbezogenen 
 Die App speichert die folgenden Daten lokal auf Ihrem Gerät:
 
 * **Fahrzeugdiagnosedaten** — Batteriestatus, Zellspannungen, Temperaturen, Ladedaten, Reifendrücke und andere Sensormesswerte Ihres Fahrzeugs werden im Speicher gehalten, während die App läuft. Diese Daten werden nicht zwischen App-Starts gespeichert, es sei denn, Sie verwenden die Diagnoseaufzeichnungsfunktion.
+* **Fahr- und Ladehistorie** — Wenn Sie die Historie-Funktion verwenden, werden Zusammenfassungen und aufgezeichnete Signalwerte Ihrer Fahrten und Ladevorgänge (Ladezustand, Energie, Temperaturen und andere Messwerte) auf Ihrem Gerät gespeichert, damit Sie sie später ansehen können.
 * **App-Einstellungen** — Ihre Einstellungen (Einheiten, Sprache, Erscheinungsbild, Zeitdiagramm-Einstellungen, Adapterauswahl) werden lokal mit UserDefaults gespeichert.
 * **Bluetooth-Geräteinformationen** — Die Kennung und der Name Ihres gekoppelten OBD-II-Adapters werden lokal gespeichert, damit die App automatisch wieder eine Verbindung herstellen kann.
 * **Diagnoseaufzeichnungen** — Wenn Sie die Funktion "Diagnose aufzeichnen" verwenden, wird eine Protokolldatei im lokalen Speicher Ihres Geräts gespeichert. Diese Datei enthält Bluetooth-Ereignisse, Adapterbefehle und rohe Fahrzeugdaten. Sie wird nur geteilt, wenn Sie explizit die Teilen-Taste verwenden.
 * **A-B-C Snapshot-Protokolle** — Wenn Sie die Snapshot-Vergleichsfunktion verwenden, wird eine Protokolldatei lokal mit rohen ECU-Daten gespeichert. Sie wird nur geteilt, wenn Sie explizit die Teilen-Taste verwenden.
 
-## Keine Cloud-Dienste
+## iCloud-Synchronisierung (optional)
 
-Die App verwendet weder iCloud noch CloudKit oder andere Cloud-Speicher. Alle Daten verbleiben auf Ihrem Gerät.
+Wenn Sie die iCloud-Synchronisierung aktivieren, wird Ihre Fahr- und Ladehistorie über Apples CloudKit mit Ihrem eigenen privaten iCloud-Konto synchronisiert, sodass sie auf iPhone, iPad und Mac konsistent bleibt. Diese Daten werden in Ihrer persönlichen iCloud gespeichert, unterliegen der Datenschutzrichtlinie von Apple und werden niemals an den Entwickler oder einen Drittanbieter-Server gesendet – der Entwickler hat keinen Zugriff darauf. Wenn Sie die iCloud-Synchronisierung deaktiviert lassen, verbleiben alle Daten ausschließlich auf Ihrem Gerät.
 
 ## Keine Drittanbieter-Integrationen
 
-Die App integriert sich nicht mit Drittanbieterdiensten. Es gibt keine Kontoerstellung, keine Anmeldung und keinen Daten-Upload.
+Die App integriert sich nicht mit Drittanbieterdiensten. Es gibt keine Kontoerstellung und keine Anmeldung, und Ihre Daten werden niemals an den Entwickler oder einen Drittanbieter-Server hochgeladen.
 
 ## Bluetooth
 
@@ -50,7 +51,7 @@ Wenn Sie die Erinnerung zum Abstecken aktivieren, verwendet die App lokale Benac
 
 ## Datenspeicherung
 
-Alle Daten werden auf Ihrem Gerät gespeichert. Diagnoseaufzeichnungen und Snapshot-Protokolle können über die iOS-Dateien-App gelöscht werden. Das Deinstallieren der App entfernt alle lokal gespeicherten Daten einschließlich Einstellungen und gespeicherter Adapterinformationen.
+Alle Daten werden auf Ihrem Gerät gespeichert. Diagnoseaufzeichnungen und Snapshot-Protokolle können über die iOS-Dateien-App gelöscht werden. Das Deinstallieren der App entfernt alle lokal gespeicherten Daten einschließlich Einstellungen und gespeicherter Adapterinformationen. Wenn Sie die iCloud-Synchronisierung aktiviert haben, verbleibt Ihre Historie außerdem in Ihrem iCloud-Konto, bis Sie sie in der App löschen oder die Synchronisierung deaktivieren.
 
 ## Datenschutz für Kinder
 

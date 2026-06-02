@@ -5,12 +5,12 @@ nav_order: 3
 ---
 
 <div style="text-align: right; margin-bottom: 16px;">
-  <strong>English</strong> · <a href="privacy-nl">Nederlands</a> · <a href="privacy-de">Deutsch</a> · <a href="privacy-fr">Français</a> · <a href="privacy-es">Español</a> · <a href="privacy-sv">Svenska</a>
+  <strong>English</strong> · <a href="privacy-nl">Nederlands</a> · <a href="privacy-de">Deutsch</a> · <a href="privacy-fr">Français</a> · <a href="privacy-es">Español</a> · <a href="privacy-sv">Svenska</a> · <a href="privacy-it">Italiano</a>
 </div>
 
 # Privacy Policy
 
-**Last updated: April 29, 2026**
+**Last updated: June 2, 2026**
 
 IONIQ 5 Companion ("the app") is developed by Greg Burlingame. This privacy policy describes how the app handles your data.
 
@@ -23,18 +23,19 @@ IONIQ 5 Companion does **not** collect, transmit, or sell any personal data to t
 The app stores the following data locally on your device:
 
 * **Vehicle diagnostic data** — Battery status, cell voltages, temperatures, charging data, tire pressures, and other sensor readings from your vehicle are stored in memory while the app is running. This data is not persisted between app launches unless you use the diagnostic recording feature.
+* **Driving and charging history** — When you use the History feature, summaries and recorded signal samples from your drives and charging sessions (state of charge, energy, temperatures, and other readings) are saved on your device so you can review them later.
 * **App settings** — Your preferences (units, language, appearance, time chart settings, adapter selection) are stored locally using UserDefaults.
 * **Bluetooth device information** — The identifier and name of your paired OBD-II adapter is stored locally so the app can reconnect automatically.
 * **Diagnostic recordings** — If you use the "Start Recording Diagnostics" feature, a log file is saved to your device's local storage. This file contains Bluetooth events, adapter commands, and raw vehicle data. It is only shared when you explicitly use the Share button.
 * **A-B-C Snapshot logs** — If you use the snapshot comparison feature, a log file is saved locally containing raw ECU data. It is only shared when you explicitly use the Share button.
 
-## No Cloud Services
+## iCloud Sync (Optional)
 
-The app does not use iCloud, CloudKit, or any cloud storage. All data remains on your device.
+If you turn on iCloud sync, your driving and charging history is synced through Apple's CloudKit to your own private iCloud account, so it stays consistent across your iPhone, iPad, and Mac. This data is stored in your personal iCloud, is governed by Apple's privacy policy, and is never sent to the developer or any third-party server — the developer has no access to it. If you leave iCloud sync off, all data stays only on your device.
 
 ## No Third-Party Integrations
 
-The app does not integrate with any third-party services. There is no account creation, no login, and no data upload.
+The app does not integrate with any third-party services. There is no account creation and no login, and your data is never uploaded to the developer or any third-party server.
 
 ## Bluetooth
 
@@ -50,7 +51,7 @@ If you enable the unplug reminder, the app uses local notifications to remind yo
 
 ## Data Retention
 
-All data is stored on your device. Diagnostic recordings and snapshot logs can be deleted through the iOS Files app. Uninstalling the app removes all locally stored data including settings and saved adapter information.
+All data is stored on your device. Diagnostic recordings and snapshot logs can be deleted through the iOS Files app. Uninstalling the app removes all locally stored data including settings and saved adapter information. If you enabled iCloud sync, your history also remains in your iCloud account until you delete it from within the app or turn off sync.
 
 ## Children's Privacy
 
