@@ -9,6 +9,15 @@ nav_order: 5
 
 
 ---
+## Build 91 — Phantom Charging Session cleanup
+
+NOTE TO TESTERS:  One last minute bug came in, and has been fixed.  This build is going over to Apple as Version 2.0.  (Build 91 / RC8)
+
+### No more stray empty Charging Sessions
+
+Fixed a History bug where preconditioning the battery without then charging could leave behind a stray, empty "Charging Session" in History. Such a session is now reliably removed about 30 minutes after preconditioning ends without plugging in. The cleanup also survives the app being suspended or relaunched in the meantime, which previously could let the phantom session linger.  Thanks to Kåre for his rigorous testing!
+
+---
 ## Build 90 — CarPlay tire-pressure chip readability
 
 NOTE TO TESTERS: This is RC7.  I'm submitting this build to Apple later today for Version 2.0.  Thank you to everyone for all the support -- I'm looking forward to sharing this version with the rest of the world!
