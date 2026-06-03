@@ -9,7 +9,7 @@ nav_order: 5
 
 
 ---
-## Build 91 — Phantom Charging Session cleanup
+## Build 91 — Phantom Charging Session cleanup - App Store Version 2.0
 
 NOTE TO TESTERS:  One last minute bug came in, and has been fixed.  This build is going over to Apple as Version 2.0.  (Build 91 / RC8)
 
@@ -792,7 +792,7 @@ A full-width chip in Dashboard → Overview shows your battery's isolation resis
 Tap the blue info badge for a full explainer — what the number means, why typical idle / AC-charging / DC-charging readings differ (the onboard charger is in the measurement loop only during AC charging), the FMVSS 305a regulatory floor for an 800-volt pack, and how to read the trend over time as a possible early signal of insulation breakdown in the ICCU.
 
 ---
-## Build 62 — Polling Paused state, diagnostic back-button guards, Curated Scan polish, Scan status panel change, updated brake light chip - second App Store release (v1.1)
+## Build 62 — Polling Paused state, diagnostic back-button guards, Curated Scan polish, Scan status panel change, updated brake light chip - App Store Version 1.1
 
 **NOTE TO TESTERS:** This is RC4 for Version 1.1 -- the issues identified yesterday have been fixed and verified (by me) -- please let me know if you run into any issues.
 
@@ -1111,7 +1111,7 @@ The advanced diagnostics-unlock dialog (the one that pops after the 5-tap on Bui
 iOS hides empty app Documents folders from Files → On My iPhone, which led to "the app doesn't have a folder, did the install break?" confusion on fresh installs. Build 53 writes a one-line `README.txt` on first launch describing what the folder is for, so the IONIQ 5 Companion folder shows up in Files immediately. The file is only written if absent — your edits or deletions stick across launches.
 
 ---
-## Build 52 — App rename and first-launch defaults polish — first App Store release (v1.0)
+## Build 52 — App rename and first-launch defaults polish — App Store Version 1.0
 
 *First public App Store release — version 1.0.*
 
