@@ -12,9 +12,11 @@ A real-time diagnostics app for the Hyundai IONIQ family. Connect an ELM327-comp
 
 ### CarPlay
 
-* **Driving tab** — Two rows of live chips: pack state of charge, pack power, odometer, 12V state, cell delta, motor RPM, headlights — and tire pressures, climate, preconditioning, battery heater, battery temperature, brake light
+* **Driving tab** — Two rows of live chips: pack state of charge, pack power, odometer, 12V state, cell delta, motor RPM, headlights — and tire pressures, climate, preconditioning, battery heater, battery temperature, regen power, brake light
 * **Tire-pressure tile** — Pressure and temperature
 * **12V chip** — State of charge, voltage, and current
+* **Compass** — Optionally swap the odometer chip for a live compass; tap it for a full-screen heading
+* **Status tab** — When the car is parked: connection state, ECU scan status, polling headroom, and ICCU details
 * **Dynamic Charging tab** — Appears during EVSE sessions, with a session timer to keep track of your charge time at a quick glance
 * **Dynamic EVSE tab** — Appears during charging with session details — see what capabilities the EVSE has communicated to your vehicle
 
@@ -35,16 +37,29 @@ A real-time diagnostics app for the Hyundai IONIQ family. Connect an ELM327-comp
 * **State of charge, available energy, voltage, current**
 * **Battery cell min/max temperature**
 * **Battery cell voltages**
+* **Module temperature grid** — Per-sensor pack temperatures with min/avg/max/delta
 * **Battery temperature charts** — Time series history of BMS max/min, heater, and coolant inlet temperatures
 * **Battery heater status during preconditioning**
 * **Battery Odometer** — Lifetime energy charged vs. discharged with round-trip efficiency percentage
 * **Battery Health** — BMS-reported State of Health with explanatory info
 * **Tire pressures and temperatures**
-* **Motor RPM, ignition state**
+* **Motor RPM, gear position, ignition state**
+* **Regenerative braking dial** — Live regen power against the available ceiling and the pack's peak power
 * **12V auxiliary battery** — State of charge, voltage, current, temperature, plus DC-DC converter telemetry
 * **Outside and cabin temperature, relative humidity**
 * **Indicators for headlights** (low and high beams) and brake lights
+* **Isolation resistance and polling headroom** — With explanatory info
+* **ECU scan status** — See which of your vehicle's modules are responding
 * **ICCU details share card** — VIN-redacted share sheet for easy sharing
+
+### History and iCloud
+
+* **Charging sessions** — Every charge recorded automatically: peak power, energy added, duration, EVSE max voltage / current / power, and a full set of charts
+* **Driving sessions** — Distance, max and average speed, energy used, and net efficiency, with speed, current, and state-of-charge charts
+* **Signal history** — Long-term time-series for every recorded signal, with tap-through charts spanning your whole recording history
+* **Session photos** — Attach a photo to any session
+* **Share a session** — Export any session as an image, charts and all
+* **iCloud sync** — Sessions, signals, and photos sync across your iPhone, iPad, and other Apple devices
 
 ### Inspect
 
@@ -62,9 +77,18 @@ Powerful tools to help enthusiasts learn more about their vehicles, with result 
 * **Adapter Quiet Check** — Detect foreign-app interference on the shared BLE adapter
 * **Full diagnostic recording** — Capture sessions for later analysis
 
+### Settings and customization
+
+* **Units your way** — Independent preferences for temperature, distance, speed, pressure, power, and efficiency
+* **Appearance** — Auto, Light, or Dark
+* **Reorder the Dashboard** — Drag sections into the order you want, or hide the ones you don't use
+* **Auto-Connect** — Reconnect to your adapter automatically on launch and after drops
+* **Keep Screen Awake** — Keep recording without the screen dimming or locking
+* **Quick Look for `.iqlist` files** — Preview a shared curated DID list before importing it
+
 ### Languages and notifications
 
-* **Multi-language support** — English, Nederlands, Deutsch, Español, Français, Svenska, with an in-app language picker
+* **Multi-language support** — Deutsch, English, Español, Français, Italiano, Nederlands, Svenska, with an in-app language picker
 * **Unplug reminder** — Notification when the car turns off reminding you to unplug the adapter
 * **OBD-II adapter compatibility** — Works with inexpensive ELM327-compatible Bluetooth LE adapters
 

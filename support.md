@@ -17,7 +17,7 @@ You can also [open an issue on GitHub](https://github.com/gburlingame/ioniq-app/
 1. **Plug in your OBD-II adapter** — Insert an ELM327-compatible Bluetooth LE adapter into your car's OBD-II port (usually below the dashboard on the driver's side)
 2. **Open the app and scan** — Tap Scan to find your adapter. If it doesn't appear, tap "Filter by name" to show all nearby Bluetooth devices
 3. **Start the car** — Turn on your vehicle. The dashboard will begin populating with live data automatically
-4. **Explore** — Swipe through the dashboard sections: Overview, Battery, Charging, Temperatures, and Tires
+4. **Explore** — Swipe through the dashboard sections — Overview, Battery, Charging, Temperatures, Tires, and more. Visit the **History** tab to see your recorded charging and driving sessions
 
 ## Adapter Compatibility
 
@@ -35,7 +35,7 @@ These adapter have been tested and verified to work with IONIQ 5 Companion:
 
 ## CarPlay
 
-CarPlay support is automatic — when your iPhone is connected to CarPlay and the app is running, you'll see Driving, Charging, and (during charging) EVSE tabs in the CarPlay interface with live-updating data.
+CarPlay support is automatic — when your iPhone is connected to CarPlay and the app is running, you'll see Driving, Charging, a Status tab, and (during charging) an EVSE tab in the CarPlay interface with live-updating data. The Status tab shows connection state, ECU scan status, and adapter details when the car is parked.
 
 ## Capturing Diagnostics
 
@@ -56,6 +56,14 @@ The app sends a notification reminding you to unplug the OBD-II adapter when you
 5. **Low Power Mode** — iOS may delay or suppress notifications when in Low Power Mode
 6. **The car must actually turn off** — The reminder triggers when the app detects the ignition switching off. If you disconnect the adapter before turning off the car, the notification won't fire
 
+## History and iCloud
+
+The app records your charging and driving sessions and long-term signal history in the **History** tab, and can sync them across your Apple devices.
+
+* **First launch after updating** — The first time you open the app after a History update, you may briefly see "Building local index" in History → Signals while a one-time index upgrade runs. Let it finish; once it's done, opening individual signals is fast.
+* **iCloud sync** — To sync your history across your iPhone, iPad, and other devices, go to **Settings → History** and turn on **iCloud Sync**. Sessions, signals, and any photos you've attached sync automatically. If iCloud is unavailable, the app will let you know.
+* **Purging history** — To clear your recorded history, use the purge option in **Settings → History**. This is permanent.
+
 ## Frequently Asked Questions
 
 **Q: Which OBD-II adapters work with this app?**  
@@ -67,11 +75,14 @@ A: First, verify that you are using a ELM327-compatible Bluetooth LE adapter.  N
 **Q: The BLE connection keeps disconnecting.**  
 A: Check to make sure that no other OBD-II apps (like Car Scanner, Torq, or ABRP) are running in the background. IONIQ 5 Companion and these other apps can only be run one at a time.  If you are not sure if another app is running, you can use the Adapter Quiet Check Feature.   This will run a one minute diagnostic check to verify that no other apps are running.  Settings / Diagnostics / Adapter Quiet Check.  After checking, if you still have a problem, please reach out to the developer for support.
 
+**Q: My recorded sessions have gaps.**  
+A: When your device dims or locks, iOS may suspend the app between polls, which leaves gaps in the recording. To record continuously while you're watching, turn on **Keep Screen Awake** in Settings. With it off, your device may dim or lock and recording will pause until the app resumes.
+
 **Q: Which vehicles are supported?**  
 A: See the [home page](.) for the most up-to-date list.
 
 **Q: How does CarPlay work?**  
-A: Connect your iPhone to CarPlay as usual. The app appears automatically with Driving, Charging, and (during charging) EVSE tabs showing live data.
+A: Connect your iPhone to CarPlay as usual. The app appears automatically with Driving, Charging, Status, and (during charging) EVSE tabs showing live data.
 
 **Q: How do I capture a diagnostic log?**  
 A: See the "Capturing Diagnostics" section above.
