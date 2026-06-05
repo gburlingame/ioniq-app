@@ -9,6 +9,19 @@ nav_order: 5
 
 
 ---
+## Build 92 — Start of Kia EV9 support
+
+NOTE TO TESTERS:  Version 2.0 has been released!
+
+NOTE TO EV6 TESTERS:  To all the Kia EV6 testers -- thank you for your help brining the EV6 online.   I've been reaching out to all of you with the promised promo codes -- if you don't hear from me by the weekend -- please don't hesitate to reach out in case I've missed you.
+
+### Kia EV9 now supported
+
+The app now recognizes the Kia EV9 instead of treating it as an IONIQ 5. All three variants are covered — Standard Range RWD, Long Range RWD, and Long Range AWD — each with the correct battery capacity, cell configuration, and drivetrain (the front-motor gauge is hidden on the rear-wheel-drive trims). The vehicle now identifies itself as "Kia EV9" throughout the app.
+
+Welcome to our first EV9 tester, Jeremy — thanks for the logs that made this possible!
+
+---
 ## Build 91 — Phantom Charging Session cleanup - App Store Version 2.0
 
 NOTE TO TESTERS:  One last minute bug came in, and has been fixed.  This build is going over to Apple as Version 2.0.  (Build 91 / RC8)
