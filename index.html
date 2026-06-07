@@ -1,0 +1,203 @@
+---
+layout: landing
+title: IONIQ 5 Companion
+description: Real-time EV diagnostics for the Hyundai, Kia, and Genesis E-GMP family — battery health, charging telemetry, and CarPlay dashboards on your iPhone.
+nav_exclude: true
+---
+
+<!-- NAV -->
+<nav><div class="nav-inner">
+  <div class="brand"><img src="{{ '/assets/images/app-icon-64.png' | relative_url }}" alt="">IONIQ 5 Companion</div>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#carplay">CarPlay</a>
+    <a href="#data">Data</a>
+    <a href="#vehicles">Vehicles</a>
+    <a href="https://github.com/gburlingame/ioniq-app/issues" target="_blank" rel="noopener" class="pill-ghost"><span class="material-symbols-outlined">bug_report</span><span class="label">Report an Issue</span></a>
+    <a href="https://apps.apple.com/app/id6761347502" target="_blank" rel="noopener" class="pill">Download</a>
+  </div>
+</div></nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"><img src="{{ '/assets/images/landing/hero.jpg' | relative_url }}" alt="An EV in a neon-lit studio with telemetry light trails"><div class="overlay"></div></div>
+  <div class="mesh"></div>
+  <div class="wrap">
+    <div class="eyebrow">Real-time EV telemetry</div>
+    <h1>See What Your EV Is<br><span class="green">Really Doing</span></h1>
+    <p class="sub">Battery health, individual cell voltages, charging telemetry, and CarPlay dashboards &mdash; straight from your vehicle's E-GMP platform to your iPhone.</p>
+    <div class="cta">
+      <a class="badge-link" href="https://apps.apple.com/app/id6761347502" target="_blank" rel="noopener"><img src="{{ '/assets/images/landing/appstore-badge.svg' | relative_url }}" alt="Download on the App Store"></a>
+      <a class="btn btn-ghost" href="#features">See How It Works</a>
+    </div>
+    <div class="chips">
+      <div class="chip"><div class="k">Pack SoC</div><div class="v g">86%</div></div>
+      <div class="chip"><div class="k">Power</div><div class="v g">60.4kW</div></div>
+      <div class="chip"><div class="k">Cell &Delta;</div><div class="v b">14mV</div></div>
+      <div class="chip"><div class="k">12V</div><div class="v b">14.6V</div></div>
+      <div class="chip"><div class="k">Batt Temp</div><div class="v a">73&deg;F</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" class="pad"><div class="wrap">
+  <div class="center">
+    <div class="eyebrow">The diagnostic suite</div>
+    <h2>Every signal the car will share, made legible</h2>
+    <p class="lead">Connect an inexpensive ELM327 Bluetooth adapter and read your vehicle's live data &mdash; cleanly organized, charted, and recorded.</p>
+  </div>
+  <div class="grid">
+    <div class="card"><div class="ico"><span class="material-symbols-outlined">dashboard</span></div>
+      <h3>Live Dashboard</h3><p>State of charge, available energy, cell voltages, pack temperatures, 12V, motor RPM, regen, tire pressures &mdash; a full live readout you can reorder to taste.</p></div>
+    <div class="card"><div class="ico"><span class="material-symbols-outlined">bolt</span></div>
+      <h3>Charging Telemetry</h3><p>Live AC and DC charging detection, EVSE max voltage / current / power, Control Pilot duty cycle, and ICCU input voltage and current.</p></div>
+    <div class="card"><div class="ico"><span class="material-symbols-outlined">grid_view</span></div>
+      <h3>Cells &amp; Thermal</h3><p>Individual battery-cell voltages and a per-sensor module-temperature grid with min, average, max, and delta &mdash; plus battery-temperature history charts.</p></div>
+    <div class="card"><div class="ico"><span class="material-symbols-outlined">history</span></div>
+      <h3>History &amp; iCloud</h3><p>Every charge and drive recorded automatically &mdash; peak power, energy, efficiency, full charts &mdash; and synced across your iPhone and iPad.</p></div>
+    <div class="card"><div class="ico"><span class="material-symbols-outlined">directions_car</span></div>
+      <h3>Apple CarPlay</h3><p>Live telemetry chips on your head unit while driving, a Status view when parked, and Charging and EVSE views that appear during a session.</p></div>
+    <div class="card"><div class="ico"><span class="material-symbols-outlined">terminal</span></div>
+      <h3>Advanced Tools</h3><p>DID range scans, an ECU finder, curated DID lists with tester sharing, and an Adapter Quiet Check &mdash; for owners who want to go deeper.</p></div>
+  </div>
+</div></section>
+
+<!-- CARPLAY -->
+<section id="carplay" class="pad" style="background:var(--surface)"><div class="wrap">
+  <div class="split">
+    <div>
+      <div class="eyebrow">On your dashboard</div>
+      <h2>Your telemetry, on the head&nbsp;unit</h2>
+      <p class="lead">No need to look at your phone. The most important numbers live right on your vehicle's main display.</p>
+      <ul class="feature-list">
+        <li><span class="material-symbols-outlined">check_circle</span>Two rows of live chips while driving &mdash; SoC, power, odometer, cell delta, motor RPM, climate, tire pressures, and more</li>
+        <li><span class="material-symbols-outlined">check_circle</span>A Status view when parked: connection, ECU scan, polling headroom, ICCU details</li>
+        <li><span class="material-symbols-outlined">check_circle</span>Charging and EVSE views that appear automatically during a session, with a session timer</li>
+        <li><span class="material-symbols-outlined">check_circle</span>Swap the odometer chip for a live compass &mdash; tap for a full-screen heading</li>
+      </ul>
+    </div>
+    <div class="shot-frame"><img src="{{ '/assets/images/landing/carplay.jpg' | relative_url }}" alt="IONIQ 5 Companion running in Apple CarPlay with live telemetry chips"></div>
+  </div>
+</div></section>
+
+<!-- CHARGING INTELLIGENCE -->
+<section class="pad"><div class="wrap">
+  <div class="split">
+    <div class="meter">
+      <div class="row">
+        <div class="label"><span>Requested by vehicle</span><span class="val" style="color:var(--primary)">235kW</span></div>
+        <div class="bar"><span style="width:100%;background:var(--primary)"></span></div>
+      </div>
+      <div class="row">
+        <div class="label"><span>Delivered by charger</span><span class="val" style="color:var(--secondary)">178kW</span></div>
+        <div class="bar"><span style="width:76%;background:var(--secondary)"></span></div>
+      </div>
+      <div class="row">
+        <div class="label"><span>EVSE max advertised</span><span class="val" style="color:var(--tertiary)">200kW</span></div>
+        <div class="bar"><span style="width:85%;background:var(--tertiary)"></span></div>
+      </div>
+      <div class="mono" style="margin-top:18px;font-size:11px;color:var(--on-surface-variant)">Representative values &mdash; for illustration</div>
+    </div>
+    <div>
+      <div class="eyebrow">Charging intelligence</div>
+      <h2>Why is my charge slow?</h2>
+      <p class="lead">Compare what your vehicle asked for against what the charger actually delivered &mdash; and what the EVSE advertised it could do. Spot a bottlenecking charger instead of guessing.</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- DATA GALLERY -->
+<section id="data" class="pad" style="background:var(--surface)"><div class="wrap">
+  <div class="center">
+    <div class="eyebrow">See it in the app</div>
+    <h2>Built for clarity, not clutter</h2>
+    <p class="lead">Real screens from the app &mdash; dense data, organized so you can read it at a glance.</p>
+  </div>
+  <div class="gallery">
+    <div><div class="ph"><img src="{{ '/assets/images/landing/dash.jpg' | relative_url }}" alt="Live dashboard"></div><div class="gcap">Live Dashboard</div></div>
+    <div><div class="ph"><img src="{{ '/assets/images/landing/cells.jpg' | relative_url }}" alt="Cell voltages"></div><div class="gcap">Cell Voltages</div></div>
+    <div><div class="ph"><img src="{{ '/assets/images/landing/charge.jpg' | relative_url }}" alt="Charging session"></div><div class="gcap">Charging Session</div></div>
+    <div><div class="ph"><img src="{{ '/assets/images/landing/history.jpg' | relative_url }}" alt="Signal history"></div><div class="gcap">Signal History</div></div>
+  </div>
+</div></section>
+
+<!-- REVIEWS -->
+<section id="reviews" class="pad"><div class="wrap">
+  <div class="center">
+    <div class="eyebrow">From the App Store</div>
+    <h2>What owners are saying</h2>
+  </div>
+  <div class="reviews">
+    <div class="review"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <h4>Ultimate Ioniq 5 owner tool</h4>
+      <p>&ldquo;Connection to my Veepeak adapter was instantaneous. The UI is very well done&hellip; clearly tuned for maximum info with minimum fuss on the Ioniq 5. The CarPlay interface is great too, providing near real-time at-a-glance information.&rdquo;</p>
+      <div class="by"><b>Geekeurism</b> &middot; May 3</div></div>
+    <div class="review"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <h4>Provides so much information.</h4>
+      <p>&ldquo;I have a 2023 Ioniq 5 and it works flawlessly. Very easy and quick to set up. I love how I can use it with Apple Car Play and have all the info displayed on my screen while driving.&rdquo;</p>
+      <div class="by"><b>Garnettch</b> &middot; May 11</div></div>
+    <div class="review"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <h4>Incredible App for Ioniq 5 owners!</h4>
+      <p>&ldquo;This is a great App &mdash; no need to fuss around with the others that require a lot of configuration and are obviously built for ICE vehicles. Thank you to the dev.&rdquo;</p>
+      <div class="by"><b>AppleMacHome2</b> &middot; May 11</div></div>
+    <div class="review"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <h4>Working with Ioniq 6</h4>
+      <p>&ldquo;I'm using it with a MY2024 AWD i6 and I can't find anything non-functional at first glance. Does the job, great stuff.&rdquo;</p>
+      <div class="by"><b>Eeegah</b> &middot; May 11</div></div>
+    <div class="review"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <h4>Excellent</h4>
+      <p>&ldquo;This app is incredible. Sooooo much nicer to use than the rest of the OBD reader apps out there. Thank you for making it!&rdquo;</p>
+      <div class="by"><b>ayoba.</b> &middot; May 9</div></div>
+  </div>
+</div></section>
+
+<!-- PRIVACY -->
+<section class="privacy"><div class="wrap">
+  <div class="eyebrow" style="text-align:center">Strict privacy</div>
+  <h2><span class="material-symbols-outlined">lock</span>No accounts. No ads. No tracking.</h2>
+  <p class="lead center">Your car's data is sensitive. It stays on your device and in your own iCloud &mdash; never on our servers, because there are none.</p>
+</div></section>
+
+<!-- VEHICLES -->
+<section id="vehicles" class="pad" style="background:var(--surface)"><div class="wrap center">
+  <div class="eyebrow">Supported vehicles</div>
+  <h2>Built for the E-GMP family</h2>
+  <p class="lead">Per-vehicle registries, decoded from each car's own modules.</p>
+  <div class="veh">
+    <div class="vchip"><span class="dot full"></span>IONIQ 5</div>
+    <div class="vchip"><span class="dot full"></span>IONIQ 5 N</div>
+    <div class="vchip"><span class="dot full"></span>IONIQ 6</div>
+    <div class="vchip"><span class="dot full"></span>IONIQ 9</div>
+    <div class="vchip"><span class="dot full"></span>Kia EV6</div>
+    <div class="vchip"><span class="dot near"></span>Genesis GV60</div>
+    <div class="vchip"><span class="dot near"></span>Kia EV9</div>
+  </div>
+  <div class="veh-legend"><span style="color:var(--primary)">&#9679;</span> Verified full support &nbsp;&nbsp; <span style="color:var(--tertiary)">&#9679;</span> Nearing full support</div>
+</div></section>
+
+<!-- DOWNLOAD -->
+<section id="download" class="download"><div class="wrap">
+  <div class="eyebrow" style="text-align:center">Experience clarity</div>
+  <h2>One purchase. Yours to keep.</h2>
+  <div class="price">$12.99 <small>USD</small></div>
+  <p class="pterms"><b>Buy once, own it.</b> No subscriptions, no in-app purchases, no ads.</p>
+  <a class="badge-link" href="https://apps.apple.com/app/id6761347502" target="_blank" rel="noopener" style="justify-content:center"><img src="{{ '/assets/images/landing/appstore-badge.svg' | relative_url }}" alt="Download on the App Store"></a>
+  <div class="fineprint">Price shown in USD; varies by region &middot; Works with inexpensive ELM327-compatible Bluetooth LE adapters</div>
+</div></section>
+
+<!-- FOOTER -->
+<footer><div class="wrap">
+  <div class="foot-inner">
+    <div class="foot-brand"><img src="{{ '/assets/images/app-icon-64.png' | relative_url }}" alt="">IONIQ 5 Companion</div>
+    <div class="foot-links">
+      <a href="{{ '/support' | relative_url }}">Support</a>
+      <a href="{{ '/features' | relative_url }}">Full Feature List</a>
+      <a href="{{ '/versions' | relative_url }}">Version History</a>
+      <a href="{{ '/why-some-features-are-hard' | relative_url }}">Why Some Features Are Hard</a>
+      <a href="{{ '/unplugging-your-adapter' | relative_url }}">Unplug Your Adapter?</a>
+      <a href="{{ '/privacy' | relative_url }}">Privacy Policy</a>
+    </div>
+  </div>
+  <div class="copyright">&copy; 2026 Gregory Burlingame &middot; Not affiliated with or endorsed by Hyundai, Kia, or Genesis.</div>
+</div></footer>

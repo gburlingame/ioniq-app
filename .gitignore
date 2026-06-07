@@ -1,0 +1,10 @@
+
+# Brainstorming visual companion working files
+.superpowers/
+
+# Jekyll local build
+_site/
+.jekyll-cache/
+.jekyll-metadata
+vendor/
+.bundle/

@@ -9,6 +9,21 @@ color_scheme: ioniq
 
 search_enabled: true
 
+# Internal design specs and local build tooling must not be published.
+# Note: setting `exclude` overrides Jekyll's defaults, so the standard
+# entries (Gemfile, vendor/, caches) are repeated here.
+exclude:
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/
+  - docs/
+  - .superpowers/
+  - README.md
+
 aux_links:
   "Report an Issue":
     - "https://github.com/gburlingame/ioniq-app/issues"
