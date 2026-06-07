@@ -9,6 +9,27 @@ nav_order: 5
 
 
 ---
+## Build 93 — Signals chart multi-touch fixes, Kia EV6 detection, lifetime efficiency 0% fix
+
+NOTE TO TESTERS:  The History / Signals experience is much improved -- I think it's pretty amazing, but I'm a little biased.  I plan on adding some instructions to help people navigate the capabilities of this tool because there is so much that may not be discovered.  I plan on releasing a maintenance build to the Apple App Store (version 2.1) later this week due to the VIN decoding issues with the Kia EV6.   Also noteworthy -- the app has a new marketing landing page, with inspiration from forum member DH (a talented graphic designer), check it out here:  https://www.theburl.com/ioniq-app/.   And finally, the app surged to #3 in the App Store Utilities this weekend -- woohoo!
+
+### Kia EV6 detection fixes
+
+A couple of Kia EV6 variants were being misidentified. Some Korea-built EV6s — VINs starting with KNAC and similar — were slipping through and being treated as an IONIQ 5; EV6 detection now covers the full set of EV6 VIN prefixes, so they're recognized correctly. Separately, the EV6 RWD Standard Range is now identified as its own variant, loading the right battery and drivetrain profile and hiding the front-motor gauge instead of defaulting to the AWD Long Range.
+
+### History → Signals chart: smoother panning and zooming
+
+The Signals charts got a big multi-touch overhaul:
+
+- Prior/Next now move the view by the amount of time you have on screen (with a slight overlap) and skip empty stretches to land on the next real data for that signal — no more jarring auto-zoom to each data cluster. Jump-to-Earliest/Latest keep your current zoom and snap to the start or end of recorded history, and all the transport controls go inactive once you're already viewing the entire time range.
+- Pinch-to-zoom now "sticks" — dragging right after a pinch no longer snaps the chart back to fully zoomed out. Pinch, pan, and the scrub crosshair are now mutually exclusive, so a two-finger zoom is never undone by the next one-finger drag. (The accidental double-tap-to-reset gesture is gone too.)
+- Scrub — press and hold to read a value — now takes a deliberate hold instead of firing on the lightest touch, the crosshair appears immediately under your finger, and it's a full crosshair now (horizontal + vertical). The horizontal line hides automatically when you're scrubbing over a stretch with no recorded data.
+
+### Lifetime Efficiency 0% fix
+
+Fixed the History → Signals "Lifetime Efficiency" series recording a spurious 0% at the start of each recording window (and the Dashboard's battery-efficiency tile briefly flashing 0%). Efficiency is computed from the battery's lifetime charged and discharged counters; right after reconnecting, the discharged counter hadn't been read yet, so the first reading briefly computed as 0 before correcting itself. It's now recorded only once both counters are available.  I will be pushing a change in the next build (hopefully) that cleans out the erroneous values from everyone's databases.
+
+---
 ## Build 92 — Start of Kia EV9 support
 
 NOTE TO TESTERS:  Version 2.0 has been released!
