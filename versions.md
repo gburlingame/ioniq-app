@@ -9,6 +9,17 @@ nav_order: 5
 
 
 ---
+## Build 94 — Kia EV9 detection fix
+
+NOTE TO TESTERS: Getting this build out to support an EV9 tester in the field - thanks Jaka!
+
+### Kia EV9 detection fix
+
+Some Korea-built Kia EV9s were still being misidentified as an IONIQ 5. EV9 VINs whose WMI third character isn't `D` — for example those starting with `KNAA` — were slipping through and getting polled as an IONIQ 5. EV9 detection now covers the full set of EV9 VIN prefixes, so these vehicles are recognized correctly and load the right battery and drivetrain profile.
+
+(This is the same kind of VIN-prefix gap that was fixed for the Kia EV6 in Build 93, one model over.)
+
+---
 ## Build 93 — Signals chart multi-touch fixes, Kia EV6 detection, lifetime efficiency 0% fix
 
 NOTE TO TESTERS:  The History / Signals experience is much improved -- I think it's pretty amazing, but I'm a little biased.  I plan on adding some instructions to help people navigate the capabilities of this tool because there is so much that may not be discovered.  I plan on releasing a maintenance build to the Apple App Store (version 2.1) later this week due to the VIN decoding issues with the Kia EV6.   Also noteworthy -- the app has a new marketing landing page, with inspiration from forum member DH (a talented graphic designer), check it out here:  https://www.theburl.com/ioniq-app/.   And finally, the app surged to #3 in the App Store Utilities this weekend -- woohoo!
