@@ -9,6 +9,29 @@ nav_order: 5
 
 
 ---
+## Build 95 — Power panel and CarPlay power gauge, French CarPlay charging chip fix
+
+NOTE TO TESTERS:  A few new features and bug fixtures
+
+### New Power panel
+The Dashboard has a new Power panel, just below Regeneration. It shows a live output-power dial that fills from zero up to the battery pack's peak power capability, along with a Pack Peak reading and an info bubble explaining what you're looking at. Like the app's other power readouts, the value follows your chosen power unit in Settings (kW, HP, or PS), and it's fully translated.
+
+### Power readouts follow your unit setting
+The Dashboard panel now respects your Settings power unit (kW, HP, or PS). Previously it always showed kilowatts regardless of your preference.
+
+### CarPlay power gauge
+On the CarPlay power chip, the output side of the dial now scales to the battery's live peak-power capability reported by the car, instead of an estimate based on the vehicle's horsepower rating. A small "PEAK" label below the dial shows that maximum, in your chosen power unit.
+
+### IONIQ 5 N and Kia EV6 GT recognized correctly
+2024-model-year IONIQ 5 N cars and Kia EV6 GT cars were being misidentified and loading the wrong (AWD Long Range) profile. Both are now recognized from their VIN and load the right vehicle profile
+
+### French charging-status chip
+The CarPlay charging-status chip no longer renders as a clipped "Charg…" in French. It now uses "Recharge" for the charging section name and "Charge" for the live status.
+
+### Charging — Status layout
+The two chips in the charging Status row now expand to fill the full row width.
+
+---
 ## Build 94 — Kia EV9 detection fix
 
 NOTE TO TESTERS: Getting this build out to support an EV9 tester in the field - thanks Jaka!
