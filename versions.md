@@ -9,6 +9,23 @@ nav_order: 5
 
 
 ---
+## Build 97 — Lifetime Efficiency history cleanup, AC charging session charts
+
+NOTE TO TESTERS: A one-time cleanup of old Lifetime Efficiency readings, new AC charging charts, and chart polish.  There is a database schema change with this release, so please give me a shout out if you have any issues viewing things under HISTORY. 
+
+### Old "Lifetime Efficiency" history cleaned up automatically
+Build 93 fixed the bug that recorded a false 0% at the start of each recording window in History → Signals → Lifetime Efficiency. This build cleans up what was already recorded: a one-time background pass removes those spurious 0% points from your existing history, so older charts read correctly too. It runs quietly shortly after launch — you don't need to do anything — and it runs only once per iCloud account, with the cleaned-up history syncing to your other devices.
+
+### AC charging sessions: AC Input Current and Voltage charts
+AC (Level 2) charging session details now include AC Input Current and AC Input Voltage charts, shown between State of Charge and Charging Power — both in the session detail and on the shared report card.
+
+### AC charging sessions no longer show Preconditioning
+Preconditioning is battery prep for DC fast charging and doesn't apply to AC (Level 2) charging, so the Preconditioning strip no longer appears on AC charging sessions. DC sessions are unchanged.
+
+### Preconditioning strip is a continuous line again
+The Preconditioning strip in a session's History detail renders as one continuous line with sample dots, instead of breaking into segments across data gaps — restoring its pre-Build-96 look. The AC/DC Charging strips keep their Build-96 treatment (dots plus cross-hatched "unknown" regions).
+
+---
 ## Build 96 — Charging session end-time fix, clearer charging History charts
 
 NOTE TO TESTERS: A charging-history accuracy fix plus some chart polish.
