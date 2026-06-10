@@ -9,6 +9,23 @@ nav_order: 5
 
 
 ---
+## Build 96 — Charging session end-time fix, clearer charging History charts
+
+NOTE TO TESTERS: A charging-history accuracy fix plus some chart polish.
+
+### Charging sessions no longer run long when you walk away
+If your phone (or the app) was away from the car as a charge finished, there was a possibility for a charging session to be recorded as lasting far longer than the actual charge — a ~3-hour charge could show as ~27 hours, with the charts and Duration stretched across the whole span. The app now records the true end of the charge the moment it sees charging stop, so the session length, average power, and charts stay accurate even if the connection drops or the app is closed right afterward.
+
+### Charging History — dots and "unknown" regions
+On the AC and DC Charging strips in a session's History detail (and on the shared report card), each captured data point is now marked with a dot, so it's easy to see exactly where readings landed. Where no data was captured for a stretch — for example because the phone was away — that span is now drawn as a cross-hatched "unknown" region in the signal's color, instead of a flat line that implied we knew the state the whole time. Added dots to Preconditioning as well.
+
+### Two-day sessions show both dates
+When a session spans midnight, the date now shows both the start and end dates. Previously the end time could appear under the start date with no sign it actually finished the next day. This applies to the in-app session view and the shared report card.
+
+### Shared report — header matches the Duration stat
+On the shared charging report card, the duration in the header line now matches the Duration stat below it.
+
+---
 ## Build 95 — Power panel and CarPlay power gauge, French CarPlay charging chip fix
 
 NOTE TO TESTERS:  A few new features and bug fixtures
