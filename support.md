@@ -43,7 +43,7 @@ CarPlay support is automatic — when your iPhone is connected to CarPlay and th
 
 If you're experiencing connection issues or unexpected behavior:
 
-1. Go to **Settings** and tap **Start Recording Diagnostics**
+1. Go to **Settings / Diagnostics** and tap **Start Recording Diagnostics**
 2. Reproduce the issue (connect to adapter, drive, etc.)
 3. Tap **Stop**, then **Share Diagnostics** to send the log to the developer
 
