@@ -9,6 +9,28 @@ nav_order: 5
 
 
 ---
+## Build 98 — Settings redesign, Headlight Indicator, background stability
+
+NOTE TO TESTERS: Settings has a new iOS-style layout — every control is still there, now organized into categories that open their own screens. Note that the 5-tap Build unlock now lives in Settings → About. Also new: a Headlight Indicator option.  I added protection against a class of silent background terminations that could interrupt History recording -- this is a substantive change, so please pay close attention to anything involving the History panel that looks odd.
+
+### Settings reorganized into categories
+Settings now works like the iOS Settings app: the OBD-II Adapter card stays at the top, and everything else is grouped into colored category rows — Units, Display, CarPlay, Notifications, History, Diagnostics, Advanced Tools, and About — each opening its own screen. All controls behave exactly as before; they just have new homes:
+- Auto-Connect now lives inside the OBD-II Adapter card itself.
+- Appearance, Language, Dashboard Charts, and Keep Screen Awake are grouped under Display.
+- The Unplug Reminder is under Notifications.
+- Reset Onboarding is at the bottom of About.
+- The 5-tap-on-Build unlock for Experimental Features moved with the Build row into About. When unlocked, Experimental Features appears as its own row on the main Settings screen.
+
+### New: Headlight Indicator setting
+Settings → CarPlay has a new Headlight Indicator setting on vehicles that report headlight status, with three options. Off hides the headlight chip in both the Dashboard and CarPlay. Icons is the behavior you have today (and the default). Text replaces the symbols with words — "Low" in the green of the low-beam telltale and "High" in the familiar high-beam blue. The Brake Light Indicator setting moved into the same CarPlay section (same options as before), and the Dashboard brake light chip's On/Off value is now translated in all languages.
+
+### Fewer silent interruptions to History recording
+Crash reports showed iOS could terminate the app while it was saving History data in the background — the system would suspend the app mid-write. All background History writes (snapshots, drive/charge sessions, storage-cap cleanup, and launch-time database setup) are now protected by a background-task assertion, so the save completes before the app suspends. This was invisible in normal use but was the largest crash cluster in the dashboard, and it could cost the tail end of a drive or charge.
+
+### History fixes after Delete All History
+Running Delete All History while a session's detail screen was open could leave the History tab showing a black screen with a lone warning triangle; that's fixed. A session removed out from under an open screen (a purge, or a deletion syncing in from another device) now shows a proper "Session unavailable" message instead of an endless spinner, and a deleted photo under an open full-screen preview now shows "Photo unavailable" with a Done button instead of an undismissable black screen.
+
+---
 ## Build 97 — Lifetime Efficiency history cleanup, AC charging session charts
 
 NOTE TO TESTERS: A one-time cleanup of old Lifetime Efficiency readings, new AC charging charts, and chart polish.  There is a database schema change with this release, so please give me a shout out if you have any issues viewing things under HISTORY. 
