@@ -31,6 +31,8 @@ These adapter have been tested and verified to work with IONIQ 5 Companion:
 * **OBDLink CX**
 * **Carista**
 
+**Not compatible:** Wi-Fi adapters, and any *Classic Bluetooth* adapter — including the **OBDLink MX+**. An iPhone can only reach Bluetooth Low Energy adapters, so a Classic-Bluetooth model never appears in the app. Note that OBDLink's BLE model, the **OBDLink CX**, is fully supported (listed above).
+
 **Important:**  The developer already bought and tested a blue-colored semi-translucent adapter labeled ELM327.  This was purchased on Amazon for approximately $5 USD and was found to be incompatible with IONIQ 5 Companion.  
 
 ## CarPlay

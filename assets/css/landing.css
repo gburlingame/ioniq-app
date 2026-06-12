@@ -130,6 +130,14 @@
   .dot.full{background:var(--primary)} .dot.near{background:var(--tertiary)}
   .veh-legend{margin-top:18px;text-align:center;font-size:13px;color:var(--on-surface-variant);font-family:'JetBrains Mono',monospace}
 
+  /* ADAPTERS */
+  .vchip .material-symbols-outlined{font-size:18px}
+  .vchip .ok{color:var(--primary)}
+  .adapter-warn{max-width:680px;margin:30px auto 0;display:flex;gap:13px;align-items:flex-start;text-align:left;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.32);border-radius:14px;padding:18px 20px}
+  .adapter-warn .material-symbols-outlined{color:var(--tertiary);font-size:22px;flex-shrink:0;margin-top:1px}
+  .adapter-warn p{color:var(--on-surface-variant);font-size:15px;line-height:1.55}
+  .adapter-warn b{color:var(--on-surface);font-weight:600}
+
   /* DOWNLOAD */
   .download{text-align:center;padding:104px 0}
   .price{font-family:'JetBrains Mono',monospace;font-size:clamp(46px,8vw,72px);font-weight:700;color:var(--primary);line-height:1;margin:8px 0 6px}
