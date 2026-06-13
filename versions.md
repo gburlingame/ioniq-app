@@ -9,6 +9,23 @@ nav_order: 5
 
 
 ---
+## Build 100 — Curated DID List testing fixes, steadier Bluetooth reconnection, charging chart fix
+
+NOTE TO TESTERS:  This is RC2 for Version 2.1.  This build smooths out the Curated DID List testing flow, makes Bluetooth reconnection more reliable when the adapter briefly drops, and fixes a small glitch in the charging-session charts.
+
+### Curated DID List testing: a smoother flow
+Three fixes to the "ABC test with Curated DID List" tool:
+- Aborting a session no longer drops you on a duplicate "Pick a curated list" screen.
+- Sessions now close the tool when you tap Done (on the results) or Abort (mid-capture), instead of leaving you on the picker.
+- Opening a curated-list file someone shared with you now jumps straight to that list's checklist, ready to start — instead of dropping you on the picker to find it.
+
+### Steadier Bluetooth reconnection
+More reliable reconnection when the adapter briefly drops and returns — for example at the edge of Bluetooth range, or as a parked car wakes and sleeps overnight. The app no longer keeps trying to poll a link that has gone away, and recovers cleanly once the adapter is back and re-initialized.
+
+### Charging session chart fix
+Fixed a small rendering glitch in the EVSE Current chart on a charging session's detail screen, where the Requested and Delivered lines could show a brief horizontal spur during the charging ramp. Shared session images are corrected too.
+
+---
 ## Build 99 — Korean and Turkish, localization fixes, session chart cleanup, crash fixes
 
 NOTE TO TESTERS: I'm labeling this RC1 for App Store Release 2.1.  Please let me know if you find anything unusual.  The app now adds Korean and Turkish — 9 languages total. Alongside the new languages, a localization sweep fixed dozens of strings that had been showing English no matter which language you used, so if you run the app in German, Dutch, Spanish, French, Italian, or Swedish, expect several screens to look properly translated for the first time. This build also carries a session chart cleanup and two crash fixes (very rare, but good to fix anyway)
