@@ -9,6 +9,30 @@ nav_order: 5
 
 
 ---
+## Build 99 — Korean and Turkish, localization fixes, session chart cleanup, crash fixes
+
+NOTE TO TESTERS: I'm labeling this RC1 for App Store Release 2.1.  Please let me know if you find anything unusual.  The app now adds Korean and Turkish — 9 languages total. Alongside the new languages, a localization sweep fixed dozens of strings that had been showing English no matter which language you used, so if you run the app in German, Dutch, Spanish, French, Italian, or Swedish, expect several screens to look properly translated for the first time. This build also carries a session chart cleanup and two crash fixes (very rare, but good to fix anyway)
+
+### Two new languages: 한국어 and Türkçe
+Korean and Turkish join German, Spanish, French, Italian, Dutch, and Swedish. Every string in the app is translated — Dashboard, CarPlay, History, Diagnostics, Settings, and the share cards. Switch in Settings → Display → Language, or leave it on System Default to follow your phone.
+
+### Localization fixes in every language
+A sweep of the string catalog found 32 strings that had never been hooked up for translation and silently showed English in all languages. They're now translated in all 8: the CarPlay scan-status chips, the J1979 crawl statuses, the Complete ECU Scan screen, the History storage rows in Settings, and the "No data" chart placeholders. A further set of live strings that the tooling had wrongly marked as unused — "Looking for adapter", the parking-sensor footnotes, the ECU scanning status, the motor gauge labels — are covered in the new languages too. Six existing translations were also corrected, including German and Dutch wording that didn't match the rest of the app.
+
+### Session charts: aligned, anchored, labeled
+Three fixes to the charts on a session's detail screen (and the share card):
+- All charts in the driving and charging stacks now share one plot width, so the time gridlines line up vertically down the whole stack. Previously each chart sized its Y-axis gutter to its own widest label, so plots came out slightly different widths.
+- The State of Charge chart now fills from the left edge of the session instead of opening with a blank gap. SoC is only recorded when it changes (with a periodic heartbeat), so the first sample often lands a minute or more into the session; the chart now carries the last pre-session value back to the session-start line, the same way the other charts already did. The fix is in chart rendering, so all your existing sessions are fixed retroactively.
+- The binary signal bands (Brake Light, AC/DC Charging, Preconditioning) no longer paint full-bleed under the column where the sibling charts draw their Y axes — they now show a real On/Off axis, both in the app and on the share card.
+
+### Two crash fixes from the crash dashboard
+- Fixed a Bluetooth crash (4 events across 3 devices): if the adapter disconnected at exactly the wrong moment during connection setup, the app could later touch freed connection state and crash. The typical trigger was overnight parked-car auto-reconnect churn. Connection events are now handled immediately instead of deferred, closing the window.
+- Fixed a crash in the OBD response decoder (5 events): a corrupted response line that was cut off after its first byte crashed the decoder. It now treats the line as a failed read and moves on.
+
+### Settings polish
+The OBD-II Adapter card's status row now draws a full-width separator like every other Settings row. It previously showed no line at all — the default rendering aligned the separator to the Connect button, leaving just a stub, so it had been hidden outright.
+
+---
 ## Build 98 — Settings redesign, Headlight Indicator, background stability
 
 NOTE TO TESTERS: Settings has a new iOS-style layout — every control is still there, now organized into categories that open their own screens. Note that the 5-tap Build unlock now lives in Settings → About. Also new: a Headlight Indicator option.  I added protection against a class of silent background terminations that could interrupt History recording -- this is a substantive change, so please pay close attention to anything involving the History panel that looks odd.
