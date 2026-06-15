@@ -9,6 +9,36 @@ nav_order: 5
 
 
 ---
+## Build 101 — Kia EV9 auto headlights found!, Faster connection to live data, CarPlay onboarding + crash fix, adapter setup improvements, Gear chart
+
+SPECIAL NOTE FOR KIA EV9 TESTERS:   Please verify that your low beam indication comes on correctly two ways:  If you turn the stalk to ON, do you see the low beam indicator?   If you have the stalk in AUTO and its dark (or you cover the ambient light sensor), do you see the low beam indicator?   Please share your experiences with me so I can know if this issue is closed or not.  
+
+NOTE TO TESTERS: This is RC3 for Version 2.1 - the final RC?  A big win today for the treasure hunting for the Kia EV9.  The time to dashboard has improved by 31% in my testing - your Driving tab should appear more rapidly than ever before.  This build also includes lots of changes to help new folks onboard smoothly -- likely not things most of you will experience.  If you're feeling adventerous, and have some time, it would be great if you could forget your adapters and stress test the new flows, that would be very appreciated -- please let me know if you run into any friction adding your adapter back in.   I added the Gear chart to driving-session history, and added a new Wh/km efficiency unit that had been requested by some customers.
+
+### EV9 low-beam indicator fix
+Fixed the EV9 low-beam indicator which now responds to both manual stalk control and automatic activation.  Special thanks to tester Jaka from Slovenia for the time he spent mapping the Kia EV9 BCM, and for tester Stephen Y for using this map to find gold!    
+
+### Faster connection to a live dashboard
+The app no longer runs a per-connect "training" pass that probed every ECU before polling started.  In my testing a >31% improvement.
+
+### CarPlay: onboarding screen and a mid-drive crash fix
+- A first-time customer with no saved adapter now sees a clear "Set Up Your Adapter" screen in CarPlay instead of diagnostic Status rows. The new screen tells you to select an adapter in the app on your iPhone
+- Fixed a crash caused by a transient CarPlay/vehicle link drop - a complicated chain reaction that led to the app writing to its database just as iOS was suspending it — a situation that lead to iOS terminating the app because it holds a write lock. The driving-session close is now debounced by a 20-second grace window (think loose USB-C cable).
+
+### Adapter setup and Settings
+- When scanning for an adapter, any adapter **already connected to your iPhone** (for example, held by another OBD app) now shows up marked "In Use." Previously a scan couldn't see these at all — a connected Bluetooth device stops advertising. Selecting one shows the same slide-to-confirm reminder as first-time setup before adopting it.
+- Settings → OBD-II Adapter: status and error messages now wrap to as many lines as needed instead of being cut off with an ellipsis at larger text sizes.
+- Settings → OBD-II Adapter: when Bluetooth itself is the problem, the section now offers a one-tap fix. If Bluetooth is off, a **Turn On Bluetooth** button brings up iOS's prompt; if the app's Bluetooth permission is denied, an **Open Settings** button jumps to the app's permission page. 
+
+### Dashboard
+- **State of Charge** no longer flashes a red **0%** for a moment when the adapter first connects. Until the battery is actually polled, the Dashboard and CarPlay SoC gauges now show a neutral "—" on an empty ring instead of an alarming red zero
+- **Efficiency Unit** adds **Wh/km** as a fifth option, alongside mi/kWh, km/kWh, kWh/100km, and Wh/mi. It's a metric consumption unit (energy per distance, lower is better) that many EU drivers prefer over kWh/100km. It flows through the Dashboard efficiency chip and History session cards automatically.
+
+### Driving session history
+- New **Gear** chart showing P/R/N/D shifter position across the drive, in both the in-app session detail and the shareable session card.
+- Session share cards now render every chart panel at the same height
+
+---
 ## Build 100 — Curated DID List testing fixes, steadier Bluetooth reconnection, charging chart fix
 
 NOTE TO TESTERS:  This is RC2 for Version 2.1.  This build smooths out the Curated DID List testing flow, makes Bluetooth reconnection more reliable when the adapter briefly drops, and fixes a small glitch in the charging-session charts.
