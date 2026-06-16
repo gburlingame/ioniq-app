@@ -75,10 +75,11 @@ power switch. The adapter stays plugged into the extension, the extension stays 
 and you flip the switch off when you're done. The switch (not the car's connector) takes the
 wear, the adapter draws nothing when it's off, and there's no powered device on the bus.
 
-This is the option we'd point most people to. They're inexpensive and widely available — one
-example at the time of writing is the
-[iKKEGOL OBD-II extension with power switch](https://www.amazon.com/dp/B01EW83OCQ) on Amazon.
-Other vendors sell similar designs.
+This is the option we'd point most people to. They're inexpensive and widely available. The
+[iKKEGOL OBD-II extension with power switch](https://www.amazon.com/dp/B01EW83OCQ) we
+previously linked is currently unavailable, but the
+[Yeebline OBD-II extension with power switch](https://www.amazon.com/Yeebline-Extension-Diagnostic-Extender-Adapter/dp/B0CLTTSWG4)
+is an equivalent substitute. Other vendors sell similar designs.
 
 ## The Unplug Reminder
 
