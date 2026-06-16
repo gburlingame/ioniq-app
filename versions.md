@@ -9,6 +9,30 @@ nav_order: 5
 
 
 ---
+## Build 102 — Live scan health gauge, more reliable "Vehicle On" detection, Kia EV6 GT lights fix, IONIQ 5 Standard Range battery fix, Turkish polish
+
+NOTE TO TESTERS: There are some key (and possibly disruptive) changes in this build.  Please verify a few things with your vehicles - does the app correctly detect the vehicle turning on?  The app now realtime monitors polling activity -- please send me a screenshot of your Scan Status panel (phone app/Dashboard/Overview)  
+
+SPECIAL NOTE FOR KIA EV6 GT (2022–2024) TESTERS: Please confirm your brake-light and headlight indicators now light up correctly. These earlier GTs were reading the wrong locations before. Thanks to new beta tester JH for the live data.
+
+SPECIAL NOTE FOR IONIQ 5 STANDARD RANGE TESTERS: Please open Cell Voltages and the Battery Configuration readout and confirm it now shows the full pack ("144 series x 2 parallel") rather than only 96 cells. Thanks to Turkish tester Burak for his help on this and the Turkish translations!
+
+### Live scan health gauge
+The Scan Status panel (Dashboard) and the CarPlay scan rows now show a live per-signal health gauge instead of the static "found" count left over from the removed training phase. Each signal shows what fraction of its recent polls returned data; signals that stop responding float to the top, and the panel/CarPlay header summarizes "N not reporting." NO DATA and negative-response replies are shown separately and never counted as faults — so normally-quiet signals (asleep parking sensors, charging-only data) don't read as problems.
+
+### More reliable "Vehicle On" detection
+The app now confirms the vehicle's main controller is awake (a VIN read) before switching to the on state, instead of relying on the climate module alone. This prevents the app from briefly treating the vehicle as on while it's in accessory mode or still waking up after you connect — a state that could previously load the wrong vehicle profile or skip controller identification.   Thanks new tester Tim for his help!
+
+### Kia EV6 GT (2022–2024): brake-light and headlight indicators fixed
+Fixed brake-light and headlight indicators not appearing on 2022–2024 Kia EV6 GT. These earlier GTs use a different body-control-module layout than 2025+ GTs; the app was reading the newer locations, which the older car doesn't answer, so the indicators stayed dark. Pre-2025 GTs now load a matching vehicle profile. Their AC-charging input voltage and frequency readouts are corrected by the same change.
+
+### IONIQ 5 Standard Range: full battery pack
+Fixed the battery pack reading wrong on IONIQ 5 Standard Range models. The Cell Voltages view and "Battery Configuration" readout previously showed only 96 of the pack's cells and mislabeled it as "96 series"; the app now reads the full pack and correctly shows "144 series x 2 parallel".
+
+### Turkish (Türkçe) translation polish
+Improved Turkish translations across the app from a translator's review pass: clearer Diagnostics wording, corrected Light/Dark appearance labels, a clearer "Adapter Idle Check" name, and shorter battery-pack gauge labels that fit on small dashboard tiles and CarPlay chips.
+
+---
 ## Build 101 — Kia EV9 auto headlights found!, Faster connection to live data, CarPlay onboarding + crash fix, adapter setup improvements, Gear chart
 
 SPECIAL NOTE FOR KIA EV9 TESTERS:   Please verify that your low beam indication comes on correctly two ways:  If you turn the stalk to ON, do you see the low beam indicator?   If you have the stalk in AUTO and its dark (or you cover the ambient light sensor), do you see the low beam indicator?   Please share your experiences with me so I can know if this issue is closed or not.  
