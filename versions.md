@@ -9,6 +9,21 @@ nav_order: 5
 
 
 ---
+## Build 103 — Kia EV6 GT 12V fix, more screens localized
+
+NOTE TO TESTERS:  This is RC5 for Version 2.1 -- I'm sending this over to Apple later today for App Store approval!   Thanks everyone for the ongoing support -- from all around the world! 
+
+SPECIAL NOTE FOR KIA EV6 GT (2022–2024) TESTERS: Your 12V / Auxiliary Battery panel should now show live values (voltage, current, temperature, state of charge) instead of reading blank. This is a follow-up to the Build 102 GT profile fix — thanks again to JH for the live logs that pinned it down.
+
+SPECIAL NOTE FOR TURKISH TESTERS: A number of screens that were still showing English are now translated. Please open the OBD-II adapter screen, the About screen, the battery Module Temperatures / Battery Configuration readouts, and the ECU/J1979 diagnostic tools and confirm they read in Turkish. Thanks Burak!
+
+### Kia EV6 GT (2022–2024): 12V / auxiliary-battery panel fixed
+Fixed the 12V / auxiliary-battery panel reading blank on 2022–2024 Kia EV6 GT — a follow-up to the Build 102 GT profile fix. These earlier GTs read this value from a different controller location than 2025+ GTs, one the app wasn't yet polling. The Auxiliary Battery panel (voltage, current, temperature, and state of charge) now populates.
+
+### More screens localized
+Several screens were still showing English text even in other languages — the OBD-II adapter screen ("Device"), the About screen ("Registry"), the battery Module Temperatures header and Battery Configuration readout, and the ECU/J1979 diagnostic tools ("Copy All", "ECUs Found", the "Scan 0x700 – 0x7FF" button, "Broadcast"/"Physical probe"). These now translate in all supported languages. The VIN label is also clearer in Turkish — now "Araç Şasi No" (vehicle chassis number), the term Turkish drivers and technicians actually use — and the "Batt Heater"/"Batt Temp" and "Lifetime Max/Min" labels are shorter so they fit their tiles.
+
+---
 ## Build 102 — Live scan health gauge, more reliable "Vehicle On" detection, Kia EV6 GT lights fix, IONIQ 5 Standard Range battery fix, Turkish polish
 
 NOTE TO TESTERS: There are some key (and possibly disruptive) changes in this build.  Please verify a few things with your vehicles - does the app correctly detect the vehicle turning on?  The app now realtime monitors polling activity -- please send me a screenshot of your Scan Status panel (phone app/Dashboard/Overview)  
