@@ -36,10 +36,10 @@ The Bluetooth pipe itself also imposes a ceiling. In my experience, the highest 
 
 ## Become a treasure hunter
 
-If any of this sounds intriguing rather than discouraging, there are tools tucked into the app that let you join the hunt. Most of them live behind the hidden Diagnostics menu — tap the Build number in Settings five times to reveal it.
+If any of this sounds intriguing rather than discouraging, there are tools built into the app that let you join the hunt. You'll find them in **Settings → Advanced Tools** — no secret handshake required; they're available to everyone.
 
-- **DID Scanner** pings every data identifier on every controller in the car and tells you which ones respond. Think of it as mapping the map. Running it on two cars of different model years is how we've spotted signals that Hyundai quietly relocated.
-- **ECU Identifier** lists every controller on the bus along with its part number. This is useful when we're trying to work out whether your car and someone else's are running the same software — if the part numbers differ, the data layout often differs too.
-- **A-B-C Snapshot** is the workhorse of signal hunting. Take a baseline with a condition off, change one thing, take a second snapshot, revert, take a third. The app shows you exactly which bytes flipped. This is how the brake light trail got picked up across multiple cars — press the pedal, take a snapshot, let it up, take another.
+- **DID Range Scan** walks one controller across a range of data identifiers and tells you which ones respond. Think of it as mapping the map. Running it on two cars of different model years is how we've spotted signals that Hyundai quietly relocated.
+- **ECU Finder** probes the bus and lists every controller that answers, naming the ones we recognize. It's a quick way to see whether your car and someone else's have the same set of modules on board — a difference there is often the first hint that the data layout differs too.
+- **ABC test** (the A-B-C snapshot) is the workhorse of signal hunting. Take a baseline with a condition off, change one thing, take a second snapshot, revert, take a third. The app shows you exactly which bytes flipped. This is how the brake light trail got picked up across multiple cars — press the pedal, take a snapshot, let it up, take another.
 
 Beyond the app, hidden knowledge shows up in unexpected places: forum threads, Hyundai technical service bulletins, a passing comment in a Facebook group, a conversation at a DC fast charger. If any of it might point at a signal we haven't found — or might explain something we don't yet understand — pass it along. Every crumb shortcuts weeks of guessing, and the features people ask for are a lot more likely to ship when the community hands me the map.
