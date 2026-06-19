@@ -9,6 +9,27 @@ nav_order: 5
 
 
 ---
+## Build 104 — Consistent battery gauge colors, more reliable charging info, more screens localized
+
+NOTE TO TESTERS: Version 2.1 is now live in the App Store!  This is the first build of Version 2.2 — thank you all! The big visible change here is the battery gauge colors (see below).   I implemented a possible fix (more like a band-aid) for the CarPlay music icons issue.  If you encounter that issue (you see musical notes) from this build forward - PLEASE, PLEASE, PLEASE let me know, there is a hidden tuning adjustment under Experimental Features that we can experiment with.  The default setting prevents CarPlay from being asked to update any more frequently than the specified rate -- the default is 4Hz, i.e., 4 times per second (once every 250msec).   This is approximately the same speed it has always been, but ther was a possibility some unusual burst pattern to leak through previously which crashed CarPlay's CarPlayTemplateUIHost library.  Hopefully (fingers crossed) this mitigates the issue -- we will only know through soak testing in the field.  
+
+SPECIAL NOTE FOR STANDARD RANGE / TURKEY-MARKET TESTERS: If your charging and EVSE details previously read blank while plugged in, please connect, start a charge, and confirm the charging-state and EVSE readouts now populate. Thanks Burak!
+
+SPECIAL NOTE FOR TURKISH TESTERS: More screens and labels that were still showing English are now translated. Please check the Dashboard Climate chips (humidity, AAT/IAT sensors), the CarPlay charging tab, and the Complete ECU Scan / J1979 diagnostic tools. Thanks Burak x2!
+
+### Consistent battery gauge colors
+Battery state-of-charge gauges no longer turn green above 80%. Green previously implied "good/full," the gauge now stays neutral (white) from 40% up, with orange between 20–40% and red below 20%. This applies to both the CarPlay HV pack gauge and the Dashboard state-of-charge gauge, which now match each other. The CarPlay Pack chip (volts / amps / kW) also stays white when energy flows into the pack during regen or charging, instead of briefly flashing green. The Driving tab was getting a bit too busy for my liking - thanks Sean for the suggestion!
+
+### Experimental: a possible fix for disappearing CarPlay gauge icons
+On some drives the CarPlay gauge icons can disappear and show a generic placeholder (musical note). Settings → Experimental Features now offers a "CarPlay updates per second" control: lowering it slows how often the CarPlay screen redraws, which eases the load on the car's display system that appears to trigger the issue. This is an early, still-being-evaluated mitigation — if you hit the problem from this build forward, please let me know and we can experiment with this setting together.  By default, the setting is 4 times per second (4Hz).  
+
+### More reliable charging information across vehicles
+Some cars ship a charging controller (VCMS) that reports at a different internal address than others of the same model — first seen on a Turkey-market Standard Range IONIQ 5 — which previously left the charging-state and EVSE readouts blank on those cars. The app now detects the correct address automatically when it connects, so charging details appear regardless of which variant your vehicle was built with.
+
+### More screens localized
+Several labels that were still showing English in other languages now translate: the Dashboard Climate "Relative Humidity", "AAT Sensor", and "IAT Sensor" chips, the vehicle "Model" chip, the "Forget Saved Device" button, and the "Couldn't import scan log" alert. In Advanced Diagnostics, the J1979 "ECU aborted" row, the Complete ECU Scan selection and results headers and counts, and the Dashboard parking-bytes readout are now localized too. In Turkish, the CarPlay charging tab now reads the short noun "Şarj" instead of "Şarj ediliyor".
+
+---
 ## Build 103 — Kia EV6 GT 12V fix, more screens localized - App Store Version 2.1
 
 NOTE TO TESTERS:  This is RC5 for Version 2.1 -- I'm sending this over to Apple later today for App Store approval!   Thanks everyone for the ongoing support -- from all around the world! 
