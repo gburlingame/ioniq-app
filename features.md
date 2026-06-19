@@ -55,7 +55,7 @@ A real-time diagnostics app for the Hyundai IONIQ family. Connect an ELM327-comp
 ### History and iCloud
 
 * **Charging sessions** — Every charge recorded automatically: peak power, energy added, duration, EVSE max voltage / current / power, and a full set of charts
-* **Driving sessions** — Distance, max and average speed, energy used, and net efficiency, with speed, current, and state-of-charge charts
+* **Driving sessions** — Distance, max and average speed, energy used, and net efficiency, with speed, current, state-of-charge, and gear charts
 * **Signal history** — Long-term time-series for every recorded signal, with tap-through charts spanning your whole recording history
 * **Session photos** — Attach a photo to any session
 * **Share a session** — Export any session as an image, charts and all
@@ -88,7 +88,7 @@ Powerful tools to help enthusiasts learn more about their vehicles, with result 
 
 ### Languages and notifications
 
-* **Multi-language support** — Deutsch, English, Español, Français, Italiano, Nederlands, Svenska, with an in-app language picker
+* **Multi-language support** — Deutsch, English, Español, Français, Italiano, Nederlands, Svenska, Türkçe, 한국어, with an in-app language picker
 * **Unplug reminder** — Notification when the car turns off reminding you to unplug the adapter
 * **OBD-II adapter compatibility** — Works with inexpensive ELM327-compatible Bluetooth LE adapters
 
@@ -96,18 +96,19 @@ Powerful tools to help enthusiasts learn more about their vehicles, with result 
 
 The app ships per-vehicle registries with full or partial coverage:
 
-**Verfified Full Support**
+**Verified full support**
 
-* **IONIQ 5** — model years 2022–2026
-* **IONIQ 5 N** — model year 2025
-* **IONIQ 6** — model years 2023–2025
-* **IONIQ 9** — model year 2026
-* **Kia EV6** - model years 2021-2025
+* **IONIQ 5**
+* **IONIQ 5 N**
+* **IONIQ 6**
+* **IONIQ 9**
+* **Kia EV6**
+* **Kia EV6 GT**
+* **Kia EV9**
 
-**Nearing full support**
+**Coming soon**
 
-* **Genesis GV60** - model years 2021-2025
-* **Kia EV9** - model years 2024-2026
+* **Genesis GV60**
 
 ## Support
 

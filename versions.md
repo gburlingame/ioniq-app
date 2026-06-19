@@ -9,7 +9,7 @@ nav_order: 5
 
 
 ---
-## Build 103 — Kia EV6 GT 12V fix, more screens localized
+## Build 103 — Kia EV6 GT 12V fix, more screens localized - App Store Version 2.1
 
 NOTE TO TESTERS:  This is RC5 for Version 2.1 -- I'm sending this over to Apple later today for App Store approval!   Thanks everyone for the ongoing support -- from all around the world! 
 
