@@ -9,6 +9,29 @@ nav_order: 5
 
 
 ---
+## Build 105 — Redesigned Inspect tab, whole-bus Enhanced DTC Scan, richer ECU Finder, broader adapter support
+
+NOTE TO TESTERS: This build overhauls the Inspect tab and the diagnostic scans behind it. Please try out the all Enhanced DTC Scan and let me know what you think - I'm very curious to hear what codes it finds across the fleet, and what people think about this new design aesthetic I am exploring, leveraging Liquid Glass. 
+
+### Redesigned Inspect tab
+The Inspect tab is rebuilt around two diagnostic scans, each a tappable card: the legacy quick J1979 crawl and a thorough Enhanced DTC Scan. Each card now explains what it does and how deep it reaches. The whole flow — the chooser, each scan's detail page, the live scan, and the results — shares a new frosted-glass "aurora" look for Light and Dark.
+
+### Enhanced DTC Scan now finds every module on the bus
+The Enhanced DTC Scan sweeps the entire diagnostic bus, identifies every control module that responds, and reads each one's stored fault codes — reaching body, chassis, airbag, and comfort modules a standard OBD-II scan never sees. 
+
+### J1979 crawl reskinned, with a clear verdict
+The J1979 Diagnostic Crawl's live-scan and results screens now share the same aurora-glass look. 
+
+### Richer ECU Finder
+ECU Finder (Advanced Tools) now identifies each module far more completely. It reads the full standardized identification block — part number, hardware/software numbers, serial, manufacturing date, system name — adds the OBD-II Mode 09 ECU name, and labels common modules (front camera, radar, brake, airbag, steering, head unit) from their part numbers, all in a readable per-ECU report. A new optional "Extended-session retry" toggle (off by default) re-reads values that don't answer normally by briefly switching each ECU into its extended diagnostic session — the screen warns this can trigger temporary dashboard lights or messages.
+
+### Corrected, friendlier ECU names
+Diagnostic tools now show corrected names with their codes (e.g. "Front Camera (MFC)", "Integrated Body Unit (IBU)"). Several long-standing mislabels are fixed across the ECU Finder, DID Scanner, and Complete ECU Scan — e.g. 0x7A0 is now the IBU (was "TPMS"), 0x7C6 the Instrument Cluster (was "AUX"), and 0x730 the ADAS Drive ECU (was "Wheel Speed"). In History, the source chip on tire-pressure and odometer signals now follows the corrected modules.
+
+### Lifetime Efficiency chart: no more spurious low readings
+Fixed a possiblethat issue that would have resulted in spurious low readings (e.g. mid-80%) after the adapter reconnects or switches vehicles. Round-trip efficiency is now derived atomically from a single battery poll, so a fresh "charged" value can no longer pair with a stale "discharged" one.
+
+---
 ## Build 104 — Consistent battery gauge colors, more reliable charging info, more screens localized
 
 NOTE TO TESTERS: Version 2.1 is now live in the App Store!  This is the first build of Version 2.2 — thank you all! The big visible change here is the battery gauge colors (see below).   I implemented a possible fix (more like a band-aid) for the CarPlay music icons issue.  If you encounter that issue (you see musical notes) from this build forward - PLEASE, PLEASE, PLEASE let me know, there is a hidden tuning adjustment under Experimental Features that we can experiment with.  The default setting prevents CarPlay from being asked to update any more frequently than the specified rate -- the default is 4Hz, i.e., 4 times per second (once every 250msec).   This is approximately the same speed it has always been, but ther was a possibility some unusual burst pattern to leak through previously which crashed CarPlay's CarPlayTemplateUIHost library.  Hopefully (fingers crossed) this mitigates the issue -- we will only know through soak testing in the field.  
