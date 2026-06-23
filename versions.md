@@ -9,6 +9,26 @@ nav_order: 5
 
 
 ---
+## Build 106 — Liquid Glass on Dashboard, History & Inspect; CarPlay tab fix
+
+NOTE TO TESTERS: This build continues the Liquid Glass design exploration from Build 105, now extending the frosted "aurora" look to the Dashboard, History, and Inspect screens. I'd love your read on it — especially how legible everything stays in Light/Dark mode.  I'm planning on adding a theme selector if this color pallette is not to your liking - so please don't panic!
+
+### Liquid Glass comes to the Dashboard, History, and Inspect
+The Dashboard, History (both Sessions and Signals), and Inspect screens now render as translucent "glass" cards and rows floating over a soft, slowly-shifting aurora backdrop. The Dashboard has a consistent card → panel → chip depth so related readings group visually, and Dark mode was tuned so metric chips (VIN, State of Charge, etc.) stay legible instead of reading as flat dark blocks.
+
+### Dashboard Climate: a grouped Sensors panel
+The ambient air, intake air, and humidity readings are now grouped in a labelled "Sensors" panel, with the info button tucked into its top-right corner. "Sensors" is translated in all eight supported languages.
+
+### CarPlay: Driving and Charging tabs missing
+Fixed a bug that could lead to the Driving and Charging tabs vanishing in CarPlay — leaving only Status and EVSE — this could happen after the OBD adapter dropped and reconnected while CarPlay stayed connected (for example, stepping away to plug in at a charger, then getting back in and reconnecting). The CarPlay tab bar is now rebuilt from a single source of truth, so it can no longer get stuck showing an incomplete set of tabs.
+
+### CarPlay: translated cell-voltage delta chip
+The cell-voltage delta chip ("Cell Δ") on the Driving and Charging tabs now appears translated. It previously bypassed the translation path and showed in English in every language; it now shows in all eight supported languages.
+
+### Inspect tab: new icon
+The Inspect tab icon is now a diagnostic waveform instead of a magnifying glass, so the tab reads as "check your vehicle's health" rather than "search."
+
+---
 ## Build 105 — Redesigned Inspect tab, whole-bus Enhanced DTC Scan, richer ECU Finder, broader adapter support
 
 NOTE TO TESTERS: This build overhauls the Inspect tab and the diagnostic scans behind it. Please try out the all Enhanced DTC Scan and let me know what you think - I'm very curious to hear what codes it finds across the fleet, and what people think about this new design aesthetic I am exploring, leveraging Liquid Glass. 
