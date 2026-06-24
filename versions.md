@@ -9,6 +9,26 @@ nav_order: 5
 
 
 ---
+## Build 107 — New Themes picker, increased OBDLink polling headroom (+15-20%), Dashboard & onboarding polish
+
+CARPLAY MUSIC NOTES ISSUE:  Unfortuantely, the attempted mitigation for the CarPlay music notes bug has not helped - in fact, paradoxically it appears it may have actually increased the frquency of this happening with some testers.  If you run into this problem one of two things may happen:  1) After 10 seconds a watchdog timer will fire, which will restore normal operation or 2) the watchdog will not fire and you will need to power cycle your phone to restore normal operation.  I continue to investigate what I can do to mitigate this on my side.  Today I created a synthetic stress test that blasts CarPlay and I was glad to see it actually recreated the problem so many of you have experienced.  
+
+### New Themes setting
+As promised in Build 106 — if the Liquid Glass aurora colors weren't to your taste, you can now pick your own. Settings → Themes lets you choose a palette, or turn the aurora off entirely. Please try them in both Light and Dark mode and tell me which you like.  Because the Liquid Glass surfaces refract whatever's behind them, your choice recolors the whole app — and the picker previews each theme live as you tap it. Every theme has its own Light- and Dark-mode palette and still follows your system appearance.  You can also turn this background off if you prefer.
+
+### Dashboard: more room for the dials
+The Regeneration and Power dials no longer sit flush against the top of their panels — there's now breathing room above each one. Each panel's info (ⓘ) button moved from the bottom-right to the top-right corner to fill that space.
+
+### Dashboard → Scan Status: see each ECU's address
+Every ECU row now shows the module's CAN address next to its name (e.g. "BMS (0x7E4)", "VCMS (0x744)"), so you can tell at a glance which address each module is being polled at. The address shown is the one actually in use for your vehicle, so VCMS correctly reads 0x744 or 0x7E1 depending on the fitted unit. The DID line beneath it is unchanged.
+
+### Faster OBD polling on OBDLink / STN adapters
+OBDLink polling is noticeably quicker on OBDLink and other STN-based adapters. These adapters now assemble multi-frame responses themselves, so the app no longer needs the cautious timing mode that had been protecting those reads and instead lets the adapter return each reading as soon as it's ready — about a third less time per reading on a test OBDLink CX.  Please let me know if you experience any new issues.
+
+### Onboarding polish
+The "Already Connected Adapter Found" panel — shown during setup when an OBD-II adapter is already paired to your phone — now uses the same Liquid Glass treatment over the aurora as the rest of the Welcome flow, instead of rendering as a plain grey card. The "Set up a different adapter" button, previously hard to read over the aurora in both Light and Dark mode, is now legible in both while still reading as a secondary action.
+
+---
 ## Build 106 — Liquid Glass on Dashboard, History & Inspect; CarPlay tab fix
 
 NOTE TO TESTERS: This build continues the Liquid Glass design exploration from Build 105, now extending the frosted "aurora" look to the Dashboard, History, and Inspect screens. I'd love your read on it — especially how legible everything stays in Light/Dark mode.  I'm planning on adding a theme selector if this color pallette is not to your liking - so please don't panic!
