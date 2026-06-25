@@ -9,6 +9,26 @@ nav_order: 5
 
 
 ---
+## Build 109 — Export session data to CSV, 12V current direction by color, charging-history & DTC report fixes
+
+NOTE TO TESTERS:  Build 108 was skipped.  If you already ran an enhanced DTC scan report and found trouble codes, please re-run it with Build 109.  I improved the the identification of "unknown" ECUs based on information they report back.  Please share the results with me -- thank you!
+
+### Export a session's data to CSV
+You can now export a charging or driving session's full data to a CSV file. Open a session in History and tap the share button — now a menu — then choose "Export Data (CSV)". The file contains all of the session's stored details plus the complete time-series of every signal recorded during the session, ready to open in a spreadsheet or send along for support.
+
+### 12V battery: current direction now shown by color
+The 12V (auxiliary battery) current now uses color to show which way power is flowing — green when the battery is charging, amber when it's discharging — on both the Dashboard and CarPlay. The value no longer carries a +/− sign; the Charging/Discharging label and the color tell you the direction. The Dashboard and CarPlay previously disagreed on the sign of this reading, and now match.  Thanks David for pointing this out! 
+
+### Kia EV9 - Charging history: no more phantom "DC Fast" session at AC plug-in
+Fixed a spurious "DC Fast" charging session that appeared in History — and immediately showed as finished — every time you started an AC charge. AC charges now log a single, correct session.  Thanks Stephen!  https://github.com/gburlingame/ioniq-app/issues/73
+
+### History → Signals: values in your units
+The History → Signals list now shows each signal's unit in the units you've selected (e.g. °F, psi, mph, mi) instead of the raw stored metric unit. This matches what the detail and chart views already showed.   Thanks Tom and Mike!   https://github.com/gburlingame/ioniq-app/issues/74
+
+### Enhanced DTC Report: best-guess identity for unnamed modules
+When the Enhanced DTC scan finds a module the app can't name, the report now shows a best-guess identity in its title (e.g. "Front Camera (MFC) · best guess") along with the identity details captured during the scan — system name, spare-part number, and supplier ID — instead of a bare placeholder. The two different placeholders that both meant "unknown" are now a single "Unidentified module" label, and the shared report never prints a module's VIN or serial number.
+
+---
 ## Build 107 — New Themes picker, increased OBDLink polling headroom (+15-20%), Dashboard & onboarding polish
 
 CARPLAY MUSIC NOTES ISSUE:  Unfortuantely, the attempted mitigation for the CarPlay music notes bug has not helped - in fact, paradoxically it appears it may have actually increased the frquency of this happening with some testers.  If you run into this problem one of two things may happen:  1) After 10 seconds a watchdog timer will fire, which will restore normal operation or 2) the watchdog will not fire and you will need to power cycle your phone to restore normal operation.  I continue to investigate what I can do to mitigate this on my side.  Today I created a synthetic stress test that blasts CarPlay and I was glad to see it actually recreated the problem so many of you have experienced.  
