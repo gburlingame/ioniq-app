@@ -9,6 +9,34 @@ nav_order: 5
 
 
 ---
+## Build 110 — Tire-pressure overhaul, HVAC vent temperatures, Kia EV3 support, DTC scan CSV export
+
+NOTE TO TESTERS:  I added a new DID to everyone's polling loops today for expanded climate signals.  Please check the climate section of the app and let me know if you see driver/passenger vent and floor temp readouts.  It's important that I hear from owners across the fleet to make sure this these signals are available on all vehicles.   (before I extend CarPlay and add them into Signal History).   Also, please check-out the newly expanded Tire Pressure feature.  
+
+### Tires: redesigned pressure card and a new Tires settings section
+
+- NEW: Temperature compensation (on by default): warning colors now account for tire temperature, so hot tires after a drive — or very cold tires on a winter morning — no longer trip a false low/high warning. The pressure shown is always the real measured value; only the warning color is normalized to a cold reference temperature. 
+- Separate front/rear pressures: the front and rear axles can now carry different targets and warning ranges, with correct built-in defaults for vehicles that ship asymmetric specs (Kia EV6 GT, Hyundai IONIQ 5 N).
+- Custom pressures (Settings → Tires): a new Tires settings section lets you set each axle's target pressure and warning thresholds per vehicle, with reset-to-defaults. 
+- Last-known reading: when a wheel's TPMS sensor isn't reporting, the tire chip now shows the last-known pressure greyed out instead of a blank dash. (Temperature is not shown stale.)
+- Info panel: the (ⓘ) button on the Dashboard's Tires card explains temperature compensation, what a gray tile means (the wheel sensors sleep when parked and wake once you're rolling), and how the car automatically matches each sensor to its wheel using wheel-speed data. 
+
+### Dashboard Climate: HVAC vent and floor discharge temperatures
+The Climate section now shows the four HVAC vent discharge temperatures — driver and passenger, for the face and floor outlets — in a dual-zone grid below the existing inside / ambient / humidity sensors. Available across the supported E-GMP vehicles (IONIQ 5/6/9, EV6/EV9, GV60).
+
+### Kia EV3 support
+The app now recognizes the Kia EV3 (E-GMP 400 V), beginning the process of onboarding the Kia EV3 into the app - the first 400V vehicle.  Welcome aboard Brian!
+
+### Battery cell-voltage grid: no more dropped cells
+The per-cell voltage grid (Dashboard, and the CarPlay "Cell Δ" chip) now shows every cell on packs whose cell count isn't a multiple of 12. The grid previously dropped trailing cells silently — the Kia EV9 was missing 6–8 cells and the Kia EV3 two. Evenly-divisible packs (IONIQ 5/6/9, EV6) are unchanged.
+
+### DTC scans: export results to CSV
+The J1979 and Enhanced DTC Scan result screens now offer "Export Data (CSV)" alongside "Share as Image" in a share menu. The CSV carries a metadata header (VIN, scan times, outcome, coverage counts) and one row per trouble code, plus a roster row for every clean module/ECU so the table doubles as a coverage list. J1979 additionally includes per-ECU identity (self-reported VIN, calibration IDs, CVNs).
+
+### Enhanced DTC Scan: two more modules identified by name
+Two modules that previously showed as "Unidentified module" are now named: ECU 0x733 as Charging Management System (VCMS ASSY) — a second VCMS node that appears alongside the main VCMS at 0x744 on some E-GMP cars — and ECU 0x7C3 as Passenger Occupant Detection (PODS), the passenger-seat occupant sensor. Surfaced from a Kia EV6 tester scan.  Thanks David!
+
+---
 ## Build 109 — Export session data to CSV, 12V current direction by color, charging-history & DTC report fixes
 
 NOTE TO TESTERS:  Build 108 was skipped.  If you already ran an enhanced DTC scan report and found trouble codes, please re-run it with Build 109.  I improved the the identification of "unknown" ECUs based on information they report back.  Please share the results with me -- thank you!
