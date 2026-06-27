@@ -9,6 +9,25 @@ nav_order: 5
 
 
 ---
+## Build 111 — Updated Scan Status with export to CSV for troubleshooting, tweaks to multi-frame handling, front-motor RPM for Kia EV3, IONIQ 9 VIN fix
+
+NOTE TO TESTERS: There have been a few instances of vehicles with very fast ECUs, which outpace the ability of some adapters to respond in time.   In this build, I have made a pretty big change that *SHOULD* fix that problem, without breaking anyone else -- but please pay close attention to what you see in the next few days.   Please also keep an eye on the iPhone Scan Status (in Dashboard/ Overview) which does a much better job tracking and surfacing any communication issues.  Please let me know if you see anything that looks strange/not right (colored RED).
+
+KNOWN ISSUE:  Many of you have written in about a background crash -- this is a benign issue caused by iOS shutting down the app in the background which it does with apps from time to time.   I'm looking into any ways to suppress this particular report.
+
+### Connection Report: a clearer view of the app-to-vehicle link
+The Dashboard's "Scan Status" panel has been redesigned into a compact summary card that opens a full Connection Report. The report describes the live link between the app and your vehicle: an at-a-glance Summary of how many modules are reporting, the Bluetooth Link (connection state and how long it's been connected), the Adapter (name, firmware, protocol, and capabilities), Polling stats (polling headroom and transaction totals), and a per-module Coverage list showing which data IDs each module is answering, with success rates and sample counts. A collapsible Events timeline records connects, disconnects, and any module that drops out or recovers mid-session — flagging drop-outs in red and auto-expanding any module with a problem. The whole report exports as a CSV to attach to a support request, making it far easier to see why a reading is missing on a particular car or adapter.
+
+### Improved multi-frame handling
+Some adapters on some vehicles/ECUs have been getting outpaced by the car -- that's because some ECUs respond faster than the adapters can handle.  In this build I have added a coountermeasure - the app will now ask ECUs to slow down so they don't outpace the adapter's capabilities -- the adapter sends a flow-control frame that paces the incoming frames.  This change does take a way from polling headroom, so plesae keep an eye on your headroom.     
+
+### Dashboard & CarPlay: motor RPM now works on front-wheel-drive vehicles
+Front-wheel-drive vehicles (Kia EV3, and any future FWD model) now show live motor RPM on the Dashboard and in CarPlay. The single-motor gauge was reading the rear-motor signal — always 0 on a front-motor car — so it showed no reading. It now reads the front-motor signal for FWD drivetrains.
+
+### IONIQ 9 now correctly identified from the VIN
+Korea-built IONIQ 9 vehicles (sold in Europe) share a VIN prefix with the IONIQ 6, so the app was loading the IONIQ 6 profile — which polls the wrong module and left the 12 V / Auxiliary Battery readings blank. The decoder now tells the two apart using a later VIN position, so an IONIQ 9 loads the correct profile and the 12 V / Auxiliary Battery panel populates. US IONIQ 9s were unaffected, and IONIQ 6 identification is unchanged.  Thanks new tester Rene!
+
+---
 ## Build 110 — Tire-pressure overhaul, HVAC vent temperatures, Kia EV3 support, DTC scan CSV export
 
 NOTE TO TESTERS:  I added a new DID to everyone's polling loops today for expanded climate signals.  Please check the climate section of the app and let me know if you see driver/passenger vent and floor temp readouts.  It's important that I hear from owners across the fleet to make sure this these signals are available on all vehicles.   (before I extend CarPlay and add them into Signal History).   Also, please check-out the newly expanded Tire Pressure feature.  
