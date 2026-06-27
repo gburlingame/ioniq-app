@@ -9,6 +9,24 @@ nav_order: 5
 
 
 ---
+## Build 112 — New ICCU Information tool, 50% faster time to dashboard, OBDLink CX improvement, Connection Report polish
+
+NOTE TO TESTERS:  In today's build, the time to dashboard has improved by almost 50% .  I measured <4 seconds with the Gate iCar Pro 2S.   The ICCU feature has been moved out of the Dashboard and into the Inspect panel.   Your ICCU information is available after a manual Inspect run -- but in exchange for that shift, you will have much more complete and in depth information -- along with a much faster time to dashboard.   
+
+### New ICCU Information tool in the Inspect tab
+ICCU details have moved off the Dashboard into a dedicated "ICCU Information" tool in the Inspect tab.  This shortens the time to the Dashboard — the app no longer reads the charging control unit's identification at startup. The new tool sweeps the ICCU's full identification range slowly and thoroughly, then shows everything that responds: part numbers, software, build date, serial, and any additional identification data the module reports. Only fields that actually answer are shown — there's no longer a "fields not reported" warning. The old ICCU panel on the Dashboard and the ICCU row in the CarPlay status tab have been removed.  Results can be exported as CSV.
+
+### Faster connection when the vehicle is off
+Removed a startup "prime" step that broadcast a generic OBD-II query and then waited up to 3 seconds for a reply.  That dead time is gone — after adapter setup the app proceeds straight to polling. 
+
+### OBDLink CX error message fix
+Automatic connection attempts that involve an iOS/adapter negotiaon failure no longer flash a red "Connection failed" error.  The app now treats those background failures quietly — the Adapter row simply stays at "Disconnected" and keeps retrying on its own with a short, growing backoff until the link comes up. A real error is still shown when you tap Connect or pick an adapter and that attempt fails, so a genuine problem you started is never hidden.
+
+### Scan Status polish
+- Fixed a rare blank screen (a lone yellow warning triangle on black) that could appear after opening Scan Status → Connection Report when the vehicle was then turned off or the adapter disconnected. The report now stays readable across that transition instead of collapsing to the empty placeholder.
+- The Connection Report now uses the app's Liquid Glass appearance — its sections render as frosted glass panels over the themed aurora backdrop
+
+---
 ## Build 111 — Updated Scan Status with export to CSV for troubleshooting, tweaks to multi-frame handling, front-motor RPM for Kia EV3, IONIQ 9 VIN fix
 
 NOTE TO TESTERS: There have been a few instances of vehicles with very fast ECUs, which outpace the ability of some adapters to respond in time.   In this build, I have made a pretty big change that *SHOULD* fix that problem, without breaking anyone else -- but please pay close attention to what you see in the next few days.   Please also keep an eye on the iPhone Scan Status (in Dashboard/ Overview) which does a much better job tracking and surfacing any communication issues.  Please let me know if you see anything that looks strange/not right (colored RED).
