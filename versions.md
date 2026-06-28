@@ -9,6 +9,27 @@ nav_order: 5
 
 
 ---
+## Build 113 — Fixed App Crash in Background, Climate vent temps in History, ICCU Information polish, OBDLink CX odometer fix
+
+NOTE TO TESTERS:  I believe I have figured out why many of you were sometimes experiencing an app crash notification when it was in the background.   Please let me know if you continue to experience that issue -- but hopefully it is now squashed!   We're getting close to RC1 for Version 2.2.   Just a few more things to get done.  As always -- thank you for your support, testing, logs, and constructive feedback -- thank you!
+
+### Climate vent & floor temperatures in History
+History → Signals now records the four cabin climate temperatures — driver and passenger vent, driver and passenger floor — under a new Climate section. Each has a tap-through detail chart, and every value (row, hero number, stats, and chart axis) respects your selected temperature unit (°C/°F).
+
+### OBDLink CX odometer fix
+Fixed the odometer (and other signals) occasionally reading as a phantom error on OBDLink CX adapters. When an ECU replied with a "response pending" frame before its real answer, the app mistook that frame for the response. The pending frame is now correctly skipped so the real value comes through.  Thanks Tom!
+
+### ICCU Information polish
+- The ICCU's software version (0xF1B1) now appears as a named "Software Version" field in the results, CSV export, and share card, instead of being buried in the raw "Additional data discovered" section.  Thanks Brian!
+- The share card no longer lists named fields that didn't respond during the scan. Empty placeholder rows (e.g. MODULE, DATASET, BOOT SW, CALIBRATED) are now omitted, matching the in-app results view, which only shows fields that actually answered.
+
+### Driving Session chart wording
+On the Driving Session detail screen, the State-of-Charge chart's pending message now reads "Buffering chart data" / "The first readings will appear shortly." The old "No charted signals" / "Waiting for the first SoC sample to land." wording wrongly implied nothing was charting even when some signals (such as brake light) had already begun appearing. Fully localized.
+
+### Stability
+Fixed the background-task guard that protects History database saves (and the CloudKit mirror's export window) when iOS suspends the app. The guard had been silently inert since it was introduced, so it now reliably acquires its background grace period before the app is suspended. This is aimed at reducing a class of background termination; real-world impact will be confirmed over the next build cycles -- please send in crash reports if you experience one!
+
+---
 ## Build 112 — New ICCU Information tool, 50% faster time to dashboard, OBDLink CX improvement, Connection Report polish
 
 NOTE TO TESTERS:  In today's build, the time to dashboard has improved by almost 50% .  I measured <4 seconds with the Gate iCar Pro 2S.   The ICCU feature has been moved out of the Dashboard and into the Inspect panel.   Your ICCU information is available after a manual Inspect run -- but in exchange for that shift, you will have much more complete and in depth information -- along with a much faster time to dashboard.   
