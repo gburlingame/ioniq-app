@@ -9,6 +9,30 @@ nav_order: 5
 
 
 ---
+## Build 114 — Tappable CarPlay Climate & Tires chips, Dashboard AC charging panel, clearer Climate labels
+
+NOTE TO TESTERS:  This is RC1 for Version 2.2.  More CarPlay polish in this one — both the Climate and Tires chips are now tappable, so you can flip between vent temperatures, cabin readings, tire pressures, and tire temperatures right from the car screen.  The vent and floor outlet temperaturs default to being colorized, you can turn this off in Settings / CarPlay if that's what you prefer. Testers where the driver is on the right side of the vehicle (opposite USA) -- I'm wondering if I should add an option to reverse the driver/passenger vents -- I'm not sure if the vehicle does this already.   Please let me know.
+
+### Tappable CarPlay Climate & Tires chips
+The Climate and Tires chips in CarPlay are now tappable, each with two pages and a two-dot indicator showing which page you're on. Both chips toggle on the Driving and Charging tabs, and the page you pick is remembered across app launches.
+
+- Climate — tap to switch between the four vent/floor air temperatures (driver/passenger × vent/floor) and the Cabin / Exterior / Humidity readings. The vent page draws the four temperatures as a 2×2 of color-coded tiles on a cold→hot scale (blue → green → red), so you can see at a glance which vents are blowing cold or warm.
+- Tires — tap to switch between tire pressures and tire temperatures, each shown as a 2×2 of larger tiles with bigger numbers than before. The tile color still reflects tire-pressure status (the existing green / orange / red evaluation) on both pages — only the displayed value changes.
+
+A new Settings → CarPlay "Colorize Climate Chip" toggle (default on) turns the vent-page color coding on or off.
+
+### Clearer Climate labels
+Climate readings are renamed across the iPhone Dashboard and CarPlay for clarity: "IAT Sensor" → "Cabin Temp", "AAT Sensor" → "Exterior Temp", and "Relative Humidity" → "Cabin Humidity". The Dashboard's Climate info bubble was rewritten in plain language and now also explains the per-zone vent temperatures.
+
+### AC charging on the Dashboard
+The Dashboard Charging view now reflects AC charging the way CarPlay already does. While AC charging, the Session panel becomes an "AC Draw" panel with three chips — Voltage, Current, and Power — sourced from the ICCU's measured AC input (input voltage × AC current). A new "AC Draw" chart plots wall-side AC input power over the session, above the power chart (renamed "Charging Power" → "Pack Power", which has always plotted pack-side power). The gap between the two lines is the onboard-charger conversion loss. DC charging is unchanged.
+
+The elapsed-session timer moved up to the Status panel as a full-width chip below the Charging/Type chips, for both AC and DC. The Requested Current chart is now shown for DC only — it carries a BMS-requested DC charge current that is unrelated to AC input.
+
+### Odometer hidden until a real reading arrives
+The odometer now shows no value until a valid reading arrives instead of defaulting to 0. On the Dashboard the Odometer chip is hidden until the car reports a real odometer, and stays hidden on vehicles that never report one (for example the international IONIQ 5 N). This mirrors how State of Charge shows "--" until it has a real value.
+
+---
 ## Build 113 — Fixed App Crash in Background, Climate vent temps in History, ICCU Information polish, OBDLink CX odometer fix
 
 NOTE TO TESTERS:  I believe I have figured out why many of you were sometimes experiencing an app crash notification when it was in the background.   Please let me know if you continue to experience that issue -- but hopefully it is now squashed!   We're getting close to RC1 for Version 2.2.   Just a few more things to get done.  As always -- thank you for your support, testing, logs, and constructive feedback -- thank you!
