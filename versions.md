@@ -9,6 +9,27 @@ nav_order: 5
 
 
 ---
+## Build 115 — Driver Position (LHD/RHD), tire-pressure warning rework, translation fixes
+
+NOTE TO TESTERS: This is RC2 for Version 2.2   There's a new Driver Position setting under Settings → International. Set it to Right and the CarPlay Climate vent page swaps its columns so your own vent and floor temperatures sit on the right, where you sit. Right-hand-drive testers: please let me know if this matches your car. Two more things to watch: some of the tire-pressure warning colors were reworked from each vehicle's door-placard pressures, so your green/orange/red thresholds may have shifted slightly — flag anything that looks off.  And international testers, please confirm your language's high-voltage battery labels make sense.
+
+### New: Driver Position (left / right-hand drive)
+A new Settings → International section holds the app Language selector (moved out of Display) plus a new Driver Position setting (Left / Right, default Left). Set to Right, for right-hand-drive vehicles, the CarPlay Climate chip's vent page swaps its columns so the driver's vent and floor temperatures appear on the right, where the driver sits. Left-hand drive is unchanged, and the iPhone Dashboard — which already labels each vent — is unaffected.   Thanks to Dave, Brian, Chris, and  John for checking this!
+
+### Tire-pressure warnings reworked
+Tire-pressure warning colors now derive from each vehicle's door-placard target pressures, with one rule everywhere: red below −20% of target, green from −10% to +10%. Per-axle targets were set from verified placards — e.g. 2024 IONIQ 5 = 34 psi, 2025+ IONIQ 5 = 38, IONIQ 9 = 38 front / 39 rear, GV60 = 36 / 39, Kia EV9 = 38, IONIQ 6 and Kia EV3 = 36.  All of these values can be customized under Settings / Tires
+
+Also fixed a tire-pressure chip that could briefly flash "0" before the real value reappeared. When a TPMS sensor momentarily drops out, the chip now holds the last known pressure (greyed) instead of recording the zero — so the fallback no longer shows 0, and tire-pressure history charts no longer dip to zero.   Thanks John for flagging this!
+
+### CarPlay Driving layout
+On the CarPlay Driving dashboard, the Compass/Odometer chip now sits between the Tires and Climate chips instead of beside them. Both Tires and Climate are 2×2 grids of tiles, and side by side they read as one cluttered block; separating them with the simpler Compass/Odometer chip makes each easier to scan at a glance.  Thanks Burak!
+
+### Translation fixes
+Fixed mistranslated high-voltage battery labels in seven languages. The traction-battery terms ("Pack", "Pack SoC", and the Power / Current / Voltage / Peak readings) had been machine-translated as the word for a shipping parcel (German *Paket*, Dutch *Pakket*, Italian *Pacco*). They now use each language's proper battery word — de *Batterie*, fr *Batterie*, it *Batteria*, es *Batería*, nl *Accu*, sv *Batteri*, ko *배터리*. Affects the CarPlay chips and the Dashboard/History labels.   Thanks Manfred!
+
+Turkish also got a wording polish: the CarPlay "Colorize Climate Chip" setting and its description, and the "Start Recording Diagnostics" button, now use more natural and consistent Turkish terms.  Thanks Burak!
+
+---
 ## Build 114 — Tappable CarPlay Climate & Tires chips, Dashboard AC charging panel, clearer Climate labels
 
 NOTE TO TESTERS:  This is RC1 for Version 2.2.  More CarPlay polish in this one — both the Climate and Tires chips are now tappable, so you can flip between vent temperatures, cabin readings, tire pressures, and tire temperatures right from the car screen.  The vent and floor outlet temperaturs default to being colorized, you can turn this off in Settings / CarPlay if that's what you prefer. Testers where the driver is on the right side of the vehicle (opposite USA) -- I'm wondering if I should add an option to reverse the driver/passenger vents -- I'm not sure if the vehicle does this already.   Please let me know.
