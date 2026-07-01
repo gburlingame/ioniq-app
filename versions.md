@@ -9,6 +9,26 @@ nav_order: 5
 
 
 ---
+## Build 116 — Predictable startup values, IONIQ 6 tire fix, Turkish fixes
+
+NOTE TO TESTERS:  This is RC3 for Version 2.2.  I have a test protocol ready that I need your help with (https://www.theburl.com/ioniq-app/car-on-off-test/).  I believe I have figured out a more reliable method of detecting ignition state, but I need your help running an ~5 minute protocol using Advanced Tools before I feel comfortable deploying it to the fleet.  I need testers from all E-GMP vehicle types.  If you have 5 minutes to spare -- please run the protocol and send me the results via email.    Link here:  https://www.theburl.com/ioniq-app/car-on-off-test/    THANK YOU!
+
+### Dashboard values now appear in a consistent order at startup
+The polling loop previously fetched some ECUs — notably the instrument cluster that supplies the odometer — in an order that varied run-to-run and adapter-to-adapter, so the odometer could take anywhere from ~4 to ~8 seconds to first appear. The startup poll order is now pinned, with the odometer fetched first, so it and the other Overview values populate quickly and predictably every time.
+
+### IONIQ 6 tire-pressure targets corrected
+Build 115 shipped the IONIQ 6 placard targets as a symmetric 36/36 psi; the correct values are 36 psi front / 37 psi rear. IONIQ 6 now shows distinct front vs. rear warning bands, like the other asymmetric variants. Thanks David!
+
+### Dashboard Climate honors Driver Position
+The Dashboard Climate section now respects the Driver Position setting (Settings → International), matching CarPlay's Climate chip. When set to Right, the driver's Vent/Floor temperatures move to the right column and the passenger's to the left, mirroring the seating position; Left (the default) is unchanged. Both surfaces now share one rule, so they can't drift apart.
+
+### Advanced Tools page redesign
+The Advanced Tools page (Settings → Diagnostics → Advanced Tools) now uses the same polished Liquid Glass card design as the Inspect chooser. Each tool is a full-width glass card with a glowing tinted icon medallion, an "Advanced" badge, a bold title, and a one-line summary, replacing the plain grouped-list rows.
+
+### Turkish translation fixes
+More Turkish wording fixes from the translator, on the Dashboard charging section. The "Charging" section header now reads "Şarj" (the plain noun) instead of "Şarj ediliyor" ("charging in progress"), which was misleading on a static header — the same shared label also corrects the History charging category. And the charging-type value "Not Charging" now reads "Şarj edilmiyor" instead of "Şarj olmuyor" (the latter reads like a failed attempt to charge). Turkish only; no other language changed. Thanks Burak!
+
+---
 ## Build 115 — Driver Position (LHD/RHD), tire-pressure warning rework, translation fixes
 
 NOTE TO TESTERS: This is RC2 for Version 2.2   There's a new Driver Position setting under Settings → International. Set it to Right and the CarPlay Climate vent page swaps its columns so your own vent and floor temperatures sit on the right, where you sit. Right-hand-drive testers: please let me know if this matches your car. Two more things to watch: some of the tire-pressure warning colors were reworked from each vehicle's door-placard pressures, so your green/orange/red thresholds may have shifted slightly — flag anything that looks off.  And international testers, please confirm your language's high-voltage battery labels make sense.
