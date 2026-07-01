@@ -6,7 +6,7 @@ nav_exclude: true
 search_exclude: true
 ---
 
-# Help Us Improve Car On/Off Detection
+# Help Improve Car On/Off Detection
 
 Thanks for helping test a better "car on / car off" detector! This takes about 5 minutes,
 parked in your driveway. You'll capture your vehicle in **3 states**: Off, On with lights off,
