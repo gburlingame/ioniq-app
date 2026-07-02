@@ -1,0 +1,15 @@
+{
+  "appBuild": "116",
+  "createdAt": "2026-07-02T15:00:00Z",
+  "dids": [
+    "0xE004",
+    "0xF187",
+    "0xF18C",
+    "0xF190"
+  ],
+  "ecuName": "VCU",
+  "ecuRxAddress": "7EA",
+  "ecuTxAddress": "7E2",
+  "sourceScanLog": "VCU responsiveness probe \u2014 is the VCU (7E2) powered in OFF / READY / AC-charge / DC-charge? live-data E004 + identity F187/F18C/F190",
+  "version": 1
+}
