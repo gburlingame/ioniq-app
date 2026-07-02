@@ -9,6 +9,32 @@ nav_order: 5
 
 
 ---
+## Build 117 — Improved vehicle speed signal, 4x more frequent tire pressure updates, two CarPlay fan favorites brought back
+
+NOTE TO TESTERS:   This is RC4 for Version 2.2.  Thanks for everyone who helped with yesterday's BCM testing - including those of us sweltering in our cars due to the high temps!   The results were consistent across the fleet.  I want to explore one other possible signal source (the VCU) which I believe would be ideal for a number of reasons.  A new test protocol has been posted here -- please don't feel like you need to do everything on the list - even a simple OFF-ON-OFF test will be very helpful:   https://www.theburl.com/ioniq-app/charging-state-test/
+
+### Vehicle speed now comes from the VCU
+Speed previously came from the climate-control module's coarse 1 km/h rebroadcast, polled every 5 seconds. It now comes from the VCU's own high-resolution speed signal, carried in a response the app already polls every 2.5 seconds for the gear indicator — so speed is finer-grained and twice as fresh at zero added polling cost. One quirk worth knowing: the raw signal goes negative in reverse, which shows as a small below-zero dip in History speed charts; max-speed tracking ignores it.   Please let me know if you see any issue with the speed signal in your Driving Session histories.
+
+### CarPlay Tires chip: the combined view is back
+The Tires chip has a third page: the composite pressure + temperature layout (pressure large, temperature smaller beneath), rescaled for the current larger quadrants.  Tapping the chip now cycles pressure → temperature → both, shown by three page dots, and your selected page still persists across launches.
+
+### Brake Light Indicator: solid red is back
+A fourth option restores the original solid bright-red chip background from build 53 (requested by a tester). The picker now reads Off / Red Text / Red Glow / Red Background — the glow rendering formerly labeled "Red Background" is now "Red Glow". Existing saved selections are unaffected.
+
+### CarPlay "Precondition" chip renamed "Battery Warmer"
+This chip has been renamed to avoid confusion with the more general precondition feature which on 2025+ model year vehicles can mean either warming or cooling -- currently only warming preconditioning is supported
+
+### Polling headroom panel rebuilt
+The Polling headroom info panel refreshed with three defined tiers — High (above 50%), Normal (10–50%), and Low (under 10%) — plus notes that the number settles toward a session average and can vary with the wireless environment. The dashboard chip's gauge icon is now tinted by the same tiers.
+
+### Advanced Tools scanners reskinned
+Every screen under Settings → Diagnostics → Advanced Tools — the DID Range Scan, ECU Finder, Create Curated DID List, and the full Curated Scan flow — now uses the shared aurora backdrop with Liquid Glass cards and buttons. These were the last utilitarian-looking pages in the app. Visual only; scanner behavior is unchanged.
+
+### Polling and housekeeping
+Three background poll intervals were retuned: tire pressures/temps refresh every 30 seconds (was 120), while two charge-controller reads that return nothing when the car isn't charging slow from every 5 seconds to every 15 — freeing polling time for fresher data elsewhere. The Experimental "CarPlay updates per second" control now caps at 4 (the 6 and 8 presets are removed; prior selections clamp to 4). And diagnostic logs no longer include the CarPlay load-estimate lines left over from earlier tuning work.
+
+---
 ## Build 116 — Predictable startup values, IONIQ 6 tire fix, Turkish fixes
 
 NOTE TO TESTERS:  This is RC3 for Version 2.2.  I have a test protocol ready that I need your help with (https://www.theburl.com/ioniq-app/car-on-off-test/).  I believe I have figured out a more reliable method of detecting ignition state, but I need your help running an ~5 minute protocol using Advanced Tools before I feel comfortable deploying it to the fleet.  I need testers from all E-GMP vehicle types.  If you have 5 minutes to spare -- please run the protocol and send me the results via email.    Link here:  https://www.theburl.com/ioniq-app/car-on-off-test/    THANK YOU!
