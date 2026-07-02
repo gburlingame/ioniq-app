@@ -19,10 +19,10 @@ and On with lights on.
 On your **iPhone**, tap the link below and choose **Open in "IONIQ 5 Companion."** The app
 imports the list and opens its **A / B / C** capture screen.
 
-[**Download the scan file (IgnitionScan_BCM_fleet.iqlist)**]({{ '/assets/downloads/IgnitionScan_BCM_fleet.iqlist' | relative_url }})
+[**Download the scan file (iqlist_BCM_ignition_fleet.iqlist)**]({{ '/assets/downloads/iqlist_BCM_ignition_fleet.iqlist' | relative_url }})
 
 To reopen it later, go to **Settings → Advanced Tools → ABC test with Curated DID List** and tap
-**IgnitionScan_BCM_fleet**.
+the list that starts with **iqlist_BCM**.
 
 > **Tip:** each capture is **one steady state** of the car. Get the car into the state first,
 > *then* start the capture. Don't change anything (brake, lights, start button) while a capture
