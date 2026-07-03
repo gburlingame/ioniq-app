@@ -9,6 +9,20 @@ nav_order: 5
 
 
 ---
+## Build 118 — New: Adjustable SoC gauge colors, Dashboard and CarPlay values appear sooner, "Battery Warmer" rename completed
+
+NOTE TO TESTERS:   Thanks to everyone who helped with the BCM and VCU scans.   If you have not already done a scan -- please hold for now.  I have not found a winning solution yet and I am contemplating next steps.  The VCU signal I was chasing turned out to be another location where the 12V/AUX voltage is reported (from the VCU in addition to the ICCU - an inadvertent discovery).  I'm on this search to solve a couple of experiential bugs that have emerged (unplug reminder not firing and driving sessions ending with BLE Lost), both traced to the same root cause.  The app currently uses the HVAC ECU to determine if the vehicle is ON or OFF -- this had worked well, but in the Kia EV9 (and perhaps other vehicles) the HVAC ECU can remain ON when the vehicle is turned OFF.
+
+### New: SoC Range Colors
+Settings → CarPlay has a new "SoC Range Colors" section: the state-of-charge gauge's color thresholds are now adjustable. Pick the percentage below which the gauge turns red (alert) and orange (warning) in 1% steps, optionally add a green "well charged" color at its own threshold, or turn the coloring off entirely. Applies to the CarPlay SoC gauge and — via an "Apply to Dashboard" toggle — the Dashboard gauge too. Defaults match the previous behavior (red below 20%, orange below 40%, no green), and CarPlay repaints the gauge immediately as you adjust. 
+
+### Dashboard and CarPlay begin appearing slightly faster
+Values now show up faster after starting the vehicle, especially with CarPlay connected. Three compounding fixes landed together: adapter communication moved off the UI thread, so screen drawing can never delay it; CarPlay chip images now draw a few per screen refresh instead of all at once; and a silent ~1.4-second stall before the first data request — traced to oversized placeholder images built while constructing the CarPlay tabs — was eliminated. Measured on-vehicle: the odometer now appears about half a second after the polling loop starts (previously ~2 seconds with CarPlay connected, and 4–8 seconds before Build 117's ordering fix), with state of charge arriving in under a second.
+
+### "Battery Warmer" everywhere
+Build 117 renamed the CarPlay chip; this build completes the transition everywhere "Preconditioning" appeared in the app: the Dashboard Battery · Temperatures section header, status chip, and time-series graph; the History → Signals list and its signal chart; the History → Sessions detail graph band; the in-progress charging-session status line ("Battery Warmer…"); and the charging-session share card. All languages updated; stored history data and export formats are unchanged.
+
+---
 ## Build 117 — Improved vehicle speed signal, 4x more frequent tire pressure updates, two CarPlay fan favorites brought back
 
 NOTE TO TESTERS:   This is RC4 for Version 2.2.  Thanks for everyone who helped with yesterday's BCM testing - including those of us sweltering in our cars due to the high temps!   The results were consistent across the fleet.  I want to explore one other possible signal source (the VCU) which I believe would be ideal for a number of reasons.  A new test protocol has been posted here -- please don't feel like you need to do everything on the list - even a simple OFF-ON-OFF test will be very helpful:   https://www.theburl.com/ioniq-app/charging-state-test/
