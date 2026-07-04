@@ -9,6 +9,38 @@ nav_order: 5
 
 
 ---
+## Build 119 — Vehicle on/off detection reworked, new Broadcast DID Scan tool, background-crash hardening
+
+NOTE TO TESTERS: This is RC5 for Version 2.2.  I think we're back on track -- this build ships with improved vehicle ON/OFF detection. EV9 testers especially: please report whether driving sessions now end promptly after shutoff.  Everyone else -- please report any abnormal new behaviors -- I think this change is low risk, but you never know! 
+
+### Vehicle on/off detection reworked
+The app now requires BOTH the climate ECU (HVAC) and the charge controller (ICCU) to be responding before declaring the vehicle awake, and either one going truly silent ends the awake state. This fixes the Kia EV9 "app stays on after shutoff" report.
+
+### Adapter glitches can no longer flip the app to "vehicle off"
+Only the adapter's literal NO DATA response now counts as an ECU non-response. Interpreter aborts, protocol failures, CAN-bus errors, torn multi-frame responses, and BLE drops are all state-neutral, and a negative diagnostic response counts as "ECU alive." Should decrease/eliminate the "app shut down while driving" class of tester reports.
+
+### New: Broadcast DID Scan (Experimental Features)
+Sends a single read to the CAN broadcast address so every ECU serving that DID answers in one request, grouped by ECU. Multi-frame responders — which by design only send their first frame over broadcast — are automatically re-read at their physical address, with a delayed retry for ECUs that stay quiet. Built to hunt an odometer mirror on the GV60; verified on the IONIQ 5 with zero unrecovered multi-frame reads. Settings → Experimental Features, behind the 5-tap unlock.
+
+### "Vehicle Awake" / "Vehicle Asleep"
+The green Dashboard banner now reads "Vehicle Awake" — it correctly shows while charging with the car off — and the off-state panel is now titled "Vehicle Asleep" (Dashboard and CarPlay). Its footer changed from the pulsing "Turn on your vehicle to view diagnostics." call-to-action to quiet status text: "Waiting for your vehicle to turn on or start charging." All languages updated.
+
+### Background database-lock crash hardening
+A full audit of every history-store writer closed the remaining paths that could crash the app when iOS suspends it mid-write (the dominant remaining crash cluster through Build 117). The signal-index rebuild now takes the background-task protection; the storage-cap evictor and launch-time snapshot scrubber hold it per-chunk instead of across a whole sweep (a long sweep could silently strip protection from every concurrent writer); and deleting a session or attaching/removing a session photo now saves immediately under the guard. 
+
+### Tire Target Pressure: round values in bar and kPa
+The picker now offers 0.05-bar steps in bar mode (exactly 2.60 bar is selectable) and 5-kPa steps in kPa mode instead of converted 0.5-psi steps that skipped them; psi mode is unchanged. Reported by a tester who couldn't select their door-placard 2.6 bar.  Thanks Roland!
+
+### DID Range Scan: multi-frame responses fixed on clone adapters
+Multi-frame DIDs no longer silently return nothing on clone adapters: the scanner left the flow-control header pointed at whichever ECU normal polling touched last, so multi-frame responses died after their first frame. OBDLink adapters were never affected.
+
+### Parking sensors toggle now gates polling
+With Parking sensors (Experimental) off — the default — the parking-sensor ECU is skipped entirely by the polling loop and no longer appears in Scan Status, the Connection Report and its CSV, or CarPlay's Scan Status, so 2022-2024 IONIQ 5 trims without the hardware stop showing a permanently failing entry. Turning it on starts polling on the next poll cycle — no reconnect needed.
+
+### Charging chart shading fix
+Pack Voltage and AC Input Voltage session charts no longer shade a full-width wedge whose top edge matches no plotted line. Shading now always hugs the visible line, in the app and on share cards.
+
+---
 ## Build 118 — New: Adjustable SoC gauge colors, Dashboard and CarPlay values appear sooner, "Battery Warmer" rename completed
 
 NOTE TO TESTERS:   Thanks to everyone who helped with the BCM and VCU scans.   If you have not already done a scan -- please hold for now.  I have not found a winning solution yet and I am contemplating next steps.  The VCU signal I was chasing turned out to be another location where the 12V/AUX voltage is reported (from the VCU in addition to the ICCU - an inadvertent discovery).  I'm on this search to solve a couple of experiential bugs that have emerged (unplug reminder not firing and driving sessions ending with BLE Lost), both traced to the same root cause.  The app currently uses the HVAC ECU to determine if the vehicle is ON or OFF -- this had worked well, but in the Kia EV9 (and perhaps other vehicles) the HVAC ECU can remain ON when the vehicle is turned OFF.
