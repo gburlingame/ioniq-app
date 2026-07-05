@@ -9,6 +9,20 @@ nav_order: 5
 
 
 ---
+## Build 120 — Standard Range battery module fix, Mode 01 broadcast scanning, Overview polish
+
+NOTE TO TESTERS: This is RC6 for Version 2.2 -- this may be the build I send over to Apple.  Standard Range vehicle testers — please check the battery module temperature grid on this build: the two permanent 0° modules should be gone, and the Min/Avg/Delta temperature stats should be correct.
+
+### Standard Range packs: two phantom 0° modules removed
+Standard Range vehicles no longer show two phantom 0° battery modules in slots 15 and 16
+
+### Broadcast DID Scan: Mode 01 PID reads
+The Broadcast DID Scan tool (Experimental Features) gains a Service selector: alongside UDS DID reads (service 22) it now speaks standard OBD Mode 01 PID reads (service 01) — one PID per request, single-frame responses. Verified on the IONIQ 5 with a full 00–FF PID sweep (31 responses): Mode 01 support turns out to be distributed across six drivetrain ECUs, the supported-PID chain ends at PID 9A, and the legislated odometer PID (A6) is unsupported — ruling out Mode 01 as a platform-independent odometer source.
+
+### Dashboard Overview: one less sub-panel
+The Overview section drops its inner frosted sub-panel: the state-of-charge gauge, chips, and Scan Status card now sit directly on the section's glass card, gaining a little width and a cleaner look
+
+---
 ## Build 119 — Vehicle on/off detection reworked, new Broadcast DID Scan tool, background-crash hardening
 
 NOTE TO TESTERS: This is RC5 for Version 2.2.  I think we're back on track -- this build ships with improved vehicle ON/OFF detection. EV9 testers especially: please report whether driving sessions now end promptly after shutoff.  Everyone else -- please report any abnormal new behaviors -- I think this change is low risk, but you never know! 
