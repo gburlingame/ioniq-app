@@ -9,6 +9,23 @@ nav_order: 5
 
 
 ---
+## Build 121 — BLE adapter wording
+
+NOTE TO TESTERS: I'm sending this build over to Apple today as version 2.2.  Thank you to everyone for the continued support - constructive feedback, issue reports, and diagnostic logs.  There will be a few days with no new builds due to the Apple approval cycle timing.  The next build will be the first one for Version 3.0.
+
+### Curated DID List scan: updated failure message
+When a curated scan (Create Curated DID List) fails right at the opening session request, it no longer always says "Paused — BLE disconnected." It now reports what actually happened:
+
+- A module that never answers — like the GV60 instrument cluster — shows "Scan ended — no response from this module," with a note that it may not be reachable on your vehicle.
+- If your vehicle is off, it says that instead.
+- A module that refuses the Extended session shows that the module refused the session request, with a hint to retry using Default.
+
+All new messages are translated into every supported language.
+
+### Settings: "BLE ELM327-compatible adapter"
+The adapter-scan explainer in Settings now specifies "A BLE ELM327-compatible adapter is required" (was "An ELM327-compatible adapter"), clarifying that a Bluetooth Low Energy adapter is needed. Updated in every supported language.
+
+---
 ## Build 120 — Standard Range battery module fix, Mode 01 broadcast scanning, Overview polish
 
 NOTE TO TESTERS: This is RC6 for Version 2.2 -- this may be the build I send over to Apple.  Standard Range vehicle testers — please check the battery module temperature grid on this build: the two permanent 0° modules should be gone, and the Min/Avg/Delta temperature stats should be correct.
