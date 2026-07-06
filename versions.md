@@ -9,6 +9,14 @@ nav_order: 5
 
 
 ---
+## Build 123 — Version 2.2 rebuild for App Store submission
+
+NOTE TO TESTERS: This build is functionally identical to Build 121 — no new features or fixes. 
+
+### Why the build number jumped from 121 to 123
+Version 2.2 had to be rebuilt to meet Apple's App Store build requirements — a toolchain and code-signing matter (Apple does not accept App Store releases built with beta versions of their own tools).  Builds 122 and 123 carry the same code as Build 121; 123 is the binary headed to the App Store for the 2.2 release.
+
+---
 ## Build 121 — BLE adapter wording
 
 NOTE TO TESTERS: I'm sending this build over to Apple today as version 2.2.  Thank you to everyone for the continued support - constructive feedback, issue reports, and diagnostic logs.  There will be a few days with no new builds due to the Apple approval cycle timing.  The next build will be the first one for Version 3.0.
