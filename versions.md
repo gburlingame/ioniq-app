@@ -9,6 +9,36 @@ nav_order: 5
 
 
 ---
+## Build 125 — CarPlay rebuilt: EV charger maps, in-app navigation, live range
+
+NOTE TO TESTERS: This is the first build of Version 3.0 -- and it's a big one.  I suggest you read these notes before updating, just in case your favorite CarPlay information is not yet in build 125.  
+
+CarPlay has been entirely rebuilt to fix the dreaded music notes bug!  Thanks everyone for your patience with that inconvenience. 
+
+Missing in build 125 but coming soon:   The original climate chip information (Outdoor, Indoor, RH), tire temps, odometer, and directions for the Compass -- these are not in build 125, but will be added shortly 
+
+### CarPlay: expanded to 2x8 in full screen mode
+The CarPlay grid has been expanded from 2x7 to 2x8 tiles.   You will see two new tiles Range (a live range estimation - early beta state) and Nearest Charger (a live micro-map showing the nearest charger and distance to that charger).  
+
+### CarPlay: visual aesthetic
+In the forthcoming iOS27 release, you will be able to select from a larger range of CarPlay wallpapers.   I have made the tiles a tad bit translucent (just a little bit) to allow some of this customization capability to come through.  There is an all new Status page - cleaner and simplified.   The manual connect/disconnect button is located in the bottom right corner.
+
+### CarPlay: charging page
+Prior to this build, the charging tab was always visible -- that is no longer the case.  When a charging session is initiated, an all-new graphics rich charging page appears.  This is what I always envisioned for IONIQ 5 Companion - I'm really glad to finally have the ability to realize what I had always wanted.   I look forward to hearing what people think and plan on iterating on this page over the coming builds.
+
+### CarPlay: EV charger map and navigation to a charger
+The EV button opens a full-screen charger map with a center crosshair and a banner naming the charger under it. Pan (drag or the directional pad) and zoom to refresh chargers for the area, tap Go to route to the crosshair, or open a filterable list. Filter by network — Tesla, Electrify America, EVgo, ChargePoint, Blink, Shell Recharge, Jolt, IONNA — or hide Apple's anonymous "EV Charging Station" pins. Chargers accumulate into a local directory as you drive, so places you've been load instantly.   Please send me your favorite charging networks -- I plan on expanding the filtering list to help people find their favorite charging options, along with other planned enhancements.  
+
+### CarPlay: in-app turn-by-turn navigation
+Tap a charger and route to it inside the app.  A capsule shows your estimated arrival state of charge, colored green/amber/red. During guidance you can peek the driving dashboard while the trip keeps running, and an Apple-Maps-style turn popup slides in as each maneuver approaches.  I don't plan on making navigation a hallmark feature - there are lots of great options already available, but I thought people may like the convenience of finding a charger and navigating to it.  I want to make the app good at doing that job. 
+
+### CarPlay: live range and energy
+The Driving page provides projected range at your actual pace (measured from real energy use).  On a route, "Range" becomes "Arrive N%" — your predicted charge when you reach the destination. Estimates start conservative and firm up after about a mile of driving, and honor your distance-unit preference.  This feature will be refined over the coming builds.
+
+### Charging: no more phantom "DC Fast" sessions
+Fixed an issue that could lead to a brief phantom DC charging session before the real session initiated.  The car reports "DC charging" the instant the plug handshake begins — before any power actually flows — and a stalled or retried handshake could flash the charging screen and open an empty 0 kWh session. The app now waits for real pack current before opening a DC session, mirroring how AC charging was already handled. Normal fast charging is unaffected.
+
+---
 ## Build 123 — Version 2.2 rebuild for App Store submission
 
 NOTE TO TESTERS: This build is functionally identical to Build 121 — no new features or fixes. 
