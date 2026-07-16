@@ -9,6 +9,17 @@ nav_order: 5
 
 
 ---
+## Build 127 — Adapter interference detection fixes
+
+NOTE TO TESTERS:  Sending out this quick fix for some false positive detections of adapter interference on 2025 and 2026 vehicles.  If you encounter an issue with adapter interference and you are 100% positive you have no other apps running -- this new feature can be disabled under Settings / Experimental Features.   If you do not have Experimental Features turned on, navigate to Settings / About and tap on the build number 127 five times -- that will unlock Experimental Features.   
+
+### 2025 and 2026 vehicles: false interference disconnect
+Some 2025- and 2026-model-year vehicles were force-disconnected on every connect with a false "adapter interference" warning. Their VCMS answers the identity probe with a combined identity listing that leads with a different record instead of echoing the exact request — which the new detector misread as another app's response. The app now accepts that reply as valid, so these vehicles connect normally and their VCMS details resolve correctly again.
+
+### Fewer false alarms during ECU scans
+Hardened the same check against the app's own delayed replies: if a response matches a request the app itself made in the last 30 seconds — most likely a late answer arriving during a fast ECU scan — it's set aside for data integrity but no longer treated as interference. Only responses for something nobody on the app's side asked for still trigger a disconnect.
+
+---
 ## Build 126 — CarPlay rebuilt: EV charger maps, in-app navigation, live range, Kia EV9 AC charging voltage fix, automatic adapter interference detection
 
 NOTE TO TESTERS: This is the first build of Version 3.0 -- and it's a big one!  CarPlay has been rewritten from the ground up, and I'm glad to report the music notes bug is fixed!  Most features are in, but a few are not yet.   If you use any other OBD-II apps such as ABRP or CarScanner, please run those intentionally at the same time as IONIQ 5 Companion to verify the new auto-interference detection works as designed.  Please play around with the EV charger locating map - I'm curious what people think about that -- try filtering, panning, zooming, etc... 
