@@ -9,34 +9,47 @@ nav_order: 5
 
 
 ---
-## Build 125 — CarPlay rebuilt: EV charger maps, in-app navigation, live range
+## Build 126 — CarPlay rebuilt: EV charger maps, in-app navigation, live range, Kia EV9 AC charging voltage fix, automatic adapter interference detection
 
-NOTE TO TESTERS: This is the first build of Version 3.0 -- and it's a big one.  I suggest you read these notes before updating, just in case your favorite CarPlay information is not yet in build 125.  
-
-CarPlay has been entirely rebuilt to fix the dreaded music notes bug!  Thanks everyone for your patience with that inconvenience. 
-
-Missing in build 125 but coming soon:   The original climate chip information (Outdoor, Indoor, RH), tire temps, odometer, and directions for the Compass -- these are not in build 125, but will be added shortly 
+NOTE TO TESTERS: This is the first build of Version 3.0 -- and it's a big one!  CarPlay has been rewritten from the ground up, and I'm glad to report the music notes bug is fixed!  Most features are in, but a few are not yet.   If you use any other OBD-II apps such as ABRP or CarScanner, please run those intentionally at the same time as IONIQ 5 Companion to verify the new auto-interference detection works as designed.  Please play around with the EV charger locating map - I'm curious what people think about that -- try filtering, panning, zooming, etc... 
+   
+KNOWN ISSUES:
+- The original climate chip information (Outdoor, Indoor, RH), tire temps, odometer, and instructions for the Compass will be added shortly along with a feature allowing you to customize the Driving page for the first time.
+- Experimental parking feature is not implemented yet
+- Rerouting during navigation is not implemented yet
+- Range estimation and efficiency algorithms will be improved during beta
+- SoC at arrival is not populated inititally
+- App in the background crashes can still happen - REAL fix for that coming soon!
 
 ### CarPlay: expanded to 2x8 in full screen mode
-The CarPlay grid has been expanded from 2x7 to 2x8 tiles.   You will see two new tiles Range (a live range estimation - early beta state) and Nearest Charger (a live micro-map showing the nearest charger and distance to that charger).  
+Two new tiles bring the CarPlay grid from 2x7 to 2x8: Range (a live range estimate) and Nearest Charger (a live micro-map of the closest charger and its distance).
 
 ### CarPlay: visual aesthetic
-In the forthcoming iOS27 release, you will be able to select from a larger range of CarPlay wallpapers.   I have made the tiles a tad bit translucent (just a little bit) to allow some of this customization capability to come through.  There is an all new Status page - cleaner and simplified.   The manual connect/disconnect button is located in the bottom right corner.
+The tiles are now slightly translucent, so the wider range of CarPlay wallpapers in iOS 27 shows through. There's an all-new Status page — cleaner and simplified — with the connect/disconnect button in the bottom-right corner.
 
 ### CarPlay: charging page
-Prior to this build, the charging tab was always visible -- that is no longer the case.  When a charging session is initiated, an all-new graphics rich charging page appears.  This is what I always envisioned for IONIQ 5 Companion - I'm really glad to finally have the ability to realize what I had always wanted.   I look forward to hearing what people think and plan on iterating on this page over the coming builds.
+The charging tab is no longer always visible: a graphics-rich charging page now appears when a session begins.  
 
-### CarPlay: EV charger map and navigation to a charger
-The EV button opens a full-screen charger map with a center crosshair and a banner naming the charger under it. Pan (drag or the directional pad) and zoom to refresh chargers for the area, tap Go to route to the crosshair, or open a filterable list. Filter by network — Tesla, Electrify America, EVgo, ChargePoint, Blink, Shell Recharge, Jolt, IONNA — or hide Apple's anonymous "EV Charging Station" pins. Chargers accumulate into a local directory as you drive, so places you've been load instantly.   Please send me your favorite charging networks -- I plan on expanding the filtering list to help people find their favorite charging options, along with other planned enhancements.  
+### CarPlay: EV charger map and navigation
+A full-screen charger map with a center crosshair and a banner naming the closest charger that meets your filter criteria.  Chargers you pass accumulate into a local directory, so places you've been load instantly.  Move the map around to explore charger locations.
 
-### CarPlay: in-app turn-by-turn navigation
-Tap a charger and route to it inside the app.  A capsule shows your estimated arrival state of charge, colored green/amber/red. During guidance you can peek the driving dashboard while the trip keeps running, and an Apple-Maps-style turn popup slides in as each maneuver approaches.  I don't plan on making navigation a hallmark feature - there are lots of great options already available, but I thought people may like the convenience of finding a charger and navigating to it.  I want to make the app good at doing that job. 
+### CarPlay: in-app turn-by-turn navigation 
+During guidance you can peek the driving dashboard while the trip keeps running, and an Apple-Maps-style turn popup slides in as each maneuver approaches. 
 
-### CarPlay: live range and energy
-The Driving page provides projected range at your actual pace (measured from real energy use).  On a route, "Range" becomes "Arrive N%" — your predicted charge when you reach the destination. Estimates start conservative and firm up after about a mile of driving, and honor your distance-unit preference.  This feature will be refined over the coming builds.
+### CarPlay: live range and energy efficiency
+The Driving page shows projected range at your actual pace, from real energy use.  
 
 ### Charging: no more phantom "DC Fast" sessions
-Fixed an issue that could lead to a brief phantom DC charging session before the real session initiated.  The car reports "DC charging" the instant the plug handshake begins — before any power actually flows — and a stalled or retried handshake could flash the charging screen and open an empty 0 kWh session. The app now waits for real pack current before opening a DC session, mirroring how AC charging was already handled. Normal fast charging is unaffected.
+Fixed a brief phantom DC charging session that could appear before the real one began. The car reports "DC charging" the instant the plug handshake starts — before any power flows — so a stalled handshake could flash the screen and open an empty 0 kWh session. The app now waits for real pack current before opening a DC session, as it already did for AC.
+
+### New: Adapter Interference detection
+The app now takes a zero-tolerance stance: the moment it sees traffic that isn't its own, it disconnects and tells you to close the other app and reconnect (which re-initializes the adapter and clears the warning). Disable it under Settings → Experimental Features; the Connection Report gains a matching section and CSV fields.
+
+### CarPlay: snappier dashboard
+State changes — brake lights, turn signals, gear — now appear on the CarPlay dashboard the instant their data arrives
+
+### Kia EV9: AC charging voltage and frequency
+While charging, AC voltage and frequency now read correctly on the Kia EV9.
 
 ---
 ## Build 123 — Version 2.2 rebuild for App Store submission
