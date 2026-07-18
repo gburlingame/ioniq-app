@@ -9,6 +9,45 @@ nav_order: 5
 
 
 ---
+## Build 128 — Fix to CarPlay RHD screen issue, Background crash fix, CarPlay Help page, Filter chargers by power capability
+
+NOTE TO TESTERS: Thanks to everyone who reported a problem with the CarPlay layout in right hand drive vehicles, that's fixed in this build.  
+
+KNOWN ISSUES:
+- The original climate chip information (Outdoor, Indoor, RH), tire temps, and odometer will be added to CarPlay shortly, along with a feature to customize the Driving page.
+- Experimental parking feature is not implemented yet
+- Rerouting during navigation is not implemented yet
+- Range estimation and efficiency algorithms will continue to be improved during beta
+- SoC at arrival is not populated initially
+
+### Background stability
+Background data collection is now suspension-safe: History writes land in an append-only journal file first and drain into the database only while the app or CarPlay is open.  This avoids iOS terminating the app for holding a database lock when it is in the background.  Thanks to everyone who has been reporting this ongoing issue!
+
+### CarPlay: new Help page
+A Help page is pinned to the far right of the ring once your vehicle is connected, explaining a few dashboard chips one tip per screen — each with a live example — for the Compass (with the flat-phone orientation note), the Range chip, and the Nearest Charger chip. Page through with prev/next, or jump to the charger map from the same corner cluster.   More coming soon!
+
+### CarPlay: charger map minimum-speed filter
+The charger Filter screen gains a Minimum Speed section — Any / 50 kW+ / 150 kW+ / 250 kW+ (combines with the network filter). A station qualifies when any connector meets the chosen speed; stations with no speed data (including Apple-Maps-only results) are hidden while a speed filter is active.
+
+### CarPlay: range chip now starts from your own driving
+Each drive's efficiency estimate now starts where your last drive ended instead of a fixed value — the rolling average is saved while driving (per vehicle) and restored at the next drive's start, and the "~" approximate marker is gone. The first drive after updating still starts from the 3 mi/kWh baseline.
+
+### CarPlay: day/night polish
+The light "day" map now gets its own styling: the floating dashboard⇄map and Connect/Disconnect buttons, the navigation map's arrival-SoC capsule and hint label, the turn-by-turn maneuver card (now repainting the instant day/night flips), and the charger details panel and target pin all adapt to day tiles instead of staying dark and washed-out. Night is unchanged.
+
+### CarPlay: right-hand-drive layout
+CarPlay now lays out correctly on right-hand-drive vehicles, whose head units place the app dock on the right and had left dashboard widgets partly hidden (issue #87). The dashboard clears the dock on whichever side it appears, the charger map's Go button moves to the driver's side, and the Status page's Connect/Disconnect label sits beside its corner button in both layouts.
+
+### CarPlay Status screen polish
+The disconnected / Bluetooth-off hero now shows a slashed-antenna status icon (a tester had mistaken the old X-in-a-circle for a button); "Looking for adapter" shows an animated antenna instead of a static dotted circle; added a Connect / Disconnect hint to the corner button.
+
+### Adapter interference: fewer false alarms
+Removed the fast-reconnect timing heuristic from interference detection — its scenario (connecting while another app holds the adapter) is already caught by the held-link check, and the timing tell could misfire after a force-quit and quick relaunch. 
+
+### New: Diagnostic Trace Recorder (Experimental Features)
+A new Experimental Features toggle records a compact, tagged timeline of app-lifecycle, Bluetooth, background-task, and History-storage events to a shareable file, for troubleshooting hard-to-reproduce background issues (e.g. the app not auto-reconnecting after a long park). Off by default; a "Verbose detail" sub-toggle adds per-frame detail.
+
+---
 ## Build 127 — Adapter interference detection fixes
 
 NOTE TO TESTERS:  Sending out this quick fix for some false positive detections of adapter interference on 2025 and 2026 vehicles.  If you encounter an issue with adapter interference and you are 100% positive you have no other apps running -- this new feature can be disabled under Settings / Experimental Features.   If you do not have Experimental Features turned on, navigate to Settings / About and tap on the build number 127 five times -- that will unlock Experimental Features.   
