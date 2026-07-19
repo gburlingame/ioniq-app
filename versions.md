@@ -9,6 +9,30 @@ nav_order: 5
 
 
 ---
+## Build 129 — CarPlay Help readability tip, clearer page indicator, IONIQ 5 N odometer fix
+
+NOTE TO TESTERS:  IONIQ 5 N testers -- the missing odometer signal issue should now be fixed -- please try out the build and let me know.  Special thanks to tester Dusko for mapping the entire instrument cluster and finding the missing odometer signal in a couple of new DIDs.
+
+KNOWN ISSUES:
+- The original climate chip information (Outdoor, Indoor, RH), tire temps, and odometer will be added to CarPlay shortly, along with a feature to customize the Driving page.
+- Experimental parking feature is not implemented yet
+- Rerouting during navigation is not implemented yet
+- Range estimation and efficiency algorithms will continue to be improved during beta
+- SoC at arrival is not populated initially
+
+### CarPlay Help: new "Hard to Read?" tip
+A new first tip on the CarPlay Help page addresses a common misconfiguration: with CarPlay's appearance set to Always Dark but "Always Show Dark Maps" turned off, some of this app's labels can render dark-on-dark and become hard to read. The tip shows a small illustration of the Appearance screen — Always Dark selected, the dark-maps toggle highlighted ON — and points to exactly where to fix it, using Apple's own setting names in each language. 
+
+### CarPlay dashboard: clearer page indicator
+The page-name strip (Status · Driving · Charging · Help) no longer looks like a tappable tab bar. Some drivers were trying to touch or swipe it, but the CarPlay window is touchless — pages switch with the arrow buttons in the top corners. The pill background and blue selection underline are gone, leaving a dot-separated wayfinding label; the current page is now brighter, heavier, and slightly enlarged so "you are here" stays obvious without looking interactive.
+
+### IONIQ 5 N: odometer and trip distance now populate
+On IONIQ 5 N vehicles whose instrument cluster reported a zeroed odometer on the usual reading, the odometer and per-drive distance now populate correctly — History no longer shows "Too short / Less than 1 mi tracked" after a real drive. 
+
+### Diagnostic Trace Recorder: fully localized
+The Diagnostic Trace Recorder controls in Experimental Features (the toggle, its "Verbose detail" sub-toggle, and the footer) had shipped English-only; they're now translated in all 8 languages.
+
+---
 ## Build 128 — Fix to CarPlay RHD screen issue, Background crash fix, CarPlay Help page, Filter chargers by power capability
 
 NOTE TO TESTERS: Thanks to everyone who reported a problem with the CarPlay layout in right hand drive vehicles, that's fixed in this build.  
