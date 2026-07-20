@@ -9,6 +9,47 @@ nav_order: 5
 
 
 ---
+## Build 130 — Redesigned CarPlay DC charging page, true Requested Current reading, mid-trip rerouting, 12V/lights fix for Japan market IONIQ 5s
+
+NOTE TO TESTERS:  This build fixes an issue with the interference detector.  Please be sure and let me know if you have any difficulty.  Also fixed in this build is somewhat misleading reporting at 400V DC Fast chargers, specifically the requested power curve.  There's a small adjustment to background BLE auto-connecting - the app will no longer attempt to auto-connect unless it is in the foreground (either the iPhone app or CarPlay need to be in the foreground) - please be sure and let me know if you observe any differences with the way your adapter connects.   
+
+KNOWN ISSUES:
+- The original climate chip information (Outdoor, Indoor, RH), tire temps, and odometer will be added to CarPlay shortly, along with a feature to customize the Driving page.
+- Experimental parking feature is not implemented yet
+- Range estimation and efficiency algorithms will continue to be improved during beta
+- SoC at arrival is not populated initially
+
+### Interference detection
+Resolved an issue that was leading to false positive detection immediately after an adapter was connected.  Thanks Tom and Howard for your reports!
+
+### Background automatic connection
+The app will no longer re-establish a BLE connection unless it is in the foreground.   I made this change because I believe the app connecting in the background may have been leading to many of the background crash reports.
+
+### "Requested Current" now shows your vehicle's real request
+During DC fast charging the app now reads the current your vehicle commands the charger to deliver over the CCS link, not the battery's internal demand — the old figure could read misleadingly different on 400V chargers. It feeds the Dashboard's live "Requested" readout, the session history, and the CarPlay charts.  Thanks Sean for the 400V session logs!
+
+### CarPlay: Updates to the DC fast-charging page
+The DC charging page is updated with: Session Power (supplied vs. to-pack), Pack Voltage, Session Current (Requested / Supplied / Pack), and the charger's published voltage/current/power.  Cell delta, battery temps, SoC, and the session timer had small tweaks.
+
+### History: Session Current chart gains a Pack line
+In a session's detail, the former "EVSE Current" chart is now "Session Current," adding a Pack current series alongside Requested and Delivered, matching CarPlay.
+
+### CarPlay: reroute mid-trip
+Navigation now reroutes if you drift off course: more than 50 m off route for three consecutive good GPS fixes recomputes from your position and swaps the guidance in place.
+
+### 12V and lights now read on some 2024 IONIQ 5s
+Japan market 2024 IONIQ 5s appear to include 2025-generation electronics that don't match their model year, leaving the 12V Auxiliary readout blank and the headlight/brake indicators non-functioning. At connection the app now detects which ECU generation your ICCU and BCM actually speak and polls the matching signals.  Vehicles that already worked are unaffected.  Thanks Akio for your help!
+
+### CarPlay Help: Cell Δ and 12V tips
+Two more Help tips, each beside a live example: Cell Δ explains the cell-balance heatmap and delta, and 12V explains the auxiliary battery's voltage/charge/current readout, including its current color-coding (green = charging, amber = powering electronics, white = at rest). "Chip" is now "tile" throughout CarPlay Help.
+
+### CarPlay dashboard: refined page buttons
+The two top-corner page-switch buttons now use circled chevrons in place of plain arrows — a more tactile, pressable look. They still cycle Status / Driving / Charging / Help.
+
+### Charger map: weekly re-scan
+The charger map now re-scans already-covered areas weekly instead of daily, cutting background network and rendering churn. Chargers already found stay on the map regardless — only the refresh cadence changed.
+
+---
 ## Build 129 — CarPlay Help readability tip, clearer page indicator, IONIQ 5 N odometer fix
 
 NOTE TO TESTERS:  IONIQ 5 N testers -- the missing odometer signal issue should now be fixed -- please try out the build and let me know.  Special thanks to tester Dusko for mapping the entire instrument cluster and finding the missing odometer signal in a couple of new DIDs.
