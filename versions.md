@@ -9,6 +9,47 @@ nav_order: 5
 
 
 ---
+## Build 131 — Measured drive distance, new CarPlay map engine, CarPlay Light Mode polish, fix for Japan DCFC detection, fix for another false positive interference detection
+
+NOTE TO TESTERS: Trip distance and efficiency are now MEASURED (fusion of GPS and vehicle speed) eliminating the 1km/1mi resolution issue of the odometer signal.  After your next drive, look at the drive in History and you'll notice a smooth distance curve instead of stair-step shape.   There was a change to the charge detection logic to fix a problem in Japan -- please let me know if you encounter anything unusual like a false positive or missed charging session.  Please let me know if you encounter any false positive interference detection messages.
+
+KNOWN ISSUES:
+
+- The original climate chip information (Outdoor, Indoor, RH), tire temps, and odometer will be added to CarPlay shortly, along with a feature to customize the Driving page.
+- Experimental parking feature is not implemented yet
+
+### Drive distance is now measured, not read from the odometer
+Driving-session distance — and the efficiency figure — is now measured by integrating GPS and wheel speed over the drive, so short trips no longer jump in whole 1 mi / 1 km steps.  The Distance chart plots the measured trip as a smooth curve, and there's a new Trip Distance signal under History → Signals. To keep measuring through app switches the app now requests background location during drives. 
+
+### A second DC fast-charging detector
+One tester's Japan-market IONIQ 5 ran a real ~45 kW DC session that went undetected because his car reports DC in a form the original detector didn't match. 
+
+### Energy Added no longer collapses after a mid-charge relaunch
+On a long AC charge interrupted by an app relaunch, the session's Energy Added no longer collapses to a fraction of the true value. 
+
+### New Experimental toggle: New map engine
+New map engine switches the CarPlay map to a rebuilt renderer. Turn-by-turn guidance gets an Apple-Maps-style camera: 3D perspective, course-up rotation, the road ahead framed in front of the vehicle, and speed-adaptive zoom. Zoom reframes the guidance view and Recenter restores it; the charger map and dashboard are identical on either engine. 
+
+### CarPlay navigation
+Trip time/distance and guidance now also keep updating while stopped — the ETA no longer freezes at red lights.
+
+### CarPlay Light Mode and polish
+- The top breadcrumb (Status · Driving · Charging · Help) paints the active page in dark ink over the light wallpaper, the others a legible grey; the Help ‹ › tip chevrons get the same day/night treatment (Dark Mode unchanged).
+- The top ‹ › page arrows use a larger, bolder chevron that fills the button.
+- Help hero visuals now use the same translucent slate as the Help panel, letting the CarPlay backdrop read through instead of black boxes.
+- Status page: "Scan Status" and "Polling Headroom" are now title case, not ALL CAPS; with no headroom value yet the field reads Not Available in a neutral color, not a bare dash.
+- The Nearest Charger Help tip now also covers the "Arrive" gauge the tile morphs into during navigation.
+
+### Efficiency info sheet restructured
+Rewritten for the measured-distance era: "How distance is measured" covers the GPS + wheel-speed measurement, and a new "How energy is measured" explains energy comes from the pack's own available-energy accounting (regen credited, climate and pack loads included).
+
+### History: "Signal lost" session badge
+The connection-drop badge now reads "Signal lost" instead of "BLE lost", ahead of classic-Bluetooth adapter support.
+
+### Fixed: false "interference" disconnect on rebooting adapters
+On adapters that announce themselves after powering on (field report on a Veepeak), a reboot-and-reconnect could be misread as foreign interference and disconnect the session. Reset banners now only count as interference once the app's own adapter setup has completed.
+
+---
 ## Build 130 — Redesigned CarPlay DC charging page, true Requested Current reading, mid-trip rerouting, 12V/lights fix for Japan market IONIQ 5s
 
 NOTE TO TESTERS:  This build fixes an issue with the interference detector.  Please be sure and let me know if you have any difficulty.  Also fixed in this build is somewhat misleading reporting at 400V DC Fast chargers, specifically the requested power curve.  There's a small adjustment to background BLE auto-connecting - the app will no longer attempt to auto-connect unless it is in the foreground (either the iPhone app or CarPlay need to be in the foreground) - please be sure and let me know if you observe any differences with the way your adapter connects.   
