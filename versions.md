@@ -9,6 +9,35 @@ nav_order: 5
 
 
 ---
+## Build 133 — Customizable CarPlay Driving tiles, Help for every tile, on-device recorders, and fixes
+
+NOTE TO TESTERS: The headline is CarPlay tile customization -- you now have the ability to customize both full size and split screen CarPlay layouts!  Single motor owners can replace the peace symbol, owners without a Battery Warmer are no longer reminded of what they dont' have.   Split screen fans can finally see the tiles!  Some old favorite tiles have made their return.   I'm excited to start working on the big backlog of tiles I need to implement (after Version 3.0 gets released).
+
+KNOWN ISSUES:
+- Experimental parking feature is not implemented yet
+- Navigation skips ahead in maneuver guidance, rerouting needs improvement
+
+### Customize your CarPlay Driving tiles
+Settings → CarPlay → Customize Tiles lets you choose which tiles show and where, with separate Full Screen (2×8) and Split Screen (2×4) arrangements. More tiles are in the pool: Compass and Odometer can now show together, the tire faces split into three tiles (Tire Pressure / Tire Temp / both together), and the climate "Cabin" tile (Exterior / Cabin / Humidity) returns. Split-screen head units switch to the 2×4 layout automatically. The old "Replace Odometer with Compass" toggle is retired — existing dashboards migrate 1:1.
+
+### Help for every CarPlay tile
+All 20 tiles now have their own authored Help page. The Help ring shows pages for exactly the tiles on your current layout, in slot order, and re-derives the list when you switch between full and split screen. Each tile page shows the live tile as its hero image, the tile customizer shows the same help text under the selection wheel (read what a tile does before you place it), and Help remembers which page you were on when you leave and come back.
+
+### Hiding the Brake Light and Headlight tiles
+The Brake Light and Headlight indicator settings lose their "Off" options — hide those tiles by leaving them out of your CarPlay layout instead; the pickers keep their appearance choices. 
+
+### Diagnostics: two on-device recorders, now default-on
+Settings → Diagnostics now hosts two flight recorders, both recording by default and each with its own Share button:
+- App Activity Log (app-activity.log): app lifecycle, Bluetooth connection, adapter interference, and History storage events. It always records at full detail now, and self-trims to stay under ~5 MB (one file, no more rotation).   If you have an interference event that you believe is a false positive, please send me this file.
+- Drive Diagnostics Recorder: a per-drive record of GPS fixes, vehicle-speed samples, and distance decisions, for troubleshooting distance and navigation accuracy. 
+
+### The map-engine choice is gone
+The rebuilt CarPlay map engine that shipped on by default in Build 131 is now the only engine — the Experimental "New map engine" toggle is retired.
+
+### Fixes
+- CarPlay crash at navigation start/resume: connecting a CarPlay session could ask a banner callback a question off the main thread, tripping a Swift 6 safety check.
+
+---
 ## Build 131 — Measured drive distance, new CarPlay map engine, CarPlay Light Mode polish, fix for Japan DCFC detection, fix for another false positive interference detection
 
 NOTE TO TESTERS: Trip distance and efficiency are now MEASURED (fusion of GPS and vehicle speed) eliminating the 1km/1mi resolution issue of the odometer signal.  After your next drive, look at the drive in History and you'll notice a smooth distance curve instead of stair-step shape.   There was a change to the charge detection logic to fix a problem in Japan -- please let me know if you encounter anything unusual like a false positive or missed charging session.  Please let me know if you encounter any false positive interference detection messages.
