@@ -9,6 +9,20 @@ nav_order: 5
 
 
 ---
+## Build 134 — CarPlay turn-by-turn improvement
+
+NOTE TO TESTERS: Fixed a navigation bug
+
+KNOWN ISSUES:
+- Experimental parking feature is not implemented yet
+
+### CarPlay navigation fix
+Fixed CarPlay guidance skipping the next navigation maneuver 
+
+### CarPlay performance
+Initial cold launch view of the map is faster
+
+---
 ## Build 133 — Customizable CarPlay Driving tiles, Help for every tile, on-device recorders, and fixes
 
 NOTE TO TESTERS: The headline is CarPlay tile customization -- you now have the ability to customize both full size and split screen CarPlay layouts!  Single motor owners can replace the peace symbol, owners without a Battery Warmer are no longer reminded of what they dont' have.   Split screen fans can finally see the tiles!  Some old favorite tiles have made their return.   I'm excited to start working on the big backlog of tiles I need to implement (after Version 3.0 gets released).
