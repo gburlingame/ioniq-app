@@ -9,6 +9,37 @@ nav_order: 5
 
 
 ---
+## Build 135 — CarPlay speaks your directions; Charger filter updated for use around the world, tweak to Headlight tile
+
+NOTE TO TESTERS: CarPlay navigation now talks you through every turn, in a voice you pick. The charger network filter also stopped being a USA-only list. Please tell me how the voice cadence feels at speed, and whether your local networks show up correctly when you filter.  
+
+KNOWN ISSUES:
+- Experimental parking feature is not implemented yet
+
+### CarPlay navigation now speaks your directions
+Turns are announced as you approach them.  Music and podcasts duck for each prompt and come back afterward. Spoken guidance is on by default and can be silenced either from the navigation map while driving or in Settings / CarPlay.
+
+### Choose which voice speaks
+Settings / CarPlay / Select Navigation Voice lists the voices installed for your language, best first, with a play button to hear each one before choosing. If only the basic voice is installed, the app points you to Settings / Accessibility, where a more natural Premium or Enhanced voice can be downloaded.  I like the Ava (Premium) voice, but that may only be available in iOS27 (not sure).
+
+### The charger network filter now works anywhere in the world
+The filter adapts to your region instead of offering a fixed USA list: it shows the networks actually present in the surrounding area, organized alphabetically with range drill-downs ("A–E") when the list is long. Selected networks pin to the top; sites with unknown operators live under "Other". The list follows the map — pan to a distant city and the filter offers that area's networks, updating in place if it is already open. Rows show a local site count ("Electrify America (6 nearby)"). Previously saved network selections are reset once.
+
+With a network selected, the app downloads that network's full site list continent-wide, and the charger-map crosshair always points toward the nearest matching station — at any distance — instead of pointing at nothing when none is nearby.
+
+### A faster, quieter charger map
+Apple Maps is now queried once per map position, with no background search sweeps or pacing queues behind it — which fixes the constantly-spinning search indicator and the sluggish panning reported in testing. The Open Charge Map area download is unchanged and remains the complete local data source. The "search paused" state and its hint line are gone.
+
+### Charger info box
+The headline shows the full Open Charge Map station title when available, the network line always shows the operator ("3.9 mi · IONNA"), and a new street-address line wraps below it.
+
+### Navigation map: zoom, pan, and a new turn banner
+During guidance the +/− buttons now set an absolute zoom (roughly 150 m to 15 km) rather than a cap tied to your speed, and beyond about 1.5 km the map flattens toward a top-down survey view. Dragging the map breaks out of follow mode into a free north-up pan so you can look ahead along the route; Recenter resumes following. The "next turn" banner on the Driving page moves from an opaque box at the top to a dark glass capsule floated at the bottom center, tinted to match the tiles in both day and night.
+
+### Headlight tile
+- The CarPlay Headlights tile (Icons mode) now respects the CarPlay day/night setting. At night it uses the standard dark tile background with a white low-beam glyph instead of a fixed white tile with a black glyph; daytime appearance is unchanged and high beam stays blue in both.   Thanks Tom!
+
+---
 ## Build 134 — CarPlay turn-by-turn improvement
 
 NOTE TO TESTERS: Fixed a navigation bug
