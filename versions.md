@@ -9,6 +9,25 @@ nav_order: 5
 
 
 ---
+## Build 137 — CarPlay appearance control, smarter rerouting, and a nationwide charger map
+
+### Choose your CarPlay appearance
+A new Settings / CarPlay / Appearance setting offers Auto, Light, and Dark. Auto works exactly as before, following how Appearance is selected in CarPlay's Settings menu. Light and Dark pin the app's appearance no matter what the car says, and bring their own background — the aurora from your Settings / Themes selection — so text and tiles stay readable. This fixes the long-standing dark-on-dark case where a car set to "Always Dark" without "Always Show Dark Maps" left some labels hard to read, and allows for a new level of personalization.
+
+### Smarter wrong-turn rerouting
+CarPlay navigation now recognizes a wrong turn in about a second — from your direction of travel, not just how far you've drifted from the route. Rerouting never opens with an immediate U-turn while you're moving: the app assumes you'll keep heading the way you're pointed and offers a route that continues with your travel ("continue, then turn right").  If a turn-back genuinely is the only option, it's shown as a normal maneuver ahead — never "make a U-turn now."
+
+### The charger map now covers the whole country
+Zoom out and you'll see real charger density everywhere instead of an empty map. A compact "survey atlas" of every DC fast-charge site (≥50 kW) in your country downloads once — about 15 MB for the US, refreshed weekly with tiny updates and re-downloaded monthly — and shows grouped "×N" pins. Speed and network filters apply instantly with no downloading, and the crosshair can point to the nearest matching charger anywhere in the country. Point the crosshair at a survey site to fetch that one site's full details (name, address, connectors) in place; zoom into an area and complete local AC+DC detail fills in as before. Zoom-out now caps at about a 2,500 km-wide view.
+
+### More pins, finer clusters
+The map now shows roughly 3× as many pins at every zoom level — wide-area "×N" groupings spread into finer clusters instead of collapsing into a few big buckets. In dense areas clusters may visually touch, the accepted cost of the denser field.
+
+### Charger map fixes
+- Fixed the map freezing (up to several seconds per frame) when zoomed far out: the viewport query now scales with how many chargers are known rather than the visible area, network-brand classification is cached, and repeated zoom presses at the zoom limit no longer re-run the full recompute.
+- Fixed the crosshair selecting a far-away charger while sitting directly on a group of pins: it now scans the full set of chargers in view and merges the survey-atlas layer by distance, so pointing at a cluster picks what's actually under it.
+
+---
 ## Build 135 — CarPlay speaks your directions; Charger filter updated for use around the world, tweak to Headlight tile
 
 NOTE TO TESTERS: CarPlay navigation now talks you through every turn, in a voice you pick. The charger network filter also stopped being a USA-only list. Please tell me how the voice cadence feels at speed, and whether your local networks show up correctly when you filter.  
