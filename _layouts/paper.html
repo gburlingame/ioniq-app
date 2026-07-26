@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: 'en' }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ page.title }} · {{ site.title }}</title>
+<link rel="icon" type="image/png" href="{{ '/assets/images/favicon.png' | relative_url }}">
+<meta property="og:title" content="{{ page.title }}">
+<meta property="og:image" content="{{ '/assets/images/app-icon.png' | absolute_url }}">
+{% if page.description %}<meta name="description" content="{{ page.description }}">{% endif %}
+<style>
+  /* ------------------------------------------------------------------
+     Long-form paper layout. Deliberately independent of just-the-docs:
+     a document meant to be read start to finish, not navigated like docs.
+     The page is still listed in the site's normal navigation.
+
+     Accent is the app's own CarPlay chip green — UIColor(0.29,0.87,0.50)
+     in CarPlayChipRenderer.swift — darkened for contrast on a light ground.
+     Neutrals carry a slight green bias so they read as chosen, not default.
+     ------------------------------------------------------------------ */
+  :root {
+    --serif: ui-serif, "New York", Georgia, "Times New Roman", serif;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    --ground:   #FBFCFB;
+    --ink:      #182019;
+    --ink-mid:  #3D4A42;
+    --muted:    #5D6A62;
+    --hair:     #E3E8E4;
+    --hair-soft:#EFF2F0;
+    --accent:   #0B7A45;
+    --term-bg:  #101613;
+    --term-ink: #C9D6CE;
+    --sel:      #CFEBDD;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground:#0E1311; --ink:#E7EDE9; --ink-mid:#C2CDC6; --muted:#93A19A;
+      --hair:#232B27; --hair-soft:#1B2320; --accent:#4ADE80;
+      --term-bg:#080C0A; --term-ink:#C9D6CE; --sel:#1E4633;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground:#0E1311; --ink:#E7EDE9; --ink-mid:#C2CDC6; --muted:#93A19A;
+    --hair:#232B27; --hair-soft:#1B2320; --accent:#4ADE80;
+    --term-bg:#080C0A; --term-ink:#C9D6CE; --sel:#1E4633;
+  }
+  :root[data-theme="light"] {
+    --ground:#FBFCFB; --ink:#182019; --ink-mid:#3D4A42; --muted:#5D6A62;
+    --hair:#E3E8E4; --hair-soft:#EFF2F0; --accent:#0B7A45;
+    --term-bg:#101613; --term-ink:#C9D6CE; --sel:#CFEBDD;
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 17px;
+    line-height: 1.72;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection { background: var(--sel); }
+
+  .shell {
+    display: grid;
+    grid-template-columns: minmax(0, 15rem) minmax(0, 41rem);
+    gap: 3.5rem;
+    justify-content: center;
+    padding: 4rem 2rem 7rem;
+  }
+
+  /* ---- Contents rail. The numerals are the document's own sections. ---- */
+  .rail { position: sticky; top: 3rem; align-self: start; }
+  .rail .back {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.45rem;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.03em;
+    text-decoration: none;
+    color: var(--muted);
+    margin-bottom: 1.9rem;
+    padding: 0.35rem 0.55rem 0.35rem 0;
+    border-radius: 3px;
+  }
+  .rail .back:hover { color: var(--accent); }
+  .rail .back:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .rail .back .arrow { font-size: 0.9em; }
+  .rail h2 {
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+    margin: 0 0 1rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--hair);
+  }
+  .rail ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.1rem; }
+  .rail ol a {
+    display: grid;
+    grid-template-columns: 1.6rem 1fr;
+    gap: 0.35rem;
+    padding: 0.3rem 0.4rem 0.3rem 0;
+    text-decoration: none;
+    color: var(--ink-mid);
+    font-size: 0.875rem;
+    line-height: 1.4;
+    border-radius: 3px;
+  }
+  .rail ol a:hover { color: var(--accent); }
+  .rail ol a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .rail .num {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---- Reading column ---- */
+  .paper { min-width: 0; }
+
+  h1 {
+    font-size: clamp(2rem, 4.4vw, 2.7rem);
+    line-height: 1.14;
+    font-weight: 600;
+    letter-spacing: -0.021em;
+    text-wrap: balance;
+    margin: 0 0 1.1rem;
+  }
+  h1 + p { font-size: 1.1rem; color: var(--ink-mid); line-height: 1.6; margin: 0 0 1.2rem; }
+  h1 + p + p {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+    padding-bottom: 1.6rem;
+    border-bottom: 2px solid var(--ink);
+    margin: 0;
+  }
+  h1 + p + p strong { font-weight: 500; color: var(--ink-mid); }
+
+  h2 {
+    font-size: 1.45rem; font-weight: 600; letter-spacing: -0.012em; line-height: 1.3;
+    text-wrap: balance; margin: 3.2rem 0 1rem; scroll-margin-top: 2rem;
+  }
+  h3 {
+    font-size: 1.1rem; font-weight: 600; line-height: 1.4;
+    text-wrap: balance; margin: 2.2rem 0 0.7rem; scroll-margin-top: 2rem;
+  }
+  h3 + p { margin-top: 0; }
+  p { margin: 0 0 1.1rem; }
+  a { color: var(--accent); text-underline-offset: 2px; }
+  strong { font-weight: 600; }
+  ul, ol { margin: 0 0 1.2rem; padding-left: 1.3rem; display: flex; flex-direction: column; gap: 0.5rem; }
+  li { padding-left: 0.2rem; }
+  li::marker { color: var(--muted); }
+  hr { border: 0; height: 1px; background: var(--hair); margin: 2.8rem 0; }
+
+  /* ---- Math: native MathML, typeset by the browser ---- */
+  .eq {
+    margin: 1.6rem 0;
+    padding: 1.15rem 0.5rem;
+    border-top: 1px solid var(--hair);
+    border-bottom: 1px solid var(--hair);
+    overflow-x: auto;
+    text-align: center;
+  }
+  math { font-size: 1.06em; }
+  .eq math { font-size: 1.16em; }
+
+  /* ---- Code, worked arithmetic, console quotations ----
+     kramdown + rouge nest fences as
+       div.highlighter-rouge > div.highlight > pre.highlight > code
+     and give INLINE code the same .highlighter-rouge class, so every block
+     rule below is scoped to `div.` to keep it off inline spans. */
+  code {
+    font-family: var(--mono);
+    font-size: 0.83em;
+    background: var(--hair-soft);
+    padding: 0.1em 0.34em;
+    border-radius: 3px;
+    color: var(--ink-mid);
+  }
+  div.highlighter-rouge { margin: 1.4rem 0; }
+  div.highlighter-rouge .highlight { margin: 0; background: none; }
+  div.highlighter-rouge pre {
+    font-family: var(--mono);
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    overflow-x: auto;
+    margin: 0;
+    padding: 1.05rem 1.2rem;
+    border-radius: 6px;
+    tab-size: 2;
+    background: var(--hair-soft);
+    border: 1px solid var(--hair);
+    color: var(--ink-mid);
+  }
+  div.highlighter-rouge pre code {
+    background: none; padding: 0; font-size: inherit; color: inherit;
+  }
+  /* The diagnostic-log samples are literal console output, so they are quoted
+     as a console — dark in both themes, deliberately. */
+  div.language-console pre {
+    background: var(--term-bg);
+    border-color: var(--term-bg);
+    color: var(--term-ink);
+  }
+
+  /* ---- Tables ---- */
+  .tablewrap { overflow-x: auto; margin: 1.4rem 0; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.9rem; font-variant-numeric: tabular-nums; }
+  th {
+    font-family: var(--mono); font-size: 0.6875rem; font-weight: 500;
+    letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted);
+    text-align: left; vertical-align: bottom;
+    padding: 0 0.9rem 0.6rem 0; border-bottom: 1px solid var(--ink); white-space: nowrap;
+  }
+  td { padding: 0.62rem 0.9rem 0.62rem 0; border-bottom: 1px solid var(--hair); vertical-align: top; line-height: 1.5; }
+  tr:last-child td { border-bottom: 0; }
+  td:last-child, th:last-child { padding-right: 0; }
+  table code { font-size: 0.8em; background: none; padding: 0; }
+  table math { font-size: 0.98em; }
+
+  @media (max-width: 62rem) {
+    .shell { grid-template-columns: minmax(0, 41rem); gap: 2.5rem; padding: 2.5rem 1.4rem 5rem; }
+    .rail { position: static; }
+    .rail ol { display: grid; grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr)); gap: 0.1rem 1rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+  <nav class="rail" aria-label="Contents">
+    <a class="back" href="{{ '/' | relative_url }}"><span class="arrow" aria-hidden="true">&#8592;</span>Back to Support Site</a>
+    <h2>Contents</h2>
+    <ol>
+      {%- for s in page.sections %}
+      <li><a href="#{{ s.id }}"><span class="num">{{ s.n | default: '&#8212;' }}</span><span class="lbl">{{ s.label }}</span></a></li>
+      {%- endfor %}
+    </ol>
+  </nav>
+  <main class="paper">
+{{ content }}
+  </main>
+</div>
+</body>
+</html>
