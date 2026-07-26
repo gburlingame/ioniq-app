@@ -52,7 +52,7 @@ sections:
 
 *A walkthrough of the math, written for owners and testers who want to know exactly what the numbers on screen are made of.*
 
-**Version:** 2026-07-25 · **Applies to:** app version 3.0 (build 137) and later
+**Version:** 2026-07-25 · **Applies to:** app version 3.0 (build 138) and later
 
 ---
 
