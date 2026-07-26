@@ -9,6 +9,28 @@ nav_order: 5
 
 
 ---
+## Build 138 — Improvements to efficiency and range measurements, easy access whole-trip map view, and a DC Charging band fix
+
+NOTE TO TESTERS:   If you wonder how IONIQ 5 Companion calculates range and efficiency (and estimates SoC%), you may be interested in a paper that explains the calculations under the hood, now available on the support site:  https://www.theburl.com/ioniq-app/efficiency-and-range.html
+
+### Efficiency and range now come from the battery's own accounting
+The CarPlay rolling efficiency used to integrate pack volts × amps while the History trip figure used the battery's available-energy reading.  Both figures now use the BMS available energy and determine distance from the same distance calculation engine.   Please see the paper for a more in depth explanation.
+
+### Steadier rolling efficiency
+Rolling efficiency updates at most once a minute rather than roughly once a second. Stopping no longer resets the measurement either — idling with the climate running spends real energy over no distance, and now shows up as worse efficiency instead of being ignored.
+
+### Smoother arrival-charge estimate
+The CarPlay arrival-SoC estimate was disproportionately sensitive to efficiency.  It now shows a running average of the last five one-per-minute projections, turning a 5-point jump into five 1-point steps; a new destination or reroute starts a fresh average. 
+
+### See the whole trip on the CarPlay map
+The navigation map's `+` button is now a zoom-to-fit button that frames the road still ahead — from where you are to the destination, north-up — plus your own position, so a missed turn still shows the car. Tap Recenter to return to the driving view. Zooming out no longer hits a wall either: `-` used to stop dead at a 15 km view and now widens to a continental view. The fit is one continuous glide — the map tilts flat, turns north-up and pulls back to trip scale in a single motion. The charger map's `+` and `-` are unchanged.
+
+### Fixes
+- Fixed an issue that led to the DC Charging signal recording as 0 during a DC Fast Charge session. Thanks Akio!
+- History ▸ Signals now shows battery energy at its real precision. Available energy resolves to 0.002 kWh and the lifetime charged/discharged counters to 0.1 kWh, but the value formatter rounded both below what the signal can report, hiding 98% of available energy's resolution. They now read to three decimals and one decimal respectively, in the stats row and the chart's scrub readout.
+- The CarPlay Range chip's efficiency unit no longer runs off the edge of the tile. `kWh/100km` — the default in every metric locale — was too wide for the chip and appeared as `kWh/10(`. Both rows are now measured against the tile's margin, with the unit shrinking first and the value only giving ground once the unit reaches its legibility floor.
+
+---
 ## Build 137 — CarPlay appearance control, smarter rerouting, and a nationwide charger map
 
 ### Choose your CarPlay appearance
