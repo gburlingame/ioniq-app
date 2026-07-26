@@ -63,6 +63,8 @@ hand-edits to it are lost on the next render.
 
 ## Previewing before you publish
 
+Either build once and open a self-contained copy:
+
 ```sh
 bundle exec jekyll build      # from the repo root
 cd docs/efficiency-and-range
@@ -70,10 +72,44 @@ python3 preview.py            # writes preview.html
 open preview.html
 ```
 
-`preview.py` inlines the theme stylesheets and the two Google fonts, so the
-result renders identically with no network access — useful for sharing a
-proposed change before it goes live. Both `preview.html` and `node_modules/`
-are gitignored.
+…or run a live server and refresh after each `node render.mjs`:
+
+```sh
+bundle exec jekyll serve      # http://localhost:4000/ioniq-app/efficiency-and-range.html
+```
+
+`preview.py` produces a single file with everything inlined and no network
+requests, which is what makes it shareable — hand it to someone and it renders
+identically offline. (It also knows how to inline webfonts, which this page does
+not use: `paper.html` is set in system faces. That path only fires for a page
+built on the just-the-docs theme.) Both `preview.html` and `node_modules/` are
+gitignored.
+
+## Publishing
+
+Pushing to `main` publishes. GitHub Pages rebuilds the site within a minute or
+two, and the page is live at
+<https://www.theburl.com/ioniq-app/efficiency-and-range.html>.
+
+**Commit the source and the generated page together:**
+
+```sh
+node render.mjs               # from docs/efficiency-and-range — do not skip
+cd ../..
+git add docs/efficiency-and-range/efficiency-and-range.src.md efficiency-and-range.md
+git commit -m "docs(efficiency): ..."
+git push origin main
+```
+
+The failure mode to watch for is skipping the render: edit the source, commit
+both paths, and `efficiency-and-range.md` still holds the *previous* render. The
+push succeeds, nothing errors, and the live page silently lags the source.
+
+**The tell is in `git status`.** A source edit should produce a matching change
+in the generated page, so both paths appear dirty. If only `.src.md` is dirty,
+the render was skipped. A commit that touches only `efficiency-and-range.md` is
+equally suspect — it means the generated page was hand-edited, and the next
+render will discard it.
 
 ## Where the paper's content comes from
 
