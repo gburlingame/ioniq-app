@@ -600,19 +600,3 @@ A separate banner records every constant in §9 at the moment recording starts, 
 ```
 
 The choice between the integral and the odometer is never silent.
-
----
-
-## Appendix — where this lives in the code
-
-For testers reading alongside the source:
-
-| Topic | File |
-|---|---|
-| Rolling efficiency, range, arrival SoC | `Ioniq5/CarPlayV2/EnergyPaceEstimator.swift` |
-| Trip distance totalizer | `Ioniq5/Vehicle/DriveLocationPipeline.swift` (`DriveDistanceAccumulator`) |
-| Trip energy, lifetime round-trip | `Ioniq5/Vehicle/VehicleDataService.swift` (`netEnergyUsedKWh`, `lifetimeEfficiencyPercent`) |
-| Close-time distance policy | `Ioniq5/History/HistoryRecorder.swift` (`closedDistanceKm`) |
-| Display-unit conversion | `Ioniq5/Views/SettingsView.swift` (`efficiencyValue`) |
-| Design record for trip distance | `docs/adr/0023-drive-distance-gps-primary-via-location-pipeline.md` |
-| Design record for range | `docs/2026-07-13-carplay-range-estimation-design.md` |
