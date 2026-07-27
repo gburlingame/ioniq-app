@@ -9,6 +9,29 @@ nav_order: 5
 
 
 ---
+## Build 139 — Improved navigation guidance, fixed DC session end bug, improved Genesis GV60 support
+
+NOTE TO TESTERS: If you use the nearest charger feature in order to navigate to a charger, please listen to the spoken guidance and let me know if you hear anything unusual.  If you share your drive diagnostic file with me (Settings / Diagnostics),  I'll be able to replay your drive in the simulator, allowing me to experience what you experienced -- just like I was in the car with you!
+
+### Spoken guidance now works with another app on screen
+Turn-by-turn was silently dropped whenever Apple Music — or anything else — owned the CarPlay display: the app never declared that it plays audio, so the prompt was composed and then thrown away. It does now.
+
+### Road numbers are spoken correctly
+"RT-3A" was read aloud as "R T negative 3 A" — a hyphen just before a digit is parsed as a minus sign. Route designators now expand to words ("Route 3A", "Interstate 95", "State Route 16") in your chosen language, and any remaining hyphen before a digit becomes a short pause. That second rule needs no vocabulary, so it also fixes the Spanish and Turkish national routes numbered with hyphens (A-2, N-340, D-100).
+
+### Better maneuver banners over other CarPlay apps
+Instruction text no longer truncates to "…". CarPlay picks the longest instruction that fits from a list of progressively shorter ones, and the app supplied only the full sentence from Maps, so a narrow banner had nothing to fall back on. Each maneuver now carries a short form as well ("Turn right"), translated across all nine languages — which also fixes the turn arrow outside English, since the icon was chosen by matching English words and a German, French, Korean or Turkish instruction always drew a plain straight-ahead arrow. The banner no longer sits on screen indefinitely either: it was being re-presented with fresh distance on every GPS fix, about once a second, so it could never time out.
+
+### No more false "rerouting" at highway interchanges
+Off-route detection compared your heading against the nearest piece of the whole route. At an interchange the route can loop back within a few metres of itself on a different heading, so on the ramp the app measured against the leg you would drive half a minute later — reporting a 79° divergence while the car sat 3 m from its own route, and rerouting three times in a row. Heading is now compared against the road you are currently on, which cannot double back on itself.
+
+### A DC fast charging session now ends when charging ends
+Since Build 131 the app kept a session open long after the charger stopped — that bug is fixed in this build.
+
+### Genesis GV60 is identified correctly
+Fixed a gap in the GV60 VIN decoding logic.  Thanks Ron!
+
+---
 ## Build 138 — Improvements to efficiency and range measurements, easy access whole-trip map view, and a DC Charging band fix
 
 NOTE TO TESTERS:   If you wonder how IONIQ 5 Companion calculates range and efficiency (and estimates SoC%), you may be interested in a paper that explains the calculations under the hood, now available on the support site:  https://www.theburl.com/ioniq-app/efficiency-and-range.html
