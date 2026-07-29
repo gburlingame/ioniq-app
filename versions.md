@@ -9,6 +9,38 @@ nav_order: 5
 
 
 ---
+## Build 142 — CarPlay Parking returns, CarPlay polish, interference detector bug fix, history graph improvements
+
+NOTE TO TESTERS: We are getting close to the first release candidate of Version 3.0!  Thank you to everyone for continuing to send in constructive feedback, I could not do this without you!  If you've seen something and been on the fence about reporting it, now is a great time to let me know.  The experimental feature Parking Sensors makes its return to CarPlay.  This was the final CarPlay v1 feature I needed to port over to CarPlay v2.  
+
+### The app no longer mistakes a late identity reply for another OBD app
+Some cars answer an identity question with the module's full identity table. If that long reply arrived after the timeout, the interference detector could mistake it for foreign traffic and disconnect. Those legitimate identity records are now recognized, and any late reply after a timeout is drained before the next request. Detection of genuine adapter sharing is unchanged.  Thannks Mark!
+
+### An unreported EVSE power rating says so
+Maximum power is optional in the DC charging standard, and some chargers never publish it (Japan example). The CarPlay EVSE Power tile now says "Not Reported" in that case instead of showing a permanent dash. Voltage and Current retain the dash because those values are mandatory and have always been reported in all logs I've analyzed.
+
+### Route planning waits through a dead zone
+When the phone has no connectivity at all, failures arrive instantly and Build 141 could spend all three retries in about three seconds. Planning now keeps trying for at least ten seconds, giving a moving car time to regain coverage. Slow connections retain their longer timeout, and a charger with no driving route still reports that immediately.
+
+### CarPlay language and caption fixes
+Changing the app language now repaints both CarPlay surfaces immediately, including page names, buttons, captions and text inside tile images. Long compound captions no longer shrink: shorter wording and natural hyphenation points keep them at full size. The Nearest DC Charger tile also uses the same red target pin as the charger finder and detail panel.
+
+### AC charging now fits split-screen CarPlay
+The AC page's labels, readings and panels now adapt to its much narrower column instead of truncating, shrinking to ellipses or breaking in the middle of words. Rows stack where necessary, and the fix follows measured width, covering the narrower full-screen IONIQ 6 display too.
+
+### History graph improvements
+Distance now begins each drive at zero instead of carrying the previous trip's total into the new graph and crushing the real curve against the bottom. Gear and Brake Light begin at their first recorded value rather than guessing from the previous session. Charging graphs still carry values back when a charge began before recording.
+
+### Interrupted short drives keep their measured distance
+If the app closes mid-drive, recovery now uses the measured trip distance as well as the whole-mile odometer and keeps whichever saw more. A 0.4 mi drive therefore comes back as 0.4 mi instead of zero. Shared session images now use the same smooth distance source and inclusion rule as the in-app graph.
+
+### The Parking screen is back on CarPlay
+When Experimental Parking sensors is enabled and the module responds, CarPlay again shows the front and rear sensor rows with heat-coloured, numbered chips in centimetres or inches. The front row reports in Drive and the rear in Reverse. The raw Extra Bytes diagnostic panel has been removed from the phone Dashboard.
+
+### Adapter interference alerts are easier to find
+The switch moved from the hidden Experimental Features page to Settings ▸ Diagnostics, beside the recorders. Its wording, default and diagnostic logging are unchanged.
+
+---
 ## Build 141 — All new CarPlay Dashboard support, New CarPlay speed tile, charger map ships inside the app, rerouting improvements
 
 NOTE TO TESTERS: Big update today!  All new support for the CarPlay dashboard feature - please try it out and let me know what you think.  Please also spend some time adding the new Speed tile to your collection of tiles.  
