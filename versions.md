@@ -9,6 +9,38 @@ nav_order: 5
 
 
 ---
+## Build 141 — All new CarPlay Dashboard support, New CarPlay speed tile, charger map ships inside the app, rerouting improvements
+
+NOTE TO TESTERS: Big update today!  All new support for the CarPlay dashboard feature - please try it out and let me know what you think.  Please also spend some time adding the new Speed tile to your collection of tiles.  
+
+### All new CarPlay Dashboard feature
+Full support for Apple's Dashboard feature - the app shows a live map showing DC fast chargers that meet your filter criteria.  Press the top right button for quick and easy navigation to the nearest charger which updates live as you drive around.   Select two tiles of your choosing to display next to the map in Settings / CarPlay / Customize Tiles / Dashboard.   
+
+### A new Speed tile for CarPlay
+It shows your current speed with the last two minutes of driving drawn behind it, tinted by what the battery was doing at each moment: neutral while drawing power, green while regenerating. Height is measured from zero, so a steady cruise reads as a flat plateau. It is not placed for you — the standard grid is full — so add it from Customize Tiles.
+
+### The charger map now travels with the app
+Every DC fast charging site Open Charge Map lists at 30 kW or above — 63,838 of them, worldwide — ships inside the app instead of being fetched while you drive. The map is populated the instant you open it, anywhere on earth, with no signal and no waiting.
+
+### The map is DC fast charging only
+Slow AC and Level 2 destination chargers are gone. The feature answers "where can I fast-charge", and 30 kW is now what that means rather than a filter you had to remember to set. The speed rows read as thresholds — ≥30kW / ≥50kW / ≥150kW / ≥250kW.
+
+### The filter says what it filters
+Its title is now "Filter which DC chargers are shown". "Other" in the network list is now "Unbranded" — the same 18% of the map, named for what it is. "Hide generic stations" is gone; it hid exactly what the Unbranded bucket reveals, so one control undid the other. And there is now one filter behind every charger surface: change it anywhere and the map, the CarPlay finder and the Dashboard all follow immediately.
+
+### The app reclaims 10–20 MB on upgrade
+The old downloaded-charger database and survey cache are deleted after first launch — everything they held now ships with the app. Settings ▸ Debug ▸ Charger Directory is gone with them; there is nothing left to inspect.
+
+### Navigation improvements
+Improved rerouting. When a route cannot be calculated (internet connectivity issues) the car screen now says so instead of nothing happening. The charger finder and an active route's map no longer require the adapter — this feature can be used by anyone without any OBD-II adapter.
+
+### The Dashboard tab stops blaming your adapter
+Disconnect it yourself and the panel says "Disconnected (you)" instead of asking whether it is plugged in. With Auto-Connect off it names the reason rather than reporting a failure, and the "is it plugged in" prompt no longer flashes at launch before the app has tried anything. Bluetooth switched off, permission denied, and no Bluetooth Low Energy each get their own plain explanation. The panel now arrives showing the current state instead of replaying a transition you never saw, and it is one fixed size in every language.
+
+### Fixed a crash when panning the charger map at world scale
+Zooming far enough out could hand MapKit a region running past the North Pole, which terminates the app. Reachable only now that zooming out shows a world worth exploring.
+
+---
 ## Build 139 — Improved navigation guidance, fixed DC session end bug, improved Genesis GV60 support
 
 NOTE TO TESTERS: If you use the nearest charger feature in order to navigate to a charger, please listen to the spoken guidance and let me know if you hear anything unusual.  If you share your drive diagnostic file with me (Settings / Diagnostics),  I'll be able to replay your drive in the simulator, allowing me to experience what you experienced -- just like I was in the car with you!
