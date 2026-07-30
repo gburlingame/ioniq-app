@@ -187,7 +187,13 @@
     color: var(--ink-mid);
   }
   div.highlighter-rouge { margin: 1.4rem 0; }
-  div.highlighter-rouge .highlight { margin: 0; background: none; }
+  /* `div.highlight`, NOT `.highlight`: rouge puts that class on the wrapper div
+     AND on the <pre> inside it, so the bare form also matched the <pre> — at
+     0-2-0 it outranked every `… pre` rule below (0-1-1) and stripped their
+     background, including the console block's terminal fill. Light --term-ink
+     then sat on a light page. Scoping to the element keeps this rule on the
+     wrapper it was written for. */
+  div.highlighter-rouge div.highlight { margin: 0; background: none; }
   div.highlighter-rouge pre {
     font-family: var(--mono);
     font-size: 0.8125rem;
