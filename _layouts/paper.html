@@ -210,8 +210,42 @@
   div.highlighter-rouge pre code {
     background: none; padding: 0; font-size: inherit; color: inherit;
   }
+
+  /* Worked arithmetic is a DISPLAY element, sibling to the equations above it —
+     the numeric instantiation of the formula it follows — so it gets the same
+     hairline-ruled band as `.eq`: no fill, no chrome, full-strength ink. A grey
+     box with a rounded border reads as "here is some source code", which is the
+     wrong claim about a worked example.
+
+     Monospace stays, and that is not laziness: every one of these blocks aligns
+     its result column with literal spaces, so a proportional face would collapse
+     the alignment that carries the meaning. What makes it feel typeset rather
+     than dumped is the rest — open leading, the ruled band, and ink that matches
+     the body text.
+
+     The block is centred as a UNIT (inline-block inside a centred wrapper) while
+     its contents stay left-aligned, which is exactly how the equations sit on the
+     page. `min-width: 100%` keeps a block that overflows from shrink-wrapping to
+     its scroll width, so the rules still span the column. */
+  div.language-plaintext pre {
+    background: none;
+    border: 0;
+    border-top: 1px solid var(--hair);
+    border-bottom: 1px solid var(--hair);
+    border-radius: 0;
+    padding: 1.25rem 0.5rem;
+    color: var(--ink);
+    line-height: 1.9;
+    font-variant-ligatures: none;
+  }
+  div.language-plaintext { margin: 1.6rem 0; text-align: center; }
+  div.language-plaintext div.highlight { display: inline-block; min-width: 100%; }
+  div.language-plaintext pre { text-align: left; }
+
   /* The diagnostic-log samples are literal console output, so they are quoted
-     as a console — dark in both themes, deliberately. */
+     as a console — dark in both themes, deliberately. They keep the filled box:
+     it is the one place on the page where the app's own voice is being shown
+     verbatim, and it should not be mistaken for the author's arithmetic. */
   div.language-console pre {
     background: var(--term-bg);
     border-color: var(--term-bg);
