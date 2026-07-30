@@ -9,6 +9,32 @@ nav_order: 5
 
 
 ---
+## Build 143 — Kia EV3 preconditioning, green charger pins, Dashboard map fixes
+
+NOTE TO TESTERS: A warm welcome to our new Kia EV3 testers!  EV3 owners, the battery warmer indicator should turn on if you initiate battery warming and if the batteries are cool enough where you are located.  Please be on the lookout for any false positives and let me know if you see them.  We are closing in on the Version 3.0 release candidate -- keep the feedback coming! 
+
+### The app can now detect the Kia EV3 battery warmer
+It never could before. The app decides the battery heater is running by reading two bytes the battery-management computer publishes, and it required both to sit in one of two value ranges. That rule was learned from the 800V cars and it fits them — but the EV3's battery computer never uses the second byte at all. It reads zero, always, so the test could never be satisfied.  Thank you Brian and Stu!
+
+### Charger pins are now two greens instead of green and red
+The pin for the charger you are looking at was red, which turned out to be the wrong thing to say — red already means trouble everywhere else in this app, so it read to several people as a broken charger rather than the selected one. Every charger is now green: strongly saturated for the one you are looking at, a quieter sage for the rest. The selected pin is also a point larger and keeps its ring, so the difference holds up in bright sun and for anyone who cannot separate red from green. The crosshair and the off-screen arrow stay red — that is the one job it is right for.
+
+### The charger panel's pin matches the pin on the map
+The small pin beside the charger's name echoes the pin on the map, but was drawn smaller and sat slightly off-center
+
+### The off-screen charger arrow now works at any distance
+The red arrow pointing at the nearest matching charger was quietly capped at 500km, so filtering to a network whose nearest site sits beyond that drew no arrow at all until you zoomed far out. The search is now genuinely anywhere on Earth.
+
+### The CarPlay Dashboard map no longer freezes on Cupertino
+With no DC fast charger inside the 8km search box — the map discarded your position and anchored on Apple Park. You are now the floor of every framing, and the map follows you from the very first fix.  Thank you Sebastian!
+
+### Distance, efficiency and range now land in one file
+The Drive Diagnostics Recorder is on by default and writes a file per drive, but the efficiency and range figures went to the diagnostic log, which only records if you switch it on first. In practice a drive produced a full distance trace and no efficiency data at all. Both halves now share one file and one clock, and every line carries a tag.
+
+### The projected arrival battery % has left CarPlay's own trip bar (temporarily) 
+For testers on the iOS 27 beta only. That arrival SoC appeared in two places - the trip panel in the bottom left corner, and also in the middle of the nav map at the bottom.  In order to get ready for Version 3.0 release, I needed to pull the iOS27 feature out temporarily, it will come back after Version 3.0 is released.
+
+---
 ## Build 142 — CarPlay Parking returns, CarPlay polish, interference detector bug fix, history graph improvements
 
 NOTE TO TESTERS: We are getting close to the first release candidate of Version 3.0!  Thank you to everyone for continuing to send in constructive feedback, I could not do this without you!  If you've seen something and been on the fence about reporting it, now is a great time to let me know.  The experimental feature Parking Sensors makes its return to CarPlay.  This was the final CarPlay v1 feature I needed to port over to CarPlay v2.  
