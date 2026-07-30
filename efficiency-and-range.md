@@ -80,9 +80,11 @@ The app works internally in **metric canonical units** and converts only at disp
 
 The single conversion constant used throughout:
 
-```
-1 mile = 1.609344 km          1 km = 0.621371 miles
-```
+<div class="eq">
+<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>1</mn><mtext> mile</mtext><mo>=</mo><mn>1.609344</mn><mtext> km</mtext><mspace width="2em"/><mspace width="2em"/><mn>1</mn><mtext> km</mtext><mo>=</mo><mn>0.621371</mn><mtext> miles</mtext></mrow><annotation encoding="application/x-tex">1\ \text{mile} = 1.609344\ \text{km}
+\qquad\qquad
+1\ \text{km} = 0.621371\ \text{miles}</annotation></semantics></math></span>
+</div>
 
 ### Display units
 
@@ -104,13 +106,15 @@ All five forms are conversions of the same underlying Wh/km value:
 
 **Worked conversion.** An efficiency of <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>=</mo><mn>185</mn></mrow><annotation encoding="application/x-tex">e = 185</annotation></semantics></math></span> Wh/km displays as:
 
-```
-mi/kWh      = 621.371 ÷ 185        = 3.4
-km/kWh      = 1000 ÷ 185           = 5.4
-kWh/100km   = 185 ÷ 10             = 18.5
-Wh/mi       = 185 × 1.609344       = 298
-Wh/km       = 185                  = 185
-```
+<div class="eq">
+<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.25em" columnalign="right left right left" columnspacing="0em 1em 0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mtext>mi/kWh</mtext></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>621.371</mn><mo>÷</mo><mn>185</mn></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>3.4</mn></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mtext>km/kWh</mtext></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>1000</mn><mo>÷</mo><mn>185</mn></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>5.4</mn></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mtext>kWh/100km</mtext></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>185</mn><mo>÷</mo><mn>10</mn></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>18.5</mn></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mtext>Wh/mi</mtext></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>185</mn><mo>×</mo><mn>1.609344</mn></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>298</mn></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mtext>Wh/km</mtext></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>185</mn></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>185</mn></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+\text{mi/kWh}    &amp;= 621.371 \div 185   &amp;&amp; = 3.4 \\
+\text{km/kWh}    &amp;= 1000 \div 185      &amp;&amp; = 5.4 \\
+\text{kWh/100km} &amp;= 185 \div 10        &amp;&amp; = 18.5 \\
+\text{Wh/mi}     &amp;= 185 \times 1.609344 &amp;&amp; = 298 \\
+\text{Wh/km}     &amp;= 185                &amp;&amp; = 185
+\end{aligned}</annotation></semantics></math></span>
+</div>
 
 The two "rate" forms (distance per energy) improve as they rise; the three "consumption" forms (energy per distance) improve as they fall.
 The app tracks that polarity so the CarPlay trend band tints green for "better than your recent average" in whichever unit you picked.
@@ -161,9 +165,9 @@ The app reads the BMS's own available-energy report at the start and end of the 
 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span> is `availableEnergy`, decoded from BMS diagnostic identifier **0x0105** which is polled every 30 seconds.
 Two raw bytes at offset 28, scaled:
 
-```
-A (kWh) = raw_16bit × 2 ÷ 1000
-```
+<div class="eq">
+<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>A</mi><mtext> </mtext><mo stretchy="false">(</mo><mtext>kWh</mtext><mo stretchy="false">)</mo><mo>=</mo><msub><mtext>raw</mtext><mrow><mn>16</mn><mtext>-bit</mtext></mrow></msub><mo>×</mo><mn>2</mn><mo>÷</mo><mn>1000</mn></mrow><annotation encoding="application/x-tex">A\ (\text{kWh}) = \text{raw}_{16\text{-bit}} \times 2 \div 1000</annotation></semantics></math></span>
+</div>
 
 Three properties follow from using the BMS accounting:
 
@@ -204,13 +208,19 @@ Interval rules:
 
 </div>
 
-**Worked micro-example.** Cursor anchored at <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">t = 0</annotation></semantics></math></span> with <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">v = 0</annotation></semantics></math></span>:
+**Worked micro-example.** Cursor anchored at <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">t = 0</annotation></semantics></math></span> with <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">v = 0</annotation></semantics></math></span>; times in seconds, speeds in m/s:
 
-```
-t = 1.0 s, Doppler v = 8.0 m/s → v̄ = (0 + 8.0)/2 = 4.0 m/s → 4.0 × 1.0 = 4.0 m
-t = 2.0 s, Doppler v = 9.0 m/s → v̄ = (8.0 + 9.0)/2 = 8.5 m/s → 8.5 × 1.0 = 8.5 m
-                                                     running total = 12.5 m = 0.0125 km
-```
+<div class="eq">
+<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.25em" columnalign="right left right left" columnspacing="0em 1em 0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mi>t</mi><mo lspace="0em" rspace="0em">=</mo><mn>1.0</mn><mo separator="true">,</mo><mtext> </mtext><mi>v</mi><mo lspace="0em" rspace="0em">=</mo><mn>8.0</mn></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>→</mo><mtext> </mtext><mover accent="true"><mi>v</mi><mo>ˉ</mo></mover><mo>=</mo><mstyle scriptlevel="0" displaystyle="false"><mfrac><mrow><mn>0</mn><mo>+</mo><mn>8.0</mn></mrow><mn>2</mn></mfrac></mstyle><mo>=</mo><mn>4.0</mn></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>→</mo><mtext> </mtext><mn>4.0</mn><mo>×</mo><mn>1.0</mn><mo>=</mo><mn>4.0</mn><mtext> m</mtext></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mi>t</mi><mo lspace="0em" rspace="0em">=</mo><mn>2.0</mn><mo separator="true">,</mo><mtext> </mtext><mi>v</mi><mo lspace="0em" rspace="0em">=</mo><mn>9.0</mn></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>→</mo><mtext> </mtext><mover accent="true"><mi>v</mi><mo>ˉ</mo></mover><mo>=</mo><mstyle scriptlevel="0" displaystyle="false"><mfrac><mrow><mn>8.0</mn><mo>+</mo><mn>9.0</mn></mrow><mn>2</mn></mfrac></mstyle><mo>=</mo><mn>8.5</mn></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>→</mo><mtext> </mtext><mn>8.5</mn><mo>×</mo><mn>1.0</mn><mo>=</mo><mn>8.5</mn><mtext> m</mtext></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mphantom><mo>→</mo><mtext> </mtext></mphantom><mtext>total</mtext><mo>=</mo><mn>12.5</mn><mtext> m</mtext><mo>=</mo><mn>0.0125</mn><mtext> km</mtext></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+t{=}1.0,\ v{=}8.0
+  &amp;\rightarrow\ \bar{v} = \tfrac{0 + 8.0}{2} = 4.0
+  &amp;&amp;\rightarrow\ 4.0 \times 1.0 = 4.0\ \text{m} \\[2pt]
+t{=}2.0,\ v{=}9.0
+  &amp;\rightarrow\ \bar{v} = \tfrac{8.0 + 9.0}{2} = 8.5
+  &amp;&amp;\rightarrow\ 8.5 \times 1.0 = 8.5\ \text{m} \\[4pt]
+  &amp; &amp;&amp;\phantom{\rightarrow\ } \text{total} = 12.5\ \text{m} = 0.0125\ \text{km}
+\end{aligned}</annotation></semantics></math></span>
+</div>
 
 ### 3.3 Coverage, and when the odometer gets a vote
 
@@ -223,19 +233,27 @@ At session close the app computes how much of the drive it actually measured:
 
 Then a single decision:
 
-```
-if coverage ≥ 0.80                    → use the integral
-else if odometer delta > 0            → use (end odometer − start odometer)
-else                                  → use the partial integral
-```
+<div class="eq">
+<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.25em" columnalign="right left right left" columnspacing="0em 1em 0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mrow><mtext mathvariant="bold">if</mtext><mtext> </mtext></mrow><mtext>coverage</mtext><mo>≥</mo><mn>0.80</mn></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>→</mo><mtext> use the integral</mtext></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mrow><mtext mathvariant="bold">else</mtext><mtext> </mtext><mtext mathvariant="bold">if</mtext><mtext> </mtext></mrow><mtext>odometer delta</mtext><mo>&gt;</mo><mn>0</mn></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>→</mo><mtext> use end odometer</mtext><mo>−</mo><mtext>start odometer</mtext></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mtext mathvariant="bold">else</mtext></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>→</mo><mtext> use the partial integral</mtext></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+&amp;\textbf{if } \text{coverage} \ge 0.80
+  &amp;&amp; \rightarrow\ \text{use the integral} \\
+&amp;\textbf{else if } \text{odometer delta} &gt; 0
+  &amp;&amp; \rightarrow\ \text{use end odometer} - \text{start odometer} \\
+&amp;\textbf{else}
+  &amp;&amp; \rightarrow\ \text{use the partial integral}
+\end{aligned}</annotation></semantics></math></span>
+</div>
 
 **Worked example.** A 37-minute drive attributes 1,510 s to Doppler, 240 s to vehicle speed, 380 s stationary, 95 s gap:
 
-```
-coverage = (1510 + 240 + 380) ÷ (1510 + 240 + 380 + 95)
-         = 2130 ÷ 2225
-         = 0.957  →  95.7 %  ≥ 80 %  →  the integral is used
-```
+<div class="eq">
+<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.25em" columnalign="right left" columnspacing="0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mtext>coverage</mtext></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mo stretchy="false">(</mo><mn>1510</mn><mo>+</mo><mn>240</mn><mo>+</mo><mn>380</mn><mo stretchy="false">)</mo><mo>÷</mo><mo stretchy="false">(</mo><mn>1510</mn><mo>+</mo><mn>240</mn><mo>+</mo><mn>380</mn><mo>+</mo><mn>95</mn><mo stretchy="false">)</mo></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>2130</mn><mo>÷</mo><mn>2225</mn></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>0.957</mn><mspace width="1em"/><mo>→</mo><mspace width="1em"/><mn>95.7</mn><mtext> </mtext><mi mathvariant="normal">%</mi><mtext> </mtext><mo>≥</mo><mtext> </mtext><mn>80</mn><mtext> </mtext><mi mathvariant="normal">%</mi><mspace width="1em"/><mo>→</mo><mspace width="1em"/><mtext>the integral is used</mtext></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+\text{coverage} &amp;= (1510 + 240 + 380) \div (1510 + 240 + 380 + 95) \\
+                &amp;= 2130 \div 2225 \\
+                &amp;= 0.957 \quad\rightarrow\quad 95.7\ \% \ \ge\ 80\ \%
+                   \quad\rightarrow\quad \text{the integral is used}
+\end{aligned}</annotation></semantics></math></span>
+</div>
 
 **Why the odometer is inadequate as the primary source.** The car’s odometer signal reports in whole miles or whole kilometers.
 A real-world short 1.443 km errand quantizes to 1.609 km — an 11 % error on that trip, and much worse on shorter ones.
@@ -246,16 +264,22 @@ The odometer is therefore a coverage-gated *fallback*, never an arbiter of a wel
 
 **Sample trip.** Available energy 61.4 kWh when the car was put into gear, 53.3 kWh at ignition-off; the integral measured 42.0 km at 96 % coverage.
 
-```
-E = 61.4 − 53.3           = 8.1 kWh
-d = 42.0 km               (coverage ≥ 80 %, integral used)
+<div class="eq">
+<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.25em" columnalign="right left right left" columnspacing="0em 1em 0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mi>E</mi></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>61.4</mn><mo>−</mo><mn>53.3</mn></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>8.1</mn><mtext> kWh</mtext></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mi>d</mi></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>42.0</mn><mtext> km</mtext></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mphantom><mo>=</mo></mphantom><mtext>  (coverage</mtext><mo>≥</mo><mn>80</mn><mtext> </mtext><mi mathvariant="normal">%</mi><mo separator="true">,</mo><mtext> integral used)</mtext></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+E &amp;= 61.4 - 53.3 &amp;&amp; = 8.1\ \text{kWh} \\
+d &amp;= 42.0\ \text{km} &amp;&amp; \phantom{=}\ \ \text{(coverage} \ge 80\ \%,\ \text{integral used)}
+\end{aligned}</annotation></semantics></math></span>
+</div>
 
-km/kWh     = 42.0 ÷ 8.1                      = 5.2
-mi/kWh     = (42.0 × 0.621371) ÷ 8.1         = 3.2
-kWh/100km  = 8.1 ÷ 42.0 × 100                = 19.3
-Wh/km      = 8.1 × 1000 ÷ 42.0               = 193
-Wh/mi      = 8.1 × 1000 ÷ (42.0 × 0.621371)  = 310
-```
+<div class="eq">
+<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.25em" columnalign="right left right left" columnspacing="0em 1em 0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mtext>km/kWh</mtext></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>42.0</mn><mo>÷</mo><mn>8.1</mn></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>5.2</mn></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mtext>mi/kWh</mtext></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mo stretchy="false">(</mo><mn>42.0</mn><mo>×</mo><mn>0.621371</mn><mo stretchy="false">)</mo><mo>÷</mo><mn>8.1</mn></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>3.2</mn></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mtext>kWh/100km</mtext></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>8.1</mn><mo>÷</mo><mn>42.0</mn><mo>×</mo><mn>100</mn></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>19.3</mn></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mtext>Wh/km</mtext></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>8.1</mn><mo>×</mo><mn>1000</mn><mo>÷</mo><mn>42.0</mn></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>193</mn></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mtext>Wh/mi</mtext></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>8.1</mn><mo>×</mo><mn>1000</mn><mo>÷</mo><mo stretchy="false">(</mo><mn>42.0</mn><mo>×</mo><mn>0.621371</mn><mo stretchy="false">)</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>310</mn></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+\text{km/kWh}    &amp;= 42.0 \div 8.1                            &amp;&amp; = 5.2 \\
+\text{mi/kWh}    &amp;= (42.0 \times 0.621371) \div 8.1          &amp;&amp; = 3.2 \\
+\text{kWh/100km} &amp;= 8.1 \div 42.0 \times 100                 &amp;&amp; = 19.3 \\
+\text{Wh/km}     &amp;= 8.1 \times 1000 \div 42.0                &amp;&amp; = 193 \\
+\text{Wh/mi}     &amp;= 8.1 \times 1000 \div (42.0 \times 0.621371) &amp;&amp; = 310
+\end{aligned}</annotation></semantics></math></span>
+</div>
 
 During the drive the app shows the running integral live; the coverage gate is applied once, when the session ends.
 
@@ -347,16 +371,16 @@ The three conditions also mean the display simply holds its last value in stop-a
 
 **Example calculation:**  Begin with a starting estimate of 200 Wh/km followed by the car covering 2.0 km with the the battery's available energy falling by 0.5 kWh:
 
-```
-starting estimate = 200 Wh/km
-
-sample = 0.5 × 1000 ÷ 2.0        = 250 Wh/km
-k      = 0.5 ^ (2.0 ÷ 8.0)       = 0.8409
-
-e_new  = 0.8409 × 200 + 0.1591 × 250
-       = 168.18 + 39.78
-       = 207.96 Wh/km   (≈ 208)
-```
+<div class="eq">
+<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.25em" columnalign="right left right left" columnspacing="0em 1em 0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><msub><mi>e</mi><mtext>old</mtext></msub></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>200</mn><mtext> Wh/km</mtext></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mtext>sample</mtext></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>0.5</mn><mo>×</mo><mn>1000</mn><mo>÷</mo><mn>2.0</mn></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>250</mn><mtext> Wh/km</mtext></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mi>k</mi></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><msup><mn>0.5</mn><mrow><mtext> </mtext><mn>2.0</mn><mo>÷</mo><mn>8.0</mn></mrow></msup></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>0.8409</mn></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><msub><mi>e</mi><mtext>new</mtext></msub></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>0.8409</mn><mo>×</mo><mn>200</mn><mo>+</mo><mn>0.1591</mn><mo>×</mo><mn>250</mn></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>168.18</mn><mo>+</mo><mn>39.78</mn></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>207.96</mn><mtext> Wh/km</mtext><mspace width="1em"/><mo stretchy="false">(</mo><mo>≈</mo><mn>208</mn><mo stretchy="false">)</mo></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+e_{\text{old}} &amp;= 200\ \text{Wh/km} \\[4pt]
+\text{sample}  &amp;= 0.5 \times 1000 \div 2.0 &amp;&amp; = 250\ \text{Wh/km} \\
+k              &amp;= 0.5^{\,2.0 \div 8.0}     &amp;&amp; = 0.8409 \\[4pt]
+e_{\text{new}} &amp;= 0.8409 \times 200 + 0.1591 \times 250 \\
+               &amp;= 168.18 + 39.78 \\
+               &amp;= 207.96\ \text{Wh/km} \quad (\approx 208)
+\end{aligned}</annotation></semantics></math></span>
+</div>
 
 **How the exponential moving average works.**
 The obvious way to average recent driving would be to take the last few miles and average them evenly — but that has an awkward edge.
@@ -366,9 +390,9 @@ Drive past that boundary and the display lurches, for no reason connected to how
 An exponential moving average has no window and no boundary.
 Instead of storing past measurements, it keeps a single running number and **nudges** it toward each new measurement:
 
-```
-new estimate = (old estimate × k) + (new measurement × (1 − k))
-```
+<div class="eq">
+<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>new estimate</mtext><mo>=</mo><mo stretchy="false">(</mo><mtext>old estimate</mtext><mo>×</mo><mi>k</mi><mo stretchy="false">)</mo><mo>+</mo><mo fence="true" stretchy="true" minsize="1.2em" maxsize="1.2em">(</mo><mtext>new measurement</mtext><mo>×</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>k</mi><mo stretchy="false">)</mo><mo fence="true" stretchy="true" minsize="1.2em" maxsize="1.2em">)</mo></mrow><annotation encoding="application/x-tex">\text{new estimate} = (\text{old estimate} \times k) + \bigl(\text{new measurement} \times (1 - k)\bigr)</annotation></semantics></math></span>
+</div>
 
 If <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span> were 0.9, each new measurement would move the estimate a tenth of the way toward itself and leave nine tenths of what was already there.
 Nothing is ever dropped; older driving simply fades, its influence shrinking a little with every update.
@@ -439,10 +463,14 @@ It recovers within a few miles of the road flattening out.
 
 The estimator is seeded from **your own last drive**, stored per vehicle (keyed by VIN) and saved every 10 seconds while driving:
 
-```
-if a stored value exists and is within 60…600 Wh/km  → seed from it
-else                                                 → seed from 207 Wh/km (≈ 3.0 mi/kWh)
-```
+<div class="eq">
+<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.25em" columnalign="right left right left" columnspacing="0em 1em 0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mrow><mtext mathvariant="bold">if</mtext><mtext> </mtext></mrow><mtext>stored value within </mtext><mn>60</mn><mo>…</mo><mn>600</mn><mtext> Wh/km</mtext></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>→</mo><mtext> seed from it</mtext></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mtext mathvariant="bold">else</mtext></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>→</mo><mtext> seed from </mtext><mn>207</mn><mtext> Wh/km</mtext></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+&amp;\textbf{if } \text{stored value within } 60\ldots600\ \text{Wh/km}
+  &amp;&amp; \rightarrow\ \text{seed from it} \\
+&amp;\textbf{else}
+  &amp;&amp; \rightarrow\ \text{seed from } 207\ \text{Wh/km}
+\end{aligned}</annotation></semantics></math></span>
+</div>
 
 The stored seed is applied when nothing has been measured this drive (less than 0.2 km), so a VIN that resolves mid-drive cannot overwrite live measurement with yesterday's number.
 The fixed 207 Wh/km baseline is only used as the first-ever-drive starting point.
@@ -484,10 +512,13 @@ In miles, multiply by 0.621371 — which the app does at display time, rounding 
 
 **Worked example.** Available energy 52.0 kWh, rolling efficiency 185 Wh/km:
 
-```
-range = 52.0 × 1000 ÷ 185 = 281.1 km
-      = 281.1 × 0.621371  = 174.7 mi   →  displayed as "175 mi"
-```
+<div class="eq">
+<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.25em" columnalign="right left right left" columnspacing="0em 1em 0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mtext>range</mtext></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>52.0</mn><mo>×</mo><mn>1000</mn><mo>÷</mo><mn>185</mn></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>281.1</mn><mtext> km</mtext></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>281.1</mn><mo>×</mo><mn>0.621371</mn></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>174.7</mn><mtext> mi</mtext></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>→</mo><mtext> displayed as “175 mi”</mtext></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+\text{range} &amp;= 52.0 \times 1000 \div 185 &amp;&amp; = 281.1\ \text{km} \\
+             &amp;= 281.1 \times 0.621371     &amp;&amp; = 174.7\ \text{mi} \\[2pt]
+             &amp;                            &amp;&amp; \rightarrow\ \text{displayed as ``175 mi&#x27;&#x27;}
+\end{aligned}</annotation></semantics></math></span>
+</div>
 
 ### 5.2 When the number updates
 
@@ -517,11 +548,14 @@ Because both terms come from the same BMS pair, **pack capacity cancels out** �
 
 **Worked example.** SoC 68 %, available energy 52.0 kWh, 120 km remaining, efficiency 185 Wh/km:
 
-```
-E_needed = 120 × 185 ÷ 1000              = 22.2 kWh
-fraction = 1 − 22.2 ÷ 52.0               = 0.5731
-S_arrive = 68 × 0.5731                   = 38.97 →  displayed as "39 %"
-```
+<div class="eq">
+<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.25em" columnalign="right left right left" columnspacing="0em 1em 0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><msub><mi>E</mi><mtext>needed</mtext></msub></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>120</mn><mo>×</mo><mn>185</mn><mo>÷</mo><mn>1000</mn></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>22.2</mn><mtext> kWh</mtext></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mtext>fraction</mtext></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>1</mn><mo>−</mo><mn>22.2</mn><mo>÷</mo><mn>52.0</mn></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>0.5731</mn></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><msub><mi>S</mi><mtext>arrive</mtext></msub></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>68</mn><mo>×</mo><mn>0.5731</mn></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>38.97</mn></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>→</mo><mtext> displayed as “39 %”</mtext></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+E_{\text{needed}} &amp;= 120 \times 185 \div 1000 &amp;&amp; = 22.2\ \text{kWh} \\
+\text{fraction}   &amp;= 1 - 22.2 \div 52.0       &amp;&amp; = 0.5731 \\
+S_{\text{arrive}} &amp;= 68 \times 0.5731         &amp;&amp; = 38.97 \\[2pt]
+                  &amp;                          &amp;&amp; \rightarrow\ \text{displayed as ``39 \%&#x27;&#x27;}
+\end{aligned}</annotation></semantics></math></span>
+</div>
 
 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mtext>remaining</mtext></msub></mrow><annotation encoding="application/x-tex">d_{\text{remaining}}</annotation></semantics></math></span> is the distance to the current turn plus the sum of all later steps, recomputed on every GPS fix by the app's own trip engine — so it keeps counting even when CarPlay's guidance panels are suspended.
 
@@ -567,9 +601,9 @@ where <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><sema
 
 **Worked example.** 6,061 kWh discharged against 6,652 kWh charged:
 
-```
-η = 6061 ÷ 6652 × 100 = 91.1 %
-```
+<div class="eq">
+<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>η</mi><mo>=</mo><mn>6061</mn><mo>÷</mo><mn>6652</mn><mo>×</mo><mn>100</mn><mo>=</mo><mn>91.1</mn><mtext> </mtext><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">\eta = 6061 \div 6652 \times 100 = 91.1\ \%</annotation></semantics></math></span>
+</div>
 
 This is the ratio of energy out to energy in over the pack's entire life.
 The missing ~9 % is energy lost as heat inside the cells during charging and discharging — ordinary electrochemical loss, not a fault.

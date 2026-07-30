@@ -29,9 +29,11 @@ The app works internally in **metric canonical units** and converts only at disp
 
 The single conversion constant used throughout:
 
-```
-1 mile = 1.609344 km          1 km = 0.621371 miles
-```
+$$
+1\ \text{mile} = 1.609344\ \text{km}
+\qquad\qquad
+1\ \text{km} = 0.621371\ \text{miles}
+$$
 
 ### Display units
 
@@ -49,13 +51,15 @@ All five forms are conversions of the same underlying Wh/km value:
 
 **Worked conversion.** An efficiency of $e = 185$ Wh/km displays as:
 
-```
-mi/kWh      = 621.371 ÷ 185        = 3.4
-km/kWh      = 1000 ÷ 185           = 5.4
-kWh/100km   = 185 ÷ 10             = 18.5
-Wh/mi       = 185 × 1.609344       = 298
-Wh/km       = 185                  = 185
-```
+$$
+\begin{aligned}
+\text{mi/kWh}    &= 621.371 \div 185   && = 3.4 \\
+\text{km/kWh}    &= 1000 \div 185      && = 5.4 \\
+\text{kWh/100km} &= 185 \div 10        && = 18.5 \\
+\text{Wh/mi}     &= 185 \times 1.609344 && = 298 \\
+\text{Wh/km}     &= 185                && = 185
+\end{aligned}
+$$
 
 The two "rate" forms (distance per energy) improve as they rise; the three "consumption" forms (energy per distance) improve as they fall.
 The app tracks that polarity so the CarPlay trend band tints green for "better than your recent average" in whichever unit you picked.
@@ -102,9 +106,9 @@ $$
 $A$ is `availableEnergy`, decoded from BMS diagnostic identifier **0x0105** which is polled every 30 seconds.
 Two raw bytes at offset 28, scaled:
 
-```
-A (kWh) = raw_16bit × 2 ÷ 1000
-```
+$$
+A\ (\text{kWh}) = \text{raw}_{16\text{-bit}} \times 2 \div 1000
+$$
 
 Three properties follow from using the BMS accounting:
 
@@ -141,13 +145,19 @@ Interval rules:
 | Doppler freshness | 2.5 s | How long a confident fix suppresses the vehicle-speed channel |
 | Doppler confidence gate | 2.0 m/s | Fixes with worse stated speed accuracy do not credit |
 
-**Worked micro-example.** Cursor anchored at $t = 0$ with $v = 0$:
+**Worked micro-example.** Cursor anchored at $t = 0$ with $v = 0$; times in seconds, speeds in m/s:
 
-```
-t = 1.0 s, Doppler v = 8.0 m/s → v̄ = (0 + 8.0)/2 = 4.0 m/s → 4.0 × 1.0 = 4.0 m
-t = 2.0 s, Doppler v = 9.0 m/s → v̄ = (8.0 + 9.0)/2 = 8.5 m/s → 8.5 × 1.0 = 8.5 m
-                                                     running total = 12.5 m = 0.0125 km
-```
+$$
+\begin{aligned}
+t{=}1.0,\ v{=}8.0
+  &\rightarrow\ \bar{v} = \tfrac{0 + 8.0}{2} = 4.0
+  &&\rightarrow\ 4.0 \times 1.0 = 4.0\ \text{m} \\[2pt]
+t{=}2.0,\ v{=}9.0
+  &\rightarrow\ \bar{v} = \tfrac{8.0 + 9.0}{2} = 8.5
+  &&\rightarrow\ 8.5 \times 1.0 = 8.5\ \text{m} \\[4pt]
+  & &&\phantom{\rightarrow\ } \text{total} = 12.5\ \text{m} = 0.0125\ \text{km}
+\end{aligned}
+$$
 
 ### 3.3 Coverage, and when the odometer gets a vote
 
@@ -160,19 +170,27 @@ $$
 
 Then a single decision:
 
-```
-if coverage ≥ 0.80                    → use the integral
-else if odometer delta > 0            → use (end odometer − start odometer)
-else                                  → use the partial integral
-```
+$$
+\begin{aligned}
+&\textbf{if } \text{coverage} \ge 0.80
+  && \rightarrow\ \text{use the integral} \\
+&\textbf{else if } \text{odometer delta} > 0
+  && \rightarrow\ \text{use end odometer} - \text{start odometer} \\
+&\textbf{else}
+  && \rightarrow\ \text{use the partial integral}
+\end{aligned}
+$$
 
 **Worked example.** A 37-minute drive attributes 1,510 s to Doppler, 240 s to vehicle speed, 380 s stationary, 95 s gap:
 
-```
-coverage = (1510 + 240 + 380) ÷ (1510 + 240 + 380 + 95)
-         = 2130 ÷ 2225
-         = 0.957  →  95.7 %  ≥ 80 %  →  the integral is used
-```
+$$
+\begin{aligned}
+\text{coverage} &= (1510 + 240 + 380) \div (1510 + 240 + 380 + 95) \\
+                &= 2130 \div 2225 \\
+                &= 0.957 \quad\rightarrow\quad 95.7\ \% \ \ge\ 80\ \%
+                   \quad\rightarrow\quad \text{the integral is used}
+\end{aligned}
+$$
 
 **Why the odometer is inadequate as the primary source.** The car’s odometer signal reports in whole miles or whole kilometers.
 A real-world short 1.443 km errand quantizes to 1.609 km — an 11 % error on that trip, and much worse on shorter ones.
@@ -183,16 +201,22 @@ The odometer is therefore a coverage-gated *fallback*, never an arbiter of a wel
 
 **Sample trip.** Available energy 61.4 kWh when the car was put into gear, 53.3 kWh at ignition-off; the integral measured 42.0 km at 96 % coverage.
 
-```
-E = 61.4 − 53.3           = 8.1 kWh
-d = 42.0 km               (coverage ≥ 80 %, integral used)
+$$
+\begin{aligned}
+E &= 61.4 - 53.3 && = 8.1\ \text{kWh} \\
+d &= 42.0\ \text{km} && \phantom{=}\ \ \text{(coverage} \ge 80\ \%,\ \text{integral used)}
+\end{aligned}
+$$
 
-km/kWh     = 42.0 ÷ 8.1                      = 5.2
-mi/kWh     = (42.0 × 0.621371) ÷ 8.1         = 3.2
-kWh/100km  = 8.1 ÷ 42.0 × 100                = 19.3
-Wh/km      = 8.1 × 1000 ÷ 42.0               = 193
-Wh/mi      = 8.1 × 1000 ÷ (42.0 × 0.621371)  = 310
-```
+$$
+\begin{aligned}
+\text{km/kWh}    &= 42.0 \div 8.1                            && = 5.2 \\
+\text{mi/kWh}    &= (42.0 \times 0.621371) \div 8.1          && = 3.2 \\
+\text{kWh/100km} &= 8.1 \div 42.0 \times 100                 && = 19.3 \\
+\text{Wh/km}     &= 8.1 \times 1000 \div 42.0                && = 193 \\
+\text{Wh/mi}     &= 8.1 \times 1000 \div (42.0 \times 0.621371) && = 310
+\end{aligned}
+$$
 
 During the drive the app shows the running integral live; the coverage gate is applied once, when the session ends.
 
@@ -276,16 +300,16 @@ The three conditions also mean the display simply holds its last value in stop-a
 
 **Example calculation:**  Begin with a starting estimate of 200 Wh/km followed by the car covering 2.0 km with the the battery's available energy falling by 0.5 kWh:
 
-```
-starting estimate = 200 Wh/km
-
-sample = 0.5 × 1000 ÷ 2.0        = 250 Wh/km
-k      = 0.5 ^ (2.0 ÷ 8.0)       = 0.8409
-
-e_new  = 0.8409 × 200 + 0.1591 × 250
-       = 168.18 + 39.78
-       = 207.96 Wh/km   (≈ 208)
-```
+$$
+\begin{aligned}
+e_{\text{old}} &= 200\ \text{Wh/km} \\[4pt]
+\text{sample}  &= 0.5 \times 1000 \div 2.0 && = 250\ \text{Wh/km} \\
+k              &= 0.5^{\,2.0 \div 8.0}     && = 0.8409 \\[4pt]
+e_{\text{new}} &= 0.8409 \times 200 + 0.1591 \times 250 \\
+               &= 168.18 + 39.78 \\
+               &= 207.96\ \text{Wh/km} \quad (\approx 208)
+\end{aligned}
+$$
 
 **How the exponential moving average works.**
 The obvious way to average recent driving would be to take the last few miles and average them evenly — but that has an awkward edge.
@@ -295,9 +319,9 @@ Drive past that boundary and the display lurches, for no reason connected to how
 An exponential moving average has no window and no boundary.
 Instead of storing past measurements, it keeps a single running number and **nudges** it toward each new measurement:
 
-```
-new estimate = (old estimate × k) + (new measurement × (1 − k))
-```
+$$
+\text{new estimate} = (\text{old estimate} \times k) + \bigl(\text{new measurement} \times (1 - k)\bigr)
+$$
 
 If $k$ were 0.9, each new measurement would move the estimate a tenth of the way toward itself and leave nine tenths of what was already there.
 Nothing is ever dropped; older driving simply fades, its influence shrinking a little with every update.
@@ -360,10 +384,14 @@ It recovers within a few miles of the road flattening out.
 
 The estimator is seeded from **your own last drive**, stored per vehicle (keyed by VIN) and saved every 10 seconds while driving:
 
-```
-if a stored value exists and is within 60…600 Wh/km  → seed from it
-else                                                 → seed from 207 Wh/km (≈ 3.0 mi/kWh)
-```
+$$
+\begin{aligned}
+&\textbf{if } \text{stored value within } 60\ldots600\ \text{Wh/km}
+  && \rightarrow\ \text{seed from it} \\
+&\textbf{else}
+  && \rightarrow\ \text{seed from } 207\ \text{Wh/km}
+\end{aligned}
+$$
 
 The stored seed is applied when nothing has been measured this drive (less than 0.2 km), so a VIN that resolves mid-drive cannot overwrite live measurement with yesterday's number.
 The fixed 207 Wh/km baseline is only used as the first-ever-drive starting point.
@@ -401,10 +429,13 @@ In miles, multiply by 0.621371 — which the app does at display time, rounding 
 
 **Worked example.** Available energy 52.0 kWh, rolling efficiency 185 Wh/km:
 
-```
-range = 52.0 × 1000 ÷ 185 = 281.1 km
-      = 281.1 × 0.621371  = 174.7 mi   →  displayed as "175 mi"
-```
+$$
+\begin{aligned}
+\text{range} &= 52.0 \times 1000 \div 185 && = 281.1\ \text{km} \\
+             &= 281.1 \times 0.621371     && = 174.7\ \text{mi} \\[2pt]
+             &                            && \rightarrow\ \text{displayed as ``175 mi''}
+\end{aligned}
+$$
 
 ### 5.2 When the number updates
 
@@ -434,11 +465,14 @@ Because both terms come from the same BMS pair, **pack capacity cancels out** �
 
 **Worked example.** SoC 68 %, available energy 52.0 kWh, 120 km remaining, efficiency 185 Wh/km:
 
-```
-E_needed = 120 × 185 ÷ 1000              = 22.2 kWh
-fraction = 1 − 22.2 ÷ 52.0               = 0.5731
-S_arrive = 68 × 0.5731                   = 38.97 →  displayed as "39 %"
-```
+$$
+\begin{aligned}
+E_{\text{needed}} &= 120 \times 185 \div 1000 && = 22.2\ \text{kWh} \\
+\text{fraction}   &= 1 - 22.2 \div 52.0       && = 0.5731 \\
+S_{\text{arrive}} &= 68 \times 0.5731         && = 38.97 \\[2pt]
+                  &                          && \rightarrow\ \text{displayed as ``39 \%''}
+\end{aligned}
+$$
 
 $d_{\text{remaining}}$ is the distance to the current turn plus the sum of all later steps, recomputed on every GPS fix by the app's own trip engine — so it keeps counting even when CarPlay's guidance panels are suspended.
 
@@ -480,9 +514,9 @@ where $D$ is `cumulativeEnergyDischarged` and $C$ is `cumulativeEnergyCharged`, 
 
 **Worked example.** 6,061 kWh discharged against 6,652 kWh charged:
 
-```
-η = 6061 ÷ 6652 × 100 = 91.1 %
-```
+$$
+\eta = 6061 \div 6652 \times 100 = 91.1\ \%
+$$
 
 This is the ratio of energy out to energy in over the pack's entire life.
 The missing ~9 % is energy lost as heat inside the cells during charging and discharging — ordinary electrochemical loss, not a fault.

@@ -173,6 +173,29 @@
   math { font-size: 1.06em; }
   .eq math { font-size: 1.16em; }
 
+  /* Multi-column alignment shim for `\begin{aligned}` (the worked examples).
+     KaTeX emits the correct MathML — `columnalign="right left right left"`,
+     `columnspacing="0em 1em 0em"` — but Chrome's MathML Core DROPPED both
+     attributes, so every column centres and the `=` signs do not line up. Safari
+     and Firefox implement full MathML and honour them. These rules restate
+     exactly what the attributes say, so the two paths agree rather than fight:
+     amsmath's `aligned` alternates right/left columns, hence odd/even.
+
+     Only `text-align` — NOT flex/grid. `display:flex` on an <mtd> does line the
+     column up, and also detonates the table layout: the cells stop being cells
+     and stack vertically. Verified in Chrome, 2026-07-30.
+
+     Column 1 stays visually left-aligned because an <mtd>'s child <mrow> is a
+     block box that fills the cell, so text-align cannot pull it right. For a
+     column of labels (`sample`, `k`, `e_new`) that reads as a definition list,
+     which is fine — the alignment that carries meaning is the `=` column. */
+  .eq mtable > mtr > mtd:nth-child(odd)  { text-align: right; }
+  .eq mtable > mtr > mtd:nth-child(even) { text-align: left; }
+  /* Gap before the second alignment pair, replacing the ignored columnspacing.
+     KaTeX asks for 1em; 1.1em compensates for the leading `\rightarrow`/`=` in
+     these columns sitting tight against the cell edge. */
+  .eq mtable > mtr > mtd:nth-child(n+3)  { padding-left: 1.1em; }
+
   /* ---- Code, worked arithmetic, console quotations ----
      kramdown + rouge nest fences as
        div.highlighter-rouge > div.highlight > pre.highlight > code
@@ -211,36 +234,10 @@
     background: none; padding: 0; font-size: inherit; color: inherit;
   }
 
-  /* Worked arithmetic is a DISPLAY element, sibling to the equations above it —
-     the numeric instantiation of the formula it follows — so it gets the same
-     hairline-ruled band as `.eq`: no fill, no chrome, full-strength ink. A grey
-     box with a rounded border reads as "here is some source code", which is the
-     wrong claim about a worked example.
-
-     Monospace stays, and that is not laziness: every one of these blocks aligns
-     its result column with literal spaces, so a proportional face would collapse
-     the alignment that carries the meaning. What makes it feel typeset rather
-     than dumped is the rest — open leading, the ruled band, and ink that matches
-     the body text.
-
-     The block is centred as a UNIT (inline-block inside a centred wrapper) while
-     its contents stay left-aligned, which is exactly how the equations sit on the
-     page. `min-width: 100%` keeps a block that overflows from shrink-wrapping to
-     its scroll width, so the rules still span the column. */
-  div.language-plaintext pre {
-    background: none;
-    border: 0;
-    border-top: 1px solid var(--hair);
-    border-bottom: 1px solid var(--hair);
-    border-radius: 0;
-    padding: 1.25rem 0.5rem;
-    color: var(--ink);
-    line-height: 1.9;
-    font-variant-ligatures: none;
-  }
-  div.language-plaintext { margin: 1.6rem 0; text-align: center; }
-  div.language-plaintext div.highlight { display: inline-block; min-width: 100%; }
-  div.language-plaintext pre { text-align: left; }
+  /* Every worked example on this page is now real display math (`\begin{aligned}`),
+     so no plain-text fence survives — the three remaining fences are all
+     `language-console`. The band styling that used to dress them up as display
+     elements is gone with them; the equations carry that treatment natively. */
 
   /* The diagnostic-log samples are literal console output, so they are quoted
      as a console — dark in both themes, deliberately. They keep the filled box:
