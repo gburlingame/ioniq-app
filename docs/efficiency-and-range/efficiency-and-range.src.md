@@ -406,28 +406,14 @@ range = 52.0 × 1000 ÷ 185 = 281.1 km
       = 281.1 × 0.621371  = 174.7 mi   →  displayed as "175 mi"
 ```
 
-### 5.2 Why the numerator is not SoC × capacity
-
-A tempting alternative is $\text{range} = S \times C_{\text{nominal}} / e$.
-The app deliberately does not do this.
-The BMS already publishes a matched SoC ↔ available-energy pair that embodies the pack's real capacity, its degradation over years of use, and its current temperature.
-Multiplying a displayed percentage by a nameplate capacity discards all three and reintroduces a per-vehicle constant the app would have to maintain for every model and pack size it supports.
-
-A useful consequence: because available energy comes from the pack, the range figure needs no per-vehicle capacity table at all.
-
-**Both halves of the division use the same signal.** This is the quiet reason the range figure can be trusted. Efficiency is measured as *how fast available energy is falling per km* (§4.1), and range divides *available energy* by it. The question being answered is therefore exactly the right one: at the rate this number has actually been dropping, how far until it reaches zero?
-
-Measuring the two halves against different definitions of energy — as an earlier version did, using volts × amps for efficiency — leaves whatever gap exists between those definitions sitting inside the range estimate. That gap was measured at −15 % to +11 % across recorded drives, and it varied by drive, so it could not have been calibrated out with a fixed correction. Sharing one signal removes it by construction rather than by adjustment.
-
-### 5.3 When the number updates
+### 5.2 When the number updates
 
 Range has two independent inputs, and each refreshes it on its own schedule:
 
 - **Efficiency** changes only while the vehicle is moving, and at most once a minute (§4.3).
 - **Available energy** changes on every BMS poll — roughly every 30 seconds — including while parked and while charging.
 
-So the range figure is live from the first BMS poll after the app connects, without needing any location data, and it climbs while you charge.
-If the BMS has not reported energy yet (or reports 0.1 kWh or less), range renders as a dash rather than a guess.
+So the range figure is live from the first BMS poll after the app connects, without needing any location data, and it climbs while you charge. If the BMS has not reported energy yet (or reports 0.1 kWh or less), range renders as a dash rather than a guess.
 
 ---
 
@@ -507,20 +493,15 @@ This matters more than it sounds: the two values arrive in the same message, wit
 
 ---
 
-## 8. What the model deliberately does not do
+## 8. What the model does not do
 
-Being explicit about the limits is the honest way to present an estimate.
+These are some things the model does not factor in, but may be explored in the future.
 
 - **No route lookahead.** The estimate extrapolates "how you have been driving" over "the distance that remains".
   There is no elevation model, no speed-limit model, no weather model.
-  It is least accurate at the start of a trip whose character differs sharply from the last few miles — a mountain pass right after city driving — and it self-corrects as the moving average absorbs the new pace and the remaining distance shrinks.
-- **No odometer in the rolling estimate.** Whole-mile quantization is uselessly coarse against an 8 km averaging window: an entire half-life fits inside one odometer tick.
-- **No SoC × nameplate-capacity arithmetic** anywhere (§5.2).
-- **No reading of the car's own range estimate.** It is not available to the app.
-- **Efficiency does not update while parked.** Only pack energy does.
-  This is a design choice, not an oversight — nothing about your *driving* efficiency changes while stopped.
-- **Efficiency updates at most once a minute, and only after 300 m.** Crawling in traffic, the figure holds its last value rather than reporting noise.
-  A number that updated every second would look more responsive and mean less (§4.3).
+  It is least accurate at the start of a trip whose character differs sharply from the last few miles, e.g., a mountain pass right after city driving — and it self-corrects as the moving average absorbs the new pace and the remaining distance shrinks.
+- **No odometer in the rolling estimate.** Whole-mile/kilometer quantization is uselessly coarse against an 8 km averaging window: an entire half-life fits inside one odometer tick.
+- **No reading of the car's own range estimate.** This is not a known signal over the OBD-II port.
 
 ---
 
@@ -545,7 +526,7 @@ Every tunable that affects a number in this paper.
 | Plausibility band | −200 to 5000 Wh/km | Readings outside this cannot be real |
 | Efficiency limit | 40 Wh/km | Bounds the running average so the range division always has an answer |
 
-**Trip distance totalizer**
+**Trip distance engine**
 
 | Constant | Value | Meaning |
 |---|---|---|
@@ -559,44 +540,77 @@ Every tunable that affects a number in this paper.
 
 | Signal | Source | Cadence | Resolution |
 |---|---|---|---|
-| Available energy | BMS diagnostic ID 0x0105 | 30 s | 0.002 kWh |
-| State of charge | BMS diagnostic ID 0x0105 | 30 s | 0.5 % |
-| Lifetime charged / discharged | BMS diagnostic ID 0x0101 | 3 s | 0.1 kWh |
-| Vehicle speed | VCU | ~2.5–3 s | 1/64 km/h |
+| Available energy | BMS diagnostic ID 0x0105 | 30s | 0.002 kWh |
+| State of charge | BMS diagnostic ID 0x0105 | 30s | 0.5 % |
+| Lifetime charged / discharged | BMS diagnostic ID 0x0101 | 3s | 0.1 kWh |
+| Vehicle speed | VCU | ~2.5–3s | 1/64 km/h |
 | GPS fixes | Mobile device | ~1 Hz while a drive session is active | — |
 
 ---
 
-## 10. Reading the diagnostic log
+## 10. Reading the drive recorder log
 
-Testers who want to check the model against a real drive can record a diagnostic log (**Settings ▸ Diagnostics**).
-Two tagged record types carry the whole story.
+Everything described in this paper writes to one file, and you do not have to remember to start it.
+The **Drive Diagnostics Recorder** (Settings ▸ Diagnostics) is on by default and writes a separate flight-recorder file for each drive; the newest ten are kept, and **Share Drive Diagnostics** hands you the most recent one.
 
-`[ENERGY]` — one state line every 30 seconds while moving:
+### The line format
+
+Every line is one event:
 
 ```
-eff=185Wh/km (3.4 mi/kWh) range=281km conf=true dist=42.3km pendKm=0.18 pendKWh=0.031
-soc=68.0% availE=52.014kWh folds=37 reanch=4 clamps=0 gaps=2 totKm=42.31
+t=+842.113 [ENERGY] evt=energy eff=185 range=281 conf=1 distKm=42.30 …
 ```
 
+- `t` is seconds since the recording started — the absolute start time is in the file header, so every line in the file shares one clock
+- `[TAG]` names the subsystem, the same bracketed convention the app's other logs use
+- `evt` names the record type, and everything after it is `key=value`
+
+Values never contain spaces, so the whole file can be read with a text editor's search, or split on spaces by any script.
+
+Four tags appear:
+
+| Tag | Covers |
+|---|---|
+| `[GPSDIST]` | The distance engine — GPS fixes, wheel-speed samples, odometer readings, and the close decision |
+| `[ENERGY]` | Rolling efficiency, range, and arrival state of charge |
+| `[NAV]` | Turn-by-turn guidance — routing, maneuvers, reroutes |
+| `[TRACE]` | The recording itself — start, end |
+
+The point of one file rather than several is that these share a timeline.
+When an efficiency window is discarded you can read straight across to the fixes that caused it, instead of correlating two logs by wall-clock time.
+
+### The efficiency record
+
+`[ENERGY] evt=energy` — one state line every 30 seconds while moving, every 5 minutes while stopped:
+
+```
+t=+842.113 [ENERGY] evt=energy eff=185 range=281 conf=1 distKm=42.30 pendKm=0.180
+pendKWh=0.031 soc=68.0 availE=52.014 folds=37 reanch=4 clamps=0 gaps=2
+```
+
+- `eff` — rolling efficiency in Wh/km, and `range` in km, both before any unit conversion for display
+- `conf` — whether the 1.6 km confidence threshold has been passed (the internal flag in §9)
+- `distKm` — measured distance this drive, taken from the shared totalizer that also builds the trip figure (§4.2)
 - `pendKm` / `pendKWh` — the window currently open: how much distance and energy have accrued toward the next update
 - `folds` — how many windows have closed and entered the moving average
-- `reanch` — windows abandoned because the distance half was spoiled (gap, long stop, or charging).
+- `reanch` — windows excluded by the distance engine (gap, or before drive start)
   A high count relative to `folds` means the drive was measured in fragments — worth knowing before trusting the figure
-- `totKm` — the shared distance totalizer's running total, the same figure the trip distance is built from
-- `clamps` — readings that fell outside the plausibility band.
-  This should now be rare; it was routine when the estimate updated once per second
-- `gaps` — tick gaps that forced a re-anchor
+- `clamps` — readings that fell outside the plausibility band
+- `gaps` — unmeasured stretches that forced a re-anchor
 
 `availE` is logged to three decimals because that is the signal's real resolution.
-An earlier version of this log rounded it to one decimal, which made the reading look far coarser than it is — a misreading that shaped the design until raw frames were decoded and checked.
 
-A separate banner records every constant in §9 at the moment recording starts, so an old log stays interpretable after the constants are retuned.
+Four one-off `[ENERGY]` records fill in the rest: `energy_params` stamps every constant in §9 at the start of the drive, so an old file stays interpretable after the constants are retuned; `energy_reanchor`, `energy_clamp`, and `energy_confident` each record the moment they happen, with the values that caused them.
 
-`[GPSDIST]` — one line per session close, recording the distance decision:
+### The distance record
+
+`[GPSDIST] evt=close` — one line per drive, recording the distance decision:
 
 ```
-[GPSDIST] close integ=42.031km cov=96% odoDelta=41.843km chose=INTEGRAL → distanceKm=42.031
+t=+2431.007 [GPSDIST] evt=close endReason=ignition_off integKm=42.031 cov=0.960
+odoDeltaKm=41.843 chose=INTEGRAL distanceKm=42.031 startSoC=84.0 endSoC=68.0 energyKWh=7.79
 ```
 
-The choice between the integral and the odometer is never silent.
+The choice between the integral and the odometer is always recorded (§3.3), alongside the start and end values the trip figures are built from.
+
+Before it, `evt=fix` carries every GPS fix with its stated confidence and crediting verdict, `evt=wheel` every vehicle-speed sample, and `evt=buckets` the final four-way attribution of §3.2 — so the coverage figure in the close line can be checked against the seconds that produced it.

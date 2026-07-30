@@ -40,11 +40,16 @@ const tex = (src, display) => {
 };
 
 // ---- Code fences. Protected first: a `$` inside one is not math. The
-// diagnostic-log samples are retagged `console` so the layout can quote them
+// drive-trace samples are retagged `console` so the layout can quote them
 // as a terminal; everything else is worked arithmetic.
+//
+// The tag is matched ANYWHERE in the line, not just at its start: trace lines
+// lead with `t=+842.113` and carry `[ENERGY]` second. Anchoring to `^` silently
+// dropped the `[GPSDIST] evt=close` sample to plain-code styling — the count
+// printed below is the check (it should equal the log fences in §10).
 let logBlocks = 0;
 md = md.replace(/^```([^\n]*)\n([\s\S]*?)^```/gm, (_, info, code) => {
-  const isLog = /^\[(ENERGY|GPSDIST)\]|eff=\d/m.test(code);
+  const isLog = /\[(ENERGY|GPSDIST|NAV|TRACE)\]|eff=\d/m.test(code);
   if (isLog) logBlocks++;
   return stash('```' + (isLog ? 'console' : info) + '\n' + code + '```');
 });
