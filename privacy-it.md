@@ -5,7 +5,7 @@ nav_exclude: true
 ---
 
 <div style="text-align: right; margin-bottom: 16px;">
-  <a href="privacy">English</a> · <a href="privacy-nl">Nederlands</a> · <a href="privacy-de">Deutsch</a> · <a href="privacy-fr">Français</a> · <a href="privacy-es">Español</a> · <a href="privacy-sv">Svenska</a> · <strong>Italiano</strong> · <a href="privacy-ko">한국어</a> · <a href="privacy-tr">Türkçe</a>
+  <a href="privacy">English</a> · <a href="privacy-nl">Nederlands</a> · <a href="privacy-de">Deutsch</a> · <a href="privacy-fr">Français</a> · <a href="privacy-es">Español</a> · <a href="privacy-sv">Svenska</a> · <strong>Italiano</strong> · <a href="privacy-ko">한국어</a> · <a href="privacy-tr">Türkçe</a> · <a href="privacy-ja">日本語</a>
 </div>
 
 # Informativa sulla privacy
