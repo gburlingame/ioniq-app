@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "notice": null,
+  "assets": {
+    "dcfc": {
+      "formats": {
+        "1": {
+          "generatedAt": "2026-08-01T10:42:15Z",
+          "dataVersion": 501587,
+          "recordCount": 63906,
+          "url": "https://github.com/Burlingame-Engineering/ioniq5-charger-data/releases/download/data-2026-08-01/dcfc-v1-2026-08-01.bin.gz",
+          "gzBytes": 2877003,
+          "gzSHA256": "f14b6b36db81f0c8a5ef06260e3b52b92f4bc79ea6cc8af40a37dc7baffb86ef",
+          "binBytes": 7884369,
+          "binSHA256": "c5d73275bf705e160bea050e68cdc0fc61ec7772c83f0beb59e5c77f330e900f"
+        }
+      }
+    }
+  }
+}
