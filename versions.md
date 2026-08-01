@@ -9,6 +9,29 @@ nav_order: 5
 
 
 ---
+## Build 144 — Japanese language, CarPlay map framing
+
+NOTE TO TESTERS:   I plan on making tomorrow's build the first release candidate for Version 3.0 -- just one more feature to get in.   Thanks for all the feedback! 
+
+### Japanese added as the tenth language
+All 1,283 catalog strings, the permission prompts, and the Quick Look preview hint are translated, and 日本語 joins the Language picker in Settings. Terminology follows Japanese automotive and EV convention rather than a literal reading of the English: the 12V battery is 補機バッテリー while the traction pack stays バッテリー, driving efficiency is 電費 (the EV counterpart of 燃費), DC fast charging is DC急速, and the tire corners read 左前/右前/左後/右後. Body copy uses です/ます; labels and buttons use noun form. Diagnostic acronyms (SoC, SoH, BMS, ICCU, ECU, DID) stay in Latin script. 
+
+### Four History signal labels translated
+Filled in missing translations for Driver Vent Temp, Driver Floor Temp, Passenger Vent Temp and Passenger Floor Temp in History → Signals  
+
+### The CarPlay Dashboard map shows your neighborhood 
+With no DC fast charger nearby, the map used to frame to an 8 km window,  The frame is now 2 km: street-level context showing the driver where they are. What counts as "nearby" is unchanged; only the camera tightened.
+
+### The Dashboard map now frames the nearest charger when it appears
+When there IS a nearby charger, the map frames it at the same zoom the charger finder uses — driver-centered, charger guaranteed on screen — instead of staying zoomed out. 
+
+### Charger framing on both maps now just barely fits
+The driver stays centred and the nearest charger lands near the edge of the view instead of drifting mid-frame with empty map beyond it. Sizing is now per-axis and aspect-aware, so a diagonally-placed charger no longer buys slack.
+
+### The Dashboard's nearest-charger button no longer clips long names
+CarPlay picks the longest title it can fit from a list of variants
+
+---
 ## Build 143 — Kia EV3 preconditioning, green charger pins, Dashboard map fixes
 
 NOTE TO TESTERS: A warm welcome to our new Kia EV3 testers!  EV3 owners, the battery warmer indicator should turn on if you initiate battery warming and if the batteries are cool enough where you are located.  Please be on the lookout for any false positives and let me know if you see them.  We are closing in on the Version 3.0 release candidate -- keep the feedback coming! 
