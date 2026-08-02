@@ -2,7 +2,7 @@
 
 *A walkthrough of the math, written for owners and testers who want to know exactly what the numbers on screen are made of.*
 
-**Version:** 2026-07-25 · **Applies to:** app version 3.0 (build 138) and later
+**Version:** 2026-08-02 · **Applies to:** app version 3.0 (build 146) and later
 
 ---
 
@@ -23,7 +23,8 @@ The app works internally in **metric canonical units** and converts only at disp
 | $E$ | Energy | kilowatt-hours (kWh) |
 | $d$ | Distance | kilometres (km) |
 | $P$ | Pack power | kilowatts (kW) |
-| $e$ | Efficiency (consumption form) | watt-hours per kilometre (Wh/km) |
+| $e$ | Near-term efficiency (consumption form) | watt-hours per kilometre (Wh/km) |
+| $e_{\text{long}}$ | Long-term efficiency — the range divisor (§4.4) | watt-hours per kilometre (Wh/km) |
 | $S$ | State of charge | percent (%) |
 | $A$ | Available pack energy | kWh |
 
@@ -68,19 +69,22 @@ Rounding: Wh/mi and Wh/km display as whole numbers; the other three display to o
 
 ---
 
-## 2. Three different efficiency values
+## 2. Four efficiency values, one of them invisible
 
-This white paper will explain the details behind three different efficiency values that IONIQ 5 Companion presents. 
+This white paper will explain the details behind four different efficiency values that IONIQ 5 Companion computes.
+Three of them you can see; the fourth never appears on screen, but it is the one that moves your range.
 
 | Number | Where you see it | What it answers | Energy signal source |
 |---|---|---|---|
-| **Trip efficiency** | History ▸ a driving session | "How efficient was *that drive*?" | BMS available-energy delta  |
-| **Rolling efficiency** | CarPlay Range chip | "How efficient am I driving *right now*?" | BMS available-energy delta |
+| **Trip efficiency** | History ▸ a driving session | "How efficient was *that drive*?" | BMS available-energy delta |
+| **Near-term efficiency** | CarPlay Range chip + trend line | "How efficient am I driving *right now*?" | BMS available-energy delta |
+| **Long-term efficiency** | *Nowhere — it divides into Range and Arrival SoC* | "What should I expect over the miles ahead?" | BMS available-energy delta |
 | **Lifetime round-trip efficiency** | Dashboard ▸ Battery Odometer | "How much energy does the pack *lose to heat*?" | Lifetime BMS counters |
 
-The first two are consumption figures (energy per distance).
-They differ only in the span they cover — one whole drive versus the last few miles — and both read energy from the same place, the battery's own account of how much usable energy it has left.
-The third is a **percentage** and is a completely different physical quantity — it is not a driving statistic at all.  Section 7 covers it separately.
+The first three are consumption figures (energy per distance), and all three read energy from the same place — the battery's own account of how much usable energy it has left.
+They differ only in the span they cover: one whole drive, the last few miles, or a horizon several times longer than that.
+Near-term and long-term are computed from exactly the same measurements and differ by a single constant; §4.4 explains why the app keeps both.
+The fourth is a **percentage** and is a completely different physical quantity — it is not a driving statistic at all.  Section 7 covers it separately.
 
 ---
 
@@ -226,6 +230,9 @@ During the drive the app shows the running integral live; the coverage gate is a
 
 Rolling efficiency is a *rate* that reflects how you are driving now rather than how you drove an hour ago.
 This is a separate estimator with its own energy and distance measurements.
+
+Everything in §4.1 to §4.3 describes a single measurement pipeline: one window, one sample, one plausibility band.
+Section 4.4 is where that single stream becomes the **two** figures of §2 — near-term and long-term — which differ only in how quickly each forgets.
 
 ### 4.1 Energy
 
@@ -380,7 +387,42 @@ That figure is the point.
 This is a mathematical guard, not a plausibility one: 40 Wh/km is about four times better than any production EV achieves, so if the average ever reaches the limit the range shown will be wildly optimistic — finite, but not to be relied on.
 It recovers within a few miles of the road flattening out.
 
-### 4.4 Where the estimate starts
+### 4.4 Two horizons from one measurement
+
+Everything above produces one sample per closed window.
+That sample is folded **twice**, into two running averages that differ only in half-life:
+
+| | Half-life | Where it goes |
+|---|---|---|
+| **Near-term** $e$ | 8 km | The efficiency number on the Range chip, and the trend line beneath it |
+| **Long-term** $e_{\text{long}}$ | 60 km | The range figure (§5) and arrival state of charge (§6) |
+
+There is no second measurement and no second window — the same energy, the same distance, the same plausibility band and limit.
+Only the blending constant differs.
+
+**Why two.**
+An efficiency readout and a range estimate are answering different questions, and the honest answer to each has a different shape.
+"How am I driving?" is about the last few miles, and should move when the road changes.
+"How far can I get?" is about the miles ahead, and a figure that lurches every time you crest a hill is not describing them.
+
+A round trip on 1 August 2026 made the cost of conflating them concrete.
+The two legs covered the same road within a few hours of each other, and their true whole-drive efficiencies were **169 and 168 Wh/km** — the same drive, twice.
+The 8 km average *finished* those legs reading **147 and 202 Wh/km**, because one ended on a highway descent and the other on town streets.
+Neither reading was wrong about the miles it described.
+Both were poor divisors for the pack.
+
+Dividing by them produced a range figure that rose by a total of **462 km** on the outbound leg and **346 km** on the return, in individual jumps as large as **85 km** — while the car was being driven steadily in one direction.
+On the same drives, the 60 km average holds those totals to **49 km** and **40 km**, with worst jumps of **4 km** and **11 km**.
+
+**What it costs.**
+A genuine, sustained change of conditions — a mountain pass, a headwind, winter — takes about 60 km to half-register in the range figure.
+That is the deliberate trade: the near-term number still shows such a change within a few miles, so the information is on screen immediately, just not in the division.
+
+**A consequence worth expecting.**
+The efficiency number and the range can now move independently, and sometimes visibly disagree — efficiency dropping while range holds steady.
+That is the design working, not a fault.
+
+### 4.5 Where the estimate starts
 
 The estimator is seeded from **your own last drive**, stored per vehicle (keyed by VIN) and saved every 10 seconds while driving:
 
@@ -396,20 +438,21 @@ $$
 The stored seed is applied when nothing has been measured this drive (less than 0.2 km), so a VIN that resolves mid-drive cannot overwrite live measurement with yesterday's number.
 The fixed 207 Wh/km baseline is only used as the first-ever-drive starting point.
 
-### 4.5 One measurement, two spans
+### 4.6 One measurement, two spans
 
 Both efficiency figures are built from the same two ingredients: the battery's available-energy reading and the distance engine.
 The only thing that differs is the span each one covers.
 
-| | Trip efficiency | Rolling efficiency |
+| | Trip efficiency | Near-term efficiency |
 |---|---|---|
 | Energy | Available-energy delta | Available-energy delta |
 | Distance | The totalizer of §3.2 | The totalizer of §3.2 |
 | Span | The whole drive, start to finish | A rolling weighted average of roughly the last 5 miles |
+| Long-term twin | — | The same stream at a 60 km half-life (§4.4) |
 | Incomplete stretches | Accounted for and reported as coverage; the odometer can stand in | The affected window is abandoned |
 
 That means the two numbers cannot disagree about *what was measured* — only about *how much of the drive they are describing*.
-Finish a drive that started in city traffic and ended on the highway, and the trip figure will report the average of the whole thing while the rolling figure ends up near the highway portion. Both are right; they are answering different questions.
+Finish a drive that started in city traffic and ended on the highway, and the trip figure will report the average of the whole thing while the near-term figure ends up near the highway portion. Both are right; they are answering different questions.
 
 Earlier versions measured each of these two ways — the rolling estimate integrated volts × amps and summed GPS position hops, while the trip figure used the battery's reading and a speed integral.
 Both differences have been removed, in that order.
@@ -421,13 +464,13 @@ Both differences have been removed, in that order.
 ### 5.1 The formula
 
 $$
-\text{range (km)} = \frac{A \times 1000}{e}
+\text{range (km)} = \frac{A \times 1000}{e_{\text{long}}}
 $$
 
-where $A$ is the BMS's reported available pack energy in kWh and $e$ is the rolling efficiency in Wh/km.
+where $A$ is the BMS's reported available pack energy in kWh and $e_{\text{long}}$ is the **long-term** efficiency in Wh/km — the 60 km average of §4.4, not the number shown beside the range.
 In miles, multiply by 0.621371 — which the app does at display time, rounding to a whole unit.
 
-**Worked example.** Available energy 52.0 kWh, rolling efficiency 185 Wh/km:
+**Worked example.** Available energy 52.0 kWh, long-term efficiency 185 Wh/km:
 
 $$
 \begin{aligned}
@@ -441,8 +484,10 @@ $$
 
 Range has two independent inputs, and each refreshes it on its own schedule:
 
-- **Efficiency** changes only while the vehicle is moving, and at most once a minute (§4.3).
+- **Long-term efficiency** changes only while the vehicle is moving, and at most once a minute (§4.3). Each update moves it slightly, because a single window is a small fraction of a 60 km half-life (§4.4).
 - **Available energy** changes on every BMS poll — roughly every 30 seconds — including while parked and while charging.
+
+Between the two, available energy is now the faster-moving term, which is why the range figure reads as a countdown: most of what you see is the pack draining, not the model changing its mind.
 
 So the range figure is live from the first BMS poll after the app connects, without needing any location data, and it climbs while you charge. If the BMS has not reported energy yet (or reports 0.1 kWh or less), range renders as a dash rather than a guess.
 
@@ -453,7 +498,7 @@ So the range figure is live from the first BMS poll after the app connects, with
 When a route is active, the app shows the one number the car's own navigation cannot: the state of charge you should arrive with.
 
 $$
-E_{\text{needed}} = \frac{d_{\text{remaining}} \times e}{1000}\ \text{kWh}
+E_{\text{needed}} = \frac{d_{\text{remaining}} \times e_{\text{long}}}{1000}\ \text{kWh}
 $$
 
 $$
@@ -462,6 +507,8 @@ $$
 
 The derivation is simple proportionality: $E_{\text{needed}}/A$ is the fraction of your remaining usable energy the trip will consume, so $1 - E_{\text{needed}}/A$ is the fraction left, and scaling today's SoC by it gives the arrival SoC.
 Because both terms come from the same BMS pair, **pack capacity cancels out** — the formula needs no capacity figure.
+
+Arrival SoC uses $e_{\text{long}}$ for the same reason range does: it is a projection across every remaining mile of the route, so it takes the long-horizon figure rather than the one describing the last few (§4.4).
 
 **Worked example.** SoC 68 %, available energy 52.0 kWh, 120 km remaining, efficiency 185 Wh/km:
 
@@ -543,7 +590,7 @@ These are some things the model does not factor in, but may be explored in the f
 
 Every tunable that affects a number in this paper.
 
-**Rolling efficiency estimator**
+**Rolling efficiency estimator (near- and long-term)**
 
 | Constant | Value | Meaning |
 |---|---|---|
@@ -551,7 +598,8 @@ Every tunable that affects a number in this paper.
 | Seed plausibility band | 60–600 Wh/km | A stored value outside this is discarded |
 | Seed cutoff | 0.2 km | Past this measured distance, a late seed is not applied |
 | Persist cadence | 10 s | How often the estimate is saved while driving |
-| EMA half-life | 8.0 km | The newest ~5 miles carry half the estimate |
+| Near-term half-life | 8.0 km | The newest ~5 miles carry half the displayed figure |
+| Long-term half-life | 60 km | The range and arrival-SoC divisor (§4.4) |
 | Confidence threshold | 1.6 km | Internal flag only; not surfaced |
 | Unmeasured time allowed | 5 s | More than this inside a window abandons it |
 | Minimum window time | 60 s | The estimate updates no more often than this |
@@ -606,7 +654,7 @@ Four tags appear:
 | Tag | Covers |
 |---|---|
 | `[GPSDIST]` | The distance engine — GPS fixes, wheel-speed samples, odometer readings, and the close decision |
-| `[ENERGY]` | Rolling efficiency, range, and arrival state of charge |
+| `[ENERGY]` | Near- and long-term efficiency, range, and arrival state of charge |
 | `[NAV]` | Turn-by-turn guidance — routing, maneuvers, reroutes |
 | `[TRACE]` | The recording itself — start, end |
 
@@ -618,11 +666,14 @@ When an efficiency window is discarded you can read straight across to the fixes
 `[ENERGY] evt=energy` — one state line every 30 seconds while moving, every 5 minutes while stopped:
 
 ```
-t=+842.113 [ENERGY] evt=energy eff=185 range=281 conf=1 distKm=42.30 pendKm=0.180
-pendKWh=0.031 soc=68.0 availE=52.014 folds=37 reanch=4 clamps=0 gaps=2
+t=+842.113 [ENERGY] evt=energy eff=185 rangeEff=178 range=292 conf=1 distKm=42.30
+pendKm=0.180 pendKWh=0.031 soc=68.0 availE=52.014 folds=37 reanch=4 clamps=0 gaps=2
 ```
 
-- `eff` — rolling efficiency in Wh/km, and `range` in km, both before any unit conversion for display
+- `eff` — near-term efficiency in Wh/km: the number on the chip
+- `rangeEff` — long-term efficiency (§4.4), the value `range` was actually divided by.
+  The gap between `eff` and `rangeEff` *is* the smoothing; on a steady drive they converge, and on a changing one they should differ
+- `range` — in km, before any unit conversion for display
 - `conf` — whether the 1.6 km confidence threshold has been passed (the internal flag in §9)
 - `distKm` — measured distance this drive, taken from the shared totalizer that also builds the trip figure (§4.2)
 - `pendKm` / `pendKWh` — the window currently open: how much distance and energy have accrued toward the next update
