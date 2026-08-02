@@ -9,6 +9,43 @@ nav_order: 5
 
 
 ---
+## Build 145 — Charger database updates, navigation road-test fixes, launch crashes fixed
+
+NOTE TO TESTERS:  This is RC1 (release candidate 1) for Version 3.0.  There is a new section under Settings named Navigation.  You now have the the ability to periodically check updates to the database of DC Fast Chargers.   
+
+### Fixed: a crash on launch
+A tester's app crashed while opening with the car charging. It tripped over duplicate history rows; reading history now tolerates them, and the recovery path that could create them after a mid-write termination is fixed too.
+
+### Fewer background terminations
+iCloud sync runs a one-time housekeeping pass the first time the app opens its store on a new iOS version; on a background launch iOS could suspend the app mid-pass, which reaches me as a crash. The app now stays awake for it.
+
+### Charger database updates without an App Store release
+New Settings → Navigation section. Its Charger Database group shows the active database's source (Bundled or Downloaded), build date and site count, plus a Check for Update button. One tap fetches the manifest from theburl.com; a newer database downloads, verifies, and hot-swaps every open charger map — both CarPlay maps repaint in place, no relaunch. 
+
+### Spoken guidance settings moved to Navigation
+Spoken Navigation Guidance and Select Navigation Voice moved from Settings → CarPlay into the new Navigation section. Your choice does not reset.
+
+### Turn announcements no longer pile up and replay
+On one drive a turn went unannounced and five past announcements played back-to-back twenty minutes later. Turn prompts are perishable, but the system speech queue holds them indefinitely — anything that cannot start playing waits, and the rest stacks up behind it. The app now keeps that queue itself, holding one announcement at a time and discarding any it cannot speak promptly.
+
+### Street names are spoken as words
+Roads ending in "Ln" were read as the letters "L" "N" rather than "Lane". Nineteen suffixes now expand for speech only (Ln, Ct, Pl, Sq, Trl, Hts, Jct, Plz, Vlg, Rdg, Mnr, Cv, Bnd, Ave, Ter, Cir, Xing, Expy, Tpke), so the banner still shows exactly what Maps gave us.
+
+### A turn no longer looks like a wrong turn
+Rounding a corner, the car's heading swings through as much as 25 degrees a second, and mid-swing it points far enough from the road ahead to read as leaving the route — tripping a reroute ten metres from the car's own route. Heading is now trusted only once the course has settled; distance from the route still watches throughout.
+
+The replacement route made it worse: it starts from a point projected ahead of the car, and through a bend that straight line landed 20m off the road, sending the driver around the block. It now follows the curve the car is holding — 3m in that case.
+
+### The arrival ring survives a recalculation
+It measured progress against the current route, so any recalculation restarted it at zero — and never recovered, because a replacement route is only the distance that remains. On one drive the ring fell from 65% to 0% at the 64km mark. Progress now counts distance actually travelled, which a recalculation cannot change.
+
+### The Dashboard map keeps the car in frame
+The still frame re-centred only after a full kilometre of movement — unnoticeable when it was 9km tall, but the new tight zoom is crossed in well under a kilometre at 75mph, so the blue dot could drive off the map. The frame now glides back once the car has left the middle of the view.  Thanks Sebastian!
+
+### Drive charts fit the data
+State of Charge, Speed, Cabin Temp and Cabin Humidity were drawn against an axis reaching down to 0 — a cabin holding 68–74°F was a flat line on a 0–80 axis. Each now fits the range actually recorded, on screen and in the shared drive image. Pack Current still straddles zero; charging sessions are untouched.
+
+---
 ## Build 144 — Japanese language, CarPlay map framing
 
 NOTE TO TESTERS:   I plan on making tomorrow's build the first release candidate for Version 3.0 -- just one more feature to get in.   Thanks for all the feedback! 
