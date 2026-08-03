@@ -8,3 +8,6 @@ _site/
 .jekyll-metadata
 vendor/
 .bundle/
+
+# Finder metadata — never belongs in the repo (or on the published site)
+.DS_Store
