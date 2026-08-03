@@ -9,6 +9,29 @@ nav_order: 5
 
 
 ---
+## Build 146 — Range adjustments, the Dashboard map follows you, CarPlay fixes, Genesis GV60 headlight
+
+NOTE TO TESTERS:  This is RC2 for Version 3.0
+
+### Improved Range estimation
+The range estimation used to use an 8km exponential moving average efficiency value, which could result in very unsteady (fluctuating) range estimates.  In this build, a new 60km long term exponential moving average efficiency value is feeding into the range estimation, resulting in a more steady range estimation.  The efficiency value shown in the tile continues to use the 8km EMA value, allowing you to see your recent driving trend.  The paper on the support site was updated to reflect the changes:  https://www.theburl.com/ioniq-app/efficiency-and-range.html
+
+### The Range tile help page updated
+Range help page updated to match the new approach, explaining how the values are calculated
+
+### The CarPlay Dashboard map follows you, and your tiles stay on screen
+The CarPlay dashboard map now always displays in follow-you mode, and the two selected tiles are always displayed -- irrespective of whether navigation is active or not.  Thanks Austin!
+
+### CarPlay can no longer get stuck on "Looking for adapter"
+Fixed an issue that could lead to a stuck "looking for adapter" CarPlay screen.  Thanks Francisco!
+
+### The headlight indicator now works on the Genesis GV60
+Update made to the Genesis GV60 registries that should allow the low beams indicator to function.  Thanks Ron!
+
+### The adapter buttons are solid now, not outlines
+On the Welcome screen with Purple Passion and Liquid Glass set to Clear, the blue Scan button could be nearly invisible — awkward for the control step 3 of the setup instructions tells you to press.  Scan, Connect, Stop, Disconnect and Forget Device are now filled capsules with white lettering, readable on any theme.   Thanks Gaetan!
+
+---
 ## Build 145 — Charger database updates, navigation road-test fixes, launch crashes fixed
 
 NOTE TO TESTERS:  This is RC1 (release candidate 1) for Version 3.0.  There is a new section under Settings named Navigation.  You now have the the ability to periodically check updates to the database of DC Fast Chargers.   
