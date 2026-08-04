@@ -9,6 +9,41 @@ nav_order: 5
 
 
 ---
+## Build 147 — EV3 standard range fix, navigate anywhere, saved and recent destinations, tiles added to the navigation map, other bug fixes
+
+NOTE TO TESTERS:  This is RC3 for Version 3.0 - things are coming together nicely!  You can now use the app to navigate anywhere of your choosing, not just to DC Fast Chargers.  While you are driving, you will also now see up to two selected tiles of your choosing.   If you are an EV6 or IONIQ 6 STANDARD RANGE tester -- please send me an email at greg@theburl.com, I need to check something with you.   
+
+### Fixed: a CarPlay crash when changing destination mid-trip
+From a build 146 crash report: picking a new destination while already navigating crashed the moment the new route was ready, because CarPlay forbids starting a session while the previous trip runs. The app now ends the old session as the new one starts, and cuts any in-flight spoken instruction. The handover is late by design, so a failed route leaves you still navigating.
+
+### Saved and recent destinations on CarPlay
+The keyboard button beside GO now opens a Destinations list: your saved addresses first, each under the name you gave it, then your last 10 navigations (chargers marked with a bolt), then "Type an Address…". Saved addresses are managed under Settings → Navigation → Destinations — search once, name it, done; up to 10, reorderable. 
+
+### Your tiles appear beside the navigation map
+The pair you chose in Settings → CarPlay → Customize Tiles now also shows beside the map during guidance. Leave both slots empty and the map keeps the full screen.
+
+### The map is steadier during guidance
+While a trip is running, the top bar and the floating map buttons fade out on their own the way they do in Apple Maps; touch the screen to bring them back. They now paint over a steady map too, instead of nudging the whole picture each time they come and go.
+
+### Customize Tiles reads cleaner, and Dashboard is now "Maps"
+Directions no longer sit in long footnotes: each section keeps one orienting line, with the rest behind tappable "About these layouts" and "How slots work" rows. The Dashboard category is renamed Maps, since its tiles now appear beside the navigation map too, and its slot picker previews the pair stacked vertically. Saved layouts are untouched.
+
+### The Kia EV3 Standard Range is identified correctly
+Filled in a gap in the EV3 VIN decoder.   The standard range is now detected as standard range and should report on its full 100S x 2P configuration.  Thank you Gaëtan!  
+
+### Settings → Navigation now reads in Japanese
+The Charger Database group shipped in build 146 with its Japanese still in English. All 25 strings are translated.
+
+### The Nearest DC Charger mini-map holds still when parked
+It kept replaying its move-in animation: the centre was rounded to a fixed grid, and parking near an edge let GPS wobble flip it between squares indefinitely, each flip a new centre to animate to. It now holds until you have genuinely travelled about 120m, and the charger pin sits exactly on the station.
+
+### The Dashboard's nearest-charger button stops re-animating
+It slid in showing a charger and distance, then slid in again showing the same thing. CarPlay animates every button it is handed, and the app re-sent it whenever any dashboard data changed — including a battery reading that never appears on it. It now re-sends only when the button would look different.
+
+### The CarPlay page names lost their glow
+In day mode the dimmed inactive names ("Status", "Help") read as ghostly — the white halo that lifted the strip off a light wallpaper bled into the thin gray glyphs. It is gone; the dimness is unchanged.
+
+---
 ## Build 146 — Range adjustments, the Dashboard map follows you, CarPlay fixes, Genesis GV60 headlight
 
 NOTE TO TESTERS:  This is RC2 for Version 3.0
