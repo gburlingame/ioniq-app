@@ -9,6 +9,31 @@ nav_order: 5
 
 
 ---
+## Build 148 — Turn directions in the cluster and head-up display, nav tile placement, Time to 70 fix
+
+NOTE TO TESTERS:  I'm going to pause the RC cadence, hopefully just for today -- a lot of great feedback has just come in (thank you everyone!).  There are a number of things I need to triage to determine if they are Version 3.0 blockers or not.  
+
+### Turn directions now appear in your instrument cluster and head-up display
+On vehicles that support it, the app's maneuvers now show in the head-up display (HUD). Testers reported ours missing where Apple Maps' appear; the cause was that the app had never opted into CarPlay's navigation-metadata channel -- now fully supported.   Thanks Ron, Gaëtan, and TheIoniqGuy!  
+
+That channel is separate from the CarPlay screen. Rather than a picture, the phone sends the *meaning* of a maneuver — "right turn at a roundabout, left-hand traffic" — and the car draws it in its own style, because a HUD renders its own art and cannot show a bitmap from the phone. It is now implemented end to end, including the escalation from "continue" through "prepare" to "execute" as you approach a turn, driven off the same thresholds as the spoken guidance so the display steps in time with what you hear.
+
+Which side of the road you drive on is worked out from the road itself rather than from your phone's region, so a US phone driving in Ireland no longer mirrors every roundabout. The CarPlay screen is unchanged — the cluster gets extra information, it does not replace anything.
+
+### Nav tiles no longer draw off the edge of the screen
+On some head units the guidance tile column sat mostly or entirely off the screen, and the arrival capsule was slightly off center; touching the screen brought part of the column back. Reported on a Kia EV3 and a Genesis GV60.   Thanks Gaëtan and Allan!   
+
+The App Activity Log was extended in the event today's fix does not pan out -- providing new clues if needed.
+
+### The tiles sit the same distance from the edge on either side
+The tile column reserves a soft strip along one edge for the map to fade into, and that strip was always placed on the same side regardless of which edge the column was against. On right-hand-drive units it landed on the outside and pushed the tiles 36pt clear of the glass; on left-hand-drive it pointed inward and left them 10pt from the edge, under CarPlay's floating map buttons. The strip now follows the screen edge, so both get the same 36pt inset and clear the buttons. Tile size is unchanged.
+
+### "Time to 70°F/21°C" tweaks for an already-warm pack
+Added extensive logging to the App Activity Log to help refine the Time to 70/21 estimate on a warm pack (and overall to help across the fleet).  The estimate has a shaping step for the end of a session, and it was also being applied at the very start of battery warming — where it ignored the roughly seven minutes before the coldest module in the pack responds. A pack 2°C from target showed 2:00 and one 1°C away showed 0:30, while a pack 3°C away correctly showed 12:00: a single degree of starting temperature swung the estimate by ten minutes.
+
+The shaping now waits until that initial lag has passed, so the estimate is continuous — about two minutes per °C remaining, all the way from 20°C down to 8°C. Cold-start sessions are unaffected, and no constant was re-tuned: replaying both reference drives produces byte-identical output.
+
+---
 ## Build 147 — EV3 standard range fix, navigate anywhere, saved and recent destinations, tiles added to the navigation map, other bug fixes
 
 NOTE TO TESTERS:  This is RC3 for Version 3.0 - things are coming together nicely!  You can now use the app to navigate anywhere of your choosing, not just to DC Fast Chargers.  While you are driving, you will also now see up to two selected tiles of your choosing.   If you are an EV6 or IONIQ 6 STANDARD RANGE tester -- please send me an email at greg@theburl.com, I need to check something with you.   
