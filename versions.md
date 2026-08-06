@@ -9,6 +9,31 @@ nav_order: 5
 
 
 ---
+## Build 149 — Canada's chargers from the official registry, Dashboard tiles on the map, HUD and map fixes
+
+NOTE TO TESTERS:  This is RC4 for Version 3.0 - lots of great feedback and fixes in today's build!  Testers in Canada - let me know how the charger database seems after this update.  
+
+### Canada's charger database is rebuilt from the official registry
+Canadian sites now come directly from the U.S. DOE / Natural Resources Canada Alternative Fuels Data Center — the primary source — instead of Open Charge Map's copy of it, which was missing about 450 live fast-charge sites and still listing about 615 that no longer exist.  The rebuilt Canada has 3,241 sites: 2,733 from the registry plus 508 community-contributed sites kept from Open Charge Map. Networks appear for the first time — Mercedes-Benz Charging, Couche-Tard, On the Run EV, Ford Charge — with 400–480kW units. The overall count goes *down* (about 63,712 from 63,990) because those removals outnumber the additions; the rest of the world is untouched.  Thanks Alex!
+
+Charger panels now say where a site came from: "via the Alternative Fuels Data Center (U.S. DOE / NRCan)" or "via Open Charge Map", in all ten languages. Published to the in-app update channel on 6 August — Settings → Navigation → Check for Update.
+
+### Your Dashboard tiles now float on the map
+On the CarPlay Dashboard the map used to stop two-thirds of the way across — 60% of the way down in split screen — and hand the rest to a separate background. It now runs edge to edge with the tiles resting on it as slate cards, as on the navigation map. Same tiles, same place, and a tile whose caption fits one line now gets a taller readout.
+
+### One button ends a route, and GO leads
+The route screen had two controls that both ended the route and disagreed about where you landed — a back-chevron to the charger map, a ✕ to the dashboard. There is now a single **END** button in the leading corner, returning you to the dashboard; the charger map is still one tap away via the map/grid toggle. On the charger map, GO now comes before the saved-destinations bookmark, so the primary action takes the corner position. Right-hand-drive cars still mirror to the driver's side.
+
+### The CarPlay maps no longer pretend you are at Apple Park
+With Location Services off for the app, both the navigation map and the charger finder used to open on Apple Park in Cupertino and present it as your position — MapKit requires a fallback, and that is Apple's default. They now hide the map and show "Location Unavailable", explaining that turning Location Services back on restores your position and nearby chargers. The same panel covers the wait before the first fix, so a map appears only when the app knows where the vehicle is. Everything returns by itself the moment location arrives.  Thanks Tom!  
+
+### The head-up display keeps guiding when you look at the tiles
+Switching from the navigation map to the tiles killed the HUD in Build 148. Two causes: the tiles page removed CarPlay's turn card by cancelling the navigation session, which Build 148 had also made the car's guidance feed; and a trip's opening maneuvers were sent inside the connect window where CarPlay parks that work, so nothing reached the car until a reroute re-sent them. The tiles page now uses a second screen and never touches the session, and the maneuvers are re-asserted on the first GPS fix.  Thanks Ron!
+
+### Fixed: a CarPlay charger map that could stop drawing
+The charger controls appeared over a frozen tile grid, and the grid/map button flipped only the controls while the picture underneath never changed. Once triggered, only relaunching cleared it. The trigger was starting a route while still dragging the map: dragging defers the expensive re-layout until your finger settles, and a failed route raises an alert that steals the touch, so the drag-ended callback never arrives and the deferral never lifts. A drag now expires on its own.  Thanks Sean!
+
+---
 ## Build 148 — Turn directions in the cluster and head-up display, nav tile placement, Time to 70 fix
 
 NOTE TO TESTERS:  I'm going to pause the RC cadence, hopefully just for today -- a lot of great feedback has just come in (thank you everyone!).  There are a number of things I need to triage to determine if they are Version 3.0 blockers or not.  
