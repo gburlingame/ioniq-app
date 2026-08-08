@@ -9,7 +9,9 @@ nav_order: 5
 
 
 ---
-## Build 150 — The US charger database from the official registry, pins that ungroup, the mid-route tiles peek retired
+## Build 151 — The US charger database from the official registry, pins that ungroup, the mid-route tiles peek retired, new app name and app icon
+
+SPECIAL NOTE: Build 150 had a nasty crash loop bug, so I quickly pulled it down.  I've decided to move forward with the name change as well. 
 
 NOTE TO TESTERS:  This is RC5 for Version 3.0.  You will notice a fairly significant change in today's build if you use navigation.   Previously you could bounce back and forth between active navigation and the 16 tiles - that capability has been retired.  This change was necessary due to some major bugs it was causing (see below).
 
