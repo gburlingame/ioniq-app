@@ -9,6 +9,28 @@ nav_order: 5
 
 
 ---
+## Build 150 — The US charger database from the official registry, pins that ungroup, the mid-route tiles peek retired
+
+NOTE TO TESTERS:  This is RC5 for Version 3.0.  You will notice a fairly significant change in today's build if you use navigation.   Previously you could bounce back and forth between active navigation and the 16 tiles - that capability has been retired.  This change was necessary due to some major bugs it was causing (see below).
+
+### The US charger database now comes straight from the official registry
+The United States joins Canada on the U.S. DOE / NRCan Alternative Fuels Data Center as the primary source. About 14,238 US sites are now registry-direct with per-port power.  Stations only Teslas can use are also excluded worldwide — about 1,900 more sites across 30 countries — since an E-GMP vehicle cannot charge at them.  Net: 60,979 sites, down from 63,712; every subtraction is a station that either isn't there or can't charge this car. Published to the in-app update channel on 7 August — Settings → Navigation → Check for Update.  Thanks Alex!
+
+### Charger pins stop grouping at street zoom
+Once the CarPlay map is zoomed in to roughly a 7km-wide view or tighter, every site renders as its own pin. Co-located sites at rest stops and travel plazas — different networks 10–60m apart — used to stay fused into one ×N pin at every zoom, because the grouping radius never dropped below 50m. They now spread out and are individually tappable. Wider than that, grouping behaves as before.  
+
+### Peeking at the dashboard tiles mid-route is retired
+While navigating, the map/tiles toggle on the guidance map is gone. The freed slot becomes map zoom, so the map's zoom pair is whole again instead of zoom-out-only — RECENTER was previously the only way back in.
+
+Showing the tiles mid-route required pushing a second screen over the navigating one, and that push turned out to be the single cause of three separate defects: CarPlay released navigation ownership, after which the car's HUD stayed blank for the rest of the trip; the covered screen's panel reservation compressed the tile grid; and CarPlay stopped drawing its wallpaper behind the app for the whole session. None is repairable through public API — a dozen separate approaches were tried and failed. Removing the peek removes all three at once.   Thanks Ron, Allan, and Howard!
+
+### Another app sharing your adapter is caught on multi-channel adapters
+Many adapters present several serial "bridges" into one chip and route each reply only to the channel that asked, so a second OBD app working through a different bridge is inaudible on ours. The app already watched the other bridges for exactly this, but it picked which to watch by whether it *recognised* the service rather than whether it was *using* it — so on an adapter whose bridges are all recognised, it bound to one and switched the other off, closing the only window onto the co-tenant.  The app now watches every channel it is not itself writing on. The watch still arms only after a clean start-up proves the adapter keeps channels separate, so an adapter that echoes to all of them can never make the app disconnect from itself.  Thanks Jaka!
+
+### Fewer "your app crashed" notifications after background launches
+When iOS relaunches the app invisibly in the background, opening the database kicks off CloudKit's own setup work — and when that involves a slow metadata migration, iOS could suspend the app mid-write and kill it, which reaches you as a crash report. Two field captures proved the existing protection structurally could not cover this window — it waited for an event that only posts *after* the dangerous phase. The app now holds a background assertion across the whole setup window instead. Foreground launches are unaffected.  Thanks Gary!
+
+---
 ## Build 149 — Canada's chargers from the official registry, Dashboard tiles on the map, HUD and map fixes
 
 NOTE TO TESTERS:  This is RC4 for Version 3.0 - lots of great feedback and fixes in today's build!  Testers in Canada - let me know how the charger database seems after this update.  
