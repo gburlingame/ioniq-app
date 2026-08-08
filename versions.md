@@ -9,6 +9,22 @@ nav_order: 5
 
 
 ---
+## Build 152 — More detailed charger info, stall counts only when the network says so, pins that reach the whole map
+
+SPECIAL NOTE: If you are coming from Build 149, Build 151 never reached you. TestFlight accepted it, approved it for external testing and listed it as live — but would not actually hand it out, and force-quitting made no difference. Build 152 goes out through the usual build pipeline to get past that. Everything Build 151 contained is in this build as well; its notes are on the version history page at theburl.com/ioniq-app/versions.html.
+
+NOTE TO TESTERS: This is RC6 for Version 3.0.
+
+### Charger info shows what's actually installed, cable by cable
+A site now lists its connectors the way you would count them walking up to it — "4× CCS, 2× CHAdeMO 50kW" — instead of a single site-wide "350kW" that could hide five slow cables behind one fast one. A speed appears on a connector only when that connector is slower than the site's best, so the extra number shows up exactly when it changes your decision and stays quiet when it doesn't. Every site in the database carries the breakdown: 108,061 connector groups across 60,979 sites.
+
+### Stall counts appear only when the network states one
+Sites that publish no stall count — 13% of them — used to have one guessed by counting cables. Cables aren't parking bays: most fast chargers carry two cables on a single machine, so a site with ten machines was being reported to you as twenty. Those sites now show the connector breakdown instead of a number the app invented. The 87% of sites whose counts come from the charging network or the government registry are unchanged.
+
+### Charger pins reach the far side of the map
+Panning the fully expanded charger map across the country could leave a whole region without pins — most visibly the half of the frame furthest from you, even though chargers were there. The map draws a capped sample of the sites in view, and at certain site counts that sample was quietly collapsing to "the nearest ones to you" instead of spreading across the frame. The sample now always reaches the far edge of the view, and the crosshair can once again land on a charger sitting under it.
+
+---
 ## Build 151 — The US charger database from the official registry, pins that ungroup, the mid-route tiles peek retired, new app name and app icon
 
 SPECIAL NOTE: Build 150 had a nasty crash loop bug, so I quickly pulled it down.  I've decided to move forward with the name change as well. 
