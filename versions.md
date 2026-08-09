@@ -9,6 +9,24 @@ nav_order: 5
 
 
 ---
+## Build 153 — New app name: EV Dashboard, a new icon, and IONIQ 6 2025+ 12V and lighting data
+
+NOTE TO TESTERS:  We are getting very close to Version 3.0 release - this is RC7!  Thank you to everyone for the feedback on the new app icon and name.   I think Coulomb was a bit too obscure, so I have decided to move away from that.  I believe the name EV Dashboard aligns well with the app's functions.  
+
+NOTE TO IONIQ 6 TESTERS:   Please let me know if you notice anything broken in this build as there were changes made to the IONIQ 6 registries intended to fix issues on newer IONIQ 6 vehicles that had previously gone unreported.
+
+### The app is now called EV Dashboard, with a new icon
+The icon is a state-of-charge ring at 80%, drawn to the same proportions as the gauge inside the app. Same app, same data, same purchase — only the name and the icon on your Home Screen change.
+
+Every screen, prompt and file type follows the new name: the Bluetooth permission prompt, the "open this list in…" hint on a shared Curated DID List, and the names Files shows for `.iqlist` and `.iqscan` documents. Files you have already received still open exactly as before — only the labels changed.
+
+### The Bluetooth permission prompt is shorter
+It used to repeat the app's name, which iOS already puts in the alert title. It now reads simply "Bluetooth is used to communicate with your OBD-II adapter for vehicle data." Updated in all 10 languages.
+
+### IONIQ 6: 12V and lighting data now read correctly on 2025 and newer cars
+A field report came in that the 12V / Auxiliary Battery panel was never filling in. Every IONIQ 6 shared a single signal map written for the 2023 car, so a newer IONIQ 6 was asking its ICCU for data at an address that generation no longer answers.  The IONIQ 6 now has separate 2025 and 2026+ maps, matching how the IONIQ 5, IONIQ 9, EV6, EV9 and EV3 are already handled. This also restores low beam, high beam and brake light status, and corrects AC input voltage and frequency during charging — those were reading from the wrong bytes and showing plausible but wrong numbers rather than going blank. 2023 and 2024 IONIQ 6s are unaffected and keep the map they have today.   Closure of this issue is pending verification from the field.  Thanks Dieter!
+
+---
 ## Build 152 — More detailed charger info, stall counts only when the network says so, pins that reach the whole map
 
 SPECIAL NOTE: If you are coming from Build 149, Build 151 never reached you. TestFlight accepted it, approved it for external testing and listed it as live — but would not actually hand it out, and force-quitting made no difference. Build 152 goes out through the usual build pipeline to get past that. Everything Build 151 contained is in this build as well; its notes are on the version history page at theburl.com/ioniq-app/versions.html.
