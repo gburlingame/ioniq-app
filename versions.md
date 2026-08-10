@@ -9,6 +9,37 @@ nav_order: 5
 
 
 ---
+## Build 154 — A new app icon, Help improvements, US and Canadian charger data update, 2025 IONIQ 6 fix, share card improvements
+
+NOTE TO TESTERS:  This is RC8 for Version 3.0.  We're very close - I still need to resolve an issue with the 2026 IONIQ 6, so we have at least one more RC coming.
+
+NOTE TO IONIQ 6 TESTERS:  Please pay close attention to this build.  Yesterday's build broke a few things for 2025 IONIQ 6 owners; those are fixed in this build.  
+
+### Fixed: 12V, lighting and brake data on 2025 IONIQ 6s, which Build 153 broke
+Build 153 added a separate signal map for newer IONIQ 6s and applied it from model year 2025. That was a year too early — the 2025 IONIQ 6 is still the earlier generation, so those cars were suddenly asked for data at addresses their modules do not have, and the 12V / Auxiliary Battery panel went blank.  Model years 2023 through 2025 are back on the map they used before Build 153, and the new map applies from 2026 only. 2026 IONIQ 6s keep the Build 153 improvement.
+
+### A new app icon
+The state-of-charge ring is replaced by a car cresting a horizon at dusk, framed in a circle, with the land inside that circle picked out in emerald. 
+
+### US and Canadian chargers now come entirely from the government registry
+Open Charge Map's US and Canadian entries have been removed; those two countries are now served solely by the U.S. DOE / NRCan Alternative Fuels Data Center. The data for OCM was of limited value, and was actually providing a lot of misinformation, so I removed it.  1,774 entries removed; 59,205 sites remain. Open Charge Map still provides every charger everywhere else, Mexico included.
+
+Charger power also now reads "350kW" rather than "350 kW" on the map info card and the charger list, matching the speed filter, which already read "≥50kW".
+
+### Share card improvements
+All four share cards — session details, ICCU details, Enhanced DTC and J1979 — used to paint the app icon, scaled to fill and blurred, as their backdrop. At the cards' shape the blur never hid it, so a ghost car outline and the Bluetooth glyph sat behind your data. That is now a clean gradient in the same near-black teal the cards always had, with nothing legible behind the text. The icon still appears where it belongs, in the header and the attribution badge — where it is also two and a half times larger, moved to the badge's leading edge.
+
+A new **Settings → Display → Share Cards → Background** picker switches the whole set to white. The choice applies to every card and persists.
+
+### The CarPlay Help page names both dark-on-dark fixes, and wraps around
+The first tip used to send you into CarPlay's own Settings to turn on Always Show Dark Maps — which also darkens the map in every other navigation app you use. It is now titled "Dark text on dark?" and names the second remedy outright: pin a Light or Dark background under Settings → CarPlay → Appearance in this app, and the dashboard stops depending on a CarPlay setting the app cannot read. 
+
+The Help page also cycles now. Pressing back on the first tip jumps to the last, and forward on the last returns to the first, so neither button greys out at the end of the list — which read as a fault rather than as an edge. Both buttons wear filled triangles instead of chevrons, so paging through tips no longer looks identical to paging between screens.
+
+### Diagnostic recordings no longer carry CarPlay developer triage
+Four streams of CarPlay debug output were writing into the recording you start by hand, crowding out the ELM327 signals it exists to capture.  These were removed.
+
+---
 ## Build 153 — New app name: EV Dashboard, a new icon, and IONIQ 6 2025+ 12V and lighting data
 
 NOTE TO TESTERS:  We are getting very close to Version 3.0 release - this is RC7!  Thank you to everyone for the feedback on the new app icon and name.   I think Coulomb was a bit too obscure, so I have decided to move away from that.  I believe the name EV Dashboard aligns well with the app's functions.  
