@@ -9,6 +9,34 @@ nav_order: 5
 
 
 ---
+## Build 155 — Compass now uses your car's heading, three-phase AC charging power, improved navigation keyboard search, 2026 IONIQ 6 headlight fix
+
+NOTE TO TESTERS:  This is RC9 for Version 3.0.  Today I discovered that the app has never correctly reported 3-phase charging in Europe — that's fixed in this build.  If you have the ability to do an AC charging session (anywhere in the world), please let me know if anything looks incorrect.   
+
+NOTE TO EUROPEAN TESTERS:  If you have the opportunity to charge on a three-phase supply, please compare the app's AC charging power against your car's own display and let me know if they agree - thank you! 
+
+### Fixed: AC charging power was understated on three-phase supplies
+The app computed AC power as voltage × current, which is only correct on a single-phase supply. On a three-phase supply the car reports a line-to-line voltage and a per-phase current, so multiplying the two does not produce a power at all: A 2024 IONIQ 5 showed 2.4 kW beside a car dash reading 4.2 kW. Power is now phase-aware and reads 4.20 kW on that same session, verified against the car's own display. North American single-phase and split-phase readings are unchanged.  Thanks Kim!
+
+A three-phase session now carries a 3-phase badge in the AC Draw panel on the phone and on the AC Input panel in CarPlay. The Power chip reads a dash for the couple of seconds at session start before the supply type is known, rather than charting a spurious 0.00 kW there. The EVSE panel's "Power" is now "Max Power" and is also phase-aware, since the charging cable signals amps per phase. AC "Max Current" now shows one decimal on both phone and CarPlay, matching the measured current beside it.
+
+In History, a three-phase session's Charge Type card reads "AC 3-phase" and its charging band is titled "AC Charging 3-phase". The same error was being written into stored history as well — peak power, session cards, CSV exports and iCloud sync all recorded the understated figure — and that is corrected going forward. Sessions recorded before this build still read plain "AC" and keep their original numbers: the supply type was never recorded, so it cannot be recovered after the fact.
+
+### Improved CarPlay Compass
+It now reads the direction your vehicle is travelling from its GPS course instead of the phone's magnetometer, and holds steady while you are stopped — a stationary car has not changed direction. It also remembers your heading between drives, so a parked car opens pointing where it last drove instead of following the phone around until you pull away.
+
+A dimmed dial is normal and means "this heading is not being confirmed right now" — the app has just opened, or the location feed has gone quiet, and the dial is showing the last bearing the car actually reported. If location is switched off altogether the phone's own compass takes over, also dimmed. Only when there is no trustworthy source at all does the tile show no heading, which is deliberate: nothing beats a confident needle pointing the wrong way.
+
+### CarPlay address search now opens full-screen results
+Tapping the keyboard's search button pushes a full list of results. 
+
+### CarPlay Destinations: "Type an Address…" moved to the top of the list
+Moved to the top for easier access.
+
+### Fixed: the Headlights chip never lit up on a 2026 IONIQ 6
+Adjusted all the 2026 IONIQ 6 registries with proper mapping for the low beams signal.  Thanks Dieter!
+
+---
 ## Build 154 — A new app icon, Help improvements, US and Canadian charger data update, 2025 IONIQ 6 fix, share card improvements
 
 NOTE TO TESTERS:  This is RC8 for Version 3.0.  We're very close - I still need to resolve an issue with the 2026 IONIQ 6, so we have at least one more RC coming.
