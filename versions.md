@@ -9,6 +9,37 @@ nav_order: 5
 
 
 ---
+## Build 157 — Genesis GV60 focus fix, Improved light mode contrast (app), Number and date formatting fixes, adjustment to CarPlay Always Dark
+
+NOTE TO TESTERS:  This is RC11 for Version 3.0.  This may be the build I send over to Apple.  I'm going to wait 24 hours for anything substantive to come in.  I want to thank each and everyone of you - thank you, thank you, thank you!  There's one last change to the way the app behaves in respect to CarPlay Always Dark -- mentioning just in case you happen to see an unexpected change in your CarPlay appearance.
+
+### CarPlay: focused buttons keep their glyphs - Genesis GV60
+With a rotary controller, focusing the floating map/dashboard toggle or the Status link switch used to blank the glyph and leave a pale blob, that is fixed.  The Help page's ◀ ▶ tip arrows had the opposite problem: CarPlay redraws a focused glyph in its own dimmer color, so the focused arrow came back greyer than its neighbor and read as disabled at exactly the moment it was selected. It is drawn heavier now.  Thanks Chuck!
+
+### History: session charts label the time only, never the date
+Once a session's span stopped looking like a short slice of one day, Swift Charts folded the calendar date into every gridline — an overnight AC charge read "8/13, 2:00 AM" on five gridlines while a short daytime session read "2:00 PM". The session header already states the date and marks a midnight rollover, so the axis gives that width back to the plot. Sessions under two minutes keep their seconds. The shared session card's charts match.   Thanks Tim!
+
+### Light mode: slight tweak to make sections more visible
+The change is subtle, but I believe it makes light mode look a bit better, particularly with the new Blue Smoke theme (my new fav).  Every glass surface now declares its light-mode lift instead of deriving it, so a card sits on the page rather than dissolving into it. The glass still sits underneath, so the aurora shows through and the themes keep their color. Value chips move to white — the brightest surface on screen, where the numbers are. Dark mode is untouched, and so is CarPlay.
+
+### Numbers now use the decimal mark of the app's language (only impacted in-app language override)
+Many of the Dashboard's chips and the shared card's stats were formatted with no language at all, which in practice means a period, always. Reading the app in several languages gave you "12.5 kWh" where every other number on the same screen said "12,5". 
+
+CarPlay follows too: the charging tile's current and power, the pack voltage/current/power chips, charger distances in the browser and on the Dashboard tile, and route distance — 24 more values. Nothing changes for English or System Default.
+
+### Shared session sheets follow the in-app language everywhere
+The share sheet honored your language choice through its headings and stats, but its chart axes followed the phone's language and not your override in the app. Running the app in one language on a phone set to another produced a card whose headings read one way and whose axes read the other — a 12-hour clock under German headings, or a "12.5" where the app shows "12,5".
+
+### CarPlay now follows "Always Dark" on its own
+Previously the app's appearance would only be locked in as dark if Always Show Dark Maps was selected.  Now the app follows the Always Dark setting -- this was a necessary fix to get the focus chrome working properly for the GV60.  Thanks again Chuck!
+
+### CarPlay: fixed a launch issue that could lead to unresponsive buttons until a scene change
+Fixed an issue that only happened about 20% of the time on a cold launch without an adapter connected - the two right hand corner buttons would appear unresponsive.
+
+### History: session headline units sit tight against the value
+The big number at the top of a session — Efficiency on a drive, Peak Power or Energy Added on a charge — now sets its unit tight against the value.
+
+---
 ## Build 156 — CarPlay Themes, app-painted backgrounds, an adjustable Maps tile background, a clearer location message
 
 NOTE TO TESTERS:  This is RC10 for Version 3.0.  The dreaded dark text on a dark background issue can no longer happen - the solution was right in front of me the whole time.  The app now always applies its own background - if you don't like what you see in CarPlay after upgrading, please be sure to check out Settings/Themes/CarPlay to make your CarPlay background selection.
