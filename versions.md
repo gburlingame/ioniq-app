@@ -9,6 +9,34 @@ nav_order: 5
 
 
 ---
+## Build 156 — CarPlay Themes, app-painted backgrounds, an adjustable Maps tile background, a clearer location message
+
+NOTE TO TESTERS:  This is RC10 for Version 3.0.  The dreaded dark text on a dark background issue can no longer happen - the solution was right in front of me the whole time.  The app now always applies its own background - if you don't like what you see in CarPlay after upgrading, please be sure to check out Settings/Themes/CarPlay to make your CarPlay background selection.
+
+### Themes now has App and CarPlay sections
+Settings → Themes opens with an App/CarPlay switch. App works as it always has, and gains the Appearance (Auto/Light/Dark) control that used to live under Settings → Display. CarPlay picks its background independently, and hosts the CarPlay Appearance control that used to live under Settings → CarPlay: Auto switches the selected background between its light and dark versions with the vehicle's day/night mode. On the first launch after updating, the CarPlay selection is seeded from your current app theme.
+
+Two new themes join both pickers: Amber Smoke and Blue Smoke.  Two renames, with stored selections untouched: the smoky grey aurora "Black & White" is now "Black & White Smoke", and "Off" (flat background, no aurora) is now "Black & White".
+
+### CarPlay backgrounds are now painted by the app in every appearance mode
+In Auto the app paints its own themed backdrop and flips it live on the car's day/night signal; forcing Light or Dark pins it, as before. The car's wallpaper no longer shows through.
+
+This also removes the intermittent dark background after you end navigation: CarPlay stops compositing its wallpaper behind the app's window when the guidance chrome auto-hides mid-route, and never restores it once the trip ends. Painting our own bottom layer everywhere makes that invisible, while keeping the full-bleed auto-hiding guidance map.
+
+It retires the dark-text-on-dark trap as well — ink and background now come from the same resolved style, so running CarPlay's "Always Dark" without "Always Show Dark Maps" can no longer strand you. The Help tip about it is gone, since the misconfiguration it cured is now impossible.
+
+### The two Maps tiles have an adjustable background
+Settings → CarPlay → Customize Tiles → Maps gains a Tile Background slider from Clear to Solid, setting how much of the map the tiles cover on the navigation map and the Dashboard's map pane. It is live — move it with the phone connected and the car repaints as you drag.  Thanks Paul!
+
+The center is exactly what shipped in Build 155, so nothing changes until you touch it. Reset to Defaults now restores the background too, and a Use Standard Appearance button appears once you move off center, recentering it without discarding your tile arrangement. The arrival-SoC capsule deliberately does not follow the slider.
+
+### Fixed: "Waiting for location" when permission had never been granted
+If location permission was never granted and CoreLocation is actively refusing, CarPlay now shows the amber "Location Unavailable" panel rather than the blue "Waiting…" one, which reads as temporary and needing no action. The body now reads "Allow location access for EV Dashboard…" instead of "Turn on Location Services…", so the remedy is true whether access was denied, switched off system-wide, or never asked for. Thanks John!
+
+### The Range tile's Help text is much shorter
+The three-paragraph explanation is now one short paragraph: what the number is, what the smaller number and trend line under it are, and how both are measured.
+
+---
 ## Build 155 — Compass now uses your car's heading, three-phase AC charging power, improved navigation keyboard search, 2026 IONIQ 6 headlight fix
 
 NOTE TO TESTERS:  This is RC9 for Version 3.0.  Today I discovered that the app has never correctly reported 3-phase charging in Europe — that's fixed in this build.  If you have the ability to do an AC charging session (anywhere in the world), please let me know if anything looks incorrect.   
