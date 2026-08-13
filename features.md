@@ -108,6 +108,7 @@ The app ships per-vehicle registries with full or partial coverage:
 
 **Coming soon**
 
+* **Kia EV3**
 * **Genesis GV60**
 
 ## Support
