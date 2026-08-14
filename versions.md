@@ -9,6 +9,28 @@ nav_order: 5
 
 
 ---
+## Build 158 — Charge type read from the car's own flags, CarPlay follows the vehicle's appearance, a clearer Status page, Genesis GV60 cluster fix
+
+NOTE TO TESTERS:  Some important feedback came in, so this is RC12 for Version 3.0 - I'm going to give 24 hours before sending this over to Apple.   A report of a mis-classified AC charging session (showed as DC) came in from an EV9 tester.  This build changes how the app decides whether a charging session is AC or DC.  It would be a huge help if everyone who has the ability to run a charging session (either AC or DC) could do so -- I touched a lot of files in this build, but I felt it was necessary.  I'm confident in the change because I re-ran several hundred logs (every log anyone has ever sent me) through a simulator.  Those simulations resulted in 0 false positives and 0 false negatives.  
+
+Also note the CarPlay Appearance override under Themes has been removed: CarPlay now always follows your vehicle's own light/dark mode.  I was running into too many problems with button focus and coloring - issues that can't be fixed due to the way CarPlay is orchestrated.
+
+### Charging detection updated
+A Kia EV9 briefly reports a DC-looking state the moment an AC cable is plugged in, and on recent builds that could be mistaken for the start of a DC session — recording an AC charge as "DC" in History, with a charger voltage no charger ever advertised. The app now reads the AC and DC flags directly and confirms each against current measured on that same port, so the charge type is right from the first moment a session opens. DC sessions may appear a few seconds later than before.  Thanks Stephen! 
+
+### CarPlay always follows the vehicle's light/dark appearance
+Settings → Themes → CarPlay → Appearance is gone. The override could never be made to hold on the screens pushed from the charger map — Destinations, Chargers, the network Filter — which produced a Destinations list whose row pins were light inside a dark list. That screen now explains what decides light vs dark instead: day mode gives the light background, and night mode or CarPlay Settings → Appearance → Always Dark gives the dark one. The CarPlay theme picker is unaffected.
+
+### CarPlay Status page: a clearer button and honest arrows
+The Connect/Disconnect button now carries an antenna glyph naming the action a tap performs — slashed while the adapter is connected, plain while it is not.  The page arrows are now hidden rather than grayed out when there is nowhere to go: before the adapter connects, Status is the only page, so both arrows sat permanently dead and read as broken rather than pending. They come back the moment a second page exists, and the forward arrow no longer looks live while doing nothing under adapter-interference lockdown.
+
+### Genesis GV60: no more "1 not reporting"
+The app was polling an instrument cluster the GV60 does not answer, so Scan Status and the Connection Report permanently showed one module missing. Both now read "All reporting", and the polling loop reclaims an adapter timeout every 30 seconds. The odometer chip and tile stay blank on the GV60, as before.  Thanks Chuck!
+
+### Settings → About: the Reset Onboarding row is legible in dark mode
+Its red text sat on bare glass over the aurora with nothing behind it. That one section now darkens in dark mode; every other section is unchanged in both appearances.
+
+---
 ## Build 157 — Genesis GV60 focus fix, Improved light mode contrast (app), Number and date formatting fixes, adjustment to CarPlay Always Dark
 
 NOTE TO TESTERS:  This is RC11 for Version 3.0.  This may be the build I send over to Apple.  I'm going to wait 24 hours for anything substantive to come in.  I want to thank each and everyone of you - thank you, thank you, thank you!  There's one last change to the way the app behaves in respect to CarPlay Always Dark -- mentioning just in case you happen to see an unexpected change in your CarPlay appearance.
