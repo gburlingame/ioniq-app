@@ -9,6 +9,29 @@ nav_order: 5
 
 
 ---
+## Build 159 — Charging sessions end when the charge ends, a settled CarPlay map on return, split-screen layout fixes
+
+NOTE TO TESTERS:  This is RC13 for Version 3.0.  The good news is that I believe a long-standing bug going all the way back to April has finally been solved.   The bad news is one more build to test before Version 3.0 is released.  Thank you Tom and Paul for digging in with me and sharing your logs!  
+
+### FIX: Active (not yet closed out) charging sessions are closed after a BLE disconnect
+There was a long-standing bug, since the reconnect-side close was introduced in May, that could leave a charging session open indefinitely, even when charging was not happening. Reproduction: start a charge with the app connected, lose the Bluetooth link during the session, let the charge end while disconnected, then regain the link with the car on — without restarting the app. The session stayed open until the app was next restarted *and* connected to the car with the car on. While it stayed open, drives were not recorded either.
+
+### FIX: Active (not yet closed out) charging sessions are ended whenever the car is verified ASLEEP
+An additional gate has been added to close out active charging sessions.  If the app sees an active charging session and the vehicle is off, that session is closed.  By definition the car is always AWAKE when a charging session is active.
+
+### Returning to the CarPlay map picks up where you left it
+Switching to another CarPlay app during navigation and coming back could have resulted in the map flying in from thousands of miles away — it was briefly commanded to a placeholder location in California, and the guidance camera then animated all the way back over unloaded tiles. Three smaller versions of the same problem go with it: a north-up frame that swung around to your direction of travel, a map that had quietly followed the phone's compass while you were away, and a short slide off position and back. The Dashboard's map pane had the same issue and is fixed too.
+
+### CarPlay split screen: the dashboard fits the pane
+On every cold launch in split screen, the dashboard drew across the whole pane, underneath the system sidebar and the navigation bar. The themed background is drawn from a wide image that was being scaled to fill, so it overflowed the sides of the narrower pane and threw off every measurement the layout depends on. Full screen was never affected.
+
+### CarPlay split screen: the arrival badge and aiming reticle move clear
+The "Estimated arrival SoC" badge was drawn behind CarPlay's own trip-details card, leaving only its right-hand end readable. In split screen it now sits at the top-right of the map and is a little shorter. On the charger finder, the red aiming reticle sat behind the charger detail card and now aims from a point further right, in the clear part of the map. Full screen is unchanged in both cases.
+
+### The charger finder's detail panel is more translucent
+Somewhat more of the map shows through it, in both screen layouts. The "Planning route…" capsule on the same map was also adjusted.
+
+---
 ## Build 158 — Charge type read from the car's own flags, CarPlay follows the vehicle's appearance, a clearer Status page, Genesis GV60 cluster fix
 
 NOTE TO TESTERS:  Some important feedback came in, so this is RC12 for Version 3.0 - I'm going to give 24 hours before sending this over to Apple.   A report of a mis-classified AC charging session (showed as DC) came in from an EV9 tester.  This build changes how the app decides whether a charging session is AC or DC.  It would be a huge help if everyone who has the ability to run a charging session (either AC or DC) could do so -- I touched a lot of files in this build, but I felt it was necessary.  I'm confident in the change because I re-ran several hundred logs (every log anyone has ever sent me) through a simulator.  Those simulations resulted in 0 false positives and 0 false negatives.  
