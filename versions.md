@@ -9,6 +9,20 @@ nav_order: 5
 
 
 ---
+## Build 160 — Three-phase AC charging power corrected on the Kia EV3, charger card layout fixes
+
+NOTE TO TESTERS:  This is RC14 for Version 3.0.  A few last-minute fixes - please report any issues you notice while doing AC or DC charging.  Thank you!
+
+### Three-phase AC charging power was understated on the Kia EV3
+On a 230/400 V three-phase supply the app showed 6.4 kW against an instrument cluster reading 10.8 kW. The Build 155 three-phase fix assumed the car reports a line-to-line voltage — true of older cars, but the EV3 and other recent models report each phase against neutral instead, where the arithmetic is different. The app now counts how many voltage channels the car is actually energizing and picks the calculation from that. Verified against the car's own cluster on both kinds of car, and single-phase charging is unchanged.  Thanks Ben and Brian!
+
+### Charger detail card: the spec badges lay out correctly
+The badges ("250kW", "12× NACS", "12 stalls") were stacking one per row, and the last one was drawn on top of the "Operational · Open to all" line beneath it. They now share rows where they fit, and the card reserves the space they actually use.  Thanks Joe!
+
+### Charger detail card: the green badge centers on a two-line name
+When a station name wraps to two lines, the green charger badge now sits centered against the whole name instead of riding the first line and reading top-heavy. One-line names are unchanged.
+
+---
 ## Build 159 — Charging sessions end when the charge ends, a settled CarPlay map on return, split-screen layout fixes
 
 NOTE TO TESTERS:  This is RC13 for Version 3.0.  The good news is that I believe a long-standing bug going all the way back to April has finally been solved.   The bad news is one more build to test before Version 3.0 is released.  Thank you Tom and Paul for digging in with me and sharing your logs!  
