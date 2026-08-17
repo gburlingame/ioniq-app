@@ -9,6 +9,22 @@ nav_order: 5
 
 
 ---
+## Build 161 — The adapter starts connecting as soon as CarPlay connects - faster time to dashboard
+
+NOTE TO TESTERS:  This is RC15 for Version 3.0.  One final change that I hope results in two noticeable quality of life improvements:  1) faster time to dashboard and 2) more sessions recorded, including sessions during which you never glance at the app.   
+
+### The adapter starts connecting as soon as CarPlay connects
+The app had been holding off auto-connecting to the OBD-II adapter until one of two things happened: 1) You opened it on the CarPlay screen or 2) You opened the app on your mobile device. I had removed background auto-connecting a while ago to help mitigate the background crash issue, but I've realized that change is no longer necessary - as long as I couple the adapter background auto-connecting with CarPlay also being connected, i.e., the app will not auto-connect in the background if your car is in range and you are not already connected to CarPlay.
+
+The link now starts the moment CarPlay connects, irrespective of the app that is on the car's display, e.g., if you begin a drive with Apple Maps or Apple Music showing, the adapter should typically already be connected by the time you switch over.  
+
+A drive during which you never open the app on the CarPlay screen should be recorded.   
+
+Auto-connect still has to be on in Settings for this to happen.
+
+Special thanks to Mark for pushing on this one - I had not realized the full significance of the change - thank you!
+
+---
 ## Build 160 — Three-phase AC charging power corrected on the Kia EV3, charger card layout fixes
 
 NOTE TO TESTERS:  This is RC14 for Version 3.0.  A few last-minute fixes - please report any issues you notice while doing AC or DC charging.  Thank you!
