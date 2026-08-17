@@ -9,6 +9,23 @@ nav_order: 5
 
 
 ---
+## Build 162 — App Store release paperwork, Blue Smoke is the new default theme, a refreshed privacy policy and permission prompt
+
+NOTE TO TESTERS:  This is RC16 for Version 3.0 - I'm sending over to Apple later tonight.  Mostly release paperwork this time — the privacy policy and the location permission prompt both described an app that no longer exists, and both are now accurate.  The one thing you may actually see is the new default theme, and only on a fresh install: if you have ever picked a theme, nothing changes for you.  It will be a few days before the next build reaches you - there's always a delay when a new app version is sent out.  A huge thank you to everyone! 
+
+### Blue Smoke is the new default theme
+New installs now open on Blue Smoke instead of Purple Passion — a cooler, desaturated backdrop that reads as an instrument surface and lets the gauge and chart colors carry the meaning. All eight palettes are still there under Settings → Themes, on both the App and CarPlay tabs; nothing was added or removed. If you have ever picked a theme, your pick is untouched. If you have never opened the picker, the phone moves to Blue Smoke and CarPlay stays where it is.
+
+### The location permission prompt no longer mentions OpenChargeMap
+The prompt still said that nearby-charger searches send your approximate location to OpenChargeMap — a network call the app stopped making in July, when the charger map moved to a bundled data file. That sentence is gone, in all ten languages. Everything else the prompt describes is unchanged and still accurate.
+
+### The privacy policy now covers location, Apple Maps and charger-data updates
+The policy behind Settings ▸ About ▸ Privacy Policy predated Version 3.0 and still claimed the app does not integrate with any third-party services. It has been rewritten and published in all ten languages: location is When In Use only and never Always, address search and route calculation go to Apple's MapKit under Apple's privacy policy, and Check for Update makes two checksum-verified downloads that send nothing about you, your device or your vehicle. Live at theburl.com/ioniq-app/privacy.html.
+
+### Two diagnostic tools now use the same name on screen and in their alert
+ECU Finder and DID Range Scan each have a screen title and a separate "abort this scan?" alert, and the two had drifted apart in German, French and Swedish — a German user opened ECU-Suche and was then asked whether to cancel ECU-Finder, which reads as a different feature. Each alert now echoes its own screen title.
+
+---
 ## Build 161 — The adapter starts connecting as soon as CarPlay connects - faster time to dashboard
 
 NOTE TO TESTERS:  This is RC15 for Version 3.0.  One final change that I hope results in two noticeable quality of life improvements:  1) faster time to dashboard and 2) more sessions recorded, including sessions during which you never glance at the app.   
