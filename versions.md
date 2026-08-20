@@ -9,6 +9,26 @@ nav_order: 5
 
 
 ---
+## Build 163 — CarPlay keeps its controls when a drive ends, and the Dashboard follows day/night
+
+NOTE TO TESTERS: Well one last unexpected RC for Version 3.0 (RC17) — this is due to some serious bugs that came in this morning.   I had to pull 162 out of the queue, so that will unfortunately reset the clock with Apple.  Thanks to Sebastian for finding the day/night issue and the disappearing controls bug.  
+
+### CarPlay keeps its controls when a drive ends
+Starting guidance lets CarPlay hide its own navigation bar and floating buttons so the map gets more room. If the drive then ended on its own — you switched the car off, or the adapter dropped — nothing brought them back, and the map sat with no controls at all until CarPlay reconnected. Ending a route yourself was always fine. The app now notices and restores them, and the roomier guidance map is unchanged.
+
+### Turning the car off ends the drive on both CarPlay screens
+Switching the car off while you were looking at the Dashboard used to do nothing at all: the route stayed live, its blue line stayed drawn, and the two CarPlay screens disagreed about whether you were still navigating. The drive now ends on both at the same moment.
+
+### The CarPlay Dashboard follows the car's day/night
+The Dashboard map stayed in whatever mode was current when you last had the app's own CarPlay screen open, so a flip to night left it light until you opened that screen and came back. It now reads the car's appearance directly and changes while you are watching it.
+
+### The nearest-charger button no longer goes missing
+If CarPlay dropped its connection while a route was running, the app went on believing a drive was still active for as long as it stayed open — and the Dashboard hides that button while you are navigating, so it stayed hidden for the rest of the session. It now clears properly when the connection drops.
+
+### Dashboard charts: labels that match their gridlines
+On a low-power AC feed the AC Draw and Pack Power axes read "2, 2, 1, 0, 0" — the gridlines sat on a half-kilowatt step while every label rounded to a whole one. Charging charts also labeled a 3-minute-20-second gridline "3m", and mixed "0s" with "0m" on the same axis. Each axis now picks its range, its step and its label precision as one decision. The three Battery · Temperatures charts also moved their labels to the right edge, matching every other chart in the app.  Thanks Chuck!
+
+---
 ## Build 162 — App Store release paperwork, Blue Smoke is the new default theme, a refreshed privacy policy and permission prompt
 
 NOTE TO TESTERS:  This is RC16 for Version 3.0 - I'm sending over to Apple later tonight.  Mostly release paperwork this time — the privacy policy and the location permission prompt both described an app that no longer exists, and both are now accurate.  The one thing you may actually see is the new default theme, and only on a fresh install: if you have ever picked a theme, nothing changes for you.  It will be a few days before the next build reaches you - there's always a delay when a new app version is sent out.  A huge thank you to everyone! 
