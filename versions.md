@@ -9,6 +9,17 @@ nav_order: 5
 
 
 ---
+## Build 164 — Charging sessions survive a dropout, and the CarPlay map stops arriving from California
+
+NOTE TO TESTERS:  One more bug came in, stemming from a recent fix I had made to end charging sessions that were remaining open indefinitely.  This is RC18 for Version 3.0.
+
+### Charging sessions interrupted by a Bluetooth dropout
+A tester's AC charge took his car from 88% to 100% over almost two hours, but the app's link dropped five minutes in — and the session card said "0.5% added, 0.6 kWh". When the app reconnected to a car that had already gone to sleep, it closed the session immediately using the last numbers it had seen, before any fresh reading was possible. An interrupted session now stays open until the car is next awake, and closes with real end-of-charge readings — the state of charge read live, and the energy added across the gap from the battery's own cumulative counter. The trade: it shows as Active until the next time you power up your vehicle.  Thanks Mark!
+
+### The CarPlay map no longer flies in from across the country
+Two paths led to the map swooping in from Apple's default location in California. Switching to the Dashboard during a route began with no position at all, because moving away from the Dashboard had stopped its location feed even mid-trip — the feed now stays on for as long as a trip is active. And on a cold start, the "finding your location" panel lifted the instant your first fix arrived, a beat before the map had actually moved to you, so you watched it travel in — the panel now stays up until the map is already centered on you, on both CarPlay screens.
+
+---
 ## Build 163 — CarPlay keeps its controls when a drive ends, and the Dashboard follows day/night
 
 NOTE TO TESTERS: Well one last unexpected RC for Version 3.0 (RC17) — this is due to some serious bugs that came in this morning.   I had to pull 162 out of the queue, so that will unfortunately reset the clock with Apple.  Thanks to Sebastian for finding the day/night issue and the disappearing controls bug.  
