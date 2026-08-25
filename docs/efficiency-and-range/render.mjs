@@ -65,7 +65,12 @@ md = md.replace(/\$([^$\n]+)\$/g, (_, src) => stash(tex(src.trim(), false)));
 // auto-generated slugs, so the contents rail can never link to a heading that
 // silently re-slugged after an edit.
 const sections = [];
-md = md.replace(/^## (.+)$/gm, (_, heading) => {
+md = md.replace(/^## (.+)$/gm, (_, rawHeading) => {
+  // Trimmed: a trailing space in the source would otherwise be carried into
+  // `## Heading  {#s7}`. kramdown currently tolerates the gap, but an IAL that
+  // stops binding takes a contents-rail link down with no error anywhere —
+  // the same silent-failure mode as a skipped render.
+  const heading = rawHeading.trim();
   const id = `s${sections.length + 1}`;
   const plain = heading.replace(/@@T(\d+)@@/g, (__, i) => store[+i].replace(/<[^>]+>/g, '')).trim();
   const m = plain.match(/^(\d+)\.\s*(.+)$/);
