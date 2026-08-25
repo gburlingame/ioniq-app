@@ -264,6 +264,21 @@
   table code { font-size: 0.8em; background: none; padding: 0; }
   table math { font-size: 0.98em; }
 
+  /* ---- Figures ----
+     The annotated screenshots are self-contained dark cards: annotate.py draws
+     their own background and burns the caption in, so one PNG reads correctly
+     here, on the forum, and in a saved copy. The hairline does real work in both
+     palettes — it defines the card edge against the light ground, and separates
+     two near-identical darks against the dark one. Alt text carries the caption
+     for screen readers, because the drawn caption is pixels. */
+  p > img {
+    display: block;
+    width: 100%; height: auto;
+    margin: 1.7rem 0 0.4rem;
+    border-radius: 10px;
+    border: 1px solid var(--hair);
+  }
+
   @media (max-width: 62rem) {
     .shell { grid-template-columns: minmax(0, 41rem); gap: 2.5rem; padding: 2.5rem 1.4rem 5rem; }
     .rail { position: static; }

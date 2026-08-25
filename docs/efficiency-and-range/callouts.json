@@ -1,0 +1,117 @@
+{
+  "raw_dir": "screenshots/raw",
+  "output_dir": "../../assets/images/efficiency-and-range",
+
+  "_note": [
+    "Every 'at', 'crop' and 'highlight' coordinate is in RAW capture pixels, so",
+    "it can be checked by opening the file in screenshots/raw and reading the",
+    "point off directly. The CarPlay captures are 1920x720; the phone capture is",
+    "1320x2868. The Range tile occupies x 1611-1801, y 124-313 of the dashboard",
+    "capture — measured, not estimated (a luminance scan for the dark tile runs",
+    "against a backdrop of ~139 mean luminance versus ~65 inside a tile)."
+  ],
+
+  "images": [
+    {
+      "name": "dashboard-where",
+      "source": "carplay-dashboard.png",
+      "scale": 0.62,
+      "highlight": [1611, 124, 1801, 313],
+      "dim": 0.6,
+      "caption": "The Range & Efficiency tile on the CarPlay dashboard — top right in this layout."
+    },
+
+    {
+      "name": "range-tile",
+      "source": "carplay-dashboard.png",
+      "crop": [1596, 112, 1818, 322],
+      "scale": 2.1,
+      "label_width": 400,
+      "caption": "Everything the tile is telling you. The trend band carries no numbers and no fixed scale on purpose — it is a shape to glance at, and the figure above it is the value.",
+      "callouts": [
+        {
+          "at": [1712, 163],
+          "label": "Range remaining",
+          "detail": "How far the app expects you to get on the energy left in the pack, at the pace you have been driving."
+        },
+        {
+          "at": [1745, 210],
+          "label": "Efficiency right now",
+          "detail": "Your efficiency over roughly the last few miles, in whichever unit you chose in Settings."
+        },
+        {
+          "at": [1733, 246],
+          "label": "Green: better than your average",
+          "detail": "The band covers about the last fifteen minutes. Green marks the stretches where you were doing better than your own recent average, amber where you were doing worse."
+        },
+        {
+          "at": [1638, 267],
+          "label": "The dashed line is that average",
+          "detail": "Your own average across what is shown — not a factory figure and not your lifetime average. It drifts as the window moves."
+        },
+        {
+          "at": [1768, 267],
+          "label": "The dot is right now",
+          "detail": "Amber here, so at this instant you were fractionally worse than your recent average — while still returning a perfectly healthy 3.4 mi/kWh."
+        }
+      ]
+    },
+
+    {
+      "name": "arrival-soc",
+      "source": "carplay-nav.png",
+      "scale": 0.62,
+      "layout": "below",
+      "label_width": 400,
+      "caption": "Estimated arrival state of charge, during active navigation. Captured one minute after the tile above — the same drive, and the same 3.4 mi/kWh.",
+      "callouts": [
+        {
+          "at": [1262, 655],
+          "label": "What you will arrive with",
+          "detail": "How much charge the app expects to be left in the pack when you reach the destination."
+        },
+        {
+          "at": [1606, 190],
+          "label": "Projected from this efficiency",
+          "detail": "The same near-term figure the Range tile shows. Arrival SoC is that pace carried forward over the distance still to go."
+        },
+        {
+          "at": [440, 672],
+          "label": "Over this remaining distance",
+          "detail": "2.8 miles left here. The shorter the remaining distance, the less room the estimate has to be wrong."
+        }
+      ]
+    },
+
+    {
+      "name": "drive-summary",
+      "source": "driving-session.png",
+      "crop": [0, 380, 1320, 2060],
+      "scale": 0.42,
+      "label_width": 400,
+      "caption": "A finished drive in History. The displayed distance and energy are each rounded for display: 4.0 mi divided by 1.0 kWh looks like 4.0 mi/kWh, but the efficiency is computed from the unrounded pair and reads 3.9.",
+      "callouts": [
+        {
+          "at": [500, 690],
+          "label": "Efficiency for the whole drive",
+          "detail": "Worked out once the drive ends, from its total distance and total energy — not an average of what the tile was showing along the way."
+        },
+        {
+          "at": [610, 1190],
+          "label": "What the drive cost",
+          "detail": "State of charge at the start and at the end. On a drive this short the percentage is coarse; the energy figure below is what the efficiency actually uses."
+        },
+        {
+          "at": [700, 1522],
+          "label": "Distance measured by the app",
+          "detail": "From GPS and the vehicle's own speed signal together, so a tunnel or a parking garage does not lose the miles."
+        },
+        {
+          "at": [300, 1872],
+          "label": "Energy read from the pack",
+          "detail": "The battery's own account of how much usable energy it has left, taken at the start and the end. Regeneration is netted off automatically."
+        }
+      ]
+    }
+  ]
+}

@@ -1,18 +1,91 @@
-# How IONIQ 5 Companion measures efficiency and estimates range
+# How EV Dashboard measures efficiency and estimates range
 
 *A walkthrough of the math, written for owners and testers who want to know exactly what the numbers on screen are made of.*
 
-**Version:** 2026-08-02 · **Applies to:** app version 3.0 (build 146) and later
+**Version:** 2026-08-25 · **Applies to:** app version 3.0 (build 146) and later
 
 ---
 
 ## Overview
 
-Your vehicle already shows a range distance and rolling efficiency on the instrument cluster, but more often than not these values do not match what is attained in real-world driving (at least not my driving).
-IONIQ 5 Companion has added a new feature for calculating efficiency and range.   These values are  **computed by the app itself**.  They are based on signals it polls out of the battery management system (BMS) and the vehicle control unit (VCU), combined with GPS signals from your mobile device.
+Your vehicle already shows a range distance and rolling efficiency on the instrument cluster, but I have found that very often these values do not match what I attained in real-world driving. I wanted to see if I could improve upon this, plus I wanted to enable some new features such as estimating your arrival state of charge (SoC) during a journey.
+
+*A caveat while it is fresh: the range estimates in my new 2026 IONIQ 5 seem better — my early impression is that they land closer to actual obtained range than I experienced with my 2024 IONIQ 5 — though I need to spend more time with the 2026 to form a more informed opinion.*
+
+Several new capabilities have been added to EV Dashboard. The app derives range and efficiency from signals it polls out of the battery management system (BMS) and the vehicle control unit (VCU), combined with GPS signals from your mobile device. Part 1 shows each of them on screen; Part 2 works through the math behind them.
+
 This paper explains what the app's numbers actually mean and how they are calculated, so you can judge which one is answering the question you are asking.
 
 ---
+
+## Part 1 — What the app shows you
+
+## The Range & Efficiency tile
+
+Most of the app's driving work ends up on one tile. It lives on the CarPlay dashboard, in whichever slot you have put it.
+
+![The Range and Efficiency tile ringed in green in the top-right slot of the CarPlay dashboard, among fifteen other tiles]({{ '/assets/images/efficiency-and-range/dashboard-where.png' | relative_url }})
+
+It is carrying three things at once: how far you can go, how efficiently you are going, and how that efficiency has been trending.
+
+![The Range tile enlarged, with five labels. One, the range remaining. Two, your efficiency right now. Three, green marks stretches better than your recent average. Four, the dashed line is that average. Five, the dot is the present moment, amber here because you were fractionally worse than your average while still returning a healthy 3.4 miles per kilowatt-hour]({{ '/assets/images/efficiency-and-range/range-tile.png' | relative_url }})
+
+### The trend band compares you against yourself
+
+The green-and-amber band is the part most worth explaining.
+
+The dashed line running across it is **your own average over the fifteen minutes on display**. It is not a factory figure, not a target, and not your lifetime average. Green marks the stretches where you were beating that average and amber the stretches where you were not — and that holds whichever efficiency unit you have chosen. If you display miles per kWh, better means higher, so green sits above the line; if you display Wh/km or kWh/100km, better means lower, and green sits below it. Green always means *better than you had been doing*, so you never have to remember which direction is good for your unit.
+
+Two things are worth knowing before you read too much into the shape:
+
+- **There is no fixed scale, and no zero.** The band stretches vertically to fit whatever is currently in it, so a very steady drive and a wildly varying one can look about equally dramatic. Read the band for the pattern — am I trending better or worse, and where did that turn? — and read the number above it for the value.
+- **The line you are being measured against moves.** Because the dashed line is the average of the very stretch being coloured, there is always some green and some amber. You cannot drive your way to an all-green band, and a long, efficient descent will drag the average down far enough to turn ordinary cruising amber.
+
+What reliably moves it: hills, speed, outside temperature, cabin heating or cooling, and stop-and-go traffic. A long descent on regenerative braking can push it deep into green.
+
+If the band is blank, it simply has not collected enough yet. It needs a couple of minutes of driving, fills in from the left, and a short stop does not wipe it.
+
+---
+
+## Estimated arrival state of charge
+
+Set a destination and the app will tell you what it expects to be left in the pack when you get there.
+
+![The CarPlay navigation map with three labels. One, the estimated arrival state of charge capsule reading 67 percent. Two, the Range tile showing the near-term efficiency the projection is built from. Three, the remaining trip distance of 2.8 miles]({{ '/assets/images/efficiency-and-range/arrival-soc.png' | relative_url }})
+
+The arithmetic is deliberately plain: the app takes the pace you have actually been driving, carries it forward over the distance still to go, and subtracts the result from what is in the pack now. There is no route lookahead behind it — no elevation model, no speed limits, no weather.
+
+That has a practical consequence worth internalising. The estimate is at its weakest at the very start of a journey whose character is about to change — a mountain pass immediately after city driving is the classic case — and it corrects itself as you go, because the pace it is extrapolating from catches up with the new road while the distance it is extrapolating over shrinks. A number that looks alarming in the first mile is usually worth re-reading five miles later.
+
+---
+
+## Your efficiency for a drive
+
+When a drive ends, the app records it. Opening it in History gives you the whole-drive figure.
+
+![A completed driving session on the phone with four labels. One, the efficiency for the whole drive, 3.9 miles per kilowatt-hour. Two, the state of charge at the start and the end. Three, the distance measured by the app. Four, the energy read from the pack]({{ '/assets/images/efficiency-and-range/drive-summary.png' | relative_url }})
+
+This is a different number from the one the tile was showing while you drove, and the difference is the point. The tile answers *how am I driving right now*, over roughly the last few miles. The session answers *how efficient was that drive*, over all of it. A drive that started cold and finished on a warm highway will show a session figure somewhere between the two extremes the tile passed through.
+
+One detail that trips people up: the three numbers here are rounded independently for display, and the efficiency is worked out before any of that happens. Above, 4.0 mi divided by 1.0 kWh looks like it should read 4.0 — but the drive used a little over 1 kWh, which displays as "1.0", while the efficiency is calculated from the full figure. Rounding once at the end is deliberate: working from the already-rounded numbers would make the efficiency itself less accurate. The gap only shows on very short drives, where a hundredth of a kWh is a large share of the total.
+
+---
+
+## Which number answers which question
+
+There are three efficiency figures which represent different things.
+
+| Number | Where you see it | What it answers |
+|---|---|---|
+| **Trip efficiency** | History ▸ a driving session | "How efficient was *that drive*?" |
+| **Near-term efficiency** | The Range tile and its trend band | "How efficient am I driving *right now*?" |
+| **Long-term efficiency** | *Nowhere — it divides into Range and arrival SoC* | "What should I expect over the miles ahead?" |
+
+The third one never appears on screen anywhere, and it is the one that moves your range. Part 2 explains why the app keeps two horizons of the same measurement rather than one.
+
+---
+
+## Part 2 — How the numbers are calculated
 
 ## 1. Notation and units
 
@@ -69,22 +142,13 @@ Rounding: Wh/mi and Wh/km display as whole numbers; the other three display to o
 
 ---
 
-## 2. Four efficiency values, one of them invisible
+## 2. Three efficiency values, one of them invisible
 
-This white paper will explain the details behind four different efficiency values that IONIQ 5 Companion computes.
-Three of them you can see; the fourth never appears on screen, but it is the one that moves your range.
+Part 1 set out the three figures and where each one appears. Two of them you can see; the third never appears on screen, but it is the one that moves your range.
 
-| Number | Where you see it | What it answers | Energy signal source |
-|---|---|---|---|
-| **Trip efficiency** | History ▸ a driving session | "How efficient was *that drive*?" | BMS available-energy delta |
-| **Near-term efficiency** | CarPlay Range chip + trend line | "How efficient am I driving *right now*?" | BMS available-energy delta |
-| **Long-term efficiency** | *Nowhere — it divides into Range and Arrival SoC* | "What should I expect over the miles ahead?" | BMS available-energy delta |
-| **Lifetime round-trip efficiency** | Dashboard ▸ Battery Odometer | "How much energy does the pack *lose to heat*?" | Lifetime BMS counters |
-
-The first three are consumption figures (energy per distance), and all three read energy from the same place — the battery's own account of how much usable energy it has left.
+All three are consumption figures (energy per distance), and all three read energy from the same place — the battery's own account of how much usable energy it has left.
 They differ only in the span they cover: one whole drive, the last few miles, or a horizon several times longer than that.
 Near-term and long-term are computed from exactly the same measurements and differ by a single constant; §4.4 explains why the app keeps both.
-The fourth is a **percentage** and is a completely different physical quantity — it is not a driving statistic at all.  Section 7 covers it separately.
 
 ---
 
@@ -272,9 +336,8 @@ Sitting in traffic or idling with the climate running spends real energy over no
 The energy keeps accruing against the open window and lands in the next measurement, so a long wait shows up as worse efficiency.
 A rise in available energy while you are *moving* is regeneration — real driving data, and kept.
 
-**This is rarer than it used to be.**
-Because distance now comes from the shared totalizer, the car's own speed signal keeps measuring through tunnels and parking garages, which previously produced no distance at all and forced the window to be thrown away.
-A window is now abandoned only when *both* the phone's GPS and the car's speed signal go quiet at once.
+**When a window is abandoned.**
+A window is only abandoned when *both* the phone's GPS and the car's speed signal go quiet at once.
 
 ### 4.3 The blend — a distance-weighted exponential moving average
 
@@ -394,7 +457,7 @@ That sample is folded **twice**, into two running averages that differ only in h
 
 | | Half-life | Where it goes |
 |---|---|---|
-| **Near-term** $e$ | 8 km | The efficiency number on the Range chip, and the trend line beneath it |
+| **Near-term** $e$ | 8 km | The efficiency number on the Range tile, and the trend band beneath it |
 | **Long-term** $e_{\text{long}}$ | 60 km | The range figure (§5) and arrival state of charge (§6) |
 
 There is no second measurement and no second window — the same energy, the same distance, the same plausibility band and limit.
@@ -454,9 +517,6 @@ The only thing that differs is the span each one covers.
 That means the two numbers cannot disagree about *what was measured* — only about *how much of the drive they are describing*.
 Finish a drive that started in city traffic and ended on the highway, and the trip figure will report the average of the whole thing while the near-term figure ends up near the highway portion. Both are right; they are answering different questions.
 
-Earlier versions measured each of these two ways — the rolling estimate integrated volts × amps and summed GPS position hops, while the trip figure used the battery's reading and a speed integral.
-Both differences have been removed, in that order.
-
 ---
 
 ## 5. Range
@@ -506,7 +566,6 @@ S_{\text{arrive}} = \max\left(0,\ S_{\text{now}} \times \left(1 - \frac{E_{\text
 $$
 
 The derivation is simple proportionality: $E_{\text{needed}}/A$ is the fraction of your remaining usable energy the trip will consume, so $1 - E_{\text{needed}}/A$ is the fraction left, and scaling today's SoC by it gives the arrival SoC.
-Because both terms come from the same BMS pair, **pack capacity cancels out** — the formula needs no capacity figure.
 
 Arrival SoC uses $e_{\text{long}}$ for the same reason range does: it is a projection across every remaining mile of the route, so it takes the long-horizon figure rather than the one describing the last few (§4.4).
 
@@ -548,33 +607,7 @@ The displayed value is tinted green at 20 % or above, amber from 10 % to 20 %, a
 
 ---
 
-## 7. Lifetime round-trip efficiency — a different number entirely
-
-On the phone Dashboard, under **Battery Odometer**, a percentage appears alongside two lifetime counters.
-It is not a driving statistic:
-
-$$
-\eta_{\text{round-trip}} = \frac{D_{\text{lifetime}}}{C_{\text{lifetime}}} \times 100\ \%
-$$
-
-where $D$ is `cumulativeEnergyDischarged` and $C$ is `cumulativeEnergyCharged`, both lifetime BMS counters from diagnostic identifier **0x0101**.
-
-**Worked example.** 6,061 kWh discharged against 6,652 kWh charged:
-
-$$
-\eta = 6061 \div 6652 \times 100 = 91.1\ \%
-$$
-
-This is the ratio of energy out to energy in over the pack's entire life.
-The missing ~9 % is energy lost as heat inside the cells during charging and discharging — ordinary electrochemical loss, not a fault.
-It tells you nothing about how you drive, and it is not used anywhere in the range calculation.
-
-The figure appears only once both counters have been observed.
-This matters more than it sounds: the two values arrive in the same message, with *charged* decoded first, so an unguarded calculation would compute $0 / C \times 100 = 0$ on the first poll after every connection and record a spurious 0 %.
-
----
-
-## 8. What the model does not do
+## 7. What the model does not do
 
 These are some things the model does not factor in, but may be explored in the future.
 
@@ -586,7 +619,7 @@ These are some things the model does not factor in, but may be explored in the f
 
 ---
 
-## 9. Constants reference
+## 8. Constants reference
 
 Every tunable that affects a number in this paper.
 
@@ -624,13 +657,12 @@ Every tunable that affects a number in this paper.
 |---|---|---|---|
 | Available energy | BMS diagnostic ID 0x0105 | 30s | 0.002 kWh |
 | State of charge | BMS diagnostic ID 0x0105 | 30s | 0.5 % |
-| Lifetime charged / discharged | BMS diagnostic ID 0x0101 | 3s | 0.1 kWh |
 | Vehicle speed | VCU | ~2.5–3s | 1/64 km/h |
 | GPS fixes | Mobile device | ~1 Hz while a drive session is active | — |
 
 ---
 
-## 10. Reading the drive recorder log
+## 9. Reading the drive recorder log
 
 Everything described in this paper writes to one file, and you do not have to remember to start it.
 The **Drive Diagnostics Recorder** (Settings ▸ Diagnostics) is on by default and writes a separate flight-recorder file for each drive; the newest ten are kept, and **Share Drive Diagnostics** hands you the most recent one.
@@ -670,11 +702,11 @@ t=+842.113 [ENERGY] evt=energy eff=185 rangeEff=178 range=292 conf=1 distKm=42.3
 pendKm=0.180 pendKWh=0.031 soc=68.0 availE=52.014 folds=37 reanch=4 clamps=0 gaps=2
 ```
 
-- `eff` — near-term efficiency in Wh/km: the number on the chip
+- `eff` — near-term efficiency in Wh/km: the number on the Range tile
 - `rangeEff` — long-term efficiency (§4.4), the value `range` was actually divided by.
   The gap between `eff` and `rangeEff` *is* the smoothing; on a steady drive they converge, and on a changing one they should differ
 - `range` — in km, before any unit conversion for display
-- `conf` — whether the 1.6 km confidence threshold has been passed (the internal flag in §9)
+- `conf` — whether the 1.6 km confidence threshold has been passed (the internal flag in §8)
 - `distKm` — measured distance this drive, taken from the shared totalizer that also builds the trip figure (§4.2)
 - `pendKm` / `pendKWh` — the window currently open: how much distance and energy have accrued toward the next update
 - `folds` — how many windows have closed and entered the moving average
@@ -685,7 +717,7 @@ pendKm=0.180 pendKWh=0.031 soc=68.0 availE=52.014 folds=37 reanch=4 clamps=0 gap
 
 `availE` is logged to three decimals because that is the signal's real resolution.
 
-Four one-off `[ENERGY]` records fill in the rest: `energy_params` stamps every constant in §9 at the start of the drive, so an old file stays interpretable after the constants are retuned; `energy_reanchor`, `energy_clamp`, and `energy_confident` each record the moment they happen, with the values that caused them.
+Four one-off `[ENERGY]` records fill in the rest: `energy_params` stamps every constant in §8 at the start of the drive, so an old file stays interpretable after the constants are retuned; `energy_reanchor`, `energy_clamp`, and `energy_confident` each record the moment they happen, with the values that caused them.
 
 ### The distance record
 
