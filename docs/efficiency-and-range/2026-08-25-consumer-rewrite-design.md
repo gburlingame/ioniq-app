@@ -10,7 +10,7 @@ without taking anything away from the one who wants the derivation.
 ## What changed
 
 1. **A new Part 1** — four illustrated sections above the existing §1, covering
-   the Range & Efficiency tile (and its trend band), arrival state of charge, and
+   the Range & Efficiency tile (and its trend line), arrival state of charge, and
    the efficiency of a completed drive. No formulas.
 2. **The existing material becomes Part 2**, its numbering intact apart from the
    removal below.

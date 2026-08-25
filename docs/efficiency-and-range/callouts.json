@@ -27,7 +27,7 @@
       "crop": [1596, 112, 1818, 322],
       "scale": 2.1,
       "label_width": 400,
-      "caption": "Everything the tile is telling you. The trend band carries no numbers and no fixed scale on purpose — it is a shape to glance at, and the figure above it is the value.",
+      "caption": "Everything the tile is telling you. The trend line carries no numbers and no fixed scale on purpose — it is a shape to glance at, and the figure above it is the value.",
       "callouts": [
         {
           "at": [1712, 163],
@@ -42,7 +42,7 @@
         {
           "at": [1733, 246],
           "label": "Green: better than your average",
-          "detail": "The band covers about the last fifteen minutes. Green marks the stretches where you were doing better than your own recent average, amber where you were doing worse."
+          "detail": "The trend line covers about the last fifteen minutes. Green marks the stretches where you were doing better than your own recent average, amber where you were doing worse."
         },
         {
           "at": [1638, 267],

@@ -92,20 +92,20 @@ It is carrying three things at once: how far you can go, how efficiently you are
 
 ![The Range tile enlarged, with five labels. One, the range remaining. Two, your efficiency right now. Three, green marks stretches better than your recent average. Four, the dashed line is that average. Five, the dot is the present moment, amber here because you were fractionally worse than your average while still returning a healthy 3.4 miles per kilowatt-hour]({{ '/assets/images/efficiency-and-range/range-tile.png' | relative_url }})
 
-### The trend band compares you against yourself
+### The trend line compares you against yourself
 
-The green-and-amber band is the part most worth explaining.
+The green-and-amber trend line is the part most worth explaining.
 
 The dashed line running across it is **your own average over the fifteen minutes on display**. It is not a factory figure, not a target, and not your lifetime average. Green marks the stretches where you were beating that average and amber the stretches where you were not — and that holds whichever efficiency unit you have chosen. If you display miles per kWh, better means higher, so green sits above the line; if you display Wh/km or kWh/100km, better means lower, and green sits below it. Green always means *better than you had been doing*, so you never have to remember which direction is good for your unit.
 
 Two things are worth knowing before you read too much into the shape:
 
-- **There is no fixed scale, and no zero.** The band stretches vertically to fit whatever is currently in it, so a very steady drive and a wildly varying one can look about equally dramatic. Read the band for the pattern — am I trending better or worse, and where did that turn? — and read the number above it for the value.
-- **The line you are being measured against moves.** Because the dashed line is the average of the very stretch being coloured, there is always some green and some amber. You cannot drive your way to an all-green band, and a long, efficient descent will drag the average down far enough to turn ordinary cruising amber.
+- **There is no fixed scale, and no zero.** The trend line stretches vertically to fit whatever is currently in it, so a very steady drive and a wildly varying one can look about equally dramatic. Read the trend line for the pattern — am I trending better or worse, and where did that turn? — and read the number above it for the value.
+- **The average you are measured against moves.** Because the dashed line is the average of the very stretch being coloured, there is always some green and some amber. You cannot drive your way to an all-green trend line, and a long, efficient descent will drag the average down far enough to turn ordinary cruising amber.
 
 What reliably moves it: hills, speed, outside temperature, cabin heating or cooling, and stop-and-go traffic. A long descent on regenerative braking can push it deep into green.
 
-If the band is blank, it simply has not collected enough yet. It needs a couple of minutes of driving, fills in from the left, and a short stop does not wipe it.
+If the trend line is blank, it simply has not collected enough yet. It needs a couple of minutes of driving, fills in from the left, and a short stop does not wipe it.
 
 ---
 
@@ -142,7 +142,7 @@ There are three efficiency figures which represent different things.
 | Number | Where you see it | What it answers |
 |---|---|---|
 | **Trip efficiency** | History ▸ a driving session | "How efficient was *that drive*?" |
-| **Near-term efficiency** | The Range tile and its trend band | "How efficient am I driving *right now*?" |
+| **Near-term efficiency** | The Range tile and its trend line | "How efficient am I driving *right now*?" |
 | **Long-term efficiency** | *Nowhere — it divides into Range and arrival SoC* | "What should I expect over the miles ahead?" |
 
 </div>
@@ -210,7 +210,7 @@ All five forms are conversions of the same underlying Wh/km value:
 </div>
 
 The two "rate" forms (distance per energy) improve as they rise; the three "consumption" forms (energy per distance) improve as they fall.
-The app tracks that polarity so the CarPlay trend band tints green for "better than your recent average" in whichever unit you picked.
+The app tracks that polarity so the CarPlay trend line tints green for "better than your recent average" in whichever unit you picked.
 
 Rounding: Wh/mi and Wh/km display as whole numbers; the other three display to one decimal.
 
@@ -553,7 +553,7 @@ That sample is folded **twice**, into two running averages that differ only in h
 
 | | Half-life | Where it goes |
 |---|---|---|
-| **Near-term** <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi></mrow><annotation encoding="application/x-tex">e</annotation></semantics></math></span> | 8 km | The efficiency number on the Range tile, and the trend band beneath it |
+| **Near-term** <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi></mrow><annotation encoding="application/x-tex">e</annotation></semantics></math></span> | 8 km | The efficiency number on the Range tile, and the trend line beneath it |
 | **Long-term** <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>e</mi><mtext>long</mtext></msub></mrow><annotation encoding="application/x-tex">e_{\text{long}}</annotation></semantics></math></span> | 60 km | The range figure (§5) and arrival state of charge (§6) |
 
 </div>
