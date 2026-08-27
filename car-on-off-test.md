@@ -12,11 +12,11 @@ Thanks for helping test a better "car on / car off" detector! This takes about 5
 parked in your driveway. You'll capture your vehicle in **3 states**: Off, On with lights off,
 and On with lights on.
 
-**You need:** your OBD adapter plugged in and connected in IONIQ 5 Companion.
+**You need:** your OBD adapter plugged in and connected in EV Dashboard.
 
 ## Step 1 — Get the scan file
 
-On your **iPhone**, tap the link below and choose **Open in "IONIQ 5 Companion."** The app
+On your **iPhone**, tap the link below and choose **Open in "EV Dashboard."** The app
 imports the list and opens its **A / B / C** capture screen.
 
 [**Download the scan file (iqlist_BCM_ignition_fleet.iqlist)**]({{ '/assets/downloads/iqlist_BCM_ignition_fleet.iqlist' | relative_url }})

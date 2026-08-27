@@ -21,9 +21,9 @@ You can also [open an issue on GitHub](https://github.com/gburlingame/ioniq-app/
 
 ## Adapter Compatibility
 
-IONIQ 5 Companion works with any ELM327-compatible Bluetooth Low Energy (BLE) adapter. The adapter must be Bluetooth LE (not classic Bluetooth or Wi-Fi).  
+EV Dashboard works with any ELM327-compatible Bluetooth Low Energy (BLE) adapter. The adapter must be Bluetooth LE (not classic Bluetooth or Wi-Fi).  
 
-These adapter have been tested and verified to work with IONIQ 5 Companion:
+These adapter have been tested and verified to work with EV Dashboard:
 
 * **Vgate vLinker MC+**
 * **Vgate iCar Pro 2S**
@@ -33,7 +33,7 @@ These adapter have been tested and verified to work with IONIQ 5 Companion:
 
 **Not compatible:** Wi-Fi adapters, and any *Classic Bluetooth* adapter — including the **OBDLink MX+**. The app connects over Bluetooth Low Energy only. Note that OBDLink's BLE model, the **OBDLink CX**, is fully supported (listed above).
 
-**Important:**  The developer already bought and tested a blue-colored semi-translucent adapter labeled ELM327.  This was purchased on Amazon for approximately $5 USD and was found to be incompatible with IONIQ 5 Companion.  
+**Important:**  The developer already bought and tested a blue-colored semi-translucent adapter labeled ELM327.  This was purchased on Amazon for approximately $5 USD and was found to be incompatible with EV Dashboard.  
 
 ## CarPlay
 
@@ -52,9 +52,9 @@ If you're experiencing connection issues or unexpected behavior:
 The app sends a notification reminding you to unplug the OBD-II adapter when your car turns off. If you're not seeing this notification, check the following:
 
 1. **In-app setting** — Go to Settings and make sure **Unplug Reminder** is turned on
-2. **iOS notification permissions** — Go to iOS Settings → Notifications → IONIQ 5 Companion and make sure **Allow Notifications** is enabled
+2. **iOS notification permissions** — Go to iOS Settings → Notifications → EV Dashboard and make sure **Allow Notifications** is enabled
 3. **Focus mode** — If you're using a Focus mode (Do Not Disturb, Driving, etc.), notifications may be silenced. Check iOS Settings → Focus to see if the app is allowed
-4. **Notification style** — In iOS Settings → Notifications → IONIQ 5 Companion, make sure **Banners** or **Alerts** is selected (not "None")
+4. **Notification style** — In iOS Settings → Notifications → EV Dashboard, make sure **Banners** or **Alerts** is selected (not "None")
 5. **Low Power Mode** — iOS may delay or suppress notifications when in Low Power Mode
 6. **The car must actually turn off** — The reminder triggers when the app detects the ignition switching off. If you disconnect the adapter before turning off the car, the notification won't fire
 
@@ -72,10 +72,10 @@ The app records your charging and driving sessions and long-term signal history 
 A: Any ELM327-compatible Bluetooth LE adapter. Make sure it's Bluetooth Low Energy (BLE), and not classic Bluetooth or Wi-Fi.
 
 **Q: My adapter isn't connecting.**  
-A: First, verify that you are using a ELM327-compatible Bluetooth LE adapter.  Next, check to make sure that Bluetooth permissions are enabled for IONIQ 5 Companion.  Check Settings / Apps / IONIQ 5 Companion.  If you continue to have trouble connecting, please reach out to the developer.
+A: First, verify that you are using a ELM327-compatible Bluetooth LE adapter.  Next, check to make sure that Bluetooth permissions are enabled for EV Dashboard.  Check Settings / Apps / EV Dashboard.  If you continue to have trouble connecting, please reach out to the developer.
 
 **Q: The BLE connection keeps disconnecting.**  
-A: Check to make sure that no other OBD-II apps (like Car Scanner, Torq, or ABRP) are running in the background. IONIQ 5 Companion and these other apps can only be run one at a time.  If you are not sure if another app is running, you can use the Adapter Quiet Check Feature.   This will run a one minute diagnostic check to verify that no other apps are running.  Settings / Diagnostics / Adapter Quiet Check.  After checking, if you still have a problem, please reach out to the developer for support.
+A: Check to make sure that no other OBD-II apps (like Car Scanner, Torq, or ABRP) are running in the background. EV Dashboard and these other apps can only be run one at a time.  If you are not sure if another app is running, you can use the Adapter Quiet Check Feature.   This will run a one minute diagnostic check to verify that no other apps are running.  Settings / Diagnostics / Adapter Quiet Check.  After checking, if you still have a problem, please reach out to the developer for support.
 
 **Q: My recorded sessions have gaps.**  
 A: When your device dims or locks, iOS may suspend the app between polls, which leaves gaps in the recording. To record continuously while you're watching, turn on **Keep Screen Awake** in Settings. With it off, your device may dim or lock and recording will pause until the app resumes.
@@ -94,6 +94,6 @@ A: Probably not in the dramatic "your car won't start" sense — your IONIQ has 
 
 ## Links
 
-* [IONIQ 5 Companion Home](.)
+* [EV Dashboard Home](.)
 * [Privacy Policy](privacy)
 * [Version History](versions)

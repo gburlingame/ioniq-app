@@ -12,14 +12,14 @@ Thanks for helping! This test checks whether the **VCU** (the module the app rea
 startup) can reliably tell the app the difference between **ON — ready to drive *or* charging** —
 and **OFF**. We need it run across the fleet and, ideally, while charging.
 
-**You need:** your OBD adapter connected in IONIQ 5 Companion, and ideally access to an **L1 or L2
+**You need:** your OBD adapter connected in EV Dashboard, and ideally access to an **L1 or L2
 charger** and/or a **DC fast charger**. Do whichever tests you can — please don't feel like you
 need to run all of them. Even just the easy **OFF / ON / OFF** run is incredibly helpful! And I
 know the summer heat makes sitting in the car rough, so thanks to everyone melting alongside me.
 
 ## Step 1 — Get the scan file
 
-On your **iPhone**, tap the link below and choose **Open in "IONIQ 5 Companion."** It opens
+On your **iPhone**, tap the link below and choose **Open in "EV Dashboard."** It opens
 automatically in **Advanced Tools → ABC test with Curated DID List**.
 
 [**Download the scan file (iqlist_VCU_state_probe.iqlist)**]({{ '/assets/downloads/iqlist_VCU_state_probe.iqlist' | relative_url }})

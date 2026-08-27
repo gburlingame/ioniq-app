@@ -1,6 +1,6 @@
-# IONIQ 5 Companion
+# EV Dashboard
 
-Support site for the IONIQ 5 Companion iOS app.
+Support site for the EV Dashboard iOS app.
 
 - [Home](https://www.theburl.com/ioniq-app/)
 - [Support](https://www.theburl.com/ioniq-app/support)
