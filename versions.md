@@ -35,7 +35,7 @@ You can now swipe between sessions while viewing one. Driving sessions gained an
 The CarPlay Dashboard's charger button, the Nearest DC Charger tile and the charger finder now always name the same station. The button could read "No chargers nearby" while the finder showed one a few miles away, because it only looked inside the small box of map around the car. All three now ask one question: the nearest charger matching your filter, with no distance limit.   Thanks Joe!
 
 ---
-## Build 164 — Charging sessions survive a dropout, and the CarPlay map stops arriving from California
+## Build 164 — Charging sessions survive a dropout, and the CarPlay map stops arriving from California - App Store Version 3.0
 
 NOTE TO TESTERS:  One more bug came in, stemming from a recent fix I had made to end charging sessions that were remaining open indefinitely.  This is RC18 for Version 3.0.
 
