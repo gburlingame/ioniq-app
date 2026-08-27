@@ -6,7 +6,7 @@ nav_order: 1
 
 # EV Dashboard
 
-A real-time diagnostics app for the Hyundai IONIQ family. Connect an ELM327-compatible Bluetooth OBD-II adapter to monitor your battery, charging sessions, temperatures, and more — right from your iPhone or CarPlay.
+A real-time diagnostics app for the Hyundai, Kia, and Genesis E-GMP family. Connect an ELM327-compatible Bluetooth OBD-II adapter to monitor your battery, charging sessions, temperatures, and more — right from your iPhone or CarPlay.
 
 ## Features
 
@@ -15,10 +15,10 @@ A real-time diagnostics app for the Hyundai IONIQ family. Connect an ELM327-comp
 * **Driving tab** — Two rows of live chips: pack state of charge, pack power, odometer, 12V state, cell delta, motor RPM, headlights — and tire pressures, climate, preconditioning, battery heater, battery temperature, regen power, brake light
 * **Tire-pressure tile** — Pressure and temperature
 * **12V chip** — State of charge, voltage, and current
-* **Compass** — Optionally swap the odometer chip for a live compass; tap it for a full-screen heading
-* **Status tab** — When the car is parked: connection state, ECU scan status, polling headroom, and ICCU details
-* **Dynamic Charging tab** — Appears during EVSE sessions, with a session timer to keep track of your charge time at a quick glance
-* **Dynamic EVSE tab** — Appears during charging with session details — see what capabilities the EVSE has communicated to your vehicle
+* **Compass** — A live compass tile; tap it for a full-screen heading
+* **Customize Tiles** — *New in Version 3.0:* Choose which tiles are visible and where they sit, with separate full-screen and split-screen layouts
+* **Status page** — Connection state, ECU scan status, and polling headroom, available any time
+* **Dynamic Charging page** — Appears on its own when a charging session begins
 
 ### Charging telemetry
 

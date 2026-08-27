@@ -1,5 +1,5 @@
 title: EV Dashboard
-description: iOS diagnostics app for the Hyundai IONIQ family
+description: iOS diagnostics app for the Hyundai, Kia, and Genesis E-GMP family
 remote_theme: just-the-docs/just-the-docs
 
 baseurl: "/ioniq-app"

@@ -37,7 +37,7 @@ These adapter have been tested and verified to work with EV Dashboard:
 
 ## CarPlay
 
-CarPlay support is automatic — when your iPhone is connected to CarPlay and the app is running, you'll see Driving, Charging, a Status tab, and (during charging) an EVSE tab in the CarPlay interface with live-updating data. The Status tab shows connection state, ECU scan status, and adapter details when the car is parked.
+CarPlay support is automatic — when your iPhone is connected to CarPlay and the app is running, you'll see Driving and Status pages with live-updating data, plus a Charging page that appears on its own when a session begins. The Status page shows connection state, ECU scan status, and polling headroom.
 
 ## Capturing Diagnostics
 
@@ -84,7 +84,7 @@ A: When your device dims or locks, iOS may suspend the app between polls, which 
 A: See the [home page](.) for the most up-to-date list.
 
 **Q: How does CarPlay work?**  
-A: Connect your iPhone to CarPlay as usual. The app appears automatically with Driving, Charging, Status, and (during charging) EVSE tabs showing live data.
+A: Connect your iPhone to CarPlay as usual. The app appears automatically with Driving and Status pages showing live data, plus a Charging page that appears when a session begins.
 
 **Q: How do I capture a diagnostic log?**  
 A: See the "Capturing Diagnostics" section above.
