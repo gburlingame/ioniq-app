@@ -9,6 +9,32 @@ nav_order: 5
 
 
 ---
+## Build 170 — OBDLink MX+ support, as much as a 33% reduction in on-device storage, improvement to "nearest charger", sentinel values stay out of historical data visuals, history improvements
+
+NOTE TO TESTERS:  Version 3.0 is now live in the Apple App Store!   Thanks to everyone for the continued help and support!  I've created a community forum at forum.imanevp.com - I'd love to have all of you join me there if you have the time!  This is the first build of Version 3.5, and the first to support the OBDLink MX+.  The jump from build 164 to 170 is deliberate — nothing is missing.
+
+### OBDLink MX+ support
+The MX+ is a Bluetooth Classic adapter, invisible to the Bluetooth LE scan every other supported adapter answers.  It connects through Apple's External Accessory framework and not CoreBluetooth. Pair it once in system Bluetooth settings, then tap Scan and it appears in the adapter list labeled "Bluetooth Classic". It is the fastest poller the app supports - without any optimizations I am seeing close to 60% polling headroom.  This adapter also supports pairing and bonding for added security.
+
+### When another app takes the MX+
+Only one app can hold an MX+ at a time — an iOS rule, not a bug — so a second app connecting disconnects ours. That used to crash the app; now it reads "Disconnected (another app)" on the phone and "Disconnected by another OBD-II app." on CarPlay, and reconnecting afterward is more reliable. The app deliberately does not grab it back — the other app reconnects on its own timer, so the two would just fight. Close it and tap Connect.
+
+### Adapter interference
+Interference detection now covers the MX+, as do Adapter Quiet Check and the Debug Adapter Command console — all three were listening to a Bluetooth LE stream an MX+ session never carries. The app also no longer accuses itself: a sleeping adapter that wakes and answers a question the app had given up on looked exactly like a second app.
+
+### Impossible readings stay out of the charts (available energy and SoC%)
+When the vehicle sends the sentinel value of 0xFFFF for available energy instead of a measurement, the app no longer charts it as data. A GV60 recorded 131.070 kWh of Available Energy — the all-ones ceiling of the field, not a corrupt number — and one such point blows out a chart's axis and stands as the session maximum. The ICCU's 12V state of charge reads as a permanent 255%. Both now stay out of charts and statistics, including data already recorded; live gauges and CSV exports are unchanged.  Thanks Chuck!
+
+### As much as a 33% reduction in storage space
+History charts now read from data carried inside each recorded snapshot, instead of a separate on-device index rebuilt in the background: sessions that could show "Buffering chart data" forever — after a reinstall, a restore, or an iCloud catch-up — render immediately, and as much as 33% of the used space comes back with the retired index. 
+
+### Historical session improvements
+You can now swipe between sessions while viewing one. Driving sessions gained an Ambient Temp chart, and every recorded drive already has the data, so old sessions show it too. Charging sessions now record the Odometer reading taken when the charge started, for charges recorded from this build onward.  Thanks to everyone who requested these two features!
+
+### One answer for "nearest charger"
+The CarPlay Dashboard's charger button, the Nearest DC Charger tile and the charger finder now always name the same station. The button could read "No chargers nearby" while the finder showed one a few miles away, because it only looked inside the small box of map around the car. All three now ask one question: the nearest charger matching your filter, with no distance limit.   Thanks Joe!
+
+---
 ## Build 164 — Charging sessions survive a dropout, and the CarPlay map stops arriving from California
 
 NOTE TO TESTERS:  One more bug came in, stemming from a recent fix I had made to end charging sessions that were remaining open indefinitely.  This is RC18 for Version 3.0.
