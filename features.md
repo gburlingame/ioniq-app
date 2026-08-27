@@ -94,9 +94,7 @@ Powerful tools to help enthusiasts learn more about their vehicles, with result 
 
 ## Supported vehicles
 
-The app ships per-vehicle registries with full or partial coverage:
-
-**Verified full support**
+The app ships per-vehicle registries with verified full support for:
 
 * **IONIQ 5**
 * **IONIQ 5 N**
@@ -105,9 +103,6 @@ The app ships per-vehicle registries with full or partial coverage:
 * **Kia EV6**
 * **Kia EV6 GT**
 * **Kia EV9**
-
-**Coming soon**
-
 * **Kia EV3**
 * **Genesis GV60**
 

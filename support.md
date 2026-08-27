@@ -21,7 +21,7 @@ You can also [open an issue on GitHub](https://github.com/gburlingame/ioniq-app/
 
 ## Adapter Compatibility
 
-EV Dashboard works with any ELM327-compatible Bluetooth Low Energy (BLE) adapter. The adapter must be Bluetooth LE (not classic Bluetooth or Wi-Fi).  
+EV Dashboard works with all popular brand name ELM327-compatible Bluetooth Low Energy (BLE) adapters. The adapter must be Bluetooth LE (not classic Bluetooth or Wi-Fi).  
 
 These adapter have been tested and verified to work with EV Dashboard:
 
@@ -69,7 +69,7 @@ The app records your charging and driving sessions and long-term signal history 
 ## Frequently Asked Questions
 
 **Q: Which OBD-II adapters work with this app?**  
-A: Any ELM327-compatible Bluetooth LE adapter. Make sure it's Bluetooth Low Energy (BLE), and not classic Bluetooth or Wi-Fi.
+A: Any popular brand name ELM327-compatible Bluetooth LE adapter. Make sure it's Bluetooth Low Energy (BLE), and not classic Bluetooth or Wi-Fi.
 
 **Q: My adapter isn't connecting.**  
 A: First, verify that you are using a ELM327-compatible Bluetooth LE adapter.  Next, check to make sure that Bluetooth permissions are enabled for EV Dashboard.  Check Settings / Apps / EV Dashboard.  If you continue to have trouble connecting, please reach out to the developer.

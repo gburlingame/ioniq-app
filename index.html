@@ -9,10 +9,7 @@ nav_exclude: true
 <nav><div class="nav-inner">
   <div class="brand"><img src="{{ '/assets/images/app-icon-64.png' | relative_url }}" alt="">EV Dashboard</div>
   <div class="nav-links">
-    <a href="#features">Features</a>
-    <a href="#carplay">CarPlay</a>
-    <a href="#data">Data</a>
-    <a href="#vehicles">Vehicles</a>
+    <a href="https://forum.imanevp.com" target="_blank" rel="noopener" class="pill-ghost"><span class="material-symbols-outlined">forum</span><span class="label">Community</span></a>
     <a href="https://github.com/gburlingame/ioniq-app/issues" target="_blank" rel="noopener" class="pill-ghost"><span class="material-symbols-outlined">bug_report</span><span class="label">Report an Issue</span></a>
     <a href="https://apps.apple.com/app/id6761347502" target="_blank" rel="noopener" class="pill">Download</a>
   </div>
@@ -83,7 +80,7 @@ nav_exclude: true
       <h2>Your data &mdash; beautifully in CarPlay</h2>
       <p class="lead">No need to look at your phone. The most important numbers live right on your vehicle's main display.</p>
       <ul class="feature-list">
-        <li><span class="material-symbols-outlined">check_circle</span>Two rows of live chips while driving &mdash; SoC, power, odometer, cell delta, motor RPM, climate, tire pressures, and more</li>
+        <li><span class="material-symbols-outlined">check_circle</span>Two rows of live chips while driving &mdash; SoC, power, range, cell delta, motor RPM, climate, tire pressures, nearest DC charger, and more</li>
         <li><span class="material-symbols-outlined">check_circle</span>A Status view when parked: connection, ECU scan, polling headroom, ICCU details</li>
         <li><span class="material-symbols-outlined">check_circle</span>Charging and EVSE views that appear automatically during a session, with a session timer</li>
         <li><span class="material-symbols-outlined">check_circle</span>Swap the odometer chip for a live compass &mdash; tap for a full-screen heading</li>
@@ -212,17 +209,16 @@ nav_exclude: true
     <div class="vchip"><span class="dot full"></span>Kia EV6</div>
     <div class="vchip"><span class="dot full"></span>Kia EV6 GT</div>
     <div class="vchip"><span class="dot full"></span>Kia EV9</div>
-    <div class="vchip"><span class="dot near"></span>Kia EV3</div>
-    <div class="vchip"><span class="dot near"></span>Genesis GV60</div>
+    <div class="vchip"><span class="dot full"></span>Kia EV3</div>
+    <div class="vchip"><span class="dot full"></span>Genesis GV60</div>
   </div>
-  <div class="veh-legend"><span style="color:var(--primary)">&#9679;</span> Verified full support &nbsp;&nbsp; <span style="color:var(--tertiary)">&#9679;</span> Coming soon</div>
 </div></section>
 
 <!-- ADAPTERS -->
 <section id="adapters" class="pad"><div class="wrap center">
   <div class="eyebrow">Which adapter?</div>
-  <h2>Any BLE ELM327 adapter works</h2>
-  <p class="lead center">The app talks to your car through an inexpensive OBD-II adapter. It just has to be <b>Bluetooth Low Energy (BLE)</b>. These are tested and verified:</p>
+  <h2>Works with all popular brand name BLE ELM327 adapters</h2>
+  <p class="lead center">The app talks to your car through an inexpensive OBD-II adapter. It has to be <b>Bluetooth Low Energy (BLE)</b>. These are tested and verified:</p>
   <div class="veh">
     <div class="vchip"><span class="material-symbols-outlined ok">check_circle</span>Vgate vLinker MC+</div>
     <div class="vchip"><span class="material-symbols-outlined ok">check_circle</span>Vgate iCar Pro 2S</div>
@@ -260,6 +256,7 @@ nav_exclude: true
     <div class="foot-brand"><img src="{{ '/assets/images/app-icon-64.png' | relative_url }}" alt="">EV Dashboard</div>
     <div class="foot-links">
       <a href="{{ '/support' | relative_url }}">Support</a>
+      <a href="https://forum.imanevp.com" target="_blank" rel="noopener">Community Forum</a>
       <a href="{{ '/features' | relative_url }}">Full Feature List</a>
       <a href="{{ '/versions' | relative_url }}">Version History</a>
       <a href="{{ '/why-some-features-are-hard' | relative_url }}">Why Some Features Are Hard</a>
