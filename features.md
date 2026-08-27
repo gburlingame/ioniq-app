@@ -12,17 +12,36 @@ A real-time diagnostics app for the Hyundai, Kia, and Genesis E-GMP family. Conn
 
 ### CarPlay
 
-* **Driving tab** — Two rows of live chips: pack state of charge, pack power, odometer, 12V state, cell delta, motor RPM, headlights — and tire pressures, climate, preconditioning, battery heater, battery temperature, regen power, brake light
-* **Tire-pressure tile** — Pressure and temperature
-* **12V chip** — State of charge, voltage, and current
-* **Compass** — A live compass tile; tap it for a full-screen heading
-* **Customize Tiles** — *New in Version 3.0:* Choose which tiles are visible and where they sit, with separate full-screen and split-screen layouts
+* **Driving page** — Two rows of live chips: pack state of charge, pack power, range, cell delta, 12V state, motor RPM, headlights, odometer — and tire pressures, climate, preconditioning, battery heater, battery temperature, regen power, brake light, nearest DC charger
+* **Customize Tiles** — *New in Version 3.0:* Choose which of the 20 tiles appear and where they sit, with separate full-screen (2×8) and split-screen (2×4) layouts
+* **Help for every tile** — *New in Version 3.0:* Each tile on your layout has its own authored Help page, illustrated with the live tile itself
 * **Status page** — Connection state, ECU scan status, and polling headroom, available any time
 * **Dynamic Charging page** — Appears on its own when a charging session begins
+* **Apple Dashboard** — A live charger map with two tiles of your choosing beside it
+* **Compass** — Driven by your car's own heading; tap it for a full-screen heading
+* **Tire-pressure tile** — Pressure and temperature
+* **12V chip** — State of charge, voltage, and current
+
+### Chargers and navigation
+
+* **DC fast-charge finder** — Roughly 60,000 sites, bundled with the app and searchable without a network connection
+* **Data worth trusting** — U.S. and Canadian sites come straight from the U.S. DOE / NRCan Alternative Fuels Data Center; Open Charge Map covers the rest of the world. Stations only Teslas can use are excluded
+* **Filters that apply instantly** — By minimum speed (≥50kW and up) and by charging network, anywhere in the world
+* **Turn-by-turn navigation** — Route to a charger or a searched address, talked through every turn in a voice you pick
+* **Saved destinations** — Keep the places you come back to
+* **Estimated arrival SoC** — Your projected state of charge on arrival, averaged over recent projections so it settles instead of jumping
+* **Updates without an App Store release** — Settings → Navigation → Check for Update swaps in a newer charger database in place
+
+### Range and efficiency
+
+* **Live range estimate** — Fed by a long-term efficiency average, so the number stays steady instead of swinging with the last hill
+* **Recent-efficiency trend** — The smaller figure beneath the range tracks your recent driving instead
+* **The whole method is published** — See [How Range and Efficiency Are Calculated](efficiency-and-range) for every formula worked out
 
 ### Charging telemetry
 
-* **Live AC and DC charging detection**
+* **Live AC and DC charging detection** — Read from the vehicle's own charge-type flags
+* **Three-phase AC power** — Measured per phase, so three-phase supplies read correctly
 * **EVSE max voltage / current / power** — J1772 + CCS
 * **Control Pilot duty cycle** — The EVSE's advertised max-current capability
 * **ICCU input voltage and AC current**
@@ -30,7 +49,7 @@ A real-time diagnostics app for the Hyundai, Kia, and Genesis E-GMP family. Conn
 ### Preconditioning readiness ETA
 
 * **Live "Time to 70°F / 21°C" battery-temperature ETA** — When your pack will be ready for optimal DC fast charging
-* **Visible on the Dashboard and as a CarPlay chip during preconditioning** — Now also visible on the Driving tab for the drive to the station
+* **On the Dashboard and in CarPlay** — Including the Driving page, so you can watch it the whole drive to the station
 
 ### Live Dashboard
 
@@ -49,7 +68,7 @@ A real-time diagnostics app for the Hyundai, Kia, and Genesis E-GMP family. Conn
 * **Outside and cabin temperature, relative humidity**
 * **Indicators for headlights** (low and high beams) and brake lights
 * **Isolation resistance and polling headroom** — With explanatory info
-* **ECU scan status** — See which of your vehicle's modules are responding
+* **Connection Report** — Which modules are reporting, the adapter's name, firmware and protocol, polling statistics, per-module coverage, and a timeline of connects and drop-outs — exportable as CSV
 * **ICCU details share card** — VIN-redacted share sheet for easy sharing
 
 ### History and iCloud
@@ -63,7 +82,9 @@ A real-time diagnostics app for the Hyundai, Kia, and Genesis E-GMP family. Conn
 
 ### Inspect
 
-* **J1979 OBD-II Scanner** — Standard mode 01-09 read-out for adapter compatibility checking
+* **J1979 OBD-II Scanner** — Standard mode 01–09 read-out for adapter compatibility checking
+* **Enhanced DTC Scan** — Manufacturer-specific trouble codes from every module the car exposes, with modules identified by name
+* **Share or export any scan** — As an image, or as a CSV carrying a metadata header and one row per code
 * **DTC reassurance** — Known-benign permanent codes (e.g. P0C17) come with a contextual explanation rather than an alarm
 
 ### Advanced Tools
@@ -74,11 +95,12 @@ Powerful tools to help enthusiasts learn more about their vehicles, with result 
 * **ECU Finder** — A full scan to find all the ECUs your vehicle exposes
 * **Curated DID List** — An in-depth scan of a single ECU across all 65535 addresses, with `.iqlist` sharing between testers
 * **ABC test** — Use the curated list to hunt for interesting new signals
-* **Adapter Quiet Check** — Detect foreign-app interference on the shared BLE adapter
+* **Adapter interference detection** — The app notices when another OBD-II app takes over the shared adapter; Adapter Quiet Check confirms it on demand
 * **Full diagnostic recording** — Capture sessions for later analysis
 
 ### Settings and customization
 
+* **Themes** — Eight palettes, chosen separately for the app and for CarPlay
 * **Units your way** — Independent preferences for temperature, distance, speed, pressure, power, and efficiency
 * **Appearance** — Auto, Light, or Dark
 * **Reorder the Dashboard** — Drag sections into the order you want, or hide the ones you don't use
@@ -88,9 +110,9 @@ Powerful tools to help enthusiasts learn more about their vehicles, with result 
 
 ### Languages and notifications
 
-* **Multi-language support** — Deutsch, English, Español, Français, Italiano, Nederlands, Svenska, Türkçe, 한국어, with an in-app language picker
+* **Multi-language support** — Deutsch, English, Español, Français, Italiano, Nederlands, Svenska, Türkçe, 日本語, 한국어, with an in-app language picker
 * **Unplug reminder** — Notification when the car turns off reminding you to unplug the adapter
-* **OBD-II adapter compatibility** — Works with inexpensive ELM327-compatible Bluetooth LE adapters
+* **OBD-II adapter compatibility** — Works with inexpensive, popular brand name ELM327-compatible Bluetooth LE adapters
 
 ## Supported vehicles
 
