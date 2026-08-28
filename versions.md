@@ -9,6 +9,23 @@ nav_order: 5
 
 
 ---
+## Build 171 — Vgate vLinker FS support, and a new Module Temps tile for CarPlay
+
+NOTE TO TESTERS:  Two things to try in this one.  The Vgate vLinker FS is now supported — it is the second Bluetooth Classic adapter the app handles, after the OBDLink MX+.  The Vgate also has great polling headroom (50%) without any optimizations, and it is only $60.23 on Amazon Prime (inclusive of MA sales tax).  There is a new CarPlay tile showing every temperature sensor in the pack; it is opt-in, so you have to add it yourself under Settings / CarPlay / Customize Tiles.  Please add this new tile to your CarPlay layouts and let me know what you think!   Preview also available on the support forum here if you prefer:  https://forum.imanevp.com/t/display-module-temps-in-4x4-heat-map-tile/63/3
+
+### Vgate vLinker FS support
+The vLinker FS is a Bluetooth Classic adapter like the OBDLink MX+, so it does not answer the Bluetooth LE scan. Pair it once in iOS Settings → Bluetooth and it appears in the app's adapter list labeled "Bluetooth Classic". The app shows the name the adapter reports over the accessory link — "vLinker FS" — while iOS Settings shows a longer "vLinker FS 53951", the last five digits of the serial number. Connect, setup and polling all worked on the first attempt in the car.
+
+### New CarPlay tile: Module Temps
+A quick look at the pack module temperatures the battery management system reports: one tinted cell per sensor, running cool blue through green to hot red, with the coolest and warmest modules on a line beneath the grid in your chosen temperature unit. The tile is not part of any existing layout — add it from Settings → CarPlay → Customize Tiles.
+
+### One color scale on both screens
+The phone's Module Temperatures grid used five stepped colors, so a module could hold one flat color across a whole band and then jump a shade. Both the grid and the new tile now use one continuous blue → cyan → green → orange → red ramp, and the phone's grid gained a gradient bar beneath it, labeled at the temperatures the old swatches divided on. Small differences between modules show now instead of being rounded away.
+
+### The grid updates as one reading
+Your vehicle reports module temperatures roughly every 30 seconds. The first several modules were repainting as soon as they arrived while the rest waited for the next report, so the grid could show two different moments at once — up to 27 seconds apart. Every cell now changes together, and the Min, Avg, Max and Delta figures below describe exactly the modules on screen.
+
+---
 ## Build 170 — OBDLink MX+ support, as much as a 33% reduction in on-device storage, improvement to "nearest charger", sentinel values stay out of historical data visuals, history improvements
 
 NOTE TO TESTERS:  Version 3.0 is now live in the Apple App Store!   Thanks to everyone for the continued help and support!  I've created a community forum at forum.imanevp.com - I'd love to have all of you join me there if you have the time!  This is the first build of Version 3.5, and the first to support the OBDLink MX+.  The jump from build 164 to 170 is deliberate — nothing is missing.
