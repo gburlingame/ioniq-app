@@ -9,6 +9,15 @@ nav_order: 5
 
 
 ---
+## Build 172 — 2026 IONIQ 6 Headlights fix, Charging timer jankiness fixed
+
+### 2026 IONIQ 6: the Headlights indicator no longer follows the daytime running lights
+On the 2026 IONIQ 6 the Headlights indicator came on the moment you shifted out of Park in daylight and then stayed on for the rest of the drive — the daytime running lights were being counted as headlights. The indicator now reads the headlamp's own control module instead of the body controller, checked against captures covering manual, AUTO, high beam, daytime running lights, and both Park and Drive.  Thanks to Dieter and Michael for helping to find and map the new ECU that revealed a working headlight signal.  Please keep an eye on the Polling Headroom chip — this new reading returns a 103-byte response, about 15 CAN frames over Bluetooth, so I want to know what it costs you.
+
+### The charging timer now runs on the clock
+Elapsed time in a charging session only moved when new data arrived from the vehicle, so the digits landed wherever Bluetooth traffic happened to fall. Across a measured 30-minute DC session the readout would sit still for as long as two seconds, then flip twice inside a blink, and it skipped three seconds outright. Both the phone Dashboard and the CarPlay Charging page now advance once a second on the clock, counted from the moment the session opened — so the timer also keeps ticking evenly through an adapter stall instead of freezing and then catching up.
+
+---
 ## Build 171 — Vgate vLinker FS support, and a new Module Temps tile for CarPlay
 
 NOTE TO TESTERS:  Two things to try in this one.  The Vgate vLinker FS is now supported — it is the second Bluetooth Classic adapter the app handles, after the OBDLink MX+.  The Vgate also has great polling headroom (50%) without any optimizations, and it is only $60.23 on Amazon Prime (inclusive of MA sales tax).  There is a new CarPlay tile showing every temperature sensor in the pack; it is opt-in, so you have to add it yourself under Settings / CarPlay / Customize Tiles.  Please add this new tile to your CarPlay layouts and let me know what you think!   Preview also available on the support forum here if you prefer:  https://forum.imanevp.com/t/display-module-temps-in-4x4-heat-map-tile/63/3
