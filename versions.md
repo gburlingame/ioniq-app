@@ -9,6 +9,29 @@ nav_order: 5
 
 
 ---
+## Build 173 — Settings sync to iCloud, support for multiple vehicles, additional way to filter chargers
+
+NOTE TO TESTERS:  In this build the ability to synchronize your settings/preferences with iCloud has been added.  This is handy if you use more than one device or upgrade your device.  Support for more than one vehicle has also been added in this build.  Also a nice quality of life improvement - you can edit tire pressure settings without being connected to your vehicle.
+
+### Your settings now follow you between devices
+Settings ▸ History has become Settings ▸ iCloud: the History sync controls are unchanged, and a new Settings section adds a "Sync to iCloud" switch, on by default. Units, themes, language, dashboard and CarPlay layouts, charger filters, saved destinations, tire settings and vehicle nicknames (NEW) now mirror across every device on the same Apple Account.  If two devices were already set up differently, the app asks once which set to keep.
+
+### History keeps your vehicles apart
+If the app has been connected to more than one vehicle, a Vehicle picker now sits at the top of the History tab and scopes everything below it — the session list, every signal chart, and the statistics beside them — to one vehicle at a time. Previously every vehicle's drives were interleaved in one list and their readings drawn as a single line. Vehicles are named automatically from the VIN, for example "2024 IONIQ 5 AWD LR", and can be renamed. "All Vehicles" still shows everything together, and any chart spanning more than one now says so on screen. Connect to a different vehicle and a banner offers to switch — it never switches on its own. The picker is hidden entirely if only one vehicle has ever been connected.
+
+### Tire settings for any vehicle, not just the one you're sitting in
+Settings ▸ Tires used to appear only while a vehicle was connected, so an owner of two cars had to go out to whichever one they wanted to adjust. A Vehicle row at the top now names the car being edited, with a menu to switch between them. 
+
+### CarPlay: every charger network in your country
+The charger network filter only listed networks with a station within about 30 km of the map, so a network whose nearest site sat further out was not offered as a choice at all — a tester planning a Büsum to Nancy trip could not find Ionity, whose nearest station to Büsum is about 70 km away. The filter now shows "Nearby Networks", which behaves exactly as before, and beneath it "All Networks in Germany", named for whichever country or countries are within reach. A network with stations close by still reads "(3 nearby)"; one that only exists further out reads "(144 in Germany)".
+
+### CarPlay: recenter the charger map, Help arrows, and the Colorize setting's name
+The charger map has a recenter button — a car icon at the top of the floating cluster, above +, that slides the map back over your vehicle at whatever zoom you were already using, then holds still rather than following you. In Help, the two tip-paging arrows have traded places: forward is now the top button of the pair (a tester's suggestion). And the Climate setting is now called "Colorize Climate Tile", describing what it actually does now that Climate and Cabin are separate tiles whose cells each color by their own temperature.  Thanks Tony, Chuck, and Tom!  
+
+### Known-good adapters, named by model
+The footer under the Welcome screen's OBD-II Adapter section, and the same copy in Settings ▸ OBD-II Adapter, now names hardware instead of describing it: "Works with all popular brand name BLE adapters. Also works with these Bluetooth adapters: OBDLink MX+, Vgate vLinker FS, and Vgate vLinker MS."
+
+---
 ## Build 172 — 2026 IONIQ 6 Headlights fix, Charging timer jankiness fixed
 
 ### 2026 IONIQ 6: the Headlights indicator no longer follows the daytime running lights
