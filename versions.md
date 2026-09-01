@@ -9,6 +9,26 @@ nav_order: 5
 
 
 ---
+## Build 174 — Location map added to Charging Sessions, Classic Bluetooth adapter fixes
+
+NOTE TO TESTERS:  I want to mention the preferred method of bug reporting and feature requests is the new community forum:  forum.imanevp.com.   The forum offers a lot of advantages.  I like the fact that other members can see the reports and perhaps benefit from the discourse.   With that said, I don't want to discourage anyone from sending me feedback via other channels.  I'll always meet you in the spot that works best for you and I'm always thankful for your feedback - wherever and however it reaches me! 
+
+### Charging sessions now record where they happened
+When a charge starts, the app captures the charger's location and stores it with the session. If the app isn't on screen it uses the spot where your drive ended, and it trusts that spot only if it is recent or the odometer confirms the vehicle hasn't moved since.  If neither is available it quietly tries again the next time you open the app during the charge. Sessions recorded before this build have no location and are unchanged.
+
+### A map of where you charged
+The session detail page shows a square map tile beside "Tap to add photo". Tapping it opens a full map with two actions: Open in Apple Maps, and Remove Location — behind a confirmation, because the removal is permanent. Share cards for charging sessions now include the map as well, beside the photo or in its place, and the AC/DC Charging and Battery Warmer bands have moved down into the charts grid to make room.
+
+### Reconnecting to an adapter always starts clean
+Reconnecting to a classic Bluetooth adapter without leaving the app — after tapping Disconnect, or after an interference disconnect — could skip adapter setup entirely. If the adapter had gone to sleep in between, it came back at factory settings and everything after that was garbled: false "adapter interference" alerts, and then a loop of forced disconnects. A new connection now always runs the full setup. Thanks Tony!
+
+### "Adapter Out of Reach"
+When Auto-Connect is on and your saved classic Bluetooth adapter isn't reachable — asleep, or out of Bluetooth range — the Dashboard panel, Settings, and the CarPlay Status page now read "Adapter Out of Reach" rather than "Disconnected" with a "is it plugged in?" nag. It is a quiet, neutral state with a footer explaining that the app reconnects on its own, and on CarPlay the Connect button is hidden while it shows, since there is nothing there for a tap to reach.
+
+### CarPlay Status page no longer contradicts itself
+On a sleeping vehicle the Status page could show a red ECU chip and a live Polling Headroom percentage next to a Scan Status of "Not Available". Both halves of the card now come from the same source, so they can no longer disagree. Thanks Tony!
+
+---
 ## Build 173 — Settings sync to iCloud, support for multiple vehicles, additional way to filter chargers
 
 NOTE TO TESTERS:  In this build the ability to synchronize your settings/preferences with iCloud has been added.  This is handy if you use more than one device or upgrade your device.  Support for more than one vehicle has also been added in this build.  Also a nice quality of life improvement - you can edit tire pressure settings without being connected to your vehicle.
