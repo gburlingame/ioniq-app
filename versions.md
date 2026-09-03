@@ -9,6 +9,29 @@ nav_order: 5
 
 
 ---
+## Build 175 — Charge-port temperatures while charging, Battery Temps appear more quickly, Classic Bluetooth adapter interference detection change
+
+NOTE TO TESTERS:  I need your help verifying that the new charge-port temperature feature is working across the fleet.  Please check this out while conducting AC and DC charging sessions.  In order to make room for the new payload, I'm pausing brake light polling while charging - that's something new.   Please be on the lookout for anything strange.
+
+### Charge-port inlet temperatures while charging
+Your car's charge port carries three temperature sensors — two on the DC pins, one on the AC pins — and the app now reads them while a charge is running. On CarPlay, the AC inlet plots at the foot of the AC Input panel, and both DC inlets plot as an amber band in a new panel under the SoC ring; the phone's Charging section gains matching chips and charts, and all three record to History in your temperature unit. The mapping is confirmed on 2022–2024 cars and only byte-aligned on the 2026 layout, so read the numbers as trends for now and tell me how your first real AC and DC sessions look.
+
+### The Brake Light tile pauses while charging
+A charge is the one time the brake light cannot matter, so the app stops asking for it until the charge ends. The CarPlay tile and the phone's Overview chip show a dash rather than a stale On or Off, and the wire is quieter overall during a charge despite the new temperature reading.
+
+### Battery Temps appear more quickly
+The CarPlay Battery Temp tile used to wait for a second reading before drawing anything, costing about 30 seconds after you connect; it now draws the first one as the flat line it is.
+
+### Tweaks to charging plots
+Empty plots on the charging pages no longer print a phantom "1.0 / 0.5 / 0" scale before any data arrives — the axis appears with the first sample. Temperature plots also hold a minimum span of 4°C / 7°F, so a steady pack no longer sits pinned to the bottom edge and a one-degree drift no longer stretches across the whole tile.
+
+### The navigation route line has a darker edge
+The route now draws as a blue line over a darker blue casing, the way Apple Maps does, so it keeps a hard edge against pale roads and against dark satellite tiles. Both the Dashboard pane's map and the main CarPlay navigation map get it.
+
+### Adapter Interference no longer runs on Classic Bluetooth adapters
+iOS hands a Classic Bluetooth adapter — the vLinker FS, the OBDLink MX+ — to exactly one app at a time, so a second OBD app can never be sharing the link, and every interference verdict on those adapters was a false alarm. Three of them disconnected people mid-session for their own adapter's late replies. Detection is unchanged on Bluetooth LE adapters, where another app really can share the link, and an adapter being taken away by another app is still detected and reported as before.
+
+---
 ## Build 174 — Location map added to Charging Sessions, Classic Bluetooth adapter fixes
 
 NOTE TO TESTERS:  I want to mention the preferred method of bug reporting and feature requests is the new community forum:  forum.imanevp.com.   The forum offers a lot of advantages.  I like the fact that other members can see the reports and perhaps benefit from the discourse.   With that said, I don't want to discourage anyone from sending me feedback via other channels.  I'll always meet you in the spot that works best for you and I'm always thankful for your feedback - wherever and however it reaches me! 
