@@ -9,6 +9,32 @@ nav_order: 5
 
 
 ---
+## Build 176 — New Battery Health tile for CarPlay, phantom 20kW AC peak fixed, charge-port temperatures in History
+
+NOTE TO TESTERS:  I fixed a gnarly bug today that could cause a higher-than-plausible reading (just 1 reading) during an AC charging session that would throw off the hero "peak power" metric.  This one happened to me, which is why I was able to track it down - this would only manifest on newer-generation vehicles.
+
+### A phantom 20kW peak at the start of an AC charge
+A single-phase Level 2 session could open with a Peak Power around 20kW — √3 times the real draw — and because the peak only ever rises, the hero kept it for the life of the session. The app produced it, not the vehicle: a stale voltage left behind by the default vehicle profile every connection starts on was counted as a second live phase for one sample as the profile switched to the matched one. The three voltage channels are now read as one frame and cleared whenever the profile changes. Sessions that already stored the inflated peak are not rewritten.
+
+### Charging and driving sessions catch initial values
+The first point of every series in a session chart now sits at T=0 instead of one poll later. A charging session now opens when the car first reports charging rather than a few seconds later when the battery pack confirms it; the pack must still confirm before a session counts, but start times move a few seconds earlier and durations grow by the same. The reading that opens a session — the first AC current for a charge, the shift into D or R for a drive — now carries the same timestamp as the session itself. And a signal whose value had not changed since before the session opened, such as AC Input Current at a flat 48A charge after charge, is no longer skipped as "no change" at the start.
+
+### Charge-port temperatures in Charging Session history
+The session detail page and the share card now chart the charge-port inlet temperatures recorded during the session, placed after Battery Temp. An AC session shows AC Inlet Temp; a DC session shows the two DC pins as a two-line chart, no ranking implied. Both draw in your temperature unit; sessions recorded before Build 175 simply omit the chart.
+
+### Charging Session hero value no longer wraps mid-number
+Since the charger-location map joined the hero row in Build 174, a three-digit DC peak such as "174.0 kW" could wrap one character per line. The value now scales to fit on one line, and its label stays on one line too. Thanks Roland!
+
+### A Battery Health tile for the CarPlay dashboard
+It shows the high-voltage battery's State of Health as your vehicle's battery management system reports it, to one decimal. The standard grid is already full, so add it from Settings ▸ CarPlay ▸ Customize Tiles. A Help tip for it is on the CarPlay Help page.
+
+### CarPlay charging pages: Battery Temp reads "73°F · 75°F"
+On both the AC and DC charging pages the Battery Temp tile now shows the pack's coldest module in blue and hottest in red, a dot between, instead of a single neutral range, and uses the same blue and red as the Driving page's tile. The band also now starts at plug-in rather than up to 30 seconds after it, and no longer waits for a second sample before drawing: when the last reading before plug-in is under a minute old, the band anchors at plug-in with it; otherwise a lone first sample draws as a flat 30-second segment.
+
+### CarPlay charging pages: units take their value's color
+The V, A, kW, %, mV and kWh beside each figure on the AC page now render in the same color as the number they belong to instead of the label gray. The Pack tiles and the SoC panel shared with the DC page pick up the same rule.
+
+---
 ## Build 175 — Charge-port temperatures while charging, Battery Temps appear more quickly, Classic Bluetooth adapter interference detection change
 
 NOTE TO TESTERS:  I need your help verifying that the new charge-port temperature feature is working across the fleet.  Please check this out while conducting AC and DC charging sessions.  In order to make room for the new payload, I'm pausing brake light polling while charging - that's something new.   Please be on the lookout for anything strange.
