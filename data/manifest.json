@@ -5,14 +5,14 @@
     "dcfc": {
       "formats": {
         "1": {
-          "generatedAt": "2026-08-29T20:28:57Z",
-          "dataVersion": 507019,
-          "recordCount": 60012,
-          "url": "https://github.com/Burlingame-Engineering/ioniq5-charger-data/releases/download/data-2026-08-29-2028/dcfc-v1-2026-08-29-2028.bin.gz",
-          "gzBytes": 2887980,
-          "gzSHA256": "9f1d39b8f6fd7cec59fe2b58aab55ceaccc7a0cb98f86f123c8ab33517f0ea65",
-          "binBytes": 7915389,
-          "binSHA256": "bef10932008b21311a07d466ff4b17c70997ea9bd34c89c6361763d8be7676dc"
+          "generatedAt": "2026-09-04T18:32:47Z",
+          "dataVersion": 508066,
+          "recordCount": 60178,
+          "url": "https://github.com/Burlingame-Engineering/ioniq5-charger-data/releases/download/data-2026-09-04-1832/dcfc-v1-2026-09-04-1832.bin.gz",
+          "gzBytes": 2896471,
+          "gzSHA256": "e3460ba04a5bf16db57df04d62e4ec47fa3a9efc78e1ad9bf3c67e518c35d36b",
+          "binBytes": 7937458,
+          "binSHA256": "6a489c874157fbaa2b9ae07c4f9eee4fa391a1ff3474c1d6a95c91944faa5a50"
         }
       }
     }
