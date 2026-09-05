@@ -9,6 +9,26 @@ nav_order: 5
 
 
 ---
+## Build 177 — NEW: Journey puts your drive's route on a map, camera photos on sessions, session page and share-card layout fixes
+
+NOTE TO TESTERS:  This build records your route during every drive — from the phone's GPS, about once a second. It is on by default; Settings ▸ Drive Sessions turns it off. Please take a drive, open the Driving Session afterward, and tell me how the Journey map looks — you can overlay efficiency, speed, elevation, or power for an in-depth analysis of your journey!
+
+### Journey: every drive now records its route
+While the car is connected, the app records the phone's location about once a second along with speed, elevation, and the pack's energy. Afterward the Driving Session page shows a Journey tile beside the photo, colored by efficiency along the route. Tap it for the full map: color the route by Efficiency, Speed, Elevation, or Power, then tap anywhere on the route or drag the slider under the map to read that stretch's efficiency, speed, elevation change, grade, and power. The menu offers Export GPX, a standard track file every mapping tool imports, and Remove Journey. The share card shows the journey with its legend in the map slot. A Record Journey switch in the new Settings ▸ Drive Sessions category turns recording off from the next drive; the choice syncs with your other settings. Drives recorded before this build have no journey.
+
+### Session photo: take one with the camera, or choose from the library
+Tapping the empty photo square on a Charging or Driving Session now offers Take Photo and Choose from Library, and Replace Photo in the full-screen preview offers the same two. A photo you take lands on the session like a library pick, and the full-resolution original is also saved to your Photos library (iOS asks once for add-only access). If camera access is off, an alert offers Open Settings. A device with no camera goes straight to the library, as before.
+
+### Session pages: the map and photo are now the last row of the grid
+They sat beside the Peak Power hero and left a three-digit DC peak too little room, so "17…kW" could still appear after Build 176's scale-to-fit. Thanks Roland! The hero now has the full width, and the charger-location map and the photo sit together as the last row of the metrics grid, at the tiles' size on every screen width. Driving Sessions get the same layout. Both tiles now show they open: a small expand badge in the corner and a press-down response on touch. Session menu items that remove something now show a red glyph to match their red text.
+
+### Share cards: hero on top, images and legends on their own rows
+The hero metric now runs across the top of the card. With both a photo and a map, the two sit side by side on a full-width row beneath the metrics instead of stacking in a column that left the card's middle empty. On charts with a legend (EVSE Current, Battery Temp, DC Inlet Temperatures) the legend moves to its own row under the title, so a long title no longer wraps and every panel in a row stays the same height.
+
+### Session charts: two fixes at the left edge
+On a just-started charging session the AC / DC Charging band no longer shows "not charging" across the window the State of Charge chart is still buffering. It and the Battery Warmer band stay hidden until their first in-session reading, unless the session opened mid-charge. And charts that auto-scale their vertical axis (AC Input Voltage, Pack Voltage, Battery Temp, the inlet temperatures) no longer draw a line back to a pre-session reading that lies off the plot, which showed as a sharp corner at the left edge that never happened. Both fixes apply on the session page and the share card.
+
+---
 ## Build 176 — New Battery Health tile for CarPlay, phantom 20kW AC peak fixed, charge-port temperatures in History
 
 NOTE TO TESTERS:  I fixed a gnarly bug today that could cause a higher-than-plausible reading (just 1 reading) during an AC charging session that would throw off the hero "peak power" metric.  This one happened to me, which is why I was able to track it down - this would only manifest on newer-generation vehicles.
