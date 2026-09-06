@@ -9,6 +9,29 @@ nav_order: 5
 
 
 ---
+## Build 178 — NEW: CarPlay Elevation and Internet Connection tiles, improved Navigation: trip times and faster-route offers, improvements to journeys and diagnostics
+
+NOTE TO TESTERS: There are two new CarPlay tiles for you to try out when you have a chance:  Elevation and Internet Connection.  
+
+### New CarPlay tile: Elevation
+Your current elevation, with the last three miles of road you actually drove drawn behind it as terrain. The ribbon's color is the grade you were on — blue where the road climbed (heading towards the sky) and green where it fell, deepening as the ground steepens — so a glance says not just how high you are but what the road has been doing to your range. The height scale fits the stretch you just drove rather than sea level, so the shape reads the same in Denver and in Boston.
+
+### New CarPlay tile: Internet Connection
+This new tile gives you a quick peek into the health of your internet connection.  I often find the signal strength bars are a poor indicator of connection health.  This tile measures your link — it shows you the round-trip time in milliseconds, the radio your phone says it is on, and a bar graph for the last 10 minutes — tall and green for a fast link, amber as it slows, red where nothing got through. SIGN IN means a login page is in the way; OFFLINE means no coverage. Nothing is measured unless the tile is on your grid — it consumes about 1.4 MB on a two-hour drive when it is visible.
+
+### CarPlay navigation: a trip time that keeps moving, and faster-route offers
+Remaining time is now Apple's own estimate for the road being driven, refreshed every five minutes and counted down by the clock in between — so it keeps ticking at a red light and never reads "0 min" before you arrive. It used to run short on any drive that ends slower than it averaged; a tester saw "1 min" with 1.4 miles and three lights to go. And when a refresh finds a route at least three minutes and 10% quicker, a banner offers it for 30 seconds (Switch / Keep Route), announced by voice; decline one and it is not offered again unless its saving doubles.  Thanks Paul! 
+
+### Fixed: two ways the vehicle connection could go quiet
+Toggling Bluetooth off and on — or an iOS Bluetooth stack reset — could leave the adapter reconnected but no longer reading the vehicle, every value frozen behind a healthy-looking "Reading" state until the app was force-quit. Separately, a false "Adapter Interference" disconnect could strike at any point in a drive: the app recognized a Hyundai or Kia module's volunteered identity records only for the first 30 seconds after connecting, so a later one was read as another app's traffic. One tester hit that four times on a bus with no other app present. Both are fixed.  Thanks Mark and Howard!  
+
+### Diagnostics: a better record of what went wrong
+When the app reports adapter interference, the App Activity Log now also records the traffic behind it — roughly the last twenty seconds of commands and replies, with any VIN removed — so a false alarm can be explained after the fact. Poll-retry lines name the ECU and its address (Retrying VCU 7E2 0xE004) rather than the DID alone, which is shared between modules, and vehicle ON/OFF lines name the probe that caused the edge. The Drive Diagnostics Recorder now opens a file whenever navigation is running, not only once the car is in gear, and keeps the newest 20 instead of 10.
+
+### Journey map: wider color ranges, and a clearer stretch card
+Speed and Elevation now run from pale to dark across the whole lightness range, pale meaning slower or lower; the earlier five steps read as little more than a hue shift. The stretch card gains the stretch's length and the point's own elevation.
+
+---
 ## Build 177 — NEW: Journey puts your drive's route on a map, camera photos on sessions, session page and share-card layout fixes
 
 NOTE TO TESTERS:  This build records your route during every drive — from the phone's GPS, about once a second. It is on by default; Settings ▸ Drive Sessions turns it off. Please take a drive, open the Driving Session afterward, and tell me how the Journey map looks — you can overlay efficiency, speed, elevation, or power for an in-depth analysis of your journey!
