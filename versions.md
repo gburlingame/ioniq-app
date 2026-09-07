@@ -9,6 +9,14 @@ nav_order: 5
 
 
 ---
+## Build 179 — Fixed: repeated crashes while driving with the Internet Connection tile placed
+
+NOTE TO TESTERS: This is a crash-fix build for Build 178's new Internet Connection tile. If you added the tile and the app kept crashing while you drove, this is the fix. If you removed the tile to make the crashes stop, it is safe to add back. Nothing else you would notice has changed.
+
+### Fixed: crashes every time your cellular connection changed technology
+With Build 178's Internet Connection tile on your CarPlay grid, the app could crash each time your phone's cellular connection switched technology — 5G to LTE and back, which happens constantly on a drive — and then relaunch straight into the next crash, sometimes within half a minute. Two testers hit it eight times in a single day. The tile itself was never the problem; the way it listened for those radio changes was, and that is fixed. Everything the tile measures and shows is unchanged.  Thanks to everyone who reported this!
+
+---
 ## Build 178 — NEW: CarPlay Elevation and Internet Connection tiles, improved Navigation: trip times and faster-route offers, improvements to journeys and diagnostics
 
 NOTE TO TESTERS: There are two new CarPlay tiles for you to try out when you have a chance:  Elevation and Internet Connection.  
