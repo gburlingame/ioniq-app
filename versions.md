@@ -9,6 +9,31 @@ nav_order: 5
 
 
 ---
+## Build 180 — NEW: Journey Grade overlay and improved Speed and Elevation colors, IONIQ 9 AC voltage fix, charger-filter fixes, drive logs record position
+
+NOTE TO ALL TESTERS: I need your help — please let me know if the new Elevation tile is working for you properly (see:  https://forum.imanevp.com/t/elevation-tile-reporting-0-0/150).  
+
+Journey gets three overlay changes worth a look after your next drive — a new Grade overlay, and Speed and Elevation recolored so the map is readable at a glance. 2026 IONIQ 9 owners: your AC voltage should now read about 240 V on a Level 2 charge instead of 26 V. Drive Diagnostics Recorder logs now include position; they stay on your phone unless you choose to share one.
+
+### Journey: a new Grade overlay, and improved Speed and Elevation colors
+Grade colors each stretch by road grade exactly as the CarPlay Elevation tile does — green descending, white level, blue climbing, deepening with steepness, on the tile's same energy-calibrated thresholds — so a stretch earns the same color on both screens. Speed is now a fixed blue → white → red scale from 0 to 120 mph with white at 60 (0–193 km/h, white at 97), drawn as a continuous gradient so drives compare like for like. Elevation runs green (low) → light gray → blue (high) across the drive's own range, replacing a pale-to-dark teal that was hard to read.
+
+### Journey: the map and the details panel move together
+The legend now sits directly under the map, above the stretch card. The first tap or scrub opens the details panel with a smooth animation instead of a jump, the map and panel animate together, and the route stays fully in view above the panel. Switching overlays no longer shifts or re-zooms the map, and a view you have panned or zoomed survives the switch.
+
+### Internet Connection tile: the network label is now a badge
+The 5G / LTE / WI-FI label moves to the top-right corner on a light rounded badge instead of gray text, so it reads at a glance. It stays deliberately colorless — green, amber and red on this tile mean something specific, and a colored badge would look like a fourth status. A long round-trip figure shrinks slightly rather than running under the badge.
+
+### CarPlay charger filter: two fixes
+Networks whose name starts with a number now group under a "0–9" row of their own; the alphabetical rows they used to lead read as ranges like "7–C" in the United States or "7–E" in Canada, which said nothing about where to look. And a network chosen from the country-wide list now keeps its name on the filter screen — selecting one whose nearest site is far away used to pin a row reading "op:60015 (109 in United States)".   Thanks Tony!
+
+### Fixed: AC charging showed about 26 V on the IONIQ 9, and on some 2022–2024 IONIQ 5s
+On a 2026 IONIQ 9, a Level 2 session showed the supply as about 26 V with AC Draw and Max Power blank for the whole session; it now reads about 240 V and 60 Hz, and the wall-side power is computed. The same fix reaches 2022–2024 IONIQ 5s fitted with the newer-generation charger — the cars whose 12V panel already depends on the connect-time charger check — whose AC voltage, frequency and AC Draw now follow that check too.  Thanks Mike!
+
+### Drive Diagnostics Recorder: position and a second altitude on every fix
+Every GPS fix now records latitude, longitude and heading alongside the speed, elevation and accuracy figures it already kept, so a shared drive log can answer where the vehicle was when something happened; previously position was captured only in development builds. Each fix also records the WGS 84 ellipsoidal altitude beside the sea-level one, added for the investigation into a 2022 EV6 whose head unit supplies no altitude and left the Elevation tile reading 0 (see:  https://forum.imanevp.com/t/elevation-tile-reporting-0-0/150). As always, the file stays on your device unless you share it.
+
+---
 ## Build 179 — Fixed: repeated crashes while driving with the Internet Connection tile placed
 
 NOTE TO TESTERS: This is a crash-fix build for Build 178's new Internet Connection tile. If you added the tile and the app kept crashing while you drove, this is the fix. If you removed the tile to make the crashes stop, it is safe to add back. Nothing else you would notice has changed.
