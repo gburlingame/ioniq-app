@@ -9,6 +9,20 @@ nav_order: 5
 
 
 ---
+## Build 181 — Fixed: a second device could truncate a drive and mark it "Recovered"; Journey measures over fixed stretches, with a gold halo
+
+NOTE TO TESTERS: If you run the app on more than one device signed into the same iCloud account — a phone and an iPad, or two phones — this build fixes a drive being cut short by the device that was not in the car. Please keep an eye on your Driving Sessions after a drive and tell me if one still comes back shorter than you drove, or badged "Recovered" when you know you recorded the whole drive.   
+
+### Fixed: a second device could truncate your drive and re-badge it "Recovered"
+History syncs a drive in progress to your other devices as an open row, and to any device that was not the one recording, that row looked like an orphan left by a forced close — so it closed the drive out using its own partial copy. A tester's 17.8 km / 32 min drive came back as 3 km / 6 min, with its map still showing the whole journey. Closing an orphaned drive now takes evidence from the car itself: only while connected to the vehicle the drive belongs to, and only once that vehicle is asleep or has started a new ignition cycle. A device with no connection to the car no longer closes anything.  Thanks John — this was a big catch!
+
+### Journey: fixed stretches of road, and a gold halo on the one you are reading
+Efficiency is now measured over fixed stretches of the drive — cut where the car reported its battery energy, each at least 150 m — so every stretch has one efficiency, one color and one set of figures, and tapping anywhere in it shows the same numbers.  A gold halo on the map marks the stretch the details panel is describing, so you can visually see where the stretch and efficiency numbers are calculated.
+
+### Journey: Grade lines up with Elevation, and the details panel is grouped
+The Grade overlay is improved.  A transition happens wherever the phone's altitude reading changed, so its color boundaries line up with the Elevation overlay and a known hill reads as a climb rather than flat; the panel's Grade row shows the segment under the marker. The CarPlay Elevation tile is unchanged. The details panel groups its rows — the point (Time, Into drive), the stretch (Stretch, Elevation change), then the figures measured over it (Efficiency, Speed, Elevation, Grade, Power) — and the Into drive row now shows hundredths of a mile or kilometer.
+
+---
 ## Build 180 — NEW: Journey Grade overlay and improved Speed and Elevation colors, IONIQ 9 AC voltage fix, charger-filter fixes, drive logs record position
 
 NOTE TO ALL TESTERS: I need your help — please let me know if the new Elevation tile is working for you properly (see:  https://forum.imanevp.com/t/elevation-tile-reporting-0-0/150).  
