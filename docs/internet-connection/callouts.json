@@ -25,7 +25,7 @@
             135
           ],
           "label": "What your phone claims it is on",
-          "detail": "The radio your phone is attached to — 5G, LTE, or WI-FI. This is the part that can be wrong, and seeing it beside the bars is the whole point."
+          "detail": "The radio your phone is attached to — 5G, LTE, or WI-FI."
         },
         {
           "at": [
