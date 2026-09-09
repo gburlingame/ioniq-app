@@ -1,0 +1,65 @@
+{
+  "raw_dir": "screenshots/raw",
+  "output_dir": "../../assets/images/internet-connection",
+  "_note": [
+    "Coordinates are in RAW capture pixels, same contract as the",
+    "efficiency-and-range figures. This capture is not a photograph of a screen:",
+    "it is drawn by the app's OWN renderer (CarPlayChipRenderer.renderDataFlow)",
+    "composited exactly as CarPlayChipTile composites it — rounded slate, raster",
+    "inset by contentPadding — so it is pixel-true to what the car draws and free",
+    "of capture artefacts. The canvas is 222x212 points at 3x device scale, hence",
+    "666x636 pixels; every point below is 3x the value the app's own geometry",
+    "functions report, which is how they were obtained rather than eyeballed."
+  ],
+  "images": [
+    {
+      "name": "internet-connection-tile",
+      "source": "internet-connection-tile.png",
+      "scale": 0.7,
+      "label_width": 400,
+      "caption": "Everything the tile is telling you. The bars carry no numbers and no fixed scale on purpose — taller is healthier, and the figure above them is the value. Watch the right-hand edge: bars climbing back out of the red, as they are here, mean coverage is returning.",
+      "callouts": [
+        {
+          "at": [
+            489,
+            135
+          ],
+          "label": "What your phone claims it is on",
+          "detail": "The radio your phone is attached to — 5G, LTE, or WI-FI. This is the part that can be wrong, and seeing it beside the bars is the whole point."
+        },
+        {
+          "at": [
+            162,
+            198
+          ],
+          "label": "How long a round trip took",
+          "detail": "The app sends a tiny request and times the answer, in milliseconds. Lower is better; anything under a couple of hundred is a healthy link."
+        },
+        {
+          "at": [
+            186,
+            354
+          ],
+          "label": "Tall and green: data flowing",
+          "detail": "Each bar is one check, and the bars cover the last ten minutes. Height is health rather than speed, so a good link stands tall."
+        },
+        {
+          "at": [
+            264,
+            444
+          ],
+          "label": "Amber: still working, but slowing",
+          "detail": "The link is still carrying you, and answers are taking longer. This is usually what the edge of a cell looks like a minute before it goes."
+        },
+        {
+          "at": [
+            342,
+            483
+          ],
+          "label": "Red stubs: nothing got through",
+          "detail": "The checks went out and nothing came back. Your phone may still be showing full bars here — that is exactly the situation this tile exists to catch."
+        }
+      ]
+    }
+  ]
+}
