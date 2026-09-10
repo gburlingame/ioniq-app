@@ -7,7 +7,7 @@
     "it is drawn by the app's OWN renderer (CarPlayChipRenderer.renderDataFlow)",
     "composited exactly as CarPlayChipTile composites it — rounded slate, raster",
     "inset by contentPadding — so it is pixel-true to what the car draws and free",
-    "of capture artefacts. The canvas is 222x212 points at 3x device scale, hence",
+    "of capture artifacts. The canvas is 222x212 points at 3x device scale, hence",
     "666x636 pixels; every point below is 3x the value the app's own geometry",
     "functions report, which is how they were obtained rather than eyeballed."
   ],
