@@ -9,6 +9,26 @@ nav_order: 5
 
 
 ---
+## Build 182 — NEW: CarPlay Dashboard Button setting and arrival SoC in the trip bar; Journey Auto-scale and fixed landscape layout
+
+NOTE TO TESTERS:  If you haven't already, please comment on this bug report about whether the new Elevation tile is working in your vehicle:  https://forum.imanevp.com/t/elevation-tile-reporting-0-0/150.   Thank you!    This build is the first compiled with the iOS 27 SDK — Apple has released the first release candidate of iOS 27.  There is a subtle change that will only appear as intended if you are running iOS 27 (see arrival SoC) — Apple has added an arrival SoC field to iOS 27. I think that's a cool nod to EVs! 
+
+### CarPlay: a Dashboard Button setting to keep the button still
+Settings ▸ CarPlay ▸ Dashboard Button chooses what the shortcut button beside the CarPlay Dashboard map shows: Name and Distance (the default, so nothing changes unless you change it), Name Only, or No Details. Several testers found the button distracting as it slid in and out with each distance update; Name Only redraws only when a different charger becomes the nearest, and No Details keeps it still. A tap still starts guidance to the nearest DC fast charger.  I wish I could stop that annoying slide-in behavior, but that is out of my control.
+
+### CarPlay: arrival SoC in the trip bar and on the Dashboard map
+On iOS 27, the projected arrival SoC appears in CarPlay's own trip bar during guidance, beside the ETA and distance, and the app's capsule on the guidance map is hidden so the figure is not shown twice; on iOS 26 and earlier the capsule carries it as before. The split-screen Dashboard map now shows it too, in a capsule at the top left. On both maps the label is the shorter "Arrival SoC:".  Thanks Tempus!  
+
+### Journey: Auto-scale
+An Auto-scale switch in the map's bottom-right corner fits the current overlay's colors to that drive rather than to its fixed scale, and each overlay remembers its choice. With it on, Speed and Efficiency center white on the drive's typical value so a city drive spreads across the whole range, while Power and Grade keep white at zero and at level; a launch, a crawl or a brief spike does not set the range. Elevation stays auto-scaled by default, and a nearly flat drive now reads as flat; with Auto-scale off it uses the same ±200 ft (61 m) span on every drive.  Thanks Paul!
+
+### Journey: fixed landscape layout, and a shorter Regen label
+In landscape, the map now shares the screen with a column on the right that holds the hint and then the stretch card, instead of a panel growing over the map; the legend and slider stay along the bottom. Portrait is unchanged. The tap card's Efficiency row now reads "Regen" on a regenerating stretch rather than "Regen mi/kWh" (or km/kWh).
+
+### Fixed: rotating the phone closed a session's sheet
+Opening a drive's Journey, a charging session's location map, or a session photo's full-screen preview and then rotating the phone no longer drops you back on the session page with the sheet gone; the sheet stays up. The Journey and location tiles also return to their portrait width after rotating back.
+
+---
 ## Build 181 — Fixed: a second device could truncate a drive and mark it "Recovered"; Journey measures over fixed stretches, with a gold halo
 
 NOTE TO TESTERS: If you run the app on more than one device signed into the same iCloud account — a phone and an iPad, or two phones — this build fixes a drive being cut short by the device that was not in the car. Please keep an eye on your Driving Sessions after a drive and tell me if one still comes back shorter than you drove, or badged "Recovered" when you know you recorded the whole drive.   
