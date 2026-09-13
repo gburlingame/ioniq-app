@@ -9,6 +9,23 @@ nav_order: 5
 
 
 ---
+## Build 183 — NEW: choose which drive recordings to share; the Journey map follows the marker as you scrub, with a home button
+
+NOTE TO TESTERS:  This build adds elevation logging to the App Activity Log.  I'll be reaching out to a few folks whose elevation shows 0.0 about next steps.  Thanks to everyone who shared their results — this is turning into a bigger body of work than I initially envisioned.
+
+### Journey: the map follows the marker as you scrub
+After you zoom or pan the map, tapping the route or dragging the slider keeps the marker centered at your zoom, and the map moves with your finger at full rate on every overlay, Power included, where it had moved in visible steps. Switching overlays or Auto-scale recolors the route in place without moving the map, and the distance scale bar now stays on screen instead of appearing only while you zoom.  
+
+### Journey: a home button
+A new button at the top-right corner of the map returns to the view of the whole route and stops following the marker until you next pan or zoom. It is blue while you are zoomed or panned away from that view and plain glass while the whole route is shown.
+
+### Diagnostics: choose which drive recordings to share
+Settings ▸ Diagnostics ▸ Share Drive Diagnostics now opens a list of your recorded drives instead of sharing only the most recent one, so you can send the drive where something happened. Each row shows when the recording started, how long it ran and its file size; a Navigation badge marks recordings that used guidance, and a No drive badge marks those where the vehicle never drove. Select any combination and share them together.
+
+### CarPlay: the Dashboard's arrival SoC capsule follows Tile Background
+The arrival SoC capsule on the split-screen Dashboard map now follows the Tile Background slider in Settings ▸ CarPlay ▸ Customize Tiles, so it matches the map tiles around it at every position. The capsule on the guidance map is unchanged.
+
+---
 ## Build 182 — NEW: CarPlay Dashboard Button setting and arrival SoC in the trip bar; Journey Auto-scale and fixed landscape layout
 
 NOTE TO TESTERS:  If you haven't already, please comment on this bug report about whether the new Elevation tile is working in your vehicle:  https://forum.imanevp.com/t/elevation-tile-reporting-0-0/150.   Thank you!    This build is the first compiled with the iOS 27 SDK — Apple has released the first release candidate of iOS 27.  There is a subtle change that will only appear as intended if you are running iOS 27 (see arrival SoC) — Apple has added an arrival SoC field to iOS 27. I think that's a cool nod to EVs! 
