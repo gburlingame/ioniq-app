@@ -9,6 +9,26 @@ nav_order: 5
 
 
 ---
+## Build 184 — NEW: Barometer-based altitude measurement for vehicles whose CarPlay sends no altitude; the CarPlay Speed tile uses GPS first
+
+NOTE TO TESTERS:  Special thanks to everyone who chipped in with reports and data about the elevation 0.0 issue!  This build is the first one with the new barometric pressure altimetry engine (EVDE).  This system uses an elevation signal from your phone (before iOS switches your location over to CarPlay, which reports 0.0), and then monitors barometric pressure changes as you drive to track changes in elevation.   I'm looking forward to hearing how well this works in practice.
+
+### CarPlay: a real Elevation reading on vehicles whose CarPlay sends no altitude
+Some CarPlay head units send no altitude (so far the 2022 Kia EV6 and 2022–2024 IONIQ 5s), which left the Elevation tile stuck at 0. EVDE, the new EV Dashboard altitude engine, now supplies a real altitude, starting from your phone's GPS or from where your last drive ended and following climbs and descents with the phone's barometer; an EVDE badge on the tile marks its readings. Vehicles whose head unit sends altitude are unchanged. Thanks everyone for the data!
+
+### Journey: Elevation and Grade on those vehicles
+Drives recorded on this build show EVDE's altitude in the Journey map's Elevation and Grade colorings. Journeys recorded earlier on those vehicles now show no data there instead of a drive painted flat at sea level.
+
+### Allow Motion & Fitness access
+The app now asks for Motion & Fitness access. EVDE uses the phone's barometer to follow climbs and descents between GPS readings, so please allow it.
+
+### CarPlay Speed tile: GPS first, with a source badge
+The Speed tile now shows GPS speed whenever a confident GPS reading is available and your vehicle's own speed reading otherwise, with a GPS or VCU badge in its corner showing which is in use. On GPS it updates about once a second, and the ribbon now plots the last two minutes with the newest reading at the right edge. Thanks Sean!
+
+### Fixed: CarPlay "Planning route…" spinning forever
+When the internet connection stalls, each attempt to plan a route now gives up after 12 seconds and tries again, and if the route still can't be planned, the "Couldn't get directions" message appears within about 40 seconds. Tapping the same destination again while it is still planning now returns to the map, and during guidance one stalled request no longer stops the 5-minute arrival-time check. Thanks Paul!
+
+---
 ## Build 183 — NEW: choose which drive recordings to share; the Journey map follows the marker as you scrub, with a home button
 
 NOTE TO TESTERS:  This build adds elevation logging to the App Activity Log.  I'll be reaching out to a few folks whose elevation shows 0.0 about next steps.  Thanks to everyone who shared their results — this is turning into a bigger body of work than I initially envisioned.
