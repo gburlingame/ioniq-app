@@ -9,6 +9,22 @@ nav_order: 5
 
 
 ---
+## Build 185 — Updates to the elevation tile; tighter timing for VEEPEAK adapters
+
+NOTE TO VEEPEAK TESTERS:  If you use a VEEPEAK adapter, I've shifted some timing parameters with the goal of making your connection more robust.  It appears its adaptive timing algorithm is causing inconsistent behaviors, at least on the Kia EV6 and IONIQ 5.  Please let me know if you run into any new problems — I built in an escape hatch, Tight adapter timing in Experimental Features, that will allow you to go back to the old settings if needed. 
+
+NOTE TO ELEVATION TESTERS:  There are major updates to the elevation engine in today's build — please report anything that seems out of sorts, even if you have already reported it before.   Thank you everyone for all your help with this one!  
+
+### Adapters: tighter response timing for VEEPEAK
+VEEPEAK adapters now use fixed timing parameters instead of adaptive timing.  Adaptive timing has been shown to behave erratically — while driving that was costing polling time, and it may be behind the failed ECU reads seen on some cars while plugged in.  No other adapter's behavior changes.   Thanks John!  
+
+### Updates to the elevation engine
+A number of reported and observed issues have been remedied.  
+
+### App Activity Log: a note about detailed drive data
+The share section in Settings ▸ Diagnostics ▸ App Activity Log now carries a red note that the log temporarily contains detailed drive data to speed up the elevation work, and asks you not to share it in public forums if that concerns you.
+
+---
 ## Build 184 — NEW: Barometer-based altitude measurement for vehicles whose CarPlay sends no altitude; the CarPlay Speed tile uses GPS first
 
 NOTE TO TESTERS:  Special thanks to everyone who chipped in with reports and data about the elevation 0.0 issue!  This build is the first one with the new barometric pressure altimetry engine (EVDE).  This system uses an elevation signal from your phone (before iOS switches your location over to CarPlay, which reports 0.0), and then monitors barometric pressure changes as you drive to track changes in elevation.   I'm looking forward to hearing how well this works in practice.
