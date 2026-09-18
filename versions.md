@@ -9,6 +9,23 @@ nav_order: 5
 
 
 ---
+## Build 186 — Fixes to drives that generate more energy than they use, Veepeak adapter tuning, fixes to the CarPlay Internet Connection tile
+
+NOTE TO TESTERS:  Two bug fixes today, plus more Veepeak tuning.  Thank you for the reports on elevation!   More work to improve the performance of Veepeak adapters — if you are a Veepeak tester, please let me know if you observe anything out of the ordinary. 
+
+### FIX: Drives that recover more energy than they use
+A long descent on regen that recovers more energy than it uses now reports that energy instead of hiding it: the drive's headline now reads "Energy Added" in celebration of this rare and special event, and the share card matches. Such a drive used to lose its energy tile and its headline altogether. A drive recovered after the app was killed or the adapter dropped mid-drive is now measured the same way a normally completed drive is, so a recovered descent no longer reports energy used when the drive actually gained energy.  Thanks Ben!
+
+### Adapters: Veepeak drops the wide receive filter, and adaptive timing is back
+On a Veepeak the app no longer sends the wide receive filter that was added for a different clone and may be giving the Veepeak trouble.  Build 185's fixed response timing is withdrawn: a tester capture showed it nearly doubled how long the app waits for the rest of a reply, fixed none of the failures, and cost about a quarter of the connection's working time, so the adaptive timing is back while the shorter ceiling it introduced stays. You may notice readings that come back faster than in Build 185; and if a module that used to answer goes quiet, Tight adapter timing in Experimental Features turns all of this off without a new build. Thanks John!
+
+### FIX: CarPlay Internet Connection tile, no more stale readings
+The radio badge no longer sticks on WI-FI. Once CarPlay had disconnected and reconnected, the tile kept drawing whatever connection the phone had at that moment for the rest of the app's life — an afternoon of errands showed WI-FI across three drives on cellular. Reconnecting also no longer shows the previous session's reading as if it were current: the tile shows the waiting dash until it has measured the link, which takes a few seconds, while keeping its ribbon of recent history. When it cannot tell what is carrying the data, it now shows no badge rather than guessing.
+
+### CarPlay Internet Connection tile: checked every 30 seconds, parked or moving
+Parked, the tile used to wait two minutes between checks; it now checks every 30 seconds wherever you are. Sitting at a charger on poor coverage is when the tile is most worth reading, and it was the one situation answering at a quarter of the resolution. Recovery from an outage now shows up within about 35 seconds.
+
+---
 ## Build 185 — Updates to the elevation tile; tighter timing for VEEPEAK adapters
 
 NOTE TO VEEPEAK TESTERS:  If you use a VEEPEAK adapter, I've shifted some timing parameters with the goal of making your connection more robust.  It appears its adaptive timing algorithm is causing inconsistent behaviors, at least on the Kia EV6 and IONIQ 5.  Please let me know if you run into any new problems — I built in an escape hatch, Tight adapter timing in Experimental Features, that will allow you to go back to the old settings if needed. 
