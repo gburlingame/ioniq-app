@@ -9,6 +9,23 @@ nav_order: 5
 
 
 ---
+## Build 187 — FIX: a drive that resumes after a relaunch records everything again; the Elevation tile knows its altitude at launch; more tweaks for Veepeak
+
+NOTE TO TESTERS:  Another tweak today for Veepeak adapters — if you use a Veepeak, please be sure to let me know if you encounter anything unusual.
+
+### FIX: a drive that resumes after a relaunch records everything again
+If the app was killed mid-drive — a TestFlight update, a Bluetooth restoration, iOS reclaiming the process — the drive continued in History but stopped recording anything else: no distance, no journey, no Elevation or range graphs, so the tiles showed values while the graphs stayed empty for the rest of the drive. The resumed drive now arms the whole pipeline whichever part of the launch finishes first. Thanks Mark!
+
+### Elevation: the altitude is known at launch
+The app now keeps the last altitude in a small file it rewrites on every fix and at the park, so a relaunch has a number to carry with the barometer before any location arrives — a car parked with the app and woken in the background shows its elevation straight away. The first fix then judges it by position alone: within 50m of where the file was written it stands, farther than that it is rejected and the fix takes over. A car driven without the app running shows the stale altitude until that first fix. Thanks Tom!
+
+### Elevation: the tile's graph continues across drives
+The Elevation graph is no longer emptied when a drive begins, so a second drive in the same app run starts with the previous drive's last 5km already drawn and its first 250m colored instead of dashed gray — the same way the Range tile's efficiency history behaves. It is still not kept across app launches, and it is emptied when the app throws away the altitude it was building on.
+
+### Adapters: Veepeak lets long replies stream back to back
+On a Veepeak the vehicle may now send the parts of a long reply with no minimum gap between them; every other adapter keeps the 10ms gap it has used since June. The less time a long reply spends in transit, the smaller the window in which bus traffic can make the vehicle abandon it — the one remaining explanation for the modules that go quiet mid-reply while AC charging. A test drive on a Veepeak ran 913 long replies with none dropped or torn; Tight adapter timing in Experimental Features turns the whole Veepeak profile off if anything misbehaves.   Good luck John!
+
+---
 ## Build 186 — Fixes to drives that generate more energy than they use, Veepeak adapter tuning, fixes to the CarPlay Internet Connection tile
 
 NOTE TO TESTERS:  Two bug fixes today, plus more Veepeak tuning.  Thank you for the reports on elevation!   More work to improve the performance of Veepeak adapters — if you are a Veepeak tester, please let me know if you observe anything out of the ordinary. 
