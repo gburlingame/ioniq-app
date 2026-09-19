@@ -9,6 +9,17 @@ nav_order: 5
 
 
 ---
+## Build 188 — NEW: an Elevation graph on a drive's page and its share card; the Build 187 pacing change for Veepeak is reverted
+
+NOTE TO TESTERS:  One more change back to the Veepeak configuration.  
+
+### NEW: an Elevation graph on a drive's page and its share card
+A driving session's page and its share card now carry an Elevation graph, one more time series in the drive's stack after Distance, in feet under miles and meters under kilometers. It is drawn from the drive's recorded route rather than from anything new, so every drive recorded since journeys began gets the graph the next time you open it. The line breaks where the altitude was unknown, and like the Journey map the graph appears once the drive has ended.
+
+### Adapters: the Build 187 pacing change for Veepeak is reverted
+Veepeak adapters return to the 10ms gap between the parts of a long reply that every other adapter uses. On a tester's charging session the change did not help what it was aimed at — the modules that go quiet mid-reply while AC charging failed at the same rate — and it broke something that had been working: the climate module went from never dropping a frame to dropping frames mid-reply, which is the precise failure the 10ms gap exists to prevent. Testers who ran Build 187 with a Veepeak should see the climate and cabin readings return to normal.  Thanks John and Matt!
+
+---
 ## Build 187 — FIX: a drive that resumes after a relaunch records everything again; the Elevation tile knows its altitude at launch; more tweaks for Veepeak
 
 NOTE TO TESTERS:  Another tweak today for Veepeak adapters — if you use a Veepeak, please be sure to let me know if you encounter anything unusual.
