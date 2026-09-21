@@ -9,6 +9,28 @@ nav_order: 5
 
 
 ---
+## Build 189 — FIX: charges that came back and drives with a wrong distance; quicker, steadier connecting; Veepeak timing backed out
+
+NOTE TO TESTERS:  In today's build there is a fairly major change under the hood.   A while back I added a holding file that new history was written to while the app was in the background, and copied into History later.   That file did not mitigate the problem it was put in place to solve, and I've recently realized it was causing problems of its own, particularly during session transitions.  I've removed that holding file in this build — please be on the lookout for anything seemingly new, mysterious, and unexpected.   As always — thank you to everyone for your feedback and reports!  
+
+NOTE TO VEEPEAK TESTERS:  All changes to the Veepeak adapter timing have been backed out — the multi-part DID symptom that was thought to be caused by Veepeak has been shown to happen on other adapters as well.  
+
+### Updating to this build
+The first launch discards anything the previous build recorded but had not yet filed into History — everything since the app or its CarPlay screen was last showing. For most people that is nothing; otherwise that stretch can have gaps in its graphs, a drive missing its map, or a session that ran entirely in the background missing altogether. A charge or drive still showing as in progress is closed the next time the app connects to your vehicle, so it can show a duration and an energy figure that are too large — you can delete it from History. A drive recovered after the app closed unexpectedly mid-drive can likewise read longer than it was; its distance is unaffected.
+
+### FIX: charges that came back, and drives with a wrong distance
+A charge that had finished could return as "in progress" and keep running: one tester's 16-minute top-up reopened overnight and closed as an 11-hour session that swallowed the drive home. A drive that ended while the app was in the background could show far less distance than it covered until the app was next opened — one read 3.3km instead of 55.1km for 15 hours. Both came from the app keeping two copies of its history and deciding from the older one; it now writes straight to History.  Thanks Matt!
+
+### CHANGE: retry on NO DATA response
+Previously a single response of NO DATA from the HVAC or ICCU ECUs would flip the app into thinking the vehicle is ASLEEP.   Analysis of a Kia EV6 log suggests this may happen briefly during an AC charging session.  In this build, a single NO DATA is immediately followed by a retry.  This change will be monitored closely.   Thanks John!
+
+### Connecting: steadier, and quicker off the mark
+With the phone locked and another app on the CarPlay screen, the app could connect to the adapter and then record nothing for the rest of the drive. It now holds a brief iOS background assertion from the moment the adapter connects until data is flowing, and it starts talking to the adapter about a second sooner, as soon as the adapter confirms it is ready instead of after a fixed wait. Picking an adapter in Settings after tapping Disconnect also connects normally now, rather than carrying that Disconnect over to the adapter you just chose.
+
+### Adapters: Veepeak tight timing removed
+The Tight adapter timing switch has been removed from Experimental Features, and the faster response timing it applied to Veepeak adapters goes with it. It was added to chase the multi-part readings that fail while the vehicle is AC charging; a second adapter of a different make has since been measured failing at the same rate with none of that timing, so the timing was never the cause. Every adapter is back to what it used before Build 186.
+
+---
 ## Build 188 — NEW: an Elevation graph on a drive's page and its share card; the Build 187 pacing change for Veepeak is reverted
 
 NOTE TO TESTERS:  One more change back to the Veepeak configuration.  
