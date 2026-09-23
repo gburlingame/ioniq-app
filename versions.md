@@ -9,6 +9,23 @@ nav_order: 5
 
 
 ---
+## Build 191 — FIX: Classic Bluetooth adapters no longer connect when you're not using the app; charging time after a reconnect; a false Adapter Interference alarm; a full-size number on the Elevation tile
+
+NOTE TO TESTERS:  Thank you so much for all the feedback - several bugs fixed today with your help!
+
+### FIX: OBDLink MX+ and other Classic Bluetooth adapters do not reconnect until you're using the app
+Starting the car within range of your phone could connect one of these adapters and record a short drive ending in "Signal lost" as the car pulled away without the phone. They now follow the same rule as Bluetooth LE adapters: they connect when the app is open on your phone or connected to CarPlay. Thanks Tony!
+
+### FIX: charging time after a reconnect or relaunch
+If the adapter reconnected or the app reopened mid-charge, the phone's Elapsed chip disappeared and the CarPlay DC charging page's Charging time stayed at 0:00 for the rest of the session. Both now count from when the charge started.  Thanks Kim!
+
+### FIX: a false Adapter Interference alarm when the app reopens
+When the app reopened on an adapter that was still connected, such as right after an app update, it could report Adapter Interference and disconnect. The adapter's last answer to the previous copy of the app was mistaken for another app's traffic; that no longer happens. Thanks Mark!
+
+### FIX: the Elevation tile's number stays full size with the EVDE badge
+On the CarPlay Elevation tile, a four-digit elevation used to shrink whenever the EVDE badge was showing. The number now sits a little lower, clear of the badge, and draws at full size.
+
+---
 ## Build 190 — NEW: an Elevation screen in Settings; FIX: drives interrupted by the app closing, CarPlay Elevation tile readings; smoother scrolling
 
 NOTE TO TESTERS:  There's a new Elevation screen in Settings -- the CarPlay tile will refer you here if it thinks there is a setting issue, such as disabled permissions.  Please take a moment to visit that page to verify your setup is optimized.   
