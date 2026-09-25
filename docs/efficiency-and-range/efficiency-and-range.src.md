@@ -2,7 +2,9 @@
 
 *A walkthrough of the math, written for owners and testers who want to know exactly what the numbers on screen are made of.*
 
-**Version:** 2026-08-25 · **Applies to:** app version 3.0 (build 146) and later
+**Version:** 2026-09-25 · **Applies to:** app version 3.0 (build 146) and later
+
+*Updated to match changes in build 192: how trip distance handles stretches with no speed data (§3.3). Builds before 192 instead measured coverage when the drive ended, and below 80% used the odometer for the whole drive.*
 
 ---
 
