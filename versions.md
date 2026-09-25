@@ -9,6 +9,29 @@ nav_order: 5
 
 
 ---
+## Build 192 — NEW: a Drive Session tile and a Beta page in CarPlay; one drive distance everywhere; roomier CarPlay tiles; RPM Regeneration setting
+
+NOTE TO TESTERS:  I created a new BETA page in CarPlay -- you no longer have to adjust your finely groomed Driving panels in order to test out what's new -- I will groom the BETA page for you, so you can easily evaluate what's new in CarPlay.  You can add any new tiles you like to Driving as well!  I'm playing around with the new Drive Session tile, please share your thoughts here: https://forum.imanevp.com/t/tile-for-carplay-elapsed-drive-time-and-drive-distance/249
+
+### NEW: a Beta page in CarPlay (test builds only)
+A new Beta page, right after Driving, shows the tiles being tested in Beta — Battery Health, Elevation, Drive Session, Internet Connection and Module Temps — without adding them through Customize Tiles or changing your Driving page. Each tile has its tip on the Help page, and you can still add any of them to your Driving page. The Beta page is never part of App Store builds.
+
+### NEW: Drive Session tile
+A retro-looking mechanical trip meter for the drive in progress: rolling odometer drums in your distance unit over a chronograph dial that counts the minutes and hours. It starts at 000.0 with each drive, and with no drive in progress it shows your last drive, dimmed. Its distance is the same number History records. It can go on the Full Screen and Split Screen grids and the CarPlay Dashboard, and is not added to anyone's layout automatically.
+
+### CHANGE: a drive's distance is one number everywhere
+A drive's distance in History, its Distance chart, its share card and the Drive Session tile now always agree, during the drive and after it. When the app briefly had no speed data mid-drive, the missing stretch is now filled in when data resumes. Before, such a drive could have its distance replaced by the odometer at the end while its chart kept the shorter line.
+
+### CHANGE: roomier CarPlay tiles
+The Speed, Elevation, Data Flow, Battery Temp and Range tiles have less empty space at the bottom, so their graphs are taller. The Range tile's numbers and the Battery Temp chart start higher. On the Elevation tile, the number sits at the top with a taller graph whenever the EVDE badge is not showing; the lower layout from Build 191 is used only while the badge is up. The Nearest DC Charger tile shows its distance like the other tiles ("2.3mi") and has a small north badge on its map.
+
+### NEW: RPM Regeneration setting
+Settings ▸ CarPlay has a new RPM Regeneration switch, off by default. With it on, the number on the motor RPM tiles turns green during regeneration, as it always did before; with it off, the number keeps its normal color. The arc's colors are unchanged either way.
+
+### CHANGE: easier-to-read tile help in Customize Tiles
+In Settings ▸ CarPlay ▸ Customize Tiles, the explanation of the tile on the wheel now has its own section, titled with the tile's name, at full size and following your iOS text size.
+
+---
 ## Build 191 — FIX: Classic Bluetooth adapters no longer connect when you're not using the app; charging time after a reconnect; a false Adapter Interference alarm; a full-size number on the Elevation tile
 
 NOTE TO TESTERS:  Thank you so much for all the feedback - several bugs fixed today with your help!
