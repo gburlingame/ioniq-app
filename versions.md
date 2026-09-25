@@ -9,6 +9,40 @@ nav_order: 5
 
 
 ---
+## Build 191 — FIX: Classic Bluetooth adapters no longer connect when you're not using the app; charging time after a reconnect; a false Adapter Interference alarm; a full-size number on the Elevation tile
+
+NOTE TO TESTERS:  Thank you so much for all the feedback - several bugs fixed today with your help!
+
+### FIX: OBDLink MX+ and other Classic Bluetooth adapters do not reconnect until you're using the app
+Starting the car within range of your phone could connect one of these adapters and record a short drive ending in "Signal lost" as the car pulled away without the phone. They now follow the same rule as Bluetooth LE adapters: they connect when the app is open on your phone or connected to CarPlay. Thanks Tony!
+
+### FIX: charging time after a reconnect or relaunch
+If the adapter reconnected or the app reopened mid-charge, the phone's Elapsed chip disappeared and the CarPlay DC charging page's Charging time stayed at 0:00 for the rest of the session. Both now count from when the charge started.  Thanks Kim!
+
+### FIX: a false Adapter Interference alarm when the app reopens
+When the app reopened on an adapter that was still connected, such as right after an app update, it could report Adapter Interference and disconnect. The adapter's last answer to the previous copy of the app was mistaken for another app's traffic; that no longer happens. Thanks Mark!
+
+### FIX: the Elevation tile's number stays full size with the EVDE badge
+On the CarPlay Elevation tile, a four-digit elevation used to shrink whenever the EVDE badge was showing. The number now sits a little lower, clear of the badge, and draws at full size.
+
+---
+## Build 190 — NEW: an Elevation screen in Settings; FIX: drives interrupted by the app closing, CarPlay Elevation tile readings; smoother scrolling
+
+NOTE TO TESTERS:  There's a new Elevation screen in Settings -- the CarPlay tile will refer you here if it thinks there is a setting issue, such as disabled permissions.  Please take a moment to visit that page to verify your setup is optimized.   
+
+### NEW: Elevation in Settings
+Settings has a new Elevation screen, next to Units and Tires. It shows your current elevation, tells you whether it will keep updating on your drive and what to do if it won't, and says what the app has learned about whether your vehicle reports its own elevation. Opening it also takes a location reading, so it is a good way to set your elevation before a drive. It also shows the CarPlay Elevation tile with and without the EVDE badge, explains what the badge means, and tells you whether the tile is one of your CarPlay tiles.
+
+### FIX: a drive the app was closed during now ends there
+If the app is closed mid-drive (swiped away, crashed, or ended by iOS), that drive now ends at that point. The next launch closes it from what the app had saved, badged Recovered, with its map; if the car is still on, a new drive starts when the app reconnects. Previously the drive continued across the gap and its distance, energy used and map were reset partway through.
+
+### FIX: CarPlay Elevation tile
+The tile no longer latches onto a location reading that contradicts what the app has already measured — one tester's tile read nearly 6,000ft in Minnesota for a whole drive.  With Motion & Fitness turned off, the tile no longer stays blank on vehicles that report their own elevation; on vehicles that don't, the Elevation screen shows how to turn it back on.  And when the tile has no reading it now says so in words and points you to the app, instead of showing a bare dash.  Thanks Ben and Tom!
+
+### CHANGE: smoother scrolling and a new look
+The lists in Settings, History and the Dashboard scroll more smoothly. Rows, cards and chips are now solid tinted panels instead of frosted glass, with Apple's thin dividing lines between rows. The tab bar shrinks as you scroll down and returns when you scroll up, and History's Sessions/Signals switch has larger text with a blue selection. With Reduce Transparency or Increase Contrast turned on, the panels are fully solid.
+
+---
 ## Build 189 — FIX: charges that came back and drives with a wrong distance; quicker, steadier connecting; Veepeak timing backed out
 
 NOTE TO TESTERS:  In today's build there is a fairly major change under the hood.   A while back I added a holding file that new history was written to while the app was in the background, and copied into History later.   That file did not mitigate the problem it was put in place to solve, and I've recently realized it was causing problems of its own, particularly during session transitions.  I've removed that holding file in this build — please be on the lookout for anything seemingly new, mysterious, and unexpected.   As always — thank you to everyone for your feedback and reports!  
