@@ -64,7 +64,9 @@ sections:
 
 *A walkthrough of the math, written for owners and testers who want to know exactly what the numbers on screen are made of.*
 
-**Version:** 2026-08-25 · **Applies to:** app version 3.0 (build 146) and later
+**Version:** 2026-09-25 · **Applies to:** app version 3.0 (build 146) and later
+
+*Updated to match changes in build 192: how trip distance handles stretches with no speed data (§3.3). Builds before 192 instead measured coverage when the drive ended, and below 80% used the odometer for the whole drive.*
 
 ---
 
@@ -275,7 +277,7 @@ Two independent speed channels feed it:
 1. **Doppler speed** from GPS fixes on your mobile device (~1 Hz).  A fix credits distance only if it passes a confidence gate: reported speed <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\ge 0</annotation></semantics></math></span> **and** its stated speed accuracy is <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><msub><mi>σ</mi><mi>v</mi></msub><mo>≤</mo><mn>2.0</mn></mrow><annotation encoding="application/x-tex">0 &lt; \sigma_v \le 2.0</annotation></semantics></math></span> m/s.  This is the fix's *own reported speed*, never derived by differencing positions — so it does not jitter while parked and has no scale bias.
 2. **Vehicle speed** from the VCU, polled roughly every 2.5–3 seconds.  It credits only the intervals Doppler has not already covered — specifically, when no confident fix has arrived within the last 2.5 seconds.  This carries the drive through tunnels, parking garages, dead GPS, or denied location permission.
 
-Every second of the session is attributed to exactly one of four buckets — `doppler`, `wheel`, `stationary`, or `gap` — and nothing is silently dropped.
+Every second of the session is attributed to exactly one of five buckets — `doppler`, `wheel`, `stationary`, `bridged` (§3.3), or `gap` (a gap still waiting for its odometer reading) — and nothing is silently dropped.
 A single timeline marker guarantees no interval is ever counted twice.
 
 Interval rules:
@@ -284,7 +286,7 @@ Interval rules:
 
 | Rule | Value | Effect |
 |---|---|---|
-| Credit cap | 10 s | A sample arriving 14 s after the marker credits 10 s and books 4 s as `gap` — no data means no invented distance |
+| Credit cap | 10 s | The longest interval one sample measures. A sample arriving 14s after the marker ends a 14s gap, which is bridged from the evidence at its edges (§3.3) |
 | Stationary floor | 0.15 m/s | Below this the interval is *verified stationary*: time counted, zero distance. A stopped car is a measurement, not a gap |
 | Doppler freshness | 2.5 s | How long a confident fix suppresses the vehicle-speed channel |
 | Doppler confidence gate | 2.0 m/s | Fixes with worse stated speed accuracy do not credit |
@@ -305,52 +307,37 @@ t{=}2.0,\ v{=}9.0
 \end{aligned}</annotation></semantics></math></span>
 </div>
 
-### 3.3 Coverage, and when the odometer gets a vote
+### 3.3 Gaps, and how they are bridged
 
-At session close the app computes how much of the drive it actually measured:
+Sometimes neither channel reports for a while: iOS suspended the app, or the vehicle's speed stopped arriving.
+Any interval longer than the 10s credit cap is a **gap**.
+A gap is not left at zero, and it is not judged at the end of the drive: when the sample that ends it arrives, the gap is credited once, from the evidence at its two edges.
 
-<div class="eq">
-<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>coverage</mtext><mo>=</mo><mfrac><mrow><msub><mi>t</mi><mtext>doppler</mtext></msub><mo>+</mo><msub><mi>t</mi><mtext>wheel</mtext></msub><mo>+</mo><msub><mi>t</mi><mtext>stationary</mtext></msub></mrow><mrow><msub><mi>t</mi><mtext>doppler</mtext></msub><mo>+</mo><msub><mi>t</mi><mtext>wheel</mtext></msub><mo>+</mo><msub><mi>t</mi><mtext>stationary</mtext></msub><mo>+</mo><msub><mi>t</mi><mtext>gap</mtext></msub></mrow></mfrac></mrow><annotation encoding="application/x-tex">\text{coverage} = \frac{t_{\text{doppler}} + t_{\text{wheel}} + t_{\text{stationary}}}
-{t_{\text{doppler}} + t_{\text{wheel}} + t_{\text{stationary}} + t_{\text{gap}}}</annotation></semantics></math></span>
-</div>
-
-Then a single decision:
-
-<div class="eq">
-<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.25em" columnalign="right left right left" columnspacing="0em 1em 0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mrow><mtext mathvariant="bold">if</mtext><mtext> </mtext></mrow><mtext>coverage</mtext><mo>≥</mo><mn>0.80</mn></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>→</mo><mtext> use the integral</mtext></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mrow><mtext mathvariant="bold">else</mtext><mtext> </mtext><mtext mathvariant="bold">if</mtext><mtext> </mtext></mrow><mtext>odometer delta</mtext><mo>&gt;</mo><mn>0</mn></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>→</mo><mtext> use end odometer</mtext><mo>−</mo><mtext>start odometer</mtext></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mtext mathvariant="bold">else</mtext></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>→</mo><mtext> use the partial integral</mtext></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
-&amp;\textbf{if } \text{coverage} \ge 0.80
-  &amp;&amp; \rightarrow\ \text{use the integral} \\
-&amp;\textbf{else if } \text{odometer delta} &gt; 0
-  &amp;&amp; \rightarrow\ \text{use end odometer} - \text{start odometer} \\
-&amp;\textbf{else}
-  &amp;&amp; \rightarrow\ \text{use the partial integral}
-\end{aligned}</annotation></semantics></math></span>
-</div>
-
-**Worked example.** A 37-minute drive attributes 1,510 s to Doppler, 240 s to vehicle speed, 380 s stationary, 95 s gap:
+1. **Speed.** The trapezoid rule across the gap: the average of the speed before it and the speed after it, times its length.
+2. **GPS.** When there is a GPS fix at both edges, the straight line between them. The road cannot be shorter, so the estimate is raised to it.
+3. **Odometer.** The odometer readings on either side of the gap, less what was measured between them outside the gap, bound it to within one whole mile or kilometer either way, and the estimate is clamped into those bounds. A gap of a minute or more waits for the next odometer reading so this bound can apply; over a shorter gap the bound is wider than anything the vehicle can have covered.
 
 <div class="eq">
-<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.25em" columnalign="right left" columnspacing="0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mtext>coverage</mtext></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mo stretchy="false">(</mo><mn>1510</mn><mo>+</mo><mn>240</mn><mo>+</mo><mn>380</mn><mo stretchy="false">)</mo><mo>÷</mo><mo stretchy="false">(</mo><mn>1510</mn><mo>+</mo><mn>240</mn><mo>+</mo><mn>380</mn><mo>+</mo><mn>95</mn><mo stretchy="false">)</mo></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>2130</mn><mo>÷</mo><mn>2225</mn></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>0.957</mn><mspace width="1em"/><mo>→</mo><mspace width="1em"/><mn>95.7</mn><mtext> </mtext><mi mathvariant="normal">%</mi><mtext> </mtext><mo>≥</mo><mtext> </mtext><mn>80</mn><mtext> </mtext><mi mathvariant="normal">%</mi><mspace width="1em"/><mo>→</mo><mspace width="1em"/><mtext>the integral is used</mtext></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
-\text{coverage} &amp;= (1510 + 240 + 380) \div (1510 + 240 + 380 + 95) \\
-                &amp;= 2130 \div 2225 \\
-                &amp;= 0.957 \quad\rightarrow\quad 95.7\ \% \ \ge\ 80\ \%
-                   \quad\rightarrow\quad \text{the integral is used}
-\end{aligned}</annotation></semantics></math></span>
+<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>d</mi><mtext>gap</mtext></msub><mo>=</mo><mi mathvariant="normal">clamp</mi><mo>⁡</mo><mrow><mo fence="true">(</mo><mi>max</mi><mo>⁡</mo><mrow><mo fence="true">(</mo><mover accent="true"><mi>v</mi><mo>ˉ</mo></mover><mo>⋅</mo><mi mathvariant="normal">Δ</mi><mi>t</mi><mo separator="true">,</mo><mtext> </mtext><msub><mi>d</mi><mtext>GPS</mtext></msub><mo fence="true">)</mo></mrow><mo separator="true">,</mo><mtext> </mtext><msubsup><mi>d</mi><mtext>odo</mtext><mi>min</mi><mo>⁡</mo></msubsup><mo separator="true">,</mo><mtext> </mtext><msubsup><mi>d</mi><mtext>odo</mtext><mi>max</mi><mo>⁡</mo></msubsup><mo fence="true">)</mo></mrow></mrow><annotation encoding="application/x-tex">d_{\text{gap}} = \operatorname{clamp}\left(\max\left(\bar{v} \cdot \Delta t,\ d_{\text{GPS}}\right),\ d_{\text{odo}}^{\min},\ d_{\text{odo}}^{\max}\right)</annotation></semantics></math></span>
 </div>
 
-**Why the odometer is inadequate as the primary source.** The car’s odometer signal reports in whole miles or whole kilometers.
+Bridged time is its own bucket, `bridged`, so every second of the drive is still attributed exactly once, and every bridge is logged (§9).
+
+**Worked example.** The app is suspended for 516s at highway speed, with the vehicle at 25m/s on both sides of the gap: the speed estimate is <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>25</mn><mo>×</mo><mn>516</mn><mo>=</mo><mn>12.9</mn></mrow><annotation encoding="application/x-tex">25 \times 516 = 12.9</annotation></semantics></math></span>km. The odometer moved 5mi (8.047km) across the readings bracketing the gap, with 0.5km measured between them outside it, so the gap lies between <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>8.047</mn><mo>−</mo><mn>1.609</mn><mo>−</mo><mn>0.5</mn><mo>=</mo><mn>5.938</mn></mrow><annotation encoding="application/x-tex">8.047 - 1.609 - 0.5 = 5.938</annotation></semantics></math></span>km and <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>8.047</mn><mo>+</mo><mn>1.609</mn><mo>−</mo><mn>0.5</mn><mo>=</mo><mn>9.156</mn></mrow><annotation encoding="application/x-tex">8.047 + 1.609 - 0.5 = 9.156</annotation></semantics></math></span>km. The bridge is clamped to 9.156km.
+
+**Why the odometer is not the primary source.** The car’s odometer signal reports in whole miles or whole kilometers.
 A real-world short 1.443 km errand quantizes to 1.609 km — an 11 % error on that trip, and much worse on shorter ones.
 Measured on one verification drive (2026-07-21), the integral gave 1.443 km against a 1.609 km odometer delta, with 98 % coverage.
-The odometer is therefore a coverage-gated *fallback*, never an arbiter of a well-measured drive.
+The odometer therefore only ever bounds a gap; it never replaces a measured drive.
 
 ### 3.4 Putting it all together
 
-**Sample trip.** Available energy 61.4 kWh when the car was put into gear, 53.3 kWh at ignition-off; the integral measured 42.0 km at 96 % coverage.
+**Sample trip.** Available energy 61.4 kWh when the car was put into gear, 53.3 kWh at ignition-off; the distance engine measured 42.0km.
 
 <div class="eq">
-<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.25em" columnalign="right left right left" columnspacing="0em 1em 0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mi>E</mi></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>61.4</mn><mo>−</mo><mn>53.3</mn></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>8.1</mn><mtext> kWh</mtext></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mi>d</mi></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>42.0</mn><mtext> km</mtext></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mphantom><mo>=</mo></mphantom><mtext>  (coverage</mtext><mo>≥</mo><mn>80</mn><mtext> </mtext><mi mathvariant="normal">%</mi><mo separator="true">,</mo><mtext> integral used)</mtext></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.25em" columnalign="right left right left" columnspacing="0em 1em 0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mi>E</mi></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>61.4</mn><mo>−</mo><mn>53.3</mn></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>8.1</mn><mtext> kWh</mtext></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mi>d</mi></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>42.0</mn><mtext> km</mtext></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
 E &amp;= 61.4 - 53.3 &amp;&amp; = 8.1\ \text{kWh} \\
-d &amp;= 42.0\ \text{km} &amp;&amp; \phantom{=}\ \ \text{(coverage} \ge 80\ \%,\ \text{integral used)}
+d &amp;= 42.0\ \text{km}
 \end{aligned}</annotation></semantics></math></span>
 </div>
 
@@ -364,7 +351,7 @@ d &amp;= 42.0\ \text{km} &amp;&amp; \phantom{=}\ \ \text{(coverage} \ge 80\ \%,\
 \end{aligned}</annotation></semantics></math></span>
 </div>
 
-During the drive the app shows the running integral live; the coverage gate is applied once, when the session ends.
+During the drive the app shows the running total live, and that total is the drive's distance: nothing replaces it when the session ends. The History row, the Distance chart and the CarPlay Drive Session tile all show this one number.
 
 ---
 
@@ -612,7 +599,7 @@ The only thing that differs is the span each one covers.
 | Distance | The totalizer of §3.2 | The totalizer of §3.2 |
 | Span | The whole drive, start to finish | A rolling weighted average of roughly the last 5 miles |
 | Long-term twin | — | The same stream at a 60 km half-life (§4.4) |
-| Incomplete stretches | Accounted for and reported as coverage; the odometer can stand in | The affected window is abandoned |
+| Incomplete stretches | Bridged from the evidence at their edges (§3.3) | The affected window is abandoned |
 
 </div>
 
@@ -761,7 +748,8 @@ Every tunable that affects a number in this paper.
 | Doppler freshness | 2.5 s | How long a good fix suppresses the vehicle-speed channel |
 | Credit cap | 10 s | Max time one sample can retroactively claim |
 | Stationary floor | 0.15 m/s | Below this: covered time, zero distance |
-| Coverage floor | 0.80 | Below this, fall back to the odometer delta |
+| Odometer wait | 60s | A gap this long waits for the next odometer reading, so the odometer can bound it |
+| Gap edge accuracy | 30m | A GPS fix this accurate or better can bound a gap |
 
 </div>
 
@@ -805,7 +793,7 @@ Four tags appear:
 
 | Tag | Covers |
 |---|---|
-| `[GPSDIST]` | The distance engine — GPS fixes, wheel-speed samples, odometer readings, and the close decision |
+| `[GPSDIST]` | The distance engine — GPS fixes, wheel-speed samples, odometer readings, gap bridges, and the close record |
 | `[ENERGY]` | Near- and long-term efficiency, range, and arrival state of charge |
 | `[NAV]` | Turn-by-turn guidance — routing, maneuvers, reroutes |
 | `[TRACE]` | The recording itself — start, end |
@@ -843,13 +831,15 @@ Four one-off `[ENERGY]` records fill in the rest: `energy_params` stamps every c
 
 ### The distance record
 
-`[GPSDIST] evt=close` — one line per drive, recording the distance decision:
+`[GPSDIST] evt=close` — one line per drive, recording the drive's distance and the values the trip figures are built from:
 
 ```console
 t=+2431.007 [GPSDIST] evt=close endReason=ignition_off integKm=42.031 cov=0.960
-odoDeltaKm=41.843 chose=INTEGRAL distanceKm=42.031 startSoC=84.0 endSoC=68.0 energyKWh=7.79
+odoDeltaKm=41.843 distanceKm=42.031 startSoC=84.0 endSoC=68.0 energyKWh=7.79
 ```
 
-The choice between the integral and the odometer is always recorded (§3.3), alongside the start and end values the trip figures are built from.
+`cov` is the share of the drive that was measured; the rest was bridged (§3.3). `odoDeltaKm` is for comparison only.
 
-Before it, `evt=fix` carries every GPS fix with its stated confidence and crediting verdict, `evt=wheel` every vehicle-speed sample, and `evt=buckets` the final four-way attribution of §3.2 — so the coverage figure in the close line can be checked against the seconds that produced it.
+`[GPSDIST] evt=bridge` — one line per bridged gap: its length, the speeds at its two edges, the speed estimate, the GPS minimum, the odometer bounds, and the distance credited. The same line goes to the App Activity Log, so a bridged drive can be diagnosed without a drive trace.
+
+Before the close, `evt=fix` carries every GPS fix with its stated confidence and crediting verdict, `evt=wheel` every vehicle-speed sample, and `evt=buckets` the final five-way attribution of §3.2 and §3.3 — so the coverage figure in the close line can be checked against the seconds that produced it.
