@@ -201,14 +201,14 @@ Two independent speed channels feed it:
 1. **Doppler speed** from GPS fixes on your mobile device (~1 Hz).  A fix credits distance only if it passes a confidence gate: reported speed $\ge 0$ **and** its stated speed accuracy is $0 < \sigma_v \le 2.0$ m/s.  This is the fix's *own reported speed*, never derived by differencing positions — so it does not jitter while parked and has no scale bias.
 2. **Vehicle speed** from the VCU, polled roughly every 2.5–3 seconds.  It credits only the intervals Doppler has not already covered — specifically, when no confident fix has arrived within the last 2.5 seconds.  This carries the drive through tunnels, parking garages, dead GPS, or denied location permission.
 
-Every second of the session is attributed to exactly one of four buckets — `doppler`, `wheel`, `stationary`, or `gap` — and nothing is silently dropped.
+Every second of the session is attributed to exactly one of five buckets — `doppler`, `wheel`, `stationary`, `bridged` (§3.3), or `gap` (a gap still waiting for its odometer reading) — and nothing is silently dropped.
 A single timeline marker guarantees no interval is ever counted twice.
 
 Interval rules:
 
 | Rule | Value | Effect |
 |---|---|---|
-| Credit cap | 10 s | A sample arriving 14 s after the marker credits 10 s and books 4 s as `gap` — no data means no invented distance |
+| Credit cap | 10 s | The longest interval one sample measures. A sample arriving 14s after the marker ends a 14s gap, which is bridged from the evidence at its edges (§3.3) |
 | Stationary floor | 0.15 m/s | Below this the interval is *verified stationary*: time counted, zero distance. A stopped car is a measurement, not a gap |
 | Doppler freshness | 2.5 s | How long a confident fix suppresses the vehicle-speed channel |
 | Doppler confidence gate | 2.0 m/s | Fixes with worse stated speed accuracy do not credit |
@@ -227,52 +227,37 @@ t{=}2.0,\ v{=}9.0
 \end{aligned}
 $$
 
-### 3.3 Coverage, and when the odometer gets a vote
+### 3.3 Gaps, and how they are bridged
 
-At session close the app computes how much of the drive it actually measured:
+Sometimes neither channel reports for a while: iOS suspended the app, or the vehicle's speed stopped arriving.
+Any interval longer than the 10s credit cap is a **gap**.
+A gap is not left at zero, and it is not judged at the end of the drive: when the sample that ends it arrives, the gap is credited once, from the evidence at its two edges.
 
-$$
-\text{coverage} = \frac{t_{\text{doppler}} + t_{\text{wheel}} + t_{\text{stationary}}}
-{t_{\text{doppler}} + t_{\text{wheel}} + t_{\text{stationary}} + t_{\text{gap}}}
-$$
-
-Then a single decision:
-
-$$
-\begin{aligned}
-&\textbf{if } \text{coverage} \ge 0.80
-  && \rightarrow\ \text{use the integral} \\
-&\textbf{else if } \text{odometer delta} > 0
-  && \rightarrow\ \text{use end odometer} - \text{start odometer} \\
-&\textbf{else}
-  && \rightarrow\ \text{use the partial integral}
-\end{aligned}
-$$
-
-**Worked example.** A 37-minute drive attributes 1,510 s to Doppler, 240 s to vehicle speed, 380 s stationary, 95 s gap:
+1. **Speed.** The trapezoid rule across the gap: the average of the speed before it and the speed after it, times its length.
+2. **GPS.** When there is a GPS fix at both edges, the straight line between them. The road cannot be shorter, so the estimate is raised to it.
+3. **Odometer.** The odometer readings on either side of the gap, less what was measured between them outside the gap, bound it to within one whole mile or kilometer either way, and the estimate is clamped into those bounds. A gap of a minute or more waits for the next odometer reading so this bound can apply; over a shorter gap the bound is wider than anything the vehicle can have covered.
 
 $$
-\begin{aligned}
-\text{coverage} &= (1510 + 240 + 380) \div (1510 + 240 + 380 + 95) \\
-                &= 2130 \div 2225 \\
-                &= 0.957 \quad\rightarrow\quad 95.7\ \% \ \ge\ 80\ \%
-                   \quad\rightarrow\quad \text{the integral is used}
-\end{aligned}
+d_{\text{gap}} = \operatorname{clamp}\left(\max\left(\bar{v} \cdot \Delta t,\ d_{\text{GPS}}\right),\ d_{\text{odo}}^{\min},\ d_{\text{odo}}^{\max}\right)
 $$
 
-**Why the odometer is inadequate as the primary source.** The car’s odometer signal reports in whole miles or whole kilometers.
+Bridged time is its own bucket, `bridged`, so every second of the drive is still attributed exactly once, and every bridge is logged (§9).
+
+**Worked example.** The app is suspended for 516s at highway speed, with the vehicle at 25m/s on both sides of the gap: the speed estimate is $25 \times 516 = 12.9$km. The odometer moved 5mi (8.047km) across the readings bracketing the gap, with 0.5km measured between them outside it, so the gap lies between $8.047 - 1.609 - 0.5 = 5.938$km and $8.047 + 1.609 - 0.5 = 9.156$km. The bridge is clamped to 9.156km.
+
+**Why the odometer is not the primary source.** The car’s odometer signal reports in whole miles or whole kilometers.
 A real-world short 1.443 km errand quantizes to 1.609 km — an 11 % error on that trip, and much worse on shorter ones.
 Measured on one verification drive (2026-07-21), the integral gave 1.443 km against a 1.609 km odometer delta, with 98 % coverage.
-The odometer is therefore a coverage-gated *fallback*, never an arbiter of a well-measured drive.
+The odometer therefore only ever bounds a gap; it never replaces a measured drive.
 
 ### 3.4 Putting it all together
 
-**Sample trip.** Available energy 61.4 kWh when the car was put into gear, 53.3 kWh at ignition-off; the integral measured 42.0 km at 96 % coverage.
+**Sample trip.** Available energy 61.4 kWh when the car was put into gear, 53.3 kWh at ignition-off; the distance engine measured 42.0km.
 
 $$
 \begin{aligned}
 E &= 61.4 - 53.3 && = 8.1\ \text{kWh} \\
-d &= 42.0\ \text{km} && \phantom{=}\ \ \text{(coverage} \ge 80\ \%,\ \text{integral used)}
+d &= 42.0\ \text{km}
 \end{aligned}
 $$
 
@@ -286,7 +271,7 @@ $$
 \end{aligned}
 $$
 
-During the drive the app shows the running integral live; the coverage gate is applied once, when the session ends.
+During the drive the app shows the running total live, and that total is the drive's distance: nothing replaces it when the session ends. The History row, the Distance chart and the CarPlay Drive Session tile all show this one number.
 
 ---
 
@@ -512,7 +497,7 @@ The only thing that differs is the span each one covers.
 | Distance | The totalizer of §3.2 | The totalizer of §3.2 |
 | Span | The whole drive, start to finish | A rolling weighted average of roughly the last 5 miles |
 | Long-term twin | — | The same stream at a 60 km half-life (§4.4) |
-| Incomplete stretches | Accounted for and reported as coverage; the odometer can stand in | The affected window is abandoned |
+| Incomplete stretches | Bridged from the evidence at their edges (§3.3) | The affected window is abandoned |
 
 That means the two numbers cannot disagree about *what was measured* — only about *how much of the drive they are describing*.
 Finish a drive that started in city traffic and ended on the highway, and the trip figure will report the average of the whole thing while the near-term figure ends up near the highway portion. Both are right; they are answering different questions.
@@ -649,7 +634,8 @@ Every tunable that affects a number in this paper.
 | Doppler freshness | 2.5 s | How long a good fix suppresses the vehicle-speed channel |
 | Credit cap | 10 s | Max time one sample can retroactively claim |
 | Stationary floor | 0.15 m/s | Below this: covered time, zero distance |
-| Coverage floor | 0.80 | Below this, fall back to the odometer delta |
+| Odometer wait | 60s | A gap this long waits for the next odometer reading, so the odometer can bound it |
+| Gap edge accuracy | 30m | A GPS fix this accurate or better can bound a gap |
 
 **Signals**
 
@@ -685,7 +671,7 @@ Four tags appear:
 
 | Tag | Covers |
 |---|---|
-| `[GPSDIST]` | The distance engine — GPS fixes, wheel-speed samples, odometer readings, and the close decision |
+| `[GPSDIST]` | The distance engine — GPS fixes, wheel-speed samples, odometer readings, gap bridges, and the close record |
 | `[ENERGY]` | Near- and long-term efficiency, range, and arrival state of charge |
 | `[NAV]` | Turn-by-turn guidance — routing, maneuvers, reroutes |
 | `[TRACE]` | The recording itself — start, end |
@@ -721,13 +707,15 @@ Four one-off `[ENERGY]` records fill in the rest: `energy_params` stamps every c
 
 ### The distance record
 
-`[GPSDIST] evt=close` — one line per drive, recording the distance decision:
+`[GPSDIST] evt=close` — one line per drive, recording the drive's distance and the values the trip figures are built from:
 
 ```
 t=+2431.007 [GPSDIST] evt=close endReason=ignition_off integKm=42.031 cov=0.960
-odoDeltaKm=41.843 chose=INTEGRAL distanceKm=42.031 startSoC=84.0 endSoC=68.0 energyKWh=7.79
+odoDeltaKm=41.843 distanceKm=42.031 startSoC=84.0 endSoC=68.0 energyKWh=7.79
 ```
 
-The choice between the integral and the odometer is always recorded (§3.3), alongside the start and end values the trip figures are built from.
+`cov` is the share of the drive that was measured; the rest was bridged (§3.3). `odoDeltaKm` is for comparison only.
 
-Before it, `evt=fix` carries every GPS fix with its stated confidence and crediting verdict, `evt=wheel` every vehicle-speed sample, and `evt=buckets` the final four-way attribution of §3.2 — so the coverage figure in the close line can be checked against the seconds that produced it.
+`[GPSDIST] evt=bridge` — one line per bridged gap: its length, the speeds at its two edges, the speed estimate, the GPS minimum, the odometer bounds, and the distance credited. The same line goes to the App Activity Log, so a bridged drive can be diagnosed without a drive trace.
+
+Before the close, `evt=fix` carries every GPS fix with its stated confidence and crediting verdict, `evt=wheel` every vehicle-speed sample, and `evt=buckets` the final five-way attribution of §3.2 and §3.3 — so the coverage figure in the close line can be checked against the seconds that produced it.
