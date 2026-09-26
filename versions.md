@@ -9,6 +9,29 @@ nav_order: 5
 
 
 ---
+## Build 193 — NEW: a Final Energy tile in History; FIX: empty Elevation graphs, scrolling over Signals charts; a cleaner look for History values and dates; CarPlay tile tweaks
+
+NOTE TO TESTERS:  I think we're getting close to the first release candidate for Version 3.5 -- thanks everyone for the feedback, keep it rolling in!  There's a nice quality-of-life improvement today if you frequent the Signals charts in History.  Vertical scrolling actions used to get swallowed up on the graphs, making it hard to move around -- that problem is fixed.  
+
+### NEW: Final Energy in History
+Charging and driving sessions, and their share cards, have a new Final Energy tile: the pack's available energy when the session ended. It is hidden while a session is in progress and when no reading was recorded.
+
+### CHANGE: one look for every value in History
+Every value in History now shows its unit the same way: no space, in the value's own color instead of gray, and smaller than the number ("150kW", "45.2kWh"). This covers the session pages, the share card, the Signals detail page and the session list. A whole-hour duration reads "2h" instead of "2h 0m".
+
+### CHANGE: plain dates in History
+Session and Signals headers show the date ("September 17, 2026") instead of Today, Yesterday or a weekday name, and times drop the space before AM/PM ("3:15PM – 3:21PM"). 24-hour time is unchanged.
+
+### FIX: no more empty Elevation graph on a drive
+A drive whose elevation the app never established could show an empty Elevation graph on its page and share card. The app no longer records an altitude it has already judged wrong, and a drive with no elevation to draw has no Elevation graph at all. Thanks Tony!
+
+### FIX: scrolling over a Signals chart
+In History ▸ Signals, a vertical swipe that starts on a chart now scrolls the page. A sideways drag still moves through time, a hold still scrubs, and a pinch still zooms.
+
+### CarPlay: Drive Session and Elevation tiles
+Coming back to CarPlay mid-drive, the Drive Session tile shows the current distance at once instead of rolling up to it. The Elevation tile's graph uses more of its height on gently rolling roads: its scale now adjusts in 50ft steps (15m in metric) instead of 100ft (30m).
+
+---
 ## Build 192 — NEW: a Drive Session tile and a Beta page in CarPlay; one drive distance everywhere; roomier CarPlay tiles; RPM Regeneration setting
 
 NOTE TO TESTERS:  I created a new BETA page in CarPlay -- you no longer have to adjust your finely groomed Driving panels in order to test out what's new -- I will groom the BETA page for you, so you can easily evaluate what's new in CarPlay.  You can add any new tiles you like to Driving as well!  I'm playing around with the new Drive Session tile, please share your thoughts here: https://forum.imanevp.com/t/tile-for-carplay-elapsed-drive-time-and-drive-distance/249
