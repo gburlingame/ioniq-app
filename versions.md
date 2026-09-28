@@ -9,6 +9,17 @@ nav_order: 5
 
 
 ---
+## Build 195 — FIX: AC charging on a household outlet with the vehicle on; spikes on the CarPlay Elevation graph
+
+NOTE TO TESTERS:  There is a fairly big change to the logic that detects an AC charging session in today's build -- please be on the lookout for anything unusual when conducting an L1 or L2 AC charging session.  I found a signal on my 2026 IONIQ 5, and then surveyed archived diagnostic logs that folks have sent me to feel confident this new signal will work for everyone.  Fingers crossed!  
+
+### FIX: Charging state oscillates while L1 charging
+The old logic had not correctly accounted for a low-current (L1) charging session with the vehicle pulling a load -- this could lead to oscillating charge state (ON->OFF->ON->OFF).  The app determines that AC charging is underway using several signals - previously DC pack current was one of those signals.   That signal has been replaced with measurement of the current flowing through the on-board charger -- previously unidentified in newer-generation E-GMP vehicles.  Thanks Tempus! 
+
+### FIX: spikes on the CarPlay Elevation graph
+On vehicles that report their own elevation, the Elevation tile's graph no longer draws a row of one-sample spikes when iOS switches back and forth between the phone's altitude and the vehicle's. A single reading from the other source no longer moves the elevation.  iOS sometimes oscillates between the iPhone's GPS and the vehicle's GPS for just one sample, and this can cause a little spike in the elevation graph.
+
+---
 ## Build 194 — FIX: no false Adapter Interference from a slow Bluetooth LE adapter; additional charge session logging
 
 ### Charge session start and stop reasons logged
