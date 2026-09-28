@@ -9,6 +9,15 @@ nav_order: 5
 
 
 ---
+## Build 194 — FIX: no false Adapter Interference from a slow Bluetooth LE adapter; additional charge session logging
+
+### Charge session start and stop reasons logged
+Previously the App Activity Log only recorded when a charging session started or stopped -- now the signals considered in that decision are logged too.
+
+### FIX: a slow adapter reply no longer causes a false Adapter Interference disconnect
+With a Bluetooth LE adapter on a weak Bluetooth link, a slow reply could be mistaken for Adapter Interference, disconnecting the adapter and leaving auto-connect switched off. The app now waits for the adapter to finish each command; if the adapter goes silent for 10s, the app drops the link and reconnects on its own. Classic Bluetooth adapters (OBDLink MX+, vLinker FS) are unchanged.
+
+---
 ## Build 193 — NEW: a Final Energy tile in History; FIX: empty Elevation graphs, scrolling over Signals charts; a cleaner look for History values and dates; CarPlay tile tweaks
 
 NOTE TO TESTERS:  I think we're getting close to the first release candidate for Version 3.5 -- thanks everyone for the feedback, keep it rolling in!  There's a nice quality-of-life improvement today if you frequent the Signals charts in History.  Vertical scrolling actions used to get swallowed up on the graphs, making it hard to move around -- that problem is fixed.  
