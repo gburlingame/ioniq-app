@@ -9,6 +9,17 @@ nav_order: 5
 
 
 ---
+## Build 196 — NEW: the CarPlay tile grid is back during navigation; Journey tap card figures match the map
+
+NOTE TO TESTERS:  You are once again able to switch between active navigation and the driving page!  I found a clever way to make this work without breaking HUD during navigation.  I was always disappointed that I had to remove this capability, so I am very glad to be able to bring it back.   Please spend some time navigating and then going back over to the Driving page of tiles.  If you've left the Nearest DC Charger tile on your dashboard, you'll notice right away that it is a dynamic tile -- when navigation is happening it transforms into a countdown timer with a ring showing how much distance is left to go.   You'll also notice that turn-by-turn directions will appear at the bottom of the tiles when a driving maneuver is about to happen.   Please report any issues -- thank you! 
+
+### NEW: tiles during navigation in CarPlay
+While navigating, the grid|map button at the bottom of the map's buttons switches to the full-width tile grid and back, as often as you like. Navigation keeps running the whole time, including turn-by-turn directions in the vehicle's head-up display and instrument cluster, and a small turn reminder appears at the bottom of the grid as each turn approaches. To make room, recenter moved to the top bar, next to the voice button.
+
+### FIX: the Journey tap card matches the map
+On a drive's Journey map, the tap card's Speed and Power now show the reading at the marker, so they always match the color under it; before, they showed the stretch's average. The stretch's own figures (distance, elevation change, efficiency, average power and average speed) are grouped below them on the halo's gold.   Thanks Paul!
+
+---
 ## Build 195 — FIX: AC charging on a household outlet with the vehicle on; spikes on the CarPlay Elevation graph
 
 NOTE TO TESTERS:  There is a fairly big change to the logic that detects an AC charging session in today's build -- please be on the lookout for anything unusual when conducting an L1 or L2 AC charging session.  I found a signal on my 2026 IONIQ 5, and then surveyed archived diagnostic logs that folks have sent me to feel confident this new signal will work for everyone.  Fingers crossed!  
