@@ -9,6 +9,26 @@ nav_order: 5
 
 
 ---
+## Build 197 — CarPlay navigation: turns held until you make them, real exit and roundabout symbols, Apple Maps route colors; FIX: head-up display on a second trip, charging current that runs out of the pack
+
+NOTE TO TESTERS:  Thank you for all the feedback and ideas -- keep 'em coming!  Quite a few tweaks & improvements with navigation in today's build.  I'd love to have some RHD folks take navigation through a roundabout or two, lots of tricky logic going on under the hood to show the right roundabout glyphs.  Please let me know if you run into anything unusual.  
+
+### CHANGE: turn-by-turn guidance waits for your turn
+Stopped at a stop sign or a light before a turn, the directions card, the vehicle's display and the voice used to jump ahead to the next maneuver. They now stay on the turn you're about to make until you've made it, and the voice no longer announces the next turn while you're still approaching this one.
+
+### NEW: turn symbols that show the real maneuver
+A highway exit shows an arrow leaving on the exit's side, "keep left" and "keep right" show a fork, and a roundabout shows the ring turning the way traffic circulates, with the exit where the route actually leaves it. The turn symbol on the directions card also no longer disappears white-on-white when navigation starts in daytime. Thanks glisseman!
+
+### FIX: head-up display on a second trip
+Switching to the tile grid during a second navigation no longer turns off the turn-by-turn directions in the vehicle's head-up display and instrument cluster. In Build 196 they went blank the first time you switched to the tiles on your next trip. Thanks Tempus!
+
+### CHANGE: Apple Maps colors for the route and Arrival SoC
+The route line now uses Apple Maps' route colors by day and by night, and it widens and narrows with the map as you zoom, like the roads around it. The Arrival SoC capsule now matches CarPlay's own trip panel: green from 60%, yellow from 10% to 59%, red below 10%.  Note:  There's an active thread about this one - I'm considering a change:  https://forum.imanevp.com/t/power-tab-on-the-journey-screen-in-the-history-doesnt-seem-to-be-scaled-correctly/264
+
+### FIX: charging current and power are signed
+Charging screens now show pack current and power as positive while charging and negative when the vehicle's own load draws more than the charger supplies, such as max climate on a household outlet. Before, both showed a positive number, so the pack supplying the vehicle looked like charging. This covers the CarPlay AC and DC charging pages, the phone's charging values and chart, and History's DC charging-power chart.  Thanks Tempus!
+
+---
 ## Build 196 — NEW: the CarPlay tile grid is back during navigation; Journey tap card figures match the map
 
 NOTE TO TESTERS:  You are once again able to switch between active navigation and the driving page!  I found a clever way to make this work without breaking HUD during navigation.  I was always disappointed that I had to remove this capability, so I am very glad to be able to bring it back.   Please spend some time navigating and then going back over to the Driving page of tiles.  If you've left the Nearest DC Charger tile on your dashboard, you'll notice right away that it is a dynamic tile -- when navigation is happening it transforms into a countdown timer with a ring showing how much distance is left to go.   You'll also notice that turn-by-turn directions will appear at the bottom of the tiles when a driving maneuver is about to happen.   Please report any issues -- thank you! 
