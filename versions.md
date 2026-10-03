@@ -9,6 +9,23 @@ nav_order: 5
 
 
 ---
+## Build 198 — NEW: adjust a saved destination's pin, contacts in destination search, save a recent destination; FIX: CarPlay map buttons after a knob-ended trip
+
+NOTE TO TESTERS:  Build numbers are now back in sync -- this is build 198.  We're getting close to the first release candidate for Version 3.5.   Please keep the feedback rolling in!  
+
+### NEW: put a saved destination's pin exactly where you drive
+Open a saved destination and tap Adjust Location, then pan the map under the pin to the driveway or parking lot entrance you actually use. A Map/Satellite switch shows driveways on the imagery. The editor also shows a map preview of the pin, and a long press on a saved destination offers Edit, Adjust Location and Delete.
+
+### NEW: contacts in destination search
+Your contacts' addresses now appear as you type, both when adding a saved destination on your phone and in Type an Address… in your vehicle. The app asks for Contacts access only from the phone's search ("Show Contacts in Search"), never from CarPlay. Picking a contact saves their name as the tag. In CarPlay, results show a pin and contacts a person.
+
+### NEW: save a recent destination in one tap
+In Settings ▸ Navigation ▸ Destinations, tap a recent destination (or long-press it and choose Add to Saved Addresses). The place and its name are already filled in, so Save is one tap, and Adjust Location is right there.
+
+### FIX: CarPlay map buttons after a knob-ended trip
+The floating map buttons, including the grid|map toggle, no longer go missing after a trip you end right after switching back from the tile grid with a knob, touchpad or other controller. Before, the Driving page showed no toggle until CarPlay reconnected. Thanks Tempus!
+
+---
 ## Build 197 — CarPlay navigation: turns held until you make them, real exit and roundabout symbols, Apple Maps route colors; FIX: head-up display on a second trip, charging current that runs out of the pack
 
 NOTE TO TESTERS:  Thank you for all the feedback and ideas -- keep 'em coming!  Quite a few tweaks & improvements with navigation in today's build.  I'd love to have some RHD folks take navigation through a roundabout or two, lots of tricky logic going on under the hood to show the right roundabout glyphs.  Please let me know if you run into anything unusual.  
