@@ -9,6 +9,29 @@ nav_order: 5
 
 
 ---
+## Build 199 — NEW: confirm before deleting a session; FIX: saved destination names that reverted, Drive Session tile, Dashboard at larger text sizes; Auto-Connect is per device
+
+NOTE TO TESTERS:  Thanks for all the feedback as we get ready for Release Candidate 1 for Version 3.5 - we are very close.
+
+### FIX: saved destinations stay as you left them across devices
+A destination you rename on one device no longer reverts to its old name. Another device could write its old copy back the next time you saved, deleted or reordered anything there. This takes full effect once every device on your Apple ID runs this build. Thanks Tempus!
+
+### CHANGE: Auto-Connect is set on each device
+Auto-Connect no longer syncs through iCloud, because whether to reconnect depends on the adapter each device is paired with. Settings ▸ iCloud ▸ Settings now says so under the Sync to iCloud switch.
+
+### NEW: confirm before deleting a session
+Swiping to delete a charging or driving session in History now asks before anything is deleted. Tap Cancel to keep the session. Thanks John!
+
+### FIX: Drive Session tile
+Coming back to the app's CarPlay screen no longer makes the Drive Session odometer spin forward to catch up; distance driven while the tile was off screen appears at once.  Thanks Tempus and Sintacks!
+
+### FIX: the Dashboard at larger text sizes
+With a larger text size turned on, section and banner icons are no longer cut off or drawn over their titles. At the extra large sizes, value tiles stack in a single column so labels no longer break mid-word, and the energy under the State of Charge dial no longer draws over the dial. That line now reads "60.0kWh available", with no space. Thanks Galen!
+
+### CHANGE: updated DC fast-charger list
+The charger list built into the app is refreshed to October 3, adding about 1,180 DC fast-charging sites and removing about 160 that have closed or been delisted. Evolv Charging in California and EVolve NY in New York now appear as their own networks.
+
+---
 ## Build 198 — NEW: adjust a saved destination's pin, contacts in destination search, save a recent destination; FIX: CarPlay map buttons after a knob-ended trip
 
 NOTE TO TESTERS:  Build numbers are now back in sync -- this is build 198.  We're getting close to the first release candidate for Version 3.5.   Please keep the feedback rolling in!  
