@@ -9,6 +9,14 @@ nav_order: 5
 
 
 ---
+## Build 200 — FIX: CarPlay rerouting waits for the vehicle to finish turning
+
+NOTE TO TESTERS: Only one fix in today's build -- you may notice that a reroute right after a turn can take a couple of seconds longer than it used to.   Cool to see the app reaching its 200th build!  
+
+### FIX: rerouting waits until you've finished turning
+When you leave the route in the middle of a turn, the app now waits for the vehicle to settle onto its new road before planning a new route, so the route starts from the road you're actually on. Before, a reroute could start from the direction you were pointing partway through the turn, which could put the start of the new route on a nearby parking lot or the wrong side of the road; going all the way around a roundabout to turn back was one place it showed. Thanks Tempus!
+
+---
 ## Build 199 — NEW: confirm before deleting a session; FIX: saved destination names that reverted, Drive Session tile, Dashboard at larger text sizes; Auto-Connect is per device
 
 NOTE TO TESTERS:  Thanks for all the feedback as we get ready for Release Candidate 1 for Version 3.5 - we are very close.
