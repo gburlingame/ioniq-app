@@ -9,6 +9,23 @@ nav_order: 5
 
 
 ---
+## Build 201 — NEW: full turn details on the vehicle's head-up display, CarPlay Drive Time tile; FIX: Create Curated DID List; CHANGE: CarPlay Help tips
+
+NOTE TO TESTERS:  More improvements and bug fixes in today's build - please be sure to check out the updates to the beta tiles on the Beta page.
+
+### NEW: full turn details on the head-up display
+On vehicles that show CarPlay directions in the head-up display or instrument cluster, the vehicle now gets the whole maneuver: which roundabout exit to take and which way it leaves, which side a highway exit is on and its exit number, "keep left" and "keep right" as a fork, sharp turns as sharp turns, and which side the destination is on. Before, every roundabout reached the vehicle as the same generic roundabout, so it could look worse there than on the CarPlay screen. Thanks Roland and Tempus!
+
+### NEW: CarPlay Drive Time tile
+Drive Time puts the Drive Session stopwatch on a face of its own. Find it on the Beta page beside Drive Session, and in Customize Tiles. After the first hour, the completed hour stays on the dial as a dim ring, so the orange minute arc no longer disappears at the top of each hour. Drive Session now shows the drive's time on a smaller set of drums under the odometer (1:38) that rolls over on the minute, in place of its stopwatch.  Thanks John!
+
+### FIX: Create Curated DID List keeps every record that answers
+A data record that answers is no longer left off the list because it was asked for together with one the module refused; a refused group is now re-read one record at a time. Tempus's GV60 body-module scan lost records this way. Thanks Tempus!
+
+### CHANGE: CarPlay Help tips
+The Elevation tip is shorter and now says how much road the tile shows, the last 3.1mi (5km). The Nearest DC Charger tip now says "DC charger," matching its heading. Several translations of the Battery Warmer and 12V tips no longer put a space between a value and its unit.
+
+---
 ## Build 200 — FIX: CarPlay rerouting waits for the vehicle to finish turning
 
 NOTE TO TESTERS: Only one fix in today's build -- you may notice that a reroute right after a turn can take a couple of seconds longer than it used to.   Cool to see the app reaching its 200th build!  
