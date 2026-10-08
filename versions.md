@@ -9,6 +9,20 @@ nav_order: 5
 
 
 ---
+## Build 202 — FIX: CarPlay charger list follows the crosshair, Genesis GV60 Headlights indicator; CHANGE: CarPlay distances
+
+NOTE TO TESTERS:  A couple of bug fixes in today's build.  Thanks for all the feedback!
+
+### FIX: the CarPlay charger list follows the crosshair
+After you pan the charger map, the list now shows the chargers nearest the red crosshair instead of the ones nearest your vehicle. Distances in the list are still measured from your vehicle. In split screen, GO now routes to the charger the info box names; before, it could pick a different charger nearby. Thanks Stephen!
+
+### FIX: Genesis GV60 Headlights indicator
+The Headlights indicator on the Dashboard and in CarPlay now reads the headlamp's own lighting controller. It shows low beams only when the low beams are on, so parking lights no longer light it, and it now shows high beams, whether held on or flashed. Thanks Tempus!
+
+### CHANGE: CarPlay distances
+CarPlay distances no longer have a space between the number and the unit ("0.4mi", "450m") in the charger list, the charger info box, the turn distance and the Dashboard's charger button.
+
+---
 ## Build 201 — NEW: full turn details on the vehicle's head-up display, CarPlay Drive Time tile; FIX: Create Curated DID List; CHANGE: CarPlay Help tips
 
 NOTE TO TESTERS:  More improvements and bug fixes in today's build - please be sure to check out the updates to the beta tiles on the Beta page.
