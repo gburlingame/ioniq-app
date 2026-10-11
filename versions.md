@@ -9,6 +9,14 @@ nav_order: 5
 
 
 ---
+## Build 204 — FIX: CarPlay rerouting follows your direction of travel
+
+NOTE TO TESTERS:  I made a fairly big change to the rerouting logic in today's build.  Historically the app projected a new start point ahead of your current location, and navigated from there.  I figured out a better way, leveraging MapKit directly.   I'm sure Tempus will be able to break this, but hopefully not as easily.  
+
+### FIX: CarPlay rerouting follows your direction of travel
+When you leave the route, the new route now starts on your side of the road in the direction you are driving, the way Apple Maps does. If the best way is back, it turns you around legally ahead, for example at the next roundabout, instead of sending you into a parking lot, out of a driveway or across a median. Right after a reroute, the directions no longer jump to a turn meant for the other side of the road. Routes you start while driving, and faster-route suggestions, also begin in your direction of travel. Thanks Tempus!
+
+---
 ## Build 203 — NEW: share live data with ABRP; FIX: journey maps for drives that start with the phone locked, roundabout exits on the car's display, History Final Energy, DID scan crash; CHANGE: unread readings show a dash
 
 NOTE TO TESTERS:  The highly requested data link to ABRP has been added in today's build!   I don't have an ABRP paid account, but from my limited testing with just the free tier, the integration appears to be working.   Please test it out and report anything that seems off.
