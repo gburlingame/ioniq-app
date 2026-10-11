@@ -9,6 +9,29 @@ nav_order: 5
 
 
 ---
+## Build 203 — NEW: share live data with ABRP; FIX: journey maps for drives that start with the phone locked, roundabout exits on the car's display, History Final Energy, DID scan crash; CHANGE: unread readings show a dash
+
+NOTE TO TESTERS:  The highly requested data link to ABRP has been added in today's build!   I don't have an ABRP paid account, but from my limited testing with just the free tier, the integration appears to be working.   Please test it out and report anything that seems off.
+
+### NEW: share live data with ABRP
+Settings ▸ Data Sharing ▸ ABRP sends your vehicle's live data to ABRP (A Better Routeplanner), which uses it to update your plans. Turn on Share Live Data with ABRP, then, while connected to the vehicle, tap Link This Vehicle and paste the vehicle's token from the ABRP app; the link sheet shows where to find it, and the app checks the token with ABRP before linking. While the vehicle is on, the app sends state of charge, power, speed, location, temperatures, tire pressures and charging state, and holds anything it can't send until the connection returns. Each vehicle is linked separately, and data goes directly from the app to ABRP.
+
+### FIX: drives that start with the phone locked get their journey map
+If you open EV Dashboard while connected to the vehicle and then lock the phone or switch apps before driving off, the drive now records GPS from the start, so its journey map, GPS distance and altitude are no longer missing. To do this the app keeps a background location session until the vehicle is off or out of Bluetooth range, so the status bar shows the blue location arrow while the app is in the background; GPS still runs only while driving. Thanks Burak!
+
+### FIX: roundabout exits on the car's one-line display
+On head-up displays and instrument clusters that show one line of text, a roundabout now reads "Roundabout, exit 2" instead of "At the roundabout" cut off before the exit. The turn popup over the tiles and the next-maneuver row under the directions card name the exit too. Thanks Tempus!
+
+### FIX: Final Energy in History
+Drives that ended with the ignition off or a lost connection sometimes showed no Final Energy tile, even though their readings were recorded. Final Energy now shows on those drives, including ones already in History. Export Data (CSV) no longer sometimes leaves out the reading taken exactly at a session's start or end. Thanks John!
+
+### FIX: DID scans no longer crash on the full range
+In Advanced Tools, DID Range Scan and Broadcast DID Scan no longer crash when the range covers every DID (0000 to FFFF); the full range now scans normally. Thanks Tempus!
+
+### CHANGE: readings show a dash until the vehicle reports them
+Pack voltage, current and power, battery health, available energy, speed, tire pressures, and cabin and outside temperature now show a dash until the vehicle reports them, instead of 0. An outside temperature of exactly 0°C (32°F) now shows; it used to show a dash.
+
+---
 ## Build 202 — FIX: CarPlay charger list follows the crosshair, Genesis GV60 Headlights indicator; CHANGE: CarPlay distances
 
 NOTE TO TESTERS:  A couple of bug fixes in today's build.  Thanks for all the feedback!
