@@ -9,6 +9,20 @@ nav_order: 5
 
 
 ---
+## Build 205 — CHANGE: percentages follow your language's format, odometer spacing; FIX: CarPlay readings at 100% fit
+
+NOTE TO TESTERS:  Just a few minor fixes in today's build.
+
+### CHANGE: percentages follow your language's format
+Percentages on the Dashboard, in History and on CarPlay now follow your language's format. German, Spanish, French and Swedish put a space before the sign ("72 %"), and Turkish puts the sign first ("%72"); English is unchanged. Road grade on the journey map also uses your language's decimal mark ("+0,5 %" in German).
+
+### FIX: CarPlay readings at 100% fit their space
+At 100%, the number in the CarPlay SoC ring (Dashboard tile and charging screen) ran under the ring. The "%" is now half the number's size, like the "kWh" beneath it, and the reading fits inside the ring. A Climate chip row too wide for the chip, such as humidity at 100% in Spanish, now shrinks to fit instead of being cut off, and Battery Health does the same.
+
+### CHANGE: odometer spacing
+The odometer on the ICCU Details, Enhanced DTC Scan and J1979 Scanner screens and their share cards now reads "12345mi", with no space before the unit, like the rest of the app.
+
+---
 ## Build 204 — FIX: CarPlay rerouting follows your direction of travel
 
 NOTE TO TESTERS:  I made a fairly big change to the rerouting logic in today's build.  Historically the app projected a new start point ahead of your current location, and navigated from there.  I figured out a better way, leveraging MapKit directly.   I'm sure Tempus will be able to break this, but hopefully not as easily.  
