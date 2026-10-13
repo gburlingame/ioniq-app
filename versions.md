@@ -9,6 +9,20 @@ nav_order: 5
 
 
 ---
+## Build 206 — NEW: Kia EV4 and EV2 support; FIX: North American Kia EV3 recognized
+
+NOTE TO TESTERS:  Three sets of Kia changes today for the EV2, EV3, and EV4.
+
+### NEW: Kia EV4 support
+The Kia EV4 hatchback is now recognized as a Kia EV4 instead of an IONIQ 5, in three versions: Standard Range FWD (58.3kWh), Long Range FWD (81.4kWh) and GT (AWD). Its readings start from the Kia EV3's, which shares the platform, and will be confirmed against tester logs. Thanks Mike!
+
+### NEW: Kia EV2 support
+The Kia EV2 is now recognized as a Kia EV2 instead of an IONIQ 5, as Standard Range (42.2kWh) or Long Range (61kWh), both front-wheel drive. Its readings start from the Kia EV3's, and the battery cell layout is a placeholder until a tester log measures it. Thanks Brian!
+
+### FIX: North American Kia EV3 recognized
+Kia EV3s built in Mexico for North America (2027 model year) are now recognized as a Kia EV3; they showed as an IONIQ 5 before. The Light shows as Standard Range FWD and reads its front motor (its motor gauge read 0 before). The Wind, GT-Line and GT show as Long Range AWD with front and rear motor gauges; the GT's VIN doesn't set it apart, but every reading is the same. Battery heating now reads the way it does on other EV3s.
+
+---
 ## Build 205 — CHANGE: percentages follow your language's format, odometer spacing; FIX: CarPlay readings at 100% fit
 
 NOTE TO TESTERS:  Just a few minor fixes in today's build.
