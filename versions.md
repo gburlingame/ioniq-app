@@ -9,6 +9,20 @@ nav_order: 5
 
 
 ---
+## Build 207 — FIX: Kia EV2 tire pressures and battery cell layout; CHANGE: charger database update
+
+NOTE TO TESTERS:  Hello from Horgen, Switzerland!  Two Kia EV2 fixes today, and a refresh of the charger database.
+
+### FIX: Kia EV2 tire pressures
+The Kia EV2 now shows its tire pressures and temperatures. The tire gauges stayed empty before, because the EV2 rejects the request the Kia EV3 uses for them. This reading is new, so after a drive please compare the four pressures with the ones your EV2 shows and let me know if they differ. Thanks Brian!
+
+### FIX: Kia EV2 battery cell layout
+The Kia EV2 Long Range's battery now has its measured layout, 81 cells in series, instead of the 93 copied from the Kia EV3. The battery screen already showed 81 cells; the data that follows the last cell can no longer appear as an extra cell with a wrong voltage.
+
+### CHANGE: Update to the charger database
+Updated charger data is ready: 439 DC fast-charging sites added and 88 removed, 61,296 in all. To get it, go to Settings ▸ Navigation and tap Check for Update.
+
+---
 ## Build 206 — NEW: Kia EV4 and EV2 support; FIX: North American Kia EV3 recognized
 
 NOTE TO TESTERS:  Three sets of Kia changes today for the EV2, EV3, and EV4.
