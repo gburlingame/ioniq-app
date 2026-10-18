@@ -9,6 +9,23 @@ nav_order: 5
 
 
 ---
+## Build 208 — FIX: crash on iOS 27.2 beta, Kia EV2 tire pressures, charger data credits; CHANGE: Add Address fills in the tag
+
+NOTE TO TESTERS:  This build fixes the crash some of you saw with build 207 on the iOS 27.2 beta, plus three smaller changes.
+
+### FIX: crash on iOS 27.2 beta
+On some iOS 27.2 beta versions, build 207 crashed shortly after launching, including in CarPlay, and kept crashing after a restart. That's fixed in this build.  Thanks Sebastian!
+
+### FIX: Kia EV2 tire pressures
+The Kia EV2 tire pressures added in build 207 were not real readings: the app was reading the tire sensors' IDs, which showed as 37.4psi on every tire. The EV2 shows no live tire pressures until its real tire data is found. Thanks Brian!
+
+### FIX: charger data credits
+Settings ▸ Navigation now credits the Alternative Fuels Data Center (U.S. DOE / NRCan) for chargers in the United States and Canada, and Open Charge Map for the rest of the world; it said all charger locations came from Open Charge Map. In CarPlay, the charger data sources screen (the ⓘ button in the charger list) credits Open Charge Map only when chargers from it are in view.
+
+### CHANGE: Add Address fills in the tag
+In Settings ▸ Navigation ▸ Destinations, Add Address now fills in the tag with the name of the place you pick, so most saved places need no typing. A tag you type yourself is kept. If you pick a different place with Change Address, a tag the app filled in changes to the new place's name.  Thanks Mark!
+
+---
 ## Build 207 — FIX: Kia EV2 tire pressures and battery cell layout; CHANGE: charger database update
 
 NOTE TO TESTERS:  Hello from Horgen, Switzerland!  Two Kia EV2 fixes today, and a refresh of the charger database.
