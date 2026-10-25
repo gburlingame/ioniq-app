@@ -9,6 +9,12 @@ nav_order: 5
 
 
 ---
+## Build 210 — FIX: Kia EV2 Battery Warmer
+
+### FIX: Kia EV2 Battery Warmer
+On the Kia EV2, the Battery Warmer has been wired to newly discovered signals for ongoing testing.  Thanks Brian!
+
+---
 ## Build 209 — FIX: rerouting in driveways and parking lots, arriving in your driveway, Kia EV2 tire pressures, motor RPM tiles on front-wheel-drive vehicles
 
 NOTE TO TESTERS:  I'm back from Switzerland and very jet-lagged!  This build changes how CarPlay navigation starts when you are not on a road yet. If you start a trip from a driveway or parking lot, the app waits for you to reach the route.
