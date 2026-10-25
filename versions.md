@@ -9,6 +9,23 @@ nav_order: 5
 
 
 ---
+## Build 209 — FIX: rerouting in driveways and parking lots, arriving in your driveway, Kia EV2 tire pressures, motor RPM tiles on front-wheel-drive vehicles
+
+NOTE TO TESTERS:  I'm back from Switzerland and very jet-lagged!  This build changes how CarPlay navigation starts when you are not on a road yet. If you start a trip from a driveway or parking lot, the app waits for you to reach the route.
+
+### FIX: rerouting in driveways and parking lots
+When you started guidance in a driveway or parking lot, CarPlay navigation said "Rerouting." again and again, because the route starts on the nearest road. Now it says "Guidance begins when you reach the route", shows a flag where the route starts, and begins guidance as soon as you reach the route, wherever you join it. The same happens if you park off the road partway through a trip.  Thanks Mark!
+
+### FIX: arriving in your driveway
+Turning into your destination's driveway now finishes the trip. Before, when the destination's address sat on the road a short way past the driveway, the app could reroute you back out to the road.
+
+### FIX: Kia EV2 tire pressures
+The Kia EV2 now shows tire pressures and tire temperatures for all four tires. On Brian's car they match the pressures the car itself displays.  Thanks Brian!
+
+### FIX: motor RPM tiles on front-wheel-drive vehicles
+On front-wheel-drive vehicles (Kia EV3, EV4 and EV2), the CarPlay Front RPM tile now shows the motor's speed, and Rear RPM shows the One Motor symbol. If you used Rear RPM to see your motor, switch that tile to Front RPM.  Thanks Mike!
+
+---
 ## Build 208 — FIX: crash on iOS 27.2 beta, Kia EV2 tire pressures, charger data credits; CHANGE: Add Address fills in the tag
 
 NOTE TO TESTERS:  This build fixes the crash some of you saw with build 207 on the iOS 27.2 beta, plus three smaller changes.
