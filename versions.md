@@ -9,6 +9,12 @@ nav_order: 5
 
 
 ---
+## Build 211 — FIX: CarPlay tiles under the dock on the iPhone Duo
+
+### FIX: CarPlay tiles under the dock on the iPhone Duo
+On the iPhone Duo, CarPlay doesn't tell the app where its dock is, so the CarPlay tiles were drawn underneath the dock. The tiles now stay clear of it, with the same margins as on other iPhones. If you drive with an iPhone Duo, an App Activity Log from a CarPlay drive helps confirm the fix.
+
+---
 ## Build 210 — FIX: Kia EV2 Battery Warmer
 
 ### FIX: Kia EV2 Battery Warmer
