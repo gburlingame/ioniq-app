@@ -9,6 +9,20 @@ nav_order: 5
 
 
 ---
+## Build 212 — NEW: MPGe efficiency unit; CHANGE: CarPlay Beta page turned off, App Activity Log no longer holds drive data
+
+NOTE TO TESTERS:  This is RC1 for Version 3.5.  The Beta page in CarPlay has been temporarily turned off in preparation for the release.   Thanks for your help!  
+
+### NEW: MPGe efficiency unit
+Settings ▸ Units ▸ Efficiency now offers MPGe (miles per gallon of gasoline equivalent), shown as a whole number everywhere efficiency appears: the CarPlay Range tile, History, share cards and the Journey map. 
+
+### CHANGE: CarPlay Beta page turned off
+The CarPlay Beta page is turned off for now. Its tiles (Battery Health, Elevation, Drive Session, Drive Time, Internet Connection and Module Temps) are all still available in Customize Tiles, so add any you want to keep to your Driving page.
+
+### CHANGE: App Activity Log no longer holds drive data
+The App Activity Log no longer contains the detailed drive data it carried for the elevation work, so the red note under it in Settings ▸ Diagnostics is gone. To report an elevation problem, share the Drive Diagnostics recording for that drive instead.
+
+---
 ## Build 211 — FIX: CarPlay tiles under the dock on the iPhone Duo
 
 ### FIX: CarPlay tiles under the dock on the iPhone Duo
