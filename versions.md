@@ -9,6 +9,17 @@ nav_order: 5
 
 
 ---
+## Build 213 — FIX: Internet Connection tile on the CarPlay Dashboard; CHANGE: it pauses behind other CarPlay apps
+
+NOTE TO TESTERS:  This is RC2 for Version 3.5.  
+
+### FIX: Internet Connection tile on the CarPlay Dashboard
+Internet Connection now shows its reading when it is one of your two Maps tiles (Settings ▸ CarPlay ▸ Customize Tiles ▸ Maps) and EV Dashboard is the map on the CarPlay Dashboard. Before, it showed only a dash there, while the same tile worked on the Driving page and beside the navigation map.   Thanks Robert!
+
+### CHANGE: Internet Connection pauses behind other CarPlay apps
+When another app, such as Spotify, covers EV Dashboard on the CarPlay screen, the Internet Connection tile now stops checking.  When you come back, it shows a dash for about 5s before its first reading.
+
+---
 ## Build 212 — NEW: MPGe efficiency unit; CHANGE: CarPlay Beta page turned off, App Activity Log no longer holds drive data
 
 NOTE TO TESTERS:  This is RC1 for Version 3.5.  The Beta page in CarPlay has been temporarily turned off in preparation for the release.   Thanks for your help!  
