@@ -14,24 +14,28 @@ You can also [open an issue on GitHub](https://github.com/gburlingame/ioniq-app/
 
 ## Getting Started
 
-1. **Plug in your OBD-II adapter** — Insert an ELM327-compatible Bluetooth LE adapter into your car's OBD-II port (usually below the dashboard on the driver's side)
+1. **Plug in your OBD-II adapter** — Insert a supported Bluetooth OBD-II adapter (see [Adapter Compatibility](#adapter-compatibility)) into your car's OBD-II port (usually below the dashboard on the driver's side)
 2. **Open the app and scan** — Tap Scan to find your adapter. If it doesn't appear, tap "Filter by name" to show all nearby Bluetooth devices
 3. **Start the car** — Turn on your vehicle. The dashboard will begin populating with live data automatically
 4. **Explore** — Swipe through the dashboard sections — Overview, Battery, Charging, Temperatures, Tires, and more. Visit the **History** tab to see your recorded charging and driving sessions
 
 ## Adapter Compatibility
 
-EV Dashboard works with all popular brand name ELM327-compatible Bluetooth Low Energy (BLE) adapters. The adapter must be Bluetooth LE (not classic Bluetooth or Wi-Fi).  
+EV Dashboard works with all popular brand name ELM327-compatible Bluetooth Low Energy (BLE) adapters, and with three Bluetooth Classic adapters: the OBDLink MX+, the Vgate vLinker FS, and the Vgate vLinker MS.
 
-These adapter have been tested and verified to work with EV Dashboard:
+These adapters have been tested and verified to work with EV Dashboard:
 
 * **Vgate vLinker MC+**
 * **Vgate iCar Pro 2S**
 * **Veepeak OBDCheck BLE**
 * **OBDLink CX**
 * **Carista**
+* **OBDLink MX+** (Bluetooth Classic)
+* **Vgate vLinker FS** (Bluetooth Classic)
 
-**Not compatible:** Wi-Fi adapters, and any *Classic Bluetooth* adapter — including the **OBDLink MX+**. The app connects over Bluetooth Low Energy only. Note that OBDLink's BLE model, the **OBDLink CX**, is fully supported (listed above).
+**Bluetooth Classic adapters** don't appear in the app's Bluetooth scan until they're paired. Pair the OBDLink MX+, Vgate vLinker FS, or Vgate vLinker MS once in **iOS Settings → Bluetooth**; it then appears in the app's adapter list labeled "Bluetooth Classic". Only one app at a time can use a Bluetooth Classic adapter, so close any other OBD app first.
+
+**Not compatible:** Wi-Fi adapters, and Bluetooth Classic adapters other than the three named above.
 
 **Important:**  The developer already bought and tested a blue-colored semi-translucent adapter labeled ELM327.  This was purchased on Amazon for approximately $5 USD and was found to be incompatible with EV Dashboard.  
 
@@ -69,10 +73,10 @@ The app records your charging and driving sessions and long-term signal history 
 ## Frequently Asked Questions
 
 **Q: Which OBD-II adapters work with this app?**  
-A: Any popular brand name ELM327-compatible Bluetooth LE adapter. Make sure it's Bluetooth Low Energy (BLE), and not classic Bluetooth or Wi-Fi.
+A: Any popular brand name ELM327-compatible Bluetooth LE adapter, plus three Bluetooth Classic adapters: the OBDLink MX+, the Vgate vLinker FS, and the Vgate vLinker MS. Wi-Fi adapters don't work.
 
 **Q: My adapter isn't connecting.**  
-A: First, verify that you are using a ELM327-compatible Bluetooth LE adapter.  Next, check to make sure that Bluetooth permissions are enabled for EV Dashboard.  Check Settings / Apps / EV Dashboard.  If you continue to have trouble connecting, please reach out to the developer.
+A: First, verify that you are using a supported adapter (see [Adapter Compatibility](#adapter-compatibility)). An OBDLink MX+, Vgate vLinker FS, or Vgate vLinker MS must be paired in iOS Settings → Bluetooth before the app can see it.  Next, check to make sure that Bluetooth permissions are enabled for EV Dashboard.  Check Settings / Apps / EV Dashboard.  If you continue to have trouble connecting, please reach out to the developer.
 
 **Q: The BLE connection keeps disconnecting.**  
 A: Check to make sure that no other OBD-II apps (like Car Scanner, Torq, or ABRP) are running in the background. EV Dashboard and these other apps can only be run one at a time.  If you are not sure if another app is running, you can use the Adapter Quiet Check Feature.   This will run a one minute diagnostic check to verify that no other apps are running.  Settings / Diagnostics / Adapter Quiet Check.  After checking, if you still have a problem, please reach out to the developer for support.

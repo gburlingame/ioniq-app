@@ -112,7 +112,7 @@ Powerful tools to help enthusiasts learn more about their vehicles, with result 
 
 * **Multi-language support** — Deutsch, English, Español, Français, Italiano, Nederlands, Svenska, Türkçe, 日本語, 한국어, with an in-app language picker
 * **Unplug reminder** — Notification when the car turns off reminding you to unplug the adapter
-* **OBD-II adapter compatibility** — Works with inexpensive, popular brand name ELM327-compatible Bluetooth LE adapters
+* **OBD-II adapter compatibility** — Works with inexpensive, popular brand name ELM327-compatible Bluetooth LE adapters, plus the OBDLink MX+, Vgate vLinker FS, and Vgate vLinker MS (Bluetooth Classic)
 
 ## Supported vehicles
 
