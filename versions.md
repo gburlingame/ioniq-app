@@ -9,7 +9,7 @@ nav_order: 5
 
 
 ---
-## Build 213 — FIX: Internet Connection tile on the CarPlay Dashboard; CHANGE: it pauses behind other CarPlay apps
+## Build 213 — FIX: Internet Connection tile on the CarPlay Dashboard; CHANGE: it pauses behind other CarPlay apps - App Store Version 3.5
 
 NOTE TO TESTERS:  This is RC2 for Version 3.5.  
 
